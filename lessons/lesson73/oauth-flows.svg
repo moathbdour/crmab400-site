@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">Two OAuth flows Cedar uses to reach Dataverse</title>
+<desc id="d">Top lane, delegated access with the authorization code flow: Karim's developer tool, a public client registered as cedar-dev-tools, opens the browser; Karim signs in at Microsoft Entra ID with multifactor authentication and the tool receives an authorization code on http://localhost; the tool exchanges the code with a PKCE verifier for an access token whose scp claim is user_impersonation; Dataverse runs the request as Karim with Karim's roles. Bottom lane, application access with the client credentials flow: the nightly FieldLink sync job, a confidential client registered as cedar-fieldlink-sync, signs an assertion with its certificate private key and posts it to the token endpoint with scope organization URL slash .default; Entra ID returns an access token with no scp claim; Dataverse maps the application ID to the application user FieldLink Sync and applies the role FieldLink Integration – Cedar. In both lanes the client sends the token in the Authorization Bearer header and tokens last about one hour.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">Same destination, two flows: who is the request for?</text>
+
+<text class="b" x="20" y="62">A. Delegated access (a person is present) – authorization code flow with PKCE</text>
+<rect class="box" x="20" y="76" width="250" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="100">Public client</text>
+<text x="32" y="124">cedar-dev-tools</text>
+<text x="32" y="144">Karim's console tool</text>
+<text x="32" y="168">No secret. Redirect URI</text>
+<text x="32" y="188">http://localhost</text>
+<text x="32" y="212">Scope: …/user_impersonation</text>
+
+<rect class="box" x="375" y="76" width="250" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="387" y="100">Microsoft Entra ID</text>
+<text x="387" y="124">Karim signs in in the browser</text>
+<text x="387" y="144">(password, MFA, Conditional</text>
+<text x="387" y="164">Access all apply).</text>
+<text x="387" y="188">Checks the delegated permission</text>
+<text x="387" y="208">and consent.</text>
+
+<rect class="box" x="730" y="76" width="250" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="742" y="100">Dataverse (Cedar-Dev)</text>
+<text x="742" y="124">Token has scp and Karim's oid.</text>
+<text x="742" y="148">Runs as the user Karim:</text>
+<text x="742" y="168">Karim's roles, teams, column</text>
+<text x="742" y="188">profiles. Created By = Karim.</text>
+
+<path class="a" d="M270,112 L375,112"/>
+<text x="278" y="104">1 sign-in</text>
+<path class="a" d="M375,150 L270,150"/>
+<text x="280" y="142">2 code</text>
+<path class="a" d="M270,186 L375,186"/>
+<text x="272" y="178">3 code+PKCE</text>
+<path class="a" d="M375,212 L270,212"/>
+<text x="276" y="244">4 access token (+ refresh token)</text>
+<path class="a" d="M145,226 C145,290 855,290 855,226"/>
+<text x="350" y="282">5 Authorization: Bearer &lt;token&gt;</text>
+
+<line x1="20" y1="318" x2="980" y2="318" stroke="#888" stroke-dasharray="6 5"/>
+
+<text class="b" x="20" y="350">B. Application access (no person) – client credentials flow</text>
+<rect class="box" x="20" y="364" width="250" height="170" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="388">Confidential client</text>
+<text x="32" y="412">cedar-fieldlink-sync</text>
+<text x="32" y="432">Nightly sync job</text>
+<text x="32" y="456">Proves itself with a certificate</text>
+<text x="32" y="476">(private key never leaves</text>
+<text x="32" y="496">the host).</text>
+<text x="32" y="520">Scope: …/.default</text>
+
+<rect class="box" x="375" y="364" width="250" height="170" rx="8" fill="#fff4ce"/>
+<text class="b" x="387" y="388">Microsoft Entra ID</text>
+<text x="387" y="412">Token endpoint</text>
+<text x="387" y="432">/&lt;tenant-id&gt;/oauth2/v2.0/token</text>
+<text x="387" y="456">Verifies the signed assertion</text>
+<text x="387" y="476">against the uploaded public</text>
+<text x="387" y="496">key. No browser, no MFA,</text>
+<text x="387" y="516">no refresh token.</text>
+
+<rect class="box" x="730" y="364" width="250" height="170" rx="8" fill="#dff6dd"/>
+<text class="b" x="742" y="388">Dataverse (Cedar-Dev)</text>
+<text x="742" y="412">Token has no scp claim.</text>
+<text x="742" y="436">Application ID → application</text>
+<text x="742" y="456">user FieldLink Sync → role</text>
+<text x="742" y="476">FieldLink Integration – Cedar.</text>
+<text x="742" y="500">Modified By = FieldLink Sync.</text>
+
+<path class="a" d="M270,420 L375,420"/>
+<text x="274" y="412">1 assertion</text>
+<path class="a" d="M375,470 L270,470"/>
+<text x="276" y="462">2 access token</text>
+<path class="a" d="M145,534 C145,596 855,596 855,534"/>
+<text x="350" y="588">3 Authorization: Bearer &lt;token&gt;</text>
+<text x="20" y="612">Both: token lifetime about one hour; the library caches and renews it. Never log or store the token.</text>
+</svg>

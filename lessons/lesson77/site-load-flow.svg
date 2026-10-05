@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" role="img" aria-labelledby="t d">
+<title id="t">How the site loader turns a clean file into one bulk create</title>
+<desc id="d">Five steps from left to right. One: read the clean CSV file produced by the lesson 39 profiler into SiteRow objects. Two: read what already exists with two cheap queries through the SDK: all site codes, paged, and the account IDs of the customers named in the file. Three: plan, a pure function that skips codes that already exist or appear twice, skips rows whose customer was not found or is ambiguous, and builds one payload per remaining row with the account lookup bound through cedar_Account@odata.bind. Four: with dry run the plan is only printed; otherwise the payload list is passed to client.records.create in chunks of 200, which the SDK sends as CreateMultiple, one request per chunk. Five: report created and skipped codes and exit with 0 or 1. Under the steps: only steps two and four touch Dataverse; step three is tested without it; running the load twice creates nothing the second time.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="430" fill="#ffffff"/>
+<text class="h" x="20" y="28">Read, look, plan, create in bulk, report</text>
+
+<rect class="box" x="20" y="50" width="176" height="210" rx="8" fill="#eef3fb"/>
+<text class="b" x="30" y="74">1. Read</text>
+<text x="30" y="100">Clean CSV from the</text>
+<text x="30" y="120">lesson 39 profiler</text>
+<text x="30" y="148">read_clean(path)</text>
+<text x="30" y="168">→ SiteRow objects</text>
+<text x="30" y="200">HV-LAB, JL-W3,</text>
+<text x="30" y="220">OG-NORTH</text>
+
+<path class="a" d="M196,155 L216,155"/>
+<rect class="box" x="216" y="50" width="176" height="210" rx="8" fill="#dff6dd"/>
+<text class="b" x="226" y="74">2. Look</text>
+<text x="226" y="100">records.list_pages:</text>
+<text x="226" y="120">all site codes, paged</text>
+<text x="226" y="148">records.list:</text>
+<text x="226" y="168">account ID per</text>
+<text x="226" y="188">customer name</text>
+<text x="226" y="220">Two cheap reads</text>
+
+<path class="a" d="M392,155 L412,155"/>
+<rect class="box" x="412" y="50" width="176" height="210" rx="8" fill="#fff4ce"/>
+<text class="b" x="422" y="74">3. Plan (pure)</text>
+<text x="422" y="100">Skip: code exists,</text>
+<text x="422" y="120">code twice in file,</text>
+<text x="422" y="140">customer not found</text>
+<text x="422" y="160">or ambiguous</text>
+<text x="422" y="188">Payload per row with</text>
+<text x="422" y="208">cedar_Account</text>
+<text x="422" y="228">@odata.bind</text>
+
+<path class="a" d="M588,155 L608,155"/>
+<rect class="box" x="608" y="50" width="176" height="210" rx="8" fill="#dff6dd"/>
+<text class="b" x="618" y="74">4. Create</text>
+<text x="618" y="100">--dry-run: stop here</text>
+<text x="618" y="128">records.create(</text>
+<text x="618" y="148">  table, [payloads])</text>
+<text x="618" y="176">→ CreateMultiple,</text>
+<text x="618" y="196">one request per</text>
+<text x="618" y="216">chunk of 200 rows</text>
+
+<path class="a" d="M784,155 L804,155"/>
+<rect class="box" x="804" y="50" width="176" height="210" rx="8" fill="#eef3fb"/>
+<text class="b" x="814" y="74">5. Report</text>
+<text x="814" y="100">created 3 site(s):</text>
+<text x="814" y="120">HV-LAB, JL-W3,</text>
+<text x="814" y="140">OG-NORTH</text>
+<text x="814" y="168">skipped CODE:</text>
+<text x="814" y="188">reason</text>
+<text x="814" y="216">exit code 0 or 1</text>
+
+<rect class="box" x="20" y="286" width="960" height="124" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="310">What to notice</text>
+<text x="32" y="336">Only steps 2 and 4 touch Dataverse. Step 3 is a pure function and carries all the decisions, so it is tested without a network.</text>
+<text x="32" y="360">Run it twice: the second run finds the codes in step 2 and creates nothing. That is idempotency by look-up; the alternate key</text>
+<text x="32" y="384">and upsert of lesson 93 will make it one request and remove the gap between looking and creating.</text>
+</svg>

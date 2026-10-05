@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" role="img" aria-labelledby="t d">
+<title id="t">Paging with a paging cookie compared with simple paging</title>
+<desc id="d">Left, paging with cookies: the client sends page 1 with count 500 and an order that ends with the primary key. The response contains 500 rows, MoreRecords true and a paging cookie that records the first and last row of the page. The client sends page 2 with the cookie unchanged; Dataverse starts directly after the last row. This repeats until MoreRecords is false. It is recommended for every data set size. Right, simple paging: the client sends only page number and count. For page 40 Dataverse reads all rows up to page 40, returns the last 500 and discards the rest, so each page is slower than the one before and the total is limited to 50,000 rows. A bottom strip lists the rules: do not combine top with paging, do not edit the cookie, order deterministically, and remember that QueryExpression adds no default order while FetchXML orders by primary key.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="500" fill="#ffffff"/>
+<text class="h" x="20" y="28">Paging cookies keep every page fast; simple paging slows down and stops at 50,000 rows</text>
+
+<rect class="box" x="20" y="46" width="560" height="330" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="70">Paging cookie (recommended)</text>
+<rect class="box" x="40" y="86" width="200" height="56" rx="6" fill="#ffffff"/>
+<text x="50" y="108">Request: page 1, count 500</text>
+<text x="50" y="128">order: schedule, then ID</text>
+<path class="a" d="M240,114 L330,114"/>
+<rect class="box" x="330" y="86" width="230" height="56" rx="6" fill="#ffffff"/>
+<text x="340" y="108">500 rows • MoreRecords true</text>
+<text x="340" y="128">PagingCookie: first + last row</text>
+<path class="a" d="M445,142 L160,176"/>
+<rect class="box" x="40" y="176" width="240" height="56" rx="6" fill="#ffffff"/>
+<text x="50" y="198">Request: page 2, count 500</text>
+<text x="50" y="218">+ the cookie, unchanged</text>
+<path class="a" d="M280,204 L330,204"/>
+<rect class="box" x="330" y="176" width="230" height="56" rx="6" fill="#ffffff"/>
+<text x="340" y="198">Starts right after the last row.</text>
+<text x="340" y="218">Next 500 rows + new cookie</text>
+<path class="a" d="M445,232 L160,266"/>
+<rect class="box" x="40" y="266" width="520" height="40" rx="6" fill="#ffffff"/>
+<text x="50" y="291">… repeat until MoreRecords is false (no cookie on the last page).</text>
+<text x="40" y="334">Cost per page stays the same. Works for any number of rows.</text>
+<text x="40" y="356">A few queries return no cookie: then paging falls back to simple paging.</text>
+
+<rect class="box" x="600" y="46" width="380" height="330" rx="8" fill="#fde7e9"/>
+<text class="b" x="612" y="70">Simple ("legacy") paging</text>
+<text x="612" y="98">Request: page N, count 500, no cookie.</text>
+<text x="612" y="130">For page 40 Dataverse reads rows</text>
+<text x="612" y="150">1 … 20,000, returns the last 500 and</text>
+<text x="612" y="170">throws the rest away.</text>
+<text x="612" y="202">Each page is slower than the one</text>
+<text x="612" y="222">before.</text>
+<text x="612" y="254">Hard stop: 50,000 rows in total.</text>
+<text x="612" y="286">Fine for a small list with "jump to</text>
+<text x="612" y="306">page 3". Wrong for exports and jobs.</text>
+
+<rect class="box" x="20" y="394" width="960" height="92" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="418">Rules for both languages</text>
+<text x="32" y="442">No top / TopCount together with paging • never edit the cookie • order by something unique last (the primary key) •</text>
+<text x="32" y="464">FetchXML adds an order by primary key when you give none; QueryExpression does NOT, so always add orders there.</text>
+</svg>

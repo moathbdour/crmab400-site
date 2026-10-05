@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">Synchronization state: where the token is stored decides what a crash costs</title>
+<desc id="d">Three ways to store the token relative to the data, each with a crash at the worst moment. Variant A, token first: the consumer saves the new token, then applies the changes; a crash after saving the token and before applying means the next run asks from the new token, so the changes of that batch are never applied; the copy is silently wrong. Variant B, data first, token after: the consumer applies the changes, then saves the token; a crash in between means the next run asks from the old token and receives the same changes again; this is safe only if applying is idempotent, which upsert by id and delete by id are. Variant C, one transaction: changes and token are committed together; a crash before the commit leaves old data and old token, a crash after leaves new data and new token; there is no in-between state. Variant C is used when the target has transactions, as the SQLite database of this lesson does; variant B with an idempotent apply is the rule when the target is another system without a shared transaction. Below, four more parts of the state: one token per table and per consumer; the time of the last successful run, to detect a token older than the tracking window; a full reload path that replaces the copy; and a comparison of row counts as a reconciliation.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}</style>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">The token is state. Store it as carefully as the data it describes.</text>
+
+<rect class="box" x="20" y="48" width="310" height="330" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="72">A. Token first, then data</text>
+<text x="32" y="100">1. read changes</text>
+<text x="32" y="122">2. save the NEW token</text>
+<text class="b" x="32" y="146">   ✗ crash</text>
+<text x="32" y="168">3. apply the changes</text>
+<text x="32" y="204">Next run: asks from the new token.</text>
+<text x="32" y="226">The changes of step 1 are never</text>
+<text x="32" y="246">applied, and nothing reports it.</text>
+<text class="b" x="32" y="290">Changes are lost silently.</text>
+<text x="32" y="314">The copy is wrong until a full</text>
+<text x="32" y="334">reload. Never do this.</text>
+
+<rect class="box" x="345" y="48" width="310" height="330" rx="8" fill="#fff4ce"/>
+<text class="b" x="357" y="72">B. Data first, then token</text>
+<text x="357" y="100">1. read changes</text>
+<text x="357" y="122">2. apply the changes</text>
+<text class="b" x="357" y="146">   ✗ crash</text>
+<text x="357" y="168">3. save the new token</text>
+<text x="357" y="204">Next run: asks from the OLD token</text>
+<text x="357" y="226">and receives the same changes again.</text>
+<text class="b" x="357" y="290">Safe if applying twice is harmless:</text>
+<text x="357" y="314">upsert by id, delete by id.</text>
+<text x="357" y="334">The rule when the target is another</text>
+<text x="357" y="354">system without a shared transaction.</text>
+
+<rect class="box" x="670" y="48" width="310" height="330" rx="8" fill="#dff6dd"/>
+<text class="b" x="682" y="72">C. One transaction</text>
+<text x="682" y="100">1. read changes</text>
+<text x="682" y="122">2. BEGIN</text>
+<text x="682" y="144">   apply the changes</text>
+<text x="682" y="166">   save the new token</text>
+<text x="682" y="188">   COMMIT</text>
+<text x="682" y="224">A crash before COMMIT: old data,</text>
+<text x="682" y="246">old token. After: new data, new token.</text>
+<text class="b" x="682" y="290">No in-between state exists.</text>
+<text x="682" y="314">Possible when token and data live</text>
+<text x="682" y="334">in the same database: this lesson.</text>
+
+<rect class="box" x="20" y="398" width="960" height="206" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="422">The rest of the synchronization state</text>
+<rect class="box" x="32" y="436" width="225" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="44" y="460">One token per table</text>
+<text x="44" y="484">and per consumer.</text>
+<text x="44" y="508">A token belongs to the</text>
+<text x="44" y="528">query that produced it:</text>
+<text x="44" y="548">table and $select.</text>
+<rect class="box" x="269" y="436" width="225" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="281" y="460">Time of the last run</text>
+<text x="281" y="484">To know when the token</text>
+<text x="281" y="504">is older than the window</text>
+<text x="281" y="524">(7 days by default), and to</text>
+<text x="281" y="544">show how fresh the copy is.</text>
+<rect class="box" x="506" y="436" width="225" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="518" y="460">A full reload path</text>
+<text x="518" y="484">Replace the copy and take</text>
+<text x="518" y="504">a new token: after expiry,</text>
+<text x="518" y="524">a schema change, or doubt.</text>
+<text x="518" y="548">Tested, not improvised.</text>
+<rect class="box" x="743" y="436" width="225" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="755" y="460">A reconciliation</text>
+<text x="755" y="484">Compare counts (and a</text>
+<text x="755" y="504">sample) with the source</text>
+<text x="755" y="524">now and then: a copy is</text>
+<text x="755" y="544">never trusted alone.</text>
+</svg>

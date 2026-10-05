@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" role="img" aria-labelledby="title desc">
+  <title id="title">Everything Cedar Service knows about one customer, connected to one account</title>
+  <desc id="desc">The account Harbor View Medical Center sits in the center. Connected to it with solid lines are contacts, an opportunity for an annual HVAC contract, a case about a chiller fault, activities, a lobby lighting project and a subcontractor work order for BrightSpark Electrical. Dashed lines connect a lead that was qualified earlier and an invoice that lives in the separate finance system.</desc>
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; fill: #1b2a3d; }
+    .h { font-size: 20px; font-weight: 700; }
+    .k { font-size: 14px; font-weight: 700; fill: #3f6a9a; letter-spacing: 0.04em; }
+    .b { font-size: 16px; font-weight: 700; }
+    .s { font-size: 14px; fill: #4a5b72; }
+  </style>
+  <rect width="960" height="640" fill="#ffffff"/>
+  <text x="480" y="30" class="h" text-anchor="middle">One customer, many connected records</text>
+
+  <!-- connectors (drawn first so boxes sit on top) -->
+  <g stroke="#6d7f97" stroke-width="2">
+    <line x1="165" y1="184" x2="400" y2="270"/>
+    <line x1="480" y1="164" x2="480" y2="270"/>
+    <line x1="795" y1="184" x2="560" y2="270"/>
+    <line x1="165" y1="460" x2="400" y2="370"/>
+    <line x1="480" y1="480" x2="480" y2="370"/>
+    <line x1="795" y1="460" x2="560" y2="370"/>
+    <line x1="270" y1="320" x2="360" y2="320" stroke-dasharray="7 5"/>
+    <line x1="690" y1="320" x2="600" y2="320" stroke-dasharray="7 5"/>
+  </g>
+
+  <!-- center account -->
+  <rect x="360" y="270" width="240" height="100" rx="12" fill="#1f4f86"/>
+  <text x="480" y="298" class="k" text-anchor="middle" style="fill:#bcd4ef">ACCOUNT (CUSTOMER)</text>
+  <text x="480" y="324" class="b" text-anchor="middle" style="fill:#ffffff">Harbor View</text>
+  <text x="480" y="347" class="b" text-anchor="middle" style="fill:#ffffff">Medical Center</text>
+
+  <!-- top row -->
+  <rect x="40" y="100" width="250" height="84" rx="10" fill="#f2f8fd" stroke="#7a9cc4"/>
+  <text x="56" y="126" class="k">CONTACTS</text>
+  <text x="56" y="150" class="b">Rana Mansour</text>
+  <text x="56" y="172" class="s">Facilities manager + buyer</text>
+
+  <rect x="355" y="80" width="250" height="84" rx="10" fill="#f2f8fd" stroke="#7a9cc4"/>
+  <text x="371" y="106" class="k">OPPORTUNITY · SALES</text>
+  <text x="371" y="130" class="b">Annual HVAC contract</text>
+  <text x="371" y="152" class="s">Owner: Maya · quote sent</text>
+
+  <rect x="670" y="100" width="250" height="84" rx="10" fill="#f2f8fd" stroke="#7a9cc4"/>
+  <text x="686" y="126" class="k">CASE · SERVICE</text>
+  <text x="686" y="150" class="b">Chiller fault, Building B</text>
+  <text x="686" y="172" class="s">Owner: Omar · open</text>
+
+  <!-- middle row -->
+  <rect x="20" y="280" width="250" height="80" rx="10" fill="#ffffff" stroke="#9aa8ba" stroke-dasharray="7 5"/>
+  <text x="36" y="306" class="k" style="fill:#5d6b7e">LEAD · EARLIER</text>
+  <text x="36" y="330" class="b">Website enquiry</text>
+  <text x="36" y="350" class="s">Qualified into this account</text>
+
+  <rect x="690" y="280" width="250" height="80" rx="10" fill="#ffffff" stroke="#9aa8ba" stroke-dasharray="7 5"/>
+  <text x="706" y="306" class="k" style="fill:#5d6b7e">INVOICE · OUTSIDE CRM</text>
+  <text x="706" y="330" class="b">Finance system</text>
+  <text x="706" y="350" class="s">Linked by integration later</text>
+
+  <!-- bottom row -->
+  <rect x="40" y="460" width="250" height="84" rx="10" fill="#f2f8fd" stroke="#7a9cc4"/>
+  <text x="56" y="486" class="k">ACTIVITIES</text>
+  <text x="56" y="510" class="b">Calls, emails, visits</text>
+  <text x="56" y="532" class="s">Shared timeline for everyone</text>
+
+  <rect x="355" y="480" width="250" height="84" rx="10" fill="#f2f8fd" stroke="#7a9cc4"/>
+  <text x="371" y="506" class="k">PROJECT · DELIVERY</text>
+  <text x="371" y="530" class="b">Lobby lighting upgrade</text>
+  <text x="371" y="552" class="s">Coordinator: Sami</text>
+
+  <rect x="670" y="460" width="250" height="84" rx="10" fill="#f2f8fd" stroke="#7a9cc4"/>
+  <text x="686" y="486" class="k">WORK ORDER · FIELD</text>
+  <text x="686" y="510" class="b">BrightSpark Electrical</text>
+  <text x="686" y="532" class="s">Sent through FieldLink</text>
+
+  <!-- legend -->
+  <line x1="200" y1="608" x2="250" y2="608" stroke="#6d7f97" stroke-width="2"/>
+  <text x="260" y="613" class="s">stored and related in the CRM</text>
+  <line x1="520" y1="608" x2="570" y2="608" stroke="#6d7f97" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="580" y="613" class="s">earlier stage or another system</text>
+</svg>

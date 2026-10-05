@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img" aria-labelledby="t d">
+<title id="t">How a script web resource reaches the Case form</title>
+<desc id="d">Karim edits triage.js in VS Code, uploads it to the web resource cedar_/case/triage.js in CedarServiceCore and publishes. Publishing changes the version token in the web resource URL. When Omar opens the Case form, the browser requests the form libraries in order (validation.js, data.js, ui.js, triage.js) from a URL containing the token. If the token matches a cached copy the browser uses the cache; a new token forces a fresh download. Then OnLoad handlers run.</desc>
+<rect width="960" height="460" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="30" width="250" height="120" rx="8" fill="#f3eefb" stroke="#6a3fb5"/>
+<text x="34" y="56" font-weight="bold">1. Karim (VS Code)</text>
+<text x="34" y="82">Edit + test triage.js</text>
+<text x="34" y="106">node --test (51 pass)</text>
+<text x="34" y="130">Upload content</text>
+<line x1="270" y1="90" x2="340" y2="90" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="345" y="30" width="270" height="120" rx="8" fill="#fff7e6" stroke="#b36b00"/>
+<text x="359" y="56" font-weight="bold">2. Dataverse (CedarServiceCore)</text>
+<text x="359" y="82">Web resource cedar_/case/triage.js</text>
+<text x="359" y="106">Save = draft content</text>
+<text x="359" y="130">Publish = new version token</text>
+<line x1="615" y1="90" x2="685" y2="90" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="690" y="30" width="250" height="120" rx="8" fill="#eef4fb" stroke="#1f5fa8"/>
+<text x="704" y="56" font-weight="bold">3. Library URL</text>
+<text x="704" y="82">/{token}/WebResources/</text>
+<text x="704" y="106">cedar_/case/triage.js</text>
+<text x="704" y="130">Token changes on publish</text>
+<line x1="815" y1="150" x2="815" y2="215" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="560" y="220" width="380" height="110" rx="8" fill="#eaf6ee" stroke="#2e7d32"/>
+<text x="574" y="246" font-weight="bold">4. Omar's browser opens a Case</text>
+<text x="574" y="272">Same token cached? use cache (fast)</text>
+<text x="574" y="296">New token? download fresh copy</text>
+<text x="574" y="320">Unpublished edits: never served</text>
+<line x1="560" y1="275" x2="490" y2="275" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="220" width="465" height="110" rx="8" fill="#eef4fb" stroke="#1f5fa8"/>
+<text x="34" y="246" font-weight="bold">5. Form libraries load in listed order</text>
+<text x="34" y="272">validation.js → data.js → ui.js → triage.js</text>
+<text x="34" y="296">Then OnLoad: cedar.caseTriage.onLoad</text>
+<text x="34" y="320">(commands.js loads only when a command runs)</text>
+<rect x="20" y="360" width="920" height="80" rx="8" fill="#fdecea" stroke="#b3261e"/>
+<text x="34" y="388" font-weight="bold">Old code still running?</text>
+<text x="34" y="414">Check: was it published? Does the Network tab show the new token and 200 (not from cache)? Right app / form?</text>
+</g>
+</svg>

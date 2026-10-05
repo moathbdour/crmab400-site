@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">What the execution context contains for an Update of a Cedar work order</title>
+<desc id="d">The plug-in asks the service provider for IPluginExecutionContext. The context has six groups of data. Who: UserId, InitiatingUserId, BusinessUnitId, OrganizationId. What and where: MessageName Update, PrimaryEntityName cedar_workorder, PrimaryEntityId, Stage, Mode, Depth, IsInTransaction, CorrelationId. InputParameters: the request, with Target holding only the submitted columns; writable in PreValidation and PreOperation. OutputParameters: the response, filled only in PostOperation. SharedVariables: small serializable values passed to later steps, including the tag sent by an API caller. Entity images: PreEntityImages and PostEntityImages, snapshots registered on the step and read by alias. ParentContext links to the operation that triggered this one.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">The execution context: everything the platform tells your plug-in about one step execution</text>
+
+<rect class="box" x="20" y="48" width="300" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">Execute(IServiceProvider)</text>
+<text x="32" y="93">GetService(typeof(IPluginExecutionContext))</text>
+<path class="a" d="M320,76 L366,76"/>
+<rect class="box" x="366" y="48" width="614" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="378" y="72">context for: Update cedar_workorder WO-1002, PostOperation, synchronous</text>
+<text x="378" y="93">All properties are read-only; three collections have contents you can change.</text>
+
+<rect class="box" x="20" y="124" width="470" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="148">Who</text>
+<text class="m" x="32" y="172">UserId</text><text x="200" y="172">user the code acts for (step setting)</text>
+<text class="m" x="32" y="194">InitiatingUserId</text><text x="200" y="194">user who really made the call</text>
+<text class="m" x="32" y="216">BusinessUnitId</text><text x="200" y="216">business unit of UserId</text>
+<text class="m" x="32" y="238">OrganizationId</text><text x="200" y="238">the environment</text>
+<text x="32" y="262">Sami saves the form: both IDs are Sami.</text>
+
+<rect class="box" x="510" y="124" width="470" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="522" y="148">What and where</text>
+<text class="m" x="522" y="172">MessageName, PrimaryEntityName, PrimaryEntityId</text>
+<text class="m" x="522" y="194">Stage, Mode, Depth, IsInTransaction</text>
+<text class="m" x="522" y="216">CorrelationId</text><text x="660" y="216">same for the whole request chain</text>
+<text class="m" x="522" y="238">ParentContext</text><text x="660" y="238">operation that triggered this one</text>
+<text x="522" y="262">Use these to guard against a wrong registration.</text>
+
+<rect class="box" x="20" y="294" width="470" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="318">InputParameters (the request)</text>
+<text class="m" x="32" y="342">["Target"]</text>
+<text x="32" y="364">Create, Update: Entity with only the submitted columns</text>
+<text x="32" y="386">Delete: EntityReference (table name and ID, no columns)</text>
+<text x="32" y="408">Other messages use other names, e.g. EntityMoniker.</text>
+<text x="32" y="430">Change values in stages 10 and 20; later is too late.</text>
+
+<rect class="box" x="510" y="294" width="470" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="318">OutputParameters (the response)</text>
+<text class="m" x="522" y="342">["id"]</text><text x="580" y="342">after Create: ID of the new row</text>
+<text x="522" y="364">Empty until the main operation has run, so only</text>
+<text x="522" y="386">PostOperation steps can read or change them.</text>
+<text x="522" y="408">Update returns nothing useful here.</text>
+
+<rect class="box" x="20" y="464" width="470" height="150" rx="8" fill="#e6e6e6"/>
+<text class="b" x="32" y="488">SharedVariables</text>
+<text x="32" y="512">Small serializable values handed to later steps of the</text>
+<text x="32" y="534">same operation, instead of fields in the class.</text>
+<text class="m" x="32" y="558">["tag"]</text><text x="90" y="558">text an API caller sent with ?tag=cedar-import</text>
+<text x="32" y="580">Values set in PreValidation of Create, Update, Delete are</text>
+<text x="32" y="600">read from ParentContext.SharedVariables in stages 20/40.</text>
+
+<rect class="box" x="510" y="464" width="470" height="150" rx="8" fill="#e6e6e6"/>
+<text class="b" x="522" y="488">Entity images (registered on the step)</text>
+<text class="m" x="522" y="512">PreEntityImages["pre"]</text>
+<text x="522" y="532">stored values before the main operation</text>
+<text class="m" x="522" y="556">PostEntityImages["post"]</text>
+<text x="522" y="576">stored values after it; PostOperation steps only</text>
+<text x="522" y="600">Empty unless you register an image and its columns.</text>
+</svg>

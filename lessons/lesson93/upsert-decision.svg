@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Upsert: one request, and the server decides between Create and Update</title>
+<desc id="d">At the top, the request in two forms: a Web API PATCH to cedar_sites(cedar_sitecode='HV-LAB') with the owned columns in the body, or an SDK UpsertRequest whose Target is an Entity with KeyAttributes. Dataverse asks one question: does a row with this key exist? If yes, on the left: the Target's Id is set to the row's GUID, the key columns are removed from the data, the Update message runs with its plug-in steps and auditing, the response says RecordCreated false, and the Web API answers 204, or 200 with the preference return=representation. If no, on the right: key values are copied into the data when they are absent, the Create message runs with its plug-in steps, the response says RecordCreated true, and the Web API answers 204, or 201 with return=representation. At the bottom, three ways to limit the request. Upsert without a condition creates or updates; the SDK message is UpsertRequest; use it when the source owns the row. Create only: the header If-None-Match star; an existing row answers 412 Precondition Failed and stays unchanged; in the SDK use Create, where a duplicate key value gives error 0x80060892. Update only: the header If-Match star; a missing row answers 404 Not Found and nothing is created; in the SDK use Update with an entity identified by its key, where an unknown key gives error 0x80060891.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,Menlo,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Upsert: one request, and the server decides between Create and Update</text>
+
+<rect class="box" x="20" y="44" width="960" height="76" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="68">The request</text>
+<text class="m" x="160" y="68">PATCH cedar_sites(cedar_sitecode='HV-LAB')   { owned columns, without the key }</text>
+<text x="32" y="100">or, with the SDK</text>
+<text class="m" x="160" y="100">new UpsertRequest { Target = new Entity("cedar_site", "cedar_sitecode", "HV-LAB") }</text>
+
+<rect class="box" x="330" y="146" width="340" height="50" rx="24" fill="#ffffff"/>
+<text class="b" x="394" y="177">Does a row with this key exist?</text>
+<line class="ln" x1="500" y1="120" x2="500" y2="144" marker-end="url(#a)"/>
+<path class="ln" d="M330,171 L250,171 L250,224" marker-end="url(#a)"/>
+<text class="b" x="262" y="164">yes</text>
+<path class="ln" d="M670,171 L750,171 L750,224" marker-end="url(#a)"/>
+<text class="b" x="716" y="164">no</text>
+
+<rect class="box" x="20" y="226" width="465" height="200" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="250">Update</text>
+<text x="32" y="278">1. Target.Id becomes the GUID of the row that was found.</text>
+<text x="32" y="302">2. The key columns are removed from the data: a key</text>
+<text x="32" y="322">    cannot be changed through itself.</text>
+<text x="32" y="346">3. The Update message runs: plug-in steps on Update, audit.</text>
+<text x="32" y="370">4. UpsertResponse.RecordCreated = false</text>
+<text class="b" x="32" y="404">Web API: 204, or 200 with return=representation</text>
+
+<rect class="box" x="515" y="226" width="465" height="200" rx="8" fill="#fff4ce"/>
+<text class="b" x="527" y="250">Create</text>
+<text x="527" y="278">1. The key values are copied into the data, unless the</text>
+<text x="527" y="298">    data already holds a value for that column.</text>
+<text x="527" y="322">2. The Create message runs: plug-in steps on Create.</text>
+<text x="527" y="346">3. UpsertResponse.RecordCreated = true</text>
+<text x="527" y="370">4. UpsertResponse.Target refers to the new row.</text>
+<text class="b" x="527" y="404">Web API: 204, or 201 with return=representation</text>
+
+<rect class="box" x="20" y="446" width="960" height="198" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="470">Limiting the request: three intentions</text>
+<rect class="box" x="32" y="482" width="300" height="150" rx="6" fill="#ffffff"/>
+<text class="b" x="44" y="506">Upsert (no condition)</text>
+<text x="44" y="530">Creates or updates.</text>
+<text x="44" y="554">SDK: UpsertRequest</text>
+<text x="44" y="578">When the source owns the row</text>
+<text x="44" y="598">and may bring it into being.</text>
+<rect class="box" x="350" y="482" width="300" height="150" rx="6" fill="#ffffff"/>
+<text class="b" x="362" y="506">Create only</text>
+<text class="m" x="362" y="530">If-None-Match: *</text>
+<text x="362" y="554">Row exists: 412, unchanged.</text>
+<text x="362" y="578">SDK: Create. A duplicate key</text>
+<text x="362" y="598">value gives 0x80060892.</text>
+<rect class="box" x="668" y="482" width="300" height="150" rx="6" fill="#ffffff"/>
+<text class="b" x="680" y="506">Update only</text>
+<text class="m" x="680" y="530">If-Match: *</text>
+<text x="680" y="554">No row: 404, nothing created.</text>
+<text x="680" y="578">SDK: Update by key. An unknown</text>
+<text x="680" y="598">key gives 0x80060891.</text>
+</svg>

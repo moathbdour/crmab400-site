@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" role="img" aria-labelledby="t d">
+<title id="t">One lookup column, three names in the Web API</title>
+<desc id="d">The Site lookup on the Work order table appears under three different names depending on what you do. Reading the ID: the lookup value property _cedar_site_value, lower case with underscores, returns the GUID of the related site and is used in $select and $filter. Reading the related row: the single-valued navigation property cedar_Site, which uses the schema name with its capital letter, is used in $expand and in filters across the relationship such as cedar_Site/cedar_sitecode eq 'HV-B'. Writing the lookup: the navigation property with the suffix @odata.bind, cedar_Site@odata.bind, set to the path /cedar_sites(guid), is used in POST and PATCH bodies. Using the logical name cedar_site in any of the three places fails. A fourth box shows the opposite direction: the collection-valued navigation property on Site that returns its work orders, whose name is the relationship schema name found in the $metadata document.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.c{font-family:Consolas,Menlo,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="470" fill="#ffffff"/>
+<text class="h" x="20" y="28">Work order → Site: the same lookup has three names</text>
+
+<rect class="box" x="360" y="46" width="280" height="64" rx="8" fill="#fff4ce"/>
+<text class="b" x="372" y="70">Lookup column "Site"</text>
+<text x="372" y="94">logical name cedar_site • schema cedar_Site</text>
+
+<path class="a" d="M420,110 L170,160"/>
+<path class="a" d="M500,110 L500,160"/>
+<path class="a" d="M580,110 L830,160"/>
+
+<rect class="box" x="20" y="160" width="300" height="180" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="184">1. Read the ID</text>
+<text class="c" x="32" y="210">_cedar_site_value</text>
+<text x="32" y="236">Lookup value property.</text>
+<text x="32" y="256">Lower case, _…_value.</text>
+<text x="32" y="282">Use in $select and $filter:</text>
+<text class="c" x="32" y="304">$filter=_cedar_site_value</text>
+<text class="c" x="32" y="324">   eq &lt;guid&gt;</text>
+
+<rect class="box" x="350" y="160" width="300" height="180" rx="8" fill="#eef3fb"/>
+<text class="b" x="362" y="184">2. Read the related row</text>
+<text class="c" x="362" y="210">cedar_Site</text>
+<text x="362" y="236">Single-valued navigation property.</text>
+<text x="362" y="256">Schema name: mind the capital S.</text>
+<text x="362" y="282">Use in $expand and across-filters:</text>
+<text class="c" x="362" y="304">$expand=cedar_Site($select=…)</text>
+<text class="c" x="362" y="324">cedar_Site/cedar_sitecode eq 'HV-B'</text>
+
+<rect class="box" x="680" y="160" width="300" height="180" rx="8" fill="#dff6dd"/>
+<text class="b" x="692" y="184">3. Write the lookup</text>
+<text class="c" x="692" y="210">cedar_Site@odata.bind</text>
+<text x="692" y="236">Navigation property + @odata.bind.</text>
+<text x="692" y="256">Value is a path, not a bare GUID.</text>
+<text x="692" y="282">Use in POST and PATCH bodies:</text>
+<text class="c" x="692" y="304">"cedar_Site@odata.bind":</text>
+<text class="c" x="692" y="324">  "/cedar_sites(&lt;guid&gt;)"</text>
+
+<rect class="box" x="20" y="360" width="960" height="92" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="384">What fails, and the other direction</text>
+<text x="32" y="408">The logical name cedar_site works in none of the three places: "Could not find a property named 'cedar_site'" or "undeclared property".</text>
+<text x="32" y="432">Site → its work orders is a collection-valued navigation property named after the relationship; look it up in $metadata, do not guess.</text>
+</svg>

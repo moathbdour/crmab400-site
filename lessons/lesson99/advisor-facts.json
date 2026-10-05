@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-10-07T04:00:00Z",
+  "source": "Fictional snapshot for lesson 99 (Cedar-AI-Dev). Work orders from Cedar-Dev, register reviewed by Lina, SLA counts in the gateway's SlaSummary shape.",
+  "slaPeriod": { "from": "2026-09-01", "to": "2026-09-30" },
+  "workOrders": [
+    { "number": "WO-1101", "serviceLine": "Plumbing", "site": "JL-W3", "scheduledFor": "2026-10-08T07:00:00Z", "status": "Not sent", "active": true },
+    { "number": "WO-1102", "serviceLine": "Electrical", "site": "HV-B", "scheduledFor": "2026-10-08T19:00:00Z", "status": "Not sent", "active": true },
+    { "number": "WO-1103", "serviceLine": "Electrical", "site": "ST-A", "scheduledFor": "2026-10-14T07:00:00Z", "status": "Rejected", "active": true },
+    { "number": "WO-1104", "serviceLine": "General maintenance", "site": "OG-NORTH", "scheduledFor": "2026-10-09T06:00:00Z", "status": "Not sent", "active": true },
+    { "number": "WO-1105", "serviceLine": "Plumbing", "site": "HV-LAB", "scheduledFor": "2027-01-05T06:00:00Z", "status": "Not sent", "active": true },
+    { "number": "WO-1106", "serviceLine": "Fire safety", "site": "ST-A", "scheduledFor": "2026-10-12T05:00:00Z", "status": "Accepted", "active": true },
+    { "number": "WO-1107", "serviceLine": "HVAC", "site": "HV-B", "scheduledFor": null, "status": "Not sent", "active": true }
+  ],
+  "register": [
+    { "ref": "AQUAFLOW", "name": "AquaFlow Plumbing", "serviceLines": ["Plumbing"], "afterHours": false, "contractEnd": "2026-12-31", "maxOpenJobs": 6 },
+    { "ref": "BRIGHTSPARK", "name": "BrightSpark Electrical", "serviceLines": ["Electrical", "Fire safety"], "afterHours": true, "contractEnd": "2027-12-31", "maxOpenJobs": 8 },
+    { "ref": "RIVERSTONE", "name": "Riverstone Mechanical", "serviceLines": ["HVAC", "Plumbing"], "afterHours": true, "contractEnd": "2027-06-30", "maxOpenJobs": 5 },
+    { "ref": "VOLTA", "name": "Volta Power Services", "serviceLines": ["Electrical"], "afterHours": false, "contractEnd": "2027-03-31", "maxOpenJobs": 4 }
+  ],
+  "sla": [
+    { "subcontractorRef": "AQUAFLOW", "from": "2026-09-01", "to": "2026-09-30", "jobs": 9, "rejected": 0, "open": 0, "acceptedWithin2h": 8, "acceptedWithin2hPercent": 88.9, "arrived": 9, "arrivedOnTime": 6, "arrivedOnTimePercent": 66.7, "medianLateMinutes": 25 },
+    { "subcontractorRef": "BRIGHTSPARK", "from": "2026-09-01", "to": "2026-09-30", "jobs": 14, "rejected": 1, "open": 0, "acceptedWithin2h": 11, "acceptedWithin2hPercent": 84.6, "arrived": 13, "arrivedOnTime": 10, "arrivedOnTimePercent": 76.9, "medianLateMinutes": 35 },
+    { "subcontractorRef": "RIVERSTONE", "from": "2026-09-01", "to": "2026-09-30", "jobs": 11, "rejected": 0, "open": 0, "acceptedWithin2h": 11, "acceptedWithin2hPercent": 100.0, "arrived": 10, "arrivedOnTime": 9, "arrivedOnTimePercent": 90.0, "medianLateMinutes": 20 },
+    { "subcontractorRef": "VOLTA", "from": "2026-09-01", "to": "2026-09-30", "jobs": 3, "rejected": 0, "open": 0, "acceptedWithin2h": 3, "acceptedWithin2hPercent": 100.0, "arrived": 2, "arrivedOnTime": 2, "arrivedOnTimePercent": 100.0, "medianLateMinutes": null }
+  ],
+  "openJobs": { "AQUAFLOW": 2, "BRIGHTSPARK": 3, "RIVERSTONE": 4, "VOLTA": 0 }
+}

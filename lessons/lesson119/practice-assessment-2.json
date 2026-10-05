@@ -1,0 +1,1748 @@
+{
+  "form": "Cedar AB-400 practice assessment 2",
+  "short": "PA2",
+  "version": "1.0",
+  "lesson": 119,
+  "checkedOn": "2026-10-05",
+  "minutes": 100,
+  "minutesPerItem": 2,
+  "checkpoints": [
+    "PB-10",
+    "PB-20",
+    "PB-30",
+    "PB-40",
+    "PB-43",
+    "PB-48"
+  ],
+  "cases": {
+    "CASE-6": {
+      "title": "REL-036 subcontractor certificate checks",
+      "text": "Release REL-036, subcontractor certificate checks. From 1 January 2027 every subcontractor must hold a valid insurance certificate before Sami Nasser's coordinators may assign it work. On Wednesday 9 December 2026 Sami, Dana Khoury and Karim Aziz agree four requirements. (1) Coordinators need a new code app, Cedar Onboarding Desk, to review uploaded certificates. It must reach Cedar-Test and Cedar-Prod through the existing pipeline with CedarServiceCore and be available to the coordinators, who hold Power Apps Premium licences. (2) Subcontractors upload certificates (PDF) to the Azure Blob Storage container certificates in stcedardocs. An Azure Function, CertificateReader in func-cedar-ops-prod, extracts insurer, policy number and expiry date with a document-analysis service whose key is in kv-cedar-prod. The function is published in Azure API Management (apim-cedar-prod) as the API Cedar Certificates. Makers must be able to call it from cloud flows and the code app, and the function must know which coordinator asked, for its audit log. (3) Karim's Foundry agent Cedar Dispatch Advisor must check a subcontractor's certificate status in the Dataverse table cedar_certificate before it proposes a subcontractor, with read access only and only to tables Dana approves. (4) Before anything is built, Dana wants the design to show which component meets each requirement."
+    }
+  },
+  "sections": [
+    {
+      "id": "S1",
+      "title": "Section 1: 40 questions",
+      "review": "section",
+      "budget": 74,
+      "reviewMinutes": 6,
+      "items": [
+        "PB-01",
+        "PB-02",
+        "PB-03",
+        "PB-04",
+        "PB-05",
+        "PB-06",
+        "PB-07",
+        "PB-08",
+        "PB-09",
+        "PB-10",
+        "PB-11",
+        "PB-12",
+        "PB-13",
+        "PB-14",
+        "PB-15",
+        "PB-16",
+        "PB-17",
+        "PB-18",
+        "PB-19",
+        "PB-20",
+        "PB-21",
+        "PB-22",
+        "PB-23",
+        "PB-24",
+        "PB-25",
+        "PB-26",
+        "PB-27",
+        "PB-28",
+        "PB-29",
+        "PB-30",
+        "PB-31",
+        "PB-32",
+        "PB-33",
+        "PB-34",
+        "PB-35",
+        "PB-36",
+        "PB-37",
+        "PB-38",
+        "PB-39",
+        "PB-40"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Section 2: goal set (nightly SLA statistics function)",
+      "review": "none",
+      "budget": 6,
+      "problem": "Every night at 01:30 UTC an Azure Function in func-cedar-ops-prod must recalculate SLA statistics for about 40,000 cases in Cedar-Prod. Goal: it runs on schedule with nobody present, it authenticates to Dataverse without any stored secret, and a run that started late (for example after a platform restart) is recorded so that Dana can check it.",
+      "items": [
+        "PB-41",
+        "PB-42",
+        "PB-43"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Section 3: case study",
+      "review": "section",
+      "budget": 18,
+      "reviewMinutes": 2,
+      "case": "CASE-6",
+      "items": [
+        "PB-44",
+        "PB-45",
+        "PB-46",
+        "PB-47",
+        "PB-48"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "PB-01",
+      "objectives": [
+        "E-02"
+      ],
+      "lessons": [
+        66
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A plug-in step on Update of Work order runs as the application user Cedar Automation (Run in User's Context). The plug-in writes cedar_changedby, which must name the person who actually started the change. Which value should it use?",
+      "options": {
+        "A": "context.InitiatingUserId",
+        "B": "context.UserId",
+        "C": "context.BusinessUnitId",
+        "D": "The ownerid from the work order's pre-image."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"runs as\" another identity and \"actually started\": the initiating user.",
+      "why": "When a step impersonates, UserId is the identity the step runs as, while InitiatingUserId is the user whose request started the pipeline.",
+      "distractors": {
+        "B": "UserId is the step's run-as identity here: Cedar Automation.",
+        "C": "It identifies a business unit, not a person.",
+        "D": "The owner isn't necessarily the person who changed the row."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-02",
+      "objectives": [
+        "U-02"
+      ],
+      "lessons": [
+        50,
+        51
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "On the Case form, when Priority changes to High, a handler must make Escalation reason required. Dana's makers must be able to see the handler in the form designer and switch it off without a code change. How should Karim register it?",
+      "options": {
+        "A": "In OnLoad, call formContext.getAttribute(\"prioritycode\").addOnChange(cedar.caseForm.onPriorityChange).",
+        "B": "In the form designer: Events → Priority → On Change, library cedar_/case.js, function cedar.caseForm.onPriorityChange, Enabled, Pass execution context as first parameter.",
+        "C": "Register it in the designer and also with addOnChange in OnLoad, so it still runs if one registration is removed.",
+        "D": "In OnLoad, call setValue on Priority so that OnChange runs and registers the handler."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"makers … see … and switch it off without a code change\": designer registration.",
+      "why": "Designer registration is visible, can be disabled with Enabled, and passes the execution context when the box is ticked. Code registration (addOnChange) suits conditional handlers and events the designer doesn't offer, such as PreSearch.",
+      "distractors": {
+        "A": "It works, but makers can't see or disable a handler added in code.",
+        "C": "The handler then runs twice per change, and switching one off doesn't stop it.",
+        "D": "setValue doesn't fire OnChange, and a handler can't register itself that way."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-detail",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "PB-03",
+      "objectives": [
+        "B-03"
+      ],
+      "lessons": [
+        21,
+        42
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Lina wants every Harbor View Medical Center case to show a countdown to its 4-hour first-response target, warn the agent after 3 hours, mark the case as breached at 4 hours, and stop the clock while the case status reason is Waiting for Details. Customer Service is installed in Cedar-Prod. What should Karim do?",
+      "options": {
+        "A": "Write a plug-in on case Create that calculates the deadline and an Azure Function on a timer that marks breached cases every five minutes.",
+        "B": "Add a cloud flow per case with a Delay until action that sets a Breached column after four hours.",
+        "C": "Configure a service level agreement with an SLA item for first response (warning after 3 hours, failure after 4), pause and resume on the Waiting for Details status reason, and the SLA timer on the Case form.",
+        "D": "Build a PCF countdown control that calculates the remaining time from createdon on the form."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"countdown\", \"warn\", \"breached\", \"pause\" and Customer Service installed: an out-of-the-box SLA feature list.",
+      "why": "SLAs in Customer Service provide KPI timers, warning and failure times, pause and resume on statuses, actions on warning or failure, and the timer control. Build only for a documented gap.",
+      "distractors": {
+        "A": "It rebuilds what SLAs already do (timers, warnings, failure, pause) and adds code to maintain.",
+        "B": "Thousands of waiting flow runs re-implement SLA timing badly, and the pause rule would need more custom logic.",
+        "D": "It only runs while a form is open and records no warning or breach for reports."
+      },
+      "traps": {
+        "A": "too-custom",
+        "B": "too-custom",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "PB-04",
+      "objectives": [
+        "E-03"
+      ],
+      "lessons": [
+        65,
+        67
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A case must not be resolved while any of its work orders is still open. Agents resolve cases from the form's Resolve Case dialog, and a cloud flow resolves stale cases. Where should Karim enforce the rule?",
+      "options": {
+        "A": "A plug-in step on Update of incident with filtering attribute statecode.",
+        "B": "A client script on the Resolve Case dialog.",
+        "C": "A synchronous plug-in step on the Close message of incident that queries open work orders and throws InvalidPluginExecutionException with a clear message.",
+        "D": "A plug-in that runs the check and, if the query fails, logs the error and lets the resolution continue."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"must not be\" and two channels (form and flow): server-side, on the real message.",
+      "why": "Business rules that must hold for every caller belong in a synchronous plug-in on the message that really runs. Case resolution uses Close, so the step goes there and refuses with a safe message.",
+      "distractors": {
+        "A": "Resolving a case runs the Close message; checking an Update of statecode misses that path.",
+        "B": "The flow never loads the dialog, so the rule can be bypassed.",
+        "D": "A failed check would let invalid data through; inside the transaction a failed operation must stop the request."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "wrong-place",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-05",
+      "objectives": [
+        "I-01",
+        "B-14"
+      ],
+      "lessons": [
+        89,
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Every approved subcontractor invoice must be published to the Azure Service Bus queue sbq-cedar-invoices with the execution context, and the finance consumer may be offline for hours. Karim needs custom logic to decide which invoices qualify, so he writes a plug-in. Which implementation is right?",
+      "options": {
+        "A": "Use the Service Bus SDK in the plug-in with a connection string in the step's unsecure configuration.",
+        "B": "Call the finance consumer's HTTPS endpoint synchronously in PreOperation so approval fails when finance is offline.",
+        "C": "Post to the queue and, in the same plug-in, update the invoice status and send an email.",
+        "D": "Get IServiceEndpointNotificationService from the service provider and call Execute(new EntityReference(\"serviceendpoint\", endpointId), context) in an asynchronous step that does nothing else."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"custom logic … plug-in\" and \"consumer may be offline\": post through the registered endpoint to a queue.",
+      "why": "IServiceEndpointNotificationService posts the context to a registered service endpoint. A queue holds messages while the consumer is offline. Keep the publisher small because a failed post reruns the plug-in.",
+      "distractors": {
+        "A": "It stores a secret in readable configuration and bypasses the platform's endpoint.",
+        "B": "Finance being offline would block approvals; the queue exists to decouple them.",
+        "C": "A failed post reruns the whole plug-in, repeating the other work."
+      },
+      "traps": {
+        "A": "unsafe",
+        "B": "wrong-place",
+        "C": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-06",
+      "objectives": [
+        "U-08",
+        "B-10"
+      ],
+      "lessons": [
+        43,
+        57,
+        58
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim designs a reusable five-star rating control for the Satisfaction column (cedar_satisfaction, whole number) on several forms, shipped in CedarServiceCore. In index.ts, how should the control give a new value to the form?",
+      "options": {
+        "A": "Call context.webAPI.updateRecord on the current case with the new value.",
+        "B": "Set context.parameters.satisfaction.raw = value in updateView.",
+        "C": "Edit the generated ManifestTypes.d.ts to add a setValue method.",
+        "D": "Keep the value, call notifyOutputChanged(), and return { satisfaction: value } from getOutputs()."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"bound … give a new value to the form\": the output contract of a bound property.",
+      "why": "A bound property is both input and output. notifyOutputChanged asks the framework to call getOutputs, whose IOutputs object carries the new value to the column; the form then saves it like any other change. A PCF control is the right reuse unit for a visual control bound to a column.",
+      "distractors": {
+        "A": "It saves behind the form's back: the form doesn't know the value changed and may overwrite it on save.",
+        "B": "Parameters are inputs; assigning to them doesn't tell the form anything.",
+        "C": "Generated types are rebuilt from the manifest, and a method there does nothing at runtime."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "B": "wrong-detail",
+        "C": "unsupported"
+      }
+    },
+    {
+      "id": "PB-07",
+      "objectives": [
+        "E-05"
+      ],
+      "lessons": [
+        67
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A plug-in on Create of Work order must store, on the new row, how many open work orders its site already has across all coordinators, including rows the caller can't see, without revealing anything else about them. How should it query?",
+      "options": {
+        "A": "factory.CreateOrganizationService(context.UserId) and RetrieveMultiple with ColumnSet(true).",
+        "B": "factory.CreateOrganizationService(null) (SYSTEM) with an aggregate FetchXML count filtered by site and status, storing only the number.",
+        "C": "A ServiceClient created in the plug-in with a client secret from unsecure configuration.",
+        "D": "HttpClient to the Web API with the caller's token."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"including rows the caller can't see\" and \"only the number\": SYSTEM context, aggregate query.",
+      "why": "CreateOrganizationService(null) runs as SYSTEM, which sees all rows; the plug-in must disclose only the safe result. An aggregate count reads no row data.",
+      "distractors": {
+        "A": "The caller's service misses rows they can't see, and all columns are read for a count.",
+        "C": "Plug-ins use the organization service from the factory; a client inside the sandbox with a stored secret is unsupported and unsafe.",
+        "D": "The plug-in has no caller token, and it already has the organization service."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "unsupported",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "PB-08",
+      "objectives": [
+        "B-06"
+      ],
+      "lessons": [
+        30
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Cedar-Prod is a Managed Environment. The tenant data policy puts Dataverse and Office 365 Outlook in Business and the FieldLink Jobs custom connector in Non-business. An environment data policy for Cedar-Prod blocks HTTP. Sami's new flow in Cedar-Prod reads work orders with Dataverse and creates jobs with FieldLink Jobs. Which two statements are true?",
+      "options": {
+        "A": "The flow can't be saved or turned on (or is suspended) because it combines a Business and a Non-business connector under the tenant policy.",
+        "B": "The environment policy can move FieldLink Jobs into Business for Cedar-Prod and so override the tenant policy.",
+        "C": "Assigning Sami the System Administrator role in Cedar-Prod lets the flow run.",
+        "D": "To allow the flow, an admin must put FieldLink Jobs in the same group as Dataverse in every policy that applies to Cedar-Prod.",
+        "E": "Sharing the flow with a team in another business unit avoids the policy."
+      },
+      "answer": [
+        "A",
+        "D"
+      ],
+      "signal": "\"tenant policy … Non-business\" plus \"environment policy\": data policies combine, most restrictive wins.",
+      "why": "A flow can't use Business and Non-business connectors together. Every policy that covers the environment is applied, so the connectors must share a group in all of them; roles and sharing don't change connector rules.",
+      "distractors": {
+        "B": "Policies are combined and the most restrictive wins; an environment policy can only add restrictions.",
+        "C": "Security roles decide data access, not which connectors may be combined.",
+        "E": "Data policies apply to the environment, whoever owns or runs the flow."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "wrong-gate",
+        "E": "wrong-gate"
+      }
+    },
+    {
+      "id": "PB-09",
+      "objectives": [
+        "U-09"
+      ],
+      "lessons": [
+        60
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The rating control works in Cedar-Dev after pac pcf push. It must now reach Cedar-Test with the Case form that uses it, and later versions must replace it cleanly. What should Karim do?",
+      "options": {
+        "A": "Run pac pcf push against Cedar-Test.",
+        "B": "Copy bundle.js into a web resource in Cedar-Test.",
+        "C": "Create a solution project (pac solution init, pac solution add-reference to the .pcfproj), build it in Release, raise the control version for each change, and ship the managed solution with the form through the pipeline.",
+        "D": "Export the PowerAppsTools_cedar solution that pac pcf push created in Cedar-Dev and import it into Cedar-Test."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"reach Cedar-Test with the form\" and \"replace it cleanly\": a solution project, versioned, through ALM.",
+      "why": "A solution project packages the control; a higher version in the manifest makes the import replace the old one; the form that uses it ships in the same solution through the normal pipeline.",
+      "distractors": {
+        "A": "pac pcf push is a development shortcut into a temporary unmanaged solution; Test gets managed solutions.",
+        "B": "A code component is registered from a solution, not loaded as a web resource.",
+        "D": "That temporary solution holds only the control, not the form, and isn't the versioned solution the pipeline releases."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "B": "unsupported",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-10",
+      "objectives": [
+        "E-06"
+      ],
+      "lessons": [
+        69
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "A synchronous PostOperation plug-in on Update of Account takes 1.8 seconds and runs on every account change, but it only needs to recalculate the credit summary when cedar_creditlimit or cedar_paymentterms change. It retrieves the whole account to read those two values. Which two changes should Karim make?",
+      "options": {
+        "A": "Set the step's filtering attributes to cedar_creditlimit and cedar_paymentterms.",
+        "B": "Return early when context.Depth > 1.",
+        "C": "Register a post-image with only the two columns and read them from the image instead of retrieving the account.",
+        "D": "Add accountid to the filtering attributes so the step always has the key.",
+        "E": "Raise the plug-in time-out in the environment settings."
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "signal": "\"only needs to … when\" two columns change, and \"retrieves the whole account\".",
+      "why": "First don't run (filtering attributes), then read less (an image with the two columns replaces a Retrieve). Depth checks and time-outs don't address the cost.",
+      "distractors": {
+        "B": "Depth counts nesting, not relevance; it skips legitimate calls and doesn't stop unneeded ones.",
+        "D": "The primary key is always in Target; adding it doesn't help filter.",
+        "E": "The 2-minute limit is fixed; time-outs aren't the problem."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "D": "wrong-detail",
+        "E": "unsupported"
+      }
+    },
+    {
+      "id": "PB-11",
+      "objectives": [
+        "I-02"
+      ],
+      "lessons": [
+        90,
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami's integration partner needs a message on the topic sbt-cedar-workorders whenever a work order's status or scheduled date changes, including the previous status. No custom logic is needed. What should Karim do?",
+      "options": {
+        "A": "Write a plug-in that checks whether the status or date changed and posts to the topic.",
+        "B": "In the Plug-in Registration Tool, register the Service Bus endpoint, then a step on it: Update of cedar_workorder, filtering attributes statuscode and cedar_scheduledfor, asynchronous, with a pre-image containing statuscode.",
+        "C": "Register the step on Update without filtering attributes; the partner ignores other changes.",
+        "D": "Register a synchronous step on the Service Bus endpoint so messages are sent before the save completes."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"No custom logic\", \"status or scheduled date\" and \"previous status\": a registered endpoint step with filters and a pre-image.",
+      "why": "Publishing without code: register the endpoint, then a step with message, table, filtering attributes and mode; a pre-image adds the previous values to the context.",
+      "distractors": {
+        "A": "The registration step already filters by columns; no code is needed.",
+        "C": "Every change is published, adding traffic and exposing data the partner doesn't need.",
+        "D": "Service Bus and Event Hubs endpoints take asynchronous steps only."
+      },
+      "traps": {
+        "A": "too-custom",
+        "C": "too-broad",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "PB-12",
+      "objectives": [
+        "U-11",
+        "B-15"
+      ],
+      "lessons": [
+        61
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim adds the Office 365 Outlook connector to the Dispatch Planner code app so coordinators can email subcontractors from their own mailbox. The app moves Cedar-Dev → Cedar-Test → Cedar-Prod in CedarServiceCore. How should he add the data source?",
+      "options": {
+        "A": "pa app add data-source with a connection reference (--connection-ref) in the solution (--solution-id), mapped to a connection in each environment through the deployment settings.",
+        "B": "pa app add data-source with his own --connection-id from Cedar-Dev, and share that connection with the coordinators.",
+        "C": "Put an Outlook app password in the app's configuration and call Microsoft Graph directly.",
+        "D": "Add the data source in Cedar-Prod with the CLI after each deployment."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"from their own mailbox\" and \"Dev → Test → Prod\": connection references, never a personal connection.",
+      "why": "Connection references let each environment bind its own connections while the app stays the same. A code app is a pro-code web app on Power Platform hosting: its connectors go through connections, and it must never hold secrets.",
+      "distractors": {
+        "B": "Every email would leave from Karim's mailbox with his permissions, and the ID only exists in Cedar-Dev.",
+        "C": "Code app assets are served to the browser: anything in them is public.",
+        "D": "Changes made in production bypass the pipeline and are lost on the next import."
+      },
+      "traps": {
+        "B": "unsafe",
+        "C": "unsafe",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "PB-13",
+      "objectives": [
+        "E-08"
+      ],
+      "lessons": [
+        68,
+        71
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim registers the Cedar.Service.Plugins assembly with the Plug-in Registration Tool in Cedar-Dev. The new step needs a non-secret region code and the FieldLink API key. What should he do?",
+      "options": {
+        "A": "Put both values in the step's unsecure configuration.",
+        "B": "Put both in secure configuration and add the step to CedarServiceCore, so the key reaches Cedar-Test with the solution.",
+        "C": "Register the step directly in Cedar-Test and Cedar-Prod with the tool, so the key never leaves each environment.",
+        "D": "Put the region code in the unsecure configuration, keep the key in Azure Key Vault read through the plug-in's managed identity, and add the step to the unmanaged solution."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"non-secret\" versus \"API key\" and registration in Dev: configuration travels, secrets don't.",
+      "why": "Unsecure configuration is exported with the step, so it suits non-secret settings. Secure configuration stays in the environment and isn't a secret store either. With managed identity for plug-ins, the key stays in Key Vault.",
+      "distractors": {
+        "A": "Unsecure configuration is readable by many users and travels in the solution.",
+        "B": "Secure configuration isn't exported with solutions; Test would get the step without the key.",
+        "C": "Registration in downstream environments bypasses ALM and creates unmanaged layers."
+      },
+      "traps": {
+        "A": "unsafe",
+        "B": "wrong-detail",
+        "C": "wrong-place"
+      }
+    },
+    {
+      "id": "PB-14",
+      "objectives": [
+        "B-07"
+      ],
+      "lessons": [
+        42,
+        97
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Omar's agents receive free-text emails from Harbor View. Lina wants each new case to get a suggested category (Electrical, HVAC, Plumbing, Access, Other) from the email text, and the response deadline must be 4 hours for Priority 1 hospital cases and 8 hours otherwise, auditable for the contract. What should Karim implement?",
+      "options": {
+        "A": "A prompt in the intake flow that reads the email and sets both the category and the deadline.",
+        "B": "A classic workflow with keyword conditions for the category and a prompt for the deadline.",
+        "C": "An agent whose instructions say \"always use 4 hours for hospitals\", which sets both values.",
+        "D": "A prompt that suggests the category for the agent to confirm, and a deterministic rule (the SLA or a plug-in) that sets the deadline from priority and customer type."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"suggested from free text\" versus \"must be … auditable\": AI proposes, a rule decides.",
+      "why": "Classification of free text is a good use of AI with a person confirming. A deadline written into a contract must be repeatable and auditable, so it comes from deterministic logic.",
+      "distractors": {
+        "A": "A model may produce a different deadline for the same input; a contractual value must come from a rule.",
+        "B": "Classic workflows are legacy, keywords classify free text poorly, and the deadline is again left to a model.",
+        "C": "Instructions guide a model; they don't guarantee the value. The gate must be a deterministic rule."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "B": "legacy-preview",
+        "C": "wrong-gate"
+      }
+    },
+    {
+      "id": "PB-15",
+      "objectives": [
+        "E-09",
+        "B-12"
+      ],
+      "lessons": [
+        70
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim designs cedar_EstimateTravel, a reusable read-only operation that returns the travel minutes for a work order (bound to cedar_workorder, output TravelMinutes, whole number), called from the code app and flows. How should he build it?",
+      "options": {
+        "A": "A custom API marked as a function, bound to cedar_workorder, with its plug-in type set on the API and no step registered; the plug-in reads Target from InputParameters and sets OutputParameters[\"TravelMinutes\"] as an int.",
+        "B": "A custom API action with a PreOperation step that returns the minutes in an InvalidPluginExecutionException message.",
+        "C": "A custom API function whose plug-in also writes the estimate to the work order.",
+        "D": "A plug-in on Retrieve of cedar_workorder that adds the minutes to every retrieved row."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"reusable read-only operation\" with an output: a custom API function.",
+      "why": "A custom API gives a named, reusable message with typed inputs and outputs. Read-only → function. Its plug-in is the main operation (set on the API), reads InputParameters and sets OutputParameters with exact types.",
+      "distractors": {
+        "B": "The main operation runs in the API's own stage, and exceptions report refusals, not answers.",
+        "C": "Functions must not change data; use an action when data changes.",
+        "D": "It slows every read and isn't a named operation callers can invoke."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "wrong-detail",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "PB-16",
+      "objectives": [
+        "U-13"
+      ],
+      "lessons": [
+        62
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "In the Dispatch Planner, a coordinator changes only the Scheduled for date of a work order. The grid also shows the localized display name of the Status column in its header. Which implementation is right?",
+      "options": {
+        "A": "Retrieve the whole row, change the date, send every column back with update, and call getMetadata for each row in the grid.",
+        "B": "Call Cedar_workordersService.update(id, { cedar_scheduledfor: value }) with only the changed column, and read the display name once with getMetadata and cache it.",
+        "C": "Call update with the whole row object, and read the display name from the option labels returned with each row.",
+        "D": "Use fetch with a PATCH request and a bearer token stored in the app's settings."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"changes only\" one column and \"display name in the header\": update only what changed, metadata once.",
+      "why": "Generated services handle create, get, getAll, update and delete. Sending only changed columns avoids overwriting and extra plug-in work; getMetadata returns display names, which change rarely and can be cached.",
+      "distractors": {
+        "A": "Writing every column can overwrite other users' changes and fires more plug-ins; metadata per row multiplies requests.",
+        "C": "Rows don't carry column display names, and sending the whole row writes columns that didn't change.",
+        "D": "The generated services already handle authentication; a stored token in a public bundle is a leak."
+      },
+      "traps": {
+        "A": "too-broad",
+        "C": "wrong-detail",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-17",
+      "objectives": [
+        "B-09"
+      ],
+      "lessons": [
+        43,
+        98,
+        99
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Two agent requests reach Karim. (1) Lina's service desk wants an employee agent in Teams that answers from the Service handbook SharePoint site, built and maintained by Dana's makers under the tenant's data policies. (2) Karim's team needs an agent that runs their own Python tools, uses a model they evaluate with SDK-based evaluations and tracing in Azure, and ships through their Azure pipeline. Which platforms should they use?",
+      "options": {
+        "A": "Copilot Studio for (1) and Microsoft Foundry for (2).",
+        "B": "Copilot Studio for both.",
+        "C": "Microsoft Foundry for both.",
+        "D": "Microsoft Foundry for (1) and Copilot Studio for (2)."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"makers … data policies\" versus \"own Python tools … SDK evaluations … Azure pipeline\".",
+      "why": "Copilot Studio suits makers, built-in channels, knowledge sources and Power Platform governance; Foundry suits developers with their own code, models, evaluation and Azure governance.",
+      "distractors": {
+        "B": "Request 2 needs code tools, SDK evaluations, tracing and Azure deployment: the developer platform.",
+        "C": "Request 1 is a maker-built knowledge agent with Teams publishing and Power Platform governance: Copilot Studio does that without code.",
+        "D": "Both choices are reversed: choose by who builds it and how it is governed."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "too-custom",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "PB-18",
+      "objectives": [
+        "E-13"
+      ],
+      "lessons": [
+        75
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A .NET job must read 12,000 cases from the last quarter with each case's account name, then call the custom API cedar_ArchiveCases. Which approach is right?",
+      "options": {
+        "A": "One RetrieveMultiple without paging, reading the account name as a string.",
+        "B": "Retrieve each case by ID, and call service.Retrieve(\"cedar_ArchiveCases\", …).",
+        "C": "RetrieveMultiple with a QueryExpression and a LinkEntity to account (alias acct), paging with PagingInfo and the paging cookie, reading acct.name from AliasedValue, then Execute(new OrganizationRequest(\"cedar_ArchiveCases\")).",
+        "D": "RetrieveMultiple with TopCount = 12000."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"12,000\" rows, \"account name\" from a related table, and a custom API: paging, linked entity, Execute.",
+      "why": "The organization service returns up to 5,000 rows per page; the paging cookie continues the query. Linked columns come back as AliasedValue. Messages without a typed method go through Execute.",
+      "distractors": {
+        "A": "A page holds at most 5,000 rows, and a linked column arrives as AliasedValue.",
+        "B": "12,000 single reads are slow, and a message isn't a row to retrieve.",
+        "D": "TopCount can't exceed 5,000 and doesn't page."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "wrong-detail",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-19",
+      "objectives": [
+        "U-14"
+      ],
+      "lessons": [
+        62
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The Dispatch Planner must call the bound custom API cedar_RequestDispatch on a work order and show \"My work orders\" for the signed-in coordinator. Which approach is right?",
+      "options": {
+        "A": "Call the custom API from a cloud flow with an HTTP request trigger, and filter \"My work orders\" by the Entra object ID from the token.",
+        "B": "Run the logic in a plug-in on Update of the work order's status instead of calling the API.",
+        "C": "Add the custom API, and filter \"My work orders\" by the Entra object ID that the app's context returns.",
+        "D": "Find and add both operations with the CLI (pa app find-dataverse-api, then pa app add dataverse-api for cedar_RequestDispatch and WhoAmI), pass the work order ID as the bound row, and filter by WhoAmI's UserId."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"bound custom API\" and \"signed-in user\": generated Dataverse API services and WhoAmI's systemuser ID.",
+      "why": "The CLI generates typed services for Dataverse actions and functions; bound operations take the row ID first. WhoAmI returns the caller's systemuser ID, which is what owner columns contain. Calls run as the signed-in user.",
+      "distractors": {
+        "A": "Code apps call only Power Apps-triggered flows, and the Entra object ID isn't the Dataverse systemuser ID.",
+        "B": "The operation exists as a custom API; replacing it with a side effect of an update changes its contract for every caller.",
+        "C": "Ownership columns hold systemuser IDs, which differ from the Entra object ID."
+      },
+      "traps": {
+        "A": "unsupported",
+        "B": "wrong-place",
+        "C": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-20",
+      "objectives": [
+        "E-15"
+      ],
+      "lessons": [
+        78
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Every night FieldLink sends 40,000 job updates for cedar_fieldlinkstatus, a standard table with the alternate key cedar_fieldlinkid. About 1% fail validation in a plug-in. Lina wants the run to finish within 30 minutes, every valid row saved, and a list of the failures. Which approach meets the goal?",
+      "options": {
+        "A": "UpsertMultipleRequest batches of 1,000 rows sent in parallel, logging the batches that fail.",
+        "B": "One ExecuteTransactionRequest with all 40,000 upserts.",
+        "C": "UpsertMultiple batches; when a batch fails, retry it three times.",
+        "D": "ExecuteMultipleRequest batches of up to 1,000 UpsertRequest messages with ContinueOnError = true, several batches in parallel, collecting each failed request's fault."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"every valid row saved\" + \"list of the failures\" on a standard table: per-row verdicts.",
+      "why": "ExecuteMultiple runs each request separately and, with ContinueOnError, reports a fault per failed request while the others commit. Bulk messages on standard tables are all-or-nothing.",
+      "distractors": {
+        "A": "On a standard table one failing row rolls back its whole batch of 1,000.",
+        "B": "A transaction holds at most 1,000 requests and fails completely if one row fails.",
+        "C": "A validation failure fails the same way on every retry; the good rows never commit."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "wrong-detail",
+        "C": "wrong-gate"
+      }
+    },
+    {
+      "id": "PB-21",
+      "objectives": [
+        "I-08"
+      ],
+      "lessons": [
+        94
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The FieldLink Jobs API now accepts only Microsoft Entra ID tokens issued for the calling user, and Lina wants no client secret to rotate for the connector. What should Karim configure in the custom connector?",
+      "options": {
+        "A": "OAuth 2.0 with the client credentials grant, so no user sign-in is needed.",
+        "B": "API key authentication, with the app registration's client secret as the key.",
+        "C": "OAuth 2.0 with Microsoft Entra ID, using the connector's managed identity option (a single-tenant app registration with a federated credential) instead of a client secret.",
+        "D": "Basic authentication with Dana's account."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"tokens issued for the calling user\" + \"no client secret\": Entra ID OAuth with the managed identity option.",
+      "why": "The Entra ID identity provider uses the authorization code flow, so each connection holds a user token. The managed identity option replaces the client secret with a federated credential on a single-tenant app registration.",
+      "distractors": {
+        "A": "Custom connectors don't support the client credentials grant, and the API wants the user's token.",
+        "B": "A secret shared as an API key identifies no user and must still be rotated.",
+        "D": "Every call would run as Dana."
+      },
+      "traps": {
+        "A": "unsupported",
+        "B": "unsafe",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-22",
+      "objectives": [
+        "U-15"
+      ],
+      "lessons": [
+        62
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim added a second input, Urgent (Yes/No), to the solution-aware instant flow \"Cedar – Notify subcontractor\" (Power Apps trigger). The Dispatch Planner still builds, but its call now fails with a missing-parameter error. What should he do?",
+      "options": {
+        "A": "Change the trigger to \"When an HTTP request is received\" and call the flow's URL with fetch.",
+        "B": "Turn the flow off and on so the app picks up the new input.",
+        "C": "Run pa app add flow --flow-id <id> again to regenerate the typed service and model, then pass Urgent in Run().",
+        "D": "Edit the generated service file by hand to add the parameter."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"added a second input\" and \"missing-parameter\": a stale generated signature.",
+      "why": "Running add flow again with the same flow ID downloads the current definition and regenerates the service, model and schema, so Run() takes the new input.",
+      "distractors": {
+        "A": "Code apps support only solution-aware instant flows with the Power Apps trigger.",
+        "B": "The flow is fine; the app's generated service still has the old signature.",
+        "D": "Generated files are replaced on the next regeneration, and the schema file would still disagree."
+      },
+      "traps": {
+        "A": "unsupported",
+        "B": "wrong-gate",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-23",
+      "objectives": [
+        "E-15"
+      ],
+      "lessons": [
+        14,
+        78
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Karim must load about 2 million sensor readings a day into cedar_sensorreading, an elastic table, and 800 contract price changes into the standard table cedar_contract, where all price changes must succeed or none. Which two designs are right?",
+      "options": {
+        "A": "Readings: ExecuteTransactionRequest batches of 1,000 rows so that each batch is atomic.",
+        "B": "Prices: ExecuteMultiple with ContinueOnError = true and 100 rows per request.",
+        "C": "Readings: CreateMultiple with about 100 rows per request, sent in parallel, finding failed rows in the error details.",
+        "D": "Prices: UpdateMultiple with the 800 rows in one request; on a standard table any error rolls back the whole request.",
+        "E": "Readings: one Create request per row from 50 parallel threads."
+      },
+      "answer": [
+        "C",
+        "D"
+      ],
+      "signal": "\"elastic … 2 million\" versus \"all … or none\" on a standard table: the same messages behave differently.",
+      "why": "On elastic tables bulk operations can partly succeed and about 100 rows per request in parallel gives the best throughput. On standard tables any error rolls back the bulk request, which is exactly the all-or-none behaviour the prices need.",
+      "distractors": {
+        "A": "Elastic tables run on a store without multi-row transactions.",
+        "B": "Rows that succeed stay saved while others fail: the opposite of all or none.",
+        "E": "Single requests are far slower than bulk messages and hit service protection limits sooner."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "wrong-detail",
+        "E": "late"
+      }
+    },
+    {
+      "id": "PB-24",
+      "objectives": [
+        "B-13"
+      ],
+      "lessons": [
+        86,
+        98
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar Service Assistant, a Copilot Studio agent on the standard harness, must look up a site's open work orders in Dataverse during a conversation and use the list in its next answer. Dana's makers will maintain the tool. What should Karim build?",
+      "options": {
+        "A": "An automated Power Automate cloud flow with the Dataverse trigger \"When a row is added, modified or deleted\".",
+        "B": "An agent flow with the trigger \"When an agent calls the flow\" and a \"Respond to the agent\" action, kept within the real-time response limit.",
+        "C": "A scheduled cloud flow that copies open work orders to a SharePoint list every hour for the agent to read.",
+        "D": "A classic Dataverse workflow run on demand."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"agent … during a conversation … use the list in its next answer\": a tool the agent calls and waits for.",
+      "why": "Agent flows are the deterministic tools of standard-harness agents: the agent trigger receives inputs and Respond to the agent returns outputs within the conversation. They consume Copilot Studio capacity, which is right here because an agent uses them.",
+      "distractors": {
+        "A": "An automated flow starts from its own trigger; the agent can't call it and get a result back.",
+        "C": "The list is up to an hour old and adds a copy to secure.",
+        "D": "Classic workflows are legacy and can't be called as an agent tool."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "late",
+        "D": "legacy-preview"
+      },
+      "names": {
+        "A": "cloud-flow",
+        "B": "agent-flow",
+        "C": "cloud-flow",
+        "D": "classic-workflow"
+      }
+    },
+    {
+      "id": "PB-25",
+      "objectives": [
+        "U-16"
+      ],
+      "lessons": [
+        63
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The Dispatch Planner must let a coordinator ask the published Copilot Studio agent Cedar Service Assistant a question and show the answer in a side panel. The agent's name differs between Cedar-Test and Cedar-Prod. What should Karim use?",
+      "options": {
+        "A": "The Microsoft Copilot Studio connector's ExecuteCopilotAsyncV2 (Execute Agent and wait) with the message and the agent name read from an environment setting, showing the reply as text.",
+        "B": "A Direct Line secret in the app's code to open a Web Chat session.",
+        "C": "The connector's operation, inserting the reply with innerHTML so its links work.",
+        "D": "An older connector operation with the agent's name hard-coded."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"code app\" + \"published Copilot Studio agent\" + \"differs per environment\".",
+      "why": "Code apps talk to Copilot Studio agents through the Copilot Studio connector; Execute Agent and wait returns the answer. The agent name comes from configuration, and output is rendered as text.",
+      "distractors": {
+        "B": "A secret in a code app is public to every browser that loads it.",
+        "C": "Agent output is untrusted text; rendering it as HTML opens script injection.",
+        "D": "The older operation is superseded, and a hard-coded name breaks in the other environment."
+      },
+      "traps": {
+        "B": "unsafe",
+        "C": "unsafe",
+        "D": "legacy-preview"
+      }
+    },
+    {
+      "id": "PB-26",
+      "objectives": [
+        "E-17"
+      ],
+      "lessons": [
+        79
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Rafi's Python script calls the unbound custom API cedar_RebuildSiteStats, which runs about 100 seconds. The script must not hold its HTTP connection open, and Rafi wants to know when the operation has finished. Cedar-Test allows preview features. What should the script do?",
+      "options": {
+        "A": "Ask Karim to register the custom API's plug-in step as asynchronous so that the call returns at once.",
+        "B": "Send the request with the header Prefer: respond-async, keep the Location URL from the 202 Accepted response, and poll that status monitor until it reports completion.",
+        "C": "Raise the requests time-out to 300 seconds.",
+        "D": "Ask Dana to raise the plug-in execution limit to five minutes in Cedar-Test."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"must not hold its HTTP connection\" and \"know when finished\", preview allowed: background operations.",
+      "why": "With Prefer: respond-async, Dataverse accepts the request as a background operation and returns 202 with a Location status monitor. The script polls it (or uses the other completion options) instead of waiting. The 2-minute limit still applies to the plug-in.",
+      "distractors": {
+        "A": "A custom API's main operation isn't an asynchronous step, and an asynchronous step returns nothing to the caller.",
+        "C": "The script still holds the connection for the whole run.",
+        "D": "There is no setting for the 2-minute plug-in limit."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-gate",
+        "D": "unsupported"
+      },
+      "names": {
+        "A": "async-plugin-step",
+        "B": "background-operation"
+      }
+    },
+    {
+      "id": "PB-27",
+      "objectives": [
+        "B-17"
+      ],
+      "lessons": [
+        105,
+        111
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The FieldLink sync function in func-cedar-fieldlink logs a custom event SyncFailed, with the subcontractor code, to appi-cedar-prod for every work order it can't sync. Sami must be told within 15 minutes when more than 20 work orders fail in an hour, with the subcontractor codes involved. What should Karim set up?",
+      "options": {
+        "A": "A Power Platform Monitor alert rule on the sync flows in Cedar-Prod.",
+        "B": "The Dataverse export to Application Insights with an alert on failed plug-in executions.",
+        "C": "A cloud flow that sends Sami a Teams message for each failed work order.",
+        "D": "An Azure Monitor log search alert on appi-cedar-prod: KQL over customEvents named SyncFailed in the last hour, summarised by subcontractor code, threshold more than 20, evaluated every 5 minutes, with an action group that notifies Sami."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"within 15 minutes\", \"more than 20 in an hour\" and \"own custom event\": a threshold over your own telemetry, in minutes.",
+      "why": "Custom events from your own code arrive in Application Insights within minutes. A log search alert evaluates a KQL threshold over a window on a schedule and can return the codes; an action group delivers the notification.",
+      "distractors": {
+        "A": "Monitor alert rules are evaluated every 24 hours on product metrics and don't see the function's events.",
+        "B": "The admin export can take up to a day, and sync failures in the function aren't plug-in failures.",
+        "C": "It notifies per failure instead of alerting on the threshold, and floods Sami during an outage."
+      },
+      "traps": {
+        "A": "late",
+        "B": "late",
+        "C": "wrong-detail"
+      },
+      "names": {
+        "A": "monitor-alert",
+        "B": "appinsights-export",
+        "C": "per-item-notification",
+        "D": "log-search-alert"
+      }
+    },
+    {
+      "id": "PB-28",
+      "objectives": [
+        "E-18"
+      ],
+      "lessons": [
+        76,
+        77
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Rafi needs a scheduled Python job, with no user present, that creates 5,000 visit rows in Dataverse each night. Which code is right?",
+      "options": {
+        "A": "InteractiveBrowserCredential and a loop that creates one row per request.",
+        "B": "CrmServiceClient with AuthType=Office365 and a stored password.",
+        "C": "DataverseClient(url, credential) from PowerPlatform-Dataverse-Client with an azure-identity certificate or client-secret credential for an application user, and one create call with the list of 5,000 records, which uses bulk messages.",
+        "D": "The requests library with the application user's password in a header."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"no user present\" and \"5,000 rows\": app-only credential and bulk create from the SDK.",
+      "why": "The Python SDK takes an azure-identity credential; an application user with a certificate or secret suits unattended jobs. Passing a list to create uses the bulk messages, keeping requests few.",
+      "distractors": {
+        "A": "Nobody is there to sign in, and one request per row is slow.",
+        "B": "That client and authentication type are retired; passwords aren't used for services.",
+        "D": "Application users have no password; tokens come from Entra ID."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "B": "legacy-preview",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-29",
+      "objectives": [
+        "U-17",
+        "B-19"
+      ],
+      "lessons": [
+        46,
+        63
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "In Cedar-Test the Dispatch Planner must read work orders from a different SharePoint site and list than in Cedar-Dev (data-source arguments), and the FieldLink map base URL also differs per environment. Which design is right?",
+      "options": {
+        "A": "Hard-code both values and build the app once per environment.",
+        "B": "@envvar:<schema name> references for the SharePoint dataset and table in power.config.json, the map URL read at runtime from the Dataverse environment variable tables, and the values set per environment in the deployment settings file.",
+        "C": "Both values in a .env file bundled with the app.",
+        "D": "A connection reference for the map URL and an @envvar reference for the FieldLink API key."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"data-source arguments\" differ per environment: @envvar; other settings: environment variables read at runtime.",
+      "why": "Environment variables hold settings that differ per environment; their values come from the deployment settings file. Code apps can reference them for data-source arguments with @envvar:, and other settings are read from the environment variable tables. Re-check the Learn pages: their wording changed in 2026.",
+      "distractors": {
+        "A": "Builds per environment break the \"same artifact everywhere\" rule of the pipeline.",
+        "C": "A bundled file is fixed at build time and is public.",
+        "D": "Connection references bind connections, not URLs, and a key in a code app is public."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-place",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-30",
+      "objectives": [
+        "I-10",
+        "I-13"
+      ],
+      "lessons": [
+        94
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink publishes an OpenAPI 3.0 definition of 2.4 MB with 160 operations. Karim needs a custom connector with three of them: ListSubcontractors, CreateJob and GetJob. CreateJob's priority parameter takes Low, Normal or High, values FieldLink hasn't changed in years. What should he do?",
+      "options": {
+        "A": "Convert the definition to OpenAPI 2.0, trim it to the three operations (well below 1 MB), import it, and declare priority with enum: [Low, Normal, High].",
+        "B": "Import the 3.0 file as it is from its URL, and add x-ms-dynamic-values on priority.",
+        "C": "Convert and trim, then add x-ms-dynamic-values on priority calling a new ListPriorities operation that FieldLink would have to build.",
+        "D": "Use Import from GitHub with the URL of FieldLink's own repository."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"3.0\", \"2.4 MB\", \"three of them\" and values that \"haven't changed in years\".",
+      "why": "Custom connectors import OpenAPI 2.0 files below 1 MB, so convert and trim first. A small fixed list belongs in an enum; x-ms-dynamic-values is for lists that change and come from another operation.",
+      "distractors": {
+        "B": "Imports need OpenAPI 2.0 below 1 MB, and there is no operation that returns priorities.",
+        "C": "A fixed list that never changes doesn't need a runtime lookup.",
+        "D": "Import from GitHub reads connectors from the PowerPlatformConnectors repository, not any repository."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "too-custom",
+        "D": "wrong-detail"
+      },
+      "names": {
+        "A": "openapi-enum",
+        "B": "openapi-import",
+        "C": "dynamic-values",
+        "D": "github-import"
+      }
+    },
+    {
+      "id": "PB-31",
+      "objectives": [
+        "E-23"
+      ],
+      "lessons": [
+        83,
+        84
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The flow \"Cedar – Dispatch to FieldLink\" has a Try scope. A Catch scope must run when any action in Try fails or times out, post the failed action's error to Teams, and the run must still show as Failed. How should Karim configure Catch?",
+      "options": {
+        "A": "Catch runs after Try \"has failed\" only and ends with Terminate (Succeeded).",
+        "B": "Remove Catch and set a retry policy of four on every action.",
+        "C": "Put Terminate (Failed) inside the Apply to each in Try.",
+        "D": "Catch runs after Try \"has failed\" and \"has timed out\", finds the failed actions with result('Try'), posts to Teams, then ends with Terminate (Failed)."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"fails or times out\", \"post the error\", \"still show as Failed\".",
+      "why": "Configure run after for both failure states, read the scope's results with result('Try'), and terminate as Failed so monitoring sees the failure.",
+      "distractors": {
+        "A": "A timed-out action is missed, and the run looks successful.",
+        "B": "Retries help with transient errors only; nothing reports a permanent failure.",
+        "C": "Terminate can't be used inside loops, and it would skip the Teams post."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "wrong-gate",
+        "C": "unsupported"
+      }
+    },
+    {
+      "id": "PB-32",
+      "objectives": [
+        "U-18"
+      ],
+      "lessons": [
+        64
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The Dispatch Planner must show FieldLink's live map page, https://maps.fieldlink.example, in an iframe on its Route tab. Content Security Policy enforcement for code apps is on in Cedar-Prod. Which directive must Dana extend?",
+      "options": {
+        "A": "frame-ancestors, with https://maps.fieldlink.example.",
+        "B": "connect-src, with https://maps.fieldlink.example.",
+        "C": "frame-src, with https://maps.fieldlink.example.",
+        "D": "Turn enforcement off for code apps and keep reporting on."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"the app shows … in an iframe\": the app is the parent, so frame-src.",
+      "why": "frame-src controls which origins the app may load into frames; frame-ancestors controls who may frame the app. Custom values are added to the defaults for that directive.",
+      "distractors": {
+        "A": "frame-ancestors lists the pages that may embed the app, not the pages the app embeds.",
+        "B": "connect-src governs fetch, XHR and WebSocket calls, not frames.",
+        "D": "It removes the protection instead of allowing one origin."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "wrong-detail",
+        "D": "unsafe"
+      },
+      "names": {
+        "A": "csp-frame-ancestors",
+        "B": "csp-connect-src",
+        "C": "csp-frame-src"
+      }
+    },
+    {
+      "id": "PB-33",
+      "objectives": [
+        "B-20"
+      ],
+      "lessons": [
+        45
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "CedarServiceCore 3.4 (managed) was imported into Cedar-Test, but the Case main form still shows the old tab layout. The form's solution layers show an Active (unmanaged) layer above CedarServiceCore; Dana confirms someone edited the form directly in Cedar-Test last week. What should Karim do so the managed form takes effect?",
+      "options": {
+        "A": "Publish all customizations in Cedar-Test.",
+        "B": "Import CedarServiceCore 3.4 again as an update.",
+        "C": "Remove the active (unmanaged) layer of the Case main form from its solution layers, then check the form.",
+        "D": "Raise the version to 3.5 and import it as an upgrade."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"Active (unmanaged) layer above\" the managed one: the unmanaged layer wins until it's removed.",
+      "why": "The runtime shows the top layer. An unmanaged change sits in the active layer above every managed solution, so the fix is to remove that active customization (and stop editing in Test).",
+      "distractors": {
+        "A": "Publishing makes the unmanaged layer visible; it doesn't remove it.",
+        "B": "A re-import changes the managed layer, which stays below the active layer.",
+        "D": "An upgrade also changes only managed layers; the active layer still wins."
+      },
+      "traps": {
+        "A": "wrong-gate",
+        "B": "wrong-gate",
+        "D": "wrong-gate"
+      }
+    },
+    {
+      "id": "PB-34",
+      "objectives": [
+        "E-25"
+      ],
+      "lessons": [
+        84
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Three flows in CedarServiceCore need the same \"Create FieldLink job\" steps, which use the FieldLink Jobs custom connector. Karim moves them into a child flow. What must be true?",
+      "options": {
+        "A": "The child has an HTTP request trigger, and the parents call its URL with an HTTP action.",
+        "B": "The child uses \"Manually trigger a flow\" and \"Respond to a Power App or flow\", is in the same solution, is called with Run a Child Flow, and its FieldLink connection is set to the embedded connection under Run only users.",
+        "C": "The parents pass their FieldLink connection to the child as an input.",
+        "D": "The child stays outside any solution so every maker can edit it."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"same steps … three flows\" in a solution: a child flow with the right trigger, response and connections.",
+      "why": "Child flows are solution-aware, start with the manual trigger, return with Respond to a Power App or flow, and use their own connections, set in Run only users for non-Dataverse connectors.",
+      "distractors": {
+        "A": "It adds a public URL and signature to manage; Run a Child Flow already exists.",
+        "C": "Connections can't be passed as inputs.",
+        "D": "Child flows must be solution-aware to be called with Run a Child Flow."
+      },
+      "traps": {
+        "A": "too-custom",
+        "C": "unsupported",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-35",
+      "objectives": [
+        "U-19"
+      ],
+      "lessons": [
+        64
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim adds Application Insights telemetry to the Dispatch Planner. Which implementation follows the code apps guidance?",
+      "options": {
+        "A": "Add the snippet that loads the SDK from the CDN to index.html, and give the connection string through an @envvar reference.",
+        "B": "Log every coordinator's name and email in custom events to find slow users.",
+        "C": "Create a new Application Insights client in every component's render.",
+        "D": "Install the npm package (served from 'self'), initialise it once at start-up, forward sessionLoadSummary and networkRequest from setConfig({ logger: { logMetric } }), add the ingestion origin to connect-src, and log no personal data."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"follows the code apps guidance\": npm SDK, one initialisation, platform metrics through the logger, CSP for ingestion.",
+      "why": "The code apps page shows an npm-based setup with the platform's logger callback forwarding load and request metrics. Telemetry calls the ingestion endpoint, so connect-src must allow it.",
+      "distractors": {
+        "A": "Scripts from a CDN break the default script-src, and @envvar is for data-source arguments, not runtime settings.",
+        "B": "Telemetry must not carry personal data; use pseudonymous IDs.",
+        "C": "One client initialised once avoids duplicate sessions and wasted requests."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "B": "unsafe",
+        "C": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-36",
+      "objectives": [
+        "E-26"
+      ],
+      "lessons": [
+        29,
+        85
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Dana creates a \"Connect with service principal\" Dataverse connection in Cedar-Test with the app registration Cedar Automation (certificate) for the flow \"Cedar – Nightly SLA report\". The first run fails because the application isn't a user of the Cedar-Test organization. What should she do?",
+      "options": {
+        "A": "Create an application user for Cedar Automation's application (client) ID in Cedar-Test and assign it the least-privilege role Cedar Automation.",
+        "B": "Add the Dynamics CRM user_impersonation API permission to the app registration and grant admin consent.",
+        "C": "Give the app registration the Contributor role on the Azure subscription.",
+        "D": "Share her own Dataverse connection with the flow instead."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"isn't a user of the organization\": the identity reached Dataverse but has no application user.",
+      "why": "A service principal needs an application user in each environment, with a security role, before Dataverse lets it in. API permissions and Azure roles are different gates.",
+      "distractors": {
+        "B": "Entra API permissions don't create the Dataverse user that roles attach to.",
+        "C": "Azure roles govern Azure resources, not Dataverse.",
+        "D": "The flow would run as Dana with her privileges."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-gate",
+        "D": "unsafe"
+      },
+      "names": {
+        "A": "application-user",
+        "B": "api-permission",
+        "C": "azure-rbac",
+        "D": "shared-connection"
+      }
+    },
+    {
+      "id": "PB-37",
+      "objectives": [
+        "I-14"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "In the FieldLink Jobs connector, GetJob returns times as Unix seconds and nests the address three levels deep. Makers want ISO 8601 times and a flat address in every flow, without changes at FieldLink. Which two statements about a custom code (C#) solution are true?",
+      "options": {
+        "A": "The script can write each response to Application Insights for troubleshooting.",
+        "B": "A Script class deriving from ScriptBase overrides ExecuteAsync, calls this.Context.SendAsync to forward the request, and rewrites the response JSON.",
+        "C": "The script can reach FieldLink through the on-premises data gateway.",
+        "D": "The script must finish within the documented time limit (2 minutes for new connectors when checked) and handle messages up to 1 MB.",
+        "E": "A Set property policy template can compute the ISO dates from Unix seconds without code."
+      },
+      "answer": [
+        "B",
+        "D"
+      ],
+      "signal": "\"Unix seconds → ISO 8601\" and \"flatten\": a computation on the response, which needs code.",
+      "why": "Custom code runs a ScriptBase class that forwards the request with SendAsync and reshapes the request or response. It has documented limits (time, size, one script per connector, no gateway, no logging).",
+      "distractors": {
+        "A": "Custom code has no logging support.",
+        "C": "Connectors with custom code can't use a gateway.",
+        "E": "Policy templates (several in preview) set or move values; they can't compute a conversion."
+      },
+      "traps": {
+        "A": "unsupported",
+        "C": "unsupported",
+        "E": "legacy-preview"
+      }
+    },
+    {
+      "id": "PB-38",
+      "objectives": [
+        "B-22"
+      ],
+      "lessons": [
+        48
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim's Azure DevOps build pipeline for CedarServiceCore must produce a managed solution from the unpacked files in Git and stop when the solution checker reports critical issues. Which task order is right?",
+      "options": {
+        "A": "Power Platform Tool Installer → Power Platform Pack Solution (managed) → Power Platform Checker (fail on critical) → Publish Pipeline Artifact.",
+        "B": "Power Platform Export Solution from Cedar-Dev → Power Platform Checker → Publish Pipeline Artifact.",
+        "C": "Pack Solution → Import Solution into Cedar-Test → Power Platform Checker.",
+        "D": "Power Platform Checker → Tool Installer → Pack Solution."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"from the unpacked files in Git\" and \"stop when … critical\": pack from source, check before release.",
+      "why": "Every Build Tools job starts with the Tool Installer. A build packs the solution from source, runs the checker on the packed file and publishes the artifact for release stages.",
+      "distractors": {
+        "B": "It builds from the development environment, not from source control, so the artifact isn't reproducible.",
+        "C": "The checker must stop a bad build before anything is imported.",
+        "D": "The Tool Installer must run first in every job, and there is nothing to check before packing."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "late",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-39",
+      "objectives": [
+        "U-21"
+      ],
+      "lessons": [
+        64,
+        106
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "After a release, two coordinators can't open the Dispatch Planner at all, and others say the Subcontractor list stays empty. Which two steps should Karim take first?",
+      "options": {
+        "A": "Query Application Insights for the two users' sessions to see why the app didn't load.",
+        "B": "Check Monitor in the Power Platform admin center for the app's open failures and their error codes for those users.",
+        "C": "Remove and re-share the app with every coordinator.",
+        "D": "Turn off CSP enforcement to see whether the list appears.",
+        "E": "In browser DevTools, read the Console for CSP violations and the Network tab for the failing request to the connector (apihub) host."
+      },
+      "answer": [
+        "B",
+        "E"
+      ],
+      "signal": "\"can't open\" (platform side) and \"list stays empty\" (in the browser): two different tools.",
+      "why": "Monitor records app opens and error codes, including those that never load. DevTools shows what the loaded app does: CSP messages in the Console, request hosts and status codes in Network.",
+      "distractors": {
+        "A": "Telemetry starts after the app loads; a launch failure leaves nothing to query.",
+        "C": "Sharing isn't shown to be the cause; it changes many users to test one guess.",
+        "D": "It removes a protection in production; the browser console shows CSP violations directly."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-gate",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-40",
+      "objectives": [
+        "E-29",
+        "B-16"
+      ],
+      "lessons": [
+        101,
+        102
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim's Foundry agent Cedar Dispatch Advisor must answer coordinators' questions about work orders from Dataverse data through Work IQ, showing only rows each coordinator may see. Which identity design is right?",
+      "options": {
+        "A": "The agent calls Work IQ with its own app-only token, which sees every work order, and filters the rows in its prompt.",
+        "B": "The agent uses a System Administrator application user and instructions that say \"only show the user's own work orders\".",
+        "C": "The agent calls Work IQ on behalf of the signed-in coordinator (a delegated, on-behalf-of token), so Dataverse security decides what is returned.",
+        "D": "The agent stores each coordinator's password and signs in as them."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"only rows each coordinator may see\": the user's own identity on every hop.",
+      "why": "Work IQ answers with the caller's permissions and supports delegated (including on-behalf-of) access. The design question per hop is whose identity is used; here it must be the coordinator's. Work IQ was in preview when checked.",
+      "distractors": {
+        "A": "Work IQ is delegated only, and a prompt isn't a security boundary.",
+        "B": "It reads everything and relies on instructions for security.",
+        "D": "Passwords must never be collected; delegated tokens exist for this."
+      },
+      "traps": {
+        "A": "unsupported",
+        "B": "too-broad",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "PB-41",
+      "objectives": [
+        "E-21",
+        "E-20"
+      ],
+      "lessons": [
+        87
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Solution: a timer trigger with the schedule \"0 30 1 * * *\"; the function reads the app registration's client secret from an application setting and uses ClientSecretCredential; it logs a warning when the timer's IsPastDue is true. Does the solution meet the goal?",
+      "options": {
+        "A": "Yes",
+        "B": "No"
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"without any stored secret\": a client secret in an app setting fails that part.",
+      "why": "The schedule is a valid six-field NCRONTAB expression and IsPastDue records late runs, but a client secret in settings is a stored secret. A managed identity with an application user meets the goal.",
+      "distractors": {
+        "A": "The client secret is a stored secret, which the goal rules out; a managed identity needs none."
+      },
+      "traps": {
+        "A": "unsafe"
+      }
+    },
+    {
+      "id": "PB-42",
+      "objectives": [
+        "E-20"
+      ],
+      "lessons": [
+        87
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Solution: a timer trigger with the schedule \"30 1 * * *\"; a system-assigned managed identity registered as an application user in Cedar-Prod; a warning logged when IsPastDue is true. Does the solution meet the goal?",
+      "options": {
+        "A": "Yes",
+        "B": "No"
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "Count the fields: \"30 1 * * *\" has five.",
+      "why": "Identity and late-run logging are right, but the schedule is a five-field cron expression. Azure Functions expects {second} {minute} {hour} {day} {month} {day-of-week}: \"0 30 1 * * *\".",
+      "distractors": {
+        "A": "Azure Functions timers use six-field NCRONTAB expressions (seconds first); a five-field expression doesn't schedule 01:30."
+      },
+      "traps": {
+        "A": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-43",
+      "objectives": [
+        "E-21"
+      ],
+      "lessons": [
+        87
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Solution: a timer trigger with the schedule \"0 30 1 * * *\"; a system-assigned managed identity registered as an application user in Cedar-Prod with a least-privilege role; ManagedIdentityCredential requesting https://<org>.crm.dynamics.com/.default for the Dataverse client; a warning logged when IsPastDue is true. Does the solution meet the goal?",
+      "options": {
+        "A": "Yes",
+        "B": "No"
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "Check each part of the goal: schedule, no secret, late runs recorded.",
+      "why": "The six-field schedule runs at 01:30 UTC, the managed identity needs no secret once it has an application user and role, and IsPastDue marks late runs.",
+      "distractors": {
+        "B": "Every part is met: valid six-field schedule, no stored secret, application user with a role, and late runs recorded."
+      },
+      "traps": {
+        "B": "wrong-detail"
+      }
+    },
+    {
+      "id": "PB-44",
+      "objectives": [
+        "B-01"
+      ],
+      "lessons": [
+        41,
+        109
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Requirement 4: which component list meets requirements 1–3?",
+      "options": {
+        "A": "(1) A canvas app; (2) an HTTP action with the API Management subscription key in each flow; (3) the agent calls the Dataverse Web API with a client secret in its code.",
+        "B": "(1) A code app in CedarServiceCore; (2) a custom connector created from API Management, with Entra ID authentication, in front of the function; (3) the Dataverse MCP server as an MCP tool of the agent, limited to approved read tools.",
+        "C": "(1) A code app; (2) a custom connector; (3) the agent reads a nightly CSV export of cedar_certificate from Blob Storage.",
+        "D": "(1) A generative page in the Cedar Service app; (2) a Power Automate HTTP trigger that runs the extraction in the flow; (3) a Copilot Studio agent replaces the Foundry agent."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "One component per requirement, each meeting every part of its requirement.",
+      "why": "List the responsibilities first (UI, API access for makers with user identity, agent data access with least privilege), then pick a component for each. Only option B keeps every requirement and adds no secrets.",
+      "distractors": {
+        "A": "Keys and secrets are copied into every flow and the agent, and a canvas app ignores the code app requirement.",
+        "C": "A nightly copy can be a day out of date when the agent proposes a subcontractor.",
+        "D": "Each part changes a requirement instead of meeting it: a code app was asked for, the function already exists, and the agent is Karim's Foundry agent."
+      },
+      "traps": {
+        "A": "unsafe",
+        "C": "late",
+        "D": "wrong-place"
+      },
+      "case": "CASE-6"
+    },
+    {
+      "id": "PB-45",
+      "objectives": [
+        "U-20"
+      ],
+      "lessons": [
+        63
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Requirement 1: how should Karim deploy and share Cedar Onboarding Desk?",
+      "options": {
+        "A": "Run pa app push against Cedar-Prod and share the app with the coordinators there.",
+        "B": "Connect the app to Power Platform Git integration and deploy from the repository.",
+        "C": "Build the app and publish the dist folder to a SharePoint site.",
+        "D": "pa app push with --solution-id to Cedar-Dev only; Cedar-Test and Cedar-Prod receive the managed CedarServiceCore solution through the pipeline with its deployment settings; share the app with the coordinators."
+      },
+      "answer": [
+        "D"
+      ],
+      "signal": "\"through the existing pipeline with CedarServiceCore\": push to Dev only, ALM onwards.",
+      "why": "pa app push publishes into a solution in the development environment; downstream environments get the managed solution through the pipeline. Users need a Premium-type licence, which the case states.",
+      "distractors": {
+        "A": "Production gets managed solutions from the pipeline, not pushes from a workstation.",
+        "B": "Code apps don't support Power Platform Git integration; use your own repository and the solution.",
+        "C": "A code app runs on Power Platform hosting, with its connections and sharing."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "B": "unsupported",
+        "C": "unsupported"
+      },
+      "case": "CASE-6"
+    },
+    {
+      "id": "PB-46",
+      "objectives": [
+        "E-27",
+        "B-11"
+      ],
+      "lessons": [
+        100
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Requirement 3: how should Cedar Dispatch Advisor reach the certificate data?",
+      "options": {
+        "A": "Add the Dataverse MCP server of Cedar-Prod as an MCP tool, allow the Foundry client for that environment, limit allowed_tools to the read tools Dana approves, and connect with an identity whose security role reads only cedar_certificate.",
+        "B": "Give the agent an application user with System Administrator and instruct it to read only cedar_certificate.",
+        "C": "Point the MCP tool at the server's SSE endpoint so answers stream.",
+        "D": "Build and host a new MCP server that wraps the Web API with a stored client secret."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"read access only and only to tables Dana approves\": least-privilege role plus a narrow tool list on the platform's MCP server.",
+      "why": "The Dataverse MCP server exposes tools over Dataverse with the caller's security roles. Clients other than Copilot Studio are enabled per environment, and the agent's MCP tool can restrict allowed tools. An MCP server suits agents; a custom connector suits flows and apps.",
+      "distractors": {
+        "B": "Instructions don't limit a System Administrator; the role and the tool list must.",
+        "C": "The Dataverse MCP server uses Streamable HTTP.",
+        "D": "The platform already offers a Dataverse MCP server with security roles applied."
+      },
+      "traps": {
+        "B": "too-broad",
+        "C": "unsupported",
+        "D": "too-custom"
+      },
+      "case": "CASE-6"
+    },
+    {
+      "id": "PB-47",
+      "objectives": [
+        "I-11"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Requirement 2: how should Karim give makers a connector for Cedar Certificates?",
+      "options": {
+        "A": "Export the API's OpenAPI definition from API Management, edit it by hand, and import it as a new connector.",
+        "B": "Give makers the subscription key so they can call the API with the HTTP action.",
+        "C": "In apim-cedar-prod, open APIs → Cedar Certificates → Power Platform → Create a connector, choose the environment, select OAuth (Microsoft Entra ID), then add the connector to CedarConnectors.",
+        "D": "Create a webhook service endpoint for the function in the Plug-in Registration Tool."
+      },
+      "answer": [
+        "C"
+      ],
+      "signal": "\"published in Azure API Management\" and \"makers … from flows and the code app\": create the connector from API Management.",
+      "why": "API Management can export an API directly as a Power Platform custom connector into an environment, with a subscription key or OAuth. The connector then joins the connectors solution for ALM.",
+      "distractors": {
+        "A": "API Management can create the connector directly and update it later from the same place.",
+        "B": "The key spreads into every flow and identifies no user.",
+        "D": "Webhook endpoints send Dataverse events; makers need actions to call."
+      },
+      "traps": {
+        "A": "too-custom",
+        "B": "unsafe",
+        "D": "wrong-place"
+      },
+      "case": "CASE-6"
+    },
+    {
+      "id": "PB-48",
+      "objectives": [
+        "I-12"
+      ],
+      "lessons": [
+        87,
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Requirement 2: how should the CertificateReader function be secured so that it knows which coordinator asked?",
+      "options": {
+        "A": "Require a function key and configure it as the connector's API key.",
+        "B": "Turn on App Service authentication (Microsoft Entra ID) for the function app, have the user's token forwarded through API Management from the OAuth connector, read the coordinator from X-MS-CLIENT-PRINCIPAL, and read the document-analysis key from kv-cedar-prod with the function's managed identity.",
+        "C": "Allow anonymous calls and pass the coordinator's email as a query parameter.",
+        "D": "Have the connector send the document-analysis key in a header with each call."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"must know which coordinator asked\": the user's token must reach the function.",
+      "why": "App Service authentication validates Entra ID tokens and passes the user to the code in X-MS-CLIENT-PRINCIPAL. Secrets stay in Key Vault, read with the function's managed identity.",
+      "distractors": {
+        "A": "A function key proves the caller has the key, not who the user is.",
+        "C": "Anyone can call it and claim to be anyone.",
+        "D": "The key would sit in every connection; it belongs in Key Vault behind the function."
+      },
+      "traps": {
+        "A": "wrong-gate",
+        "C": "unsafe",
+        "D": "unsafe"
+      },
+      "case": "CASE-6"
+    }
+  ]
+}

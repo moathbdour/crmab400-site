@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">How the reconciliation decides for one work order</title>
+<desc id="d">A decision tree applied to each work order of the Cedar mirror against FieldLink's snapshot. First question: is the work order inactive? If yes and FieldLink still has an open job with its FieldLink ID, rule R9, resend the cancel event. Second: does FieldLink have more than one open job for the work order number? If yes, R6, park. Third: does the work order have a FieldLink ID? If not: if FieldLink has an open job for the number and Cedar shows Not sent or Sent, R2, link the FieldLink ID by the work order number key with If-Match star; otherwise if the request stamp is older than 15 minutes, R1, replay the dispatch by calling cedar_RequestDispatch again, which resends with the same Request ID. If the work order has a FieldLink ID: if the ID is not in the snapshot and the link is older than the snapshot by more than an hour, R4, park. If FieldLink's job carries another work order number, R5, park. If FieldLink's status word is unknown, R7, park. If FieldLink is ahead or rejected, R3, apply the status by the FieldLink ID key with the row's ETag. If Cedar is ahead, R7, park. If both are Sent or Accepted and the scheduled times differ by more than a minute, R8, resend the reschedule event. Finally, open FieldLink jobs for work order numbers Cedar does not know are R4, park. Green boxes are repaired automatically with repeatable requests, red boxes are parked as Integration issues for people; above 25 planned repairs, nothing is repaired.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.q{fill:#deecf9}.g{fill:#dff6dd}.r{fill:#fde7e9}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">One work order through the rules (mirror vs snapshot)</text>
+
+<rect class="box q" x="20" y="44" width="250" height="40" rx="6"/><text x="32" y="69">Inactive in Cedar?</text>
+<rect class="box g" x="300" y="44" width="330" height="40" rx="6"/><text class="s" x="312" y="68">R9 open job at FieldLink → resend cancel event</text>
+<line class="ln" x1="270" y1="64" x2="296" y2="64" marker-end="url(#a)"/><text class="s" x="274" y="58">yes</text>
+
+<rect class="box q" x="20" y="104" width="250" height="40" rx="6"/><text x="32" y="129">2+ open jobs for the number?</text>
+<rect class="box r" x="300" y="104" width="330" height="40" rx="6"/><text class="s" x="312" y="128">R6 duplicate jobs → park</text>
+<line class="ln" x1="270" y1="124" x2="296" y2="124" marker-end="url(#a)"/><text class="s" x="274" y="118">yes</text>
+<line class="ln" x1="145" y1="84" x2="145" y2="100" marker-end="url(#a)"/>
+
+<rect class="box q" x="20" y="164" width="250" height="40" rx="6"/><text x="32" y="189">FieldLink ID on the work order?</text>
+<line class="ln" x1="145" y1="144" x2="145" y2="160" marker-end="url(#a)"/>
+
+<text class="s" x="300" y="182">no</text>
+<rect class="box q" x="330" y="164" width="300" height="40" rx="6"/><text class="s" x="342" y="189">open job for the number, Cedar Not sent/Sent?</text>
+<rect class="box g" x="660" y="164" width="320" height="40" rx="6"/><text class="s" x="672" y="188">R2 link: PATCH by number key, If-Match *</text>
+<line class="ln" x1="270" y1="184" x2="326" y2="184" marker-end="url(#a)"/><line class="ln" x1="630" y1="184" x2="656" y2="184" marker-end="url(#a)"/>
+<rect class="box q" x="330" y="220" width="300" height="40" rx="6"/><text class="s" x="342" y="245">else: Not sent, stamp older than 15 min?</text>
+<rect class="box g" x="660" y="220" width="320" height="40" rx="6"/><text class="s" x="672" y="244">R1 replay: cedar_RequestDispatch again</text>
+<line class="ln" x1="480" y1="204" x2="480" y2="216" marker-end="url(#a)"/><line class="ln" x1="630" y1="240" x2="656" y2="240" marker-end="url(#a)"/>
+
+<text class="s" x="150" y="228">yes</text>
+<rect class="box q" x="20" y="290" width="250" height="40" rx="6"/><text class="s" x="32" y="315">ID missing in the snapshot?</text>
+<rect class="box r" x="300" y="290" width="330" height="40" rx="6"/><text class="s" x="312" y="314">R4 (link older than snapshot − 1 h) → park</text>
+<line class="ln" x1="145" y1="204" x2="145" y2="286" marker-end="url(#a)"/><line class="ln" x1="270" y1="310" x2="296" y2="310" marker-end="url(#a)"/>
+
+<rect class="box q" x="20" y="350" width="250" height="40" rx="6"/><text class="s" x="32" y="375">job has another WO number?</text>
+<rect class="box r" x="300" y="350" width="330" height="40" rx="6"/><text class="s" x="312" y="374">R5 mismatch → park</text>
+<line class="ln" x1="145" y1="330" x2="145" y2="346" marker-end="url(#a)"/><line class="ln" x1="270" y1="370" x2="296" y2="370" marker-end="url(#a)"/>
+
+<rect class="box q" x="20" y="410" width="250" height="40" rx="6"/><text class="s" x="32" y="435">compare status words</text>
+<line class="ln" x1="145" y1="390" x2="145" y2="406" marker-end="url(#a)"/>
+<rect class="box r" x="300" y="410" width="210" height="40" rx="6"/><text class="s" x="312" y="434">unknown word → R7 park</text>
+<rect class="box g" x="520" y="410" width="230" height="40" rx="6"/><text class="s" x="530" y="428">FieldLink ahead/rejected →</text><text class="s" x="530" y="444">R3 apply, by key + ETag</text>
+<rect class="box r" x="760" y="410" width="220" height="40" rx="6"/><text class="s" x="772" y="434">Cedar ahead → R7 park</text>
+<line class="ln" x1="270" y1="430" x2="296" y2="430" marker-end="url(#a)"/>
+
+<rect class="box q" x="20" y="470" width="250" height="40" rx="6"/><text class="s" x="32" y="495">Sent/Accepted, times differ?</text>
+<rect class="box g" x="300" y="470" width="330" height="40" rx="6"/><text class="s" x="312" y="494">R8 resend reschedule event (id from the fact)</text>
+<line class="ln" x1="145" y1="450" x2="145" y2="466" marker-end="url(#a)"/><line class="ln" x1="270" y1="490" x2="296" y2="490" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="530" width="960" height="56" rx="8" fill="#ffffff"/>
+<text class="s" x="32" y="552">Then for FieldLink's side: an open job whose number Cedar does not know → R4 park. Green: repaired with repeatable requests (key, If-Match, ETag,</text>
+<text class="s" x="32" y="572">same Request ID or message id). Red: parked as Integration issues (upsert by key cedar_issuekey). More than 25 repairs planned → nothing repaired, all parked.</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="t d">
+<title id="t">Model Context Protocol: host, client, server and one exchange</title>
+<desc id="d">Left: an MCP host such as a Copilot Studio agent, a Foundry agent, Microsoft 365 Copilot or VS Code, containing the language model and an MCP client. Right: an MCP server, here the Cedar Dispatch MCP server C-56, offering tools, resources and prompts. Between them, JSON-RPC messages sent as HTTP POST requests to /mcp over the Streamable HTTP transport. Step 1 initialize: the client offers a protocol version and capabilities; the server answers with its name, version, capabilities and instructions. Step 2 tools/list: the server returns each tool's name, description, input schema, annotations such as readOnlyHint, and optional _meta.ui.resourceUri. Step 3: the model picks a tool and the client sends tools/call with the name and arguments; the server returns content as text, structuredContent and isError. Step 4: if the tool is bound to a UI, the host sends resources/read for the ui:// address and renders the returned HTML, of type text/html;profile=mcp-app, in a sandboxed frame. Bottom: transports. stdio runs the server as a local process, used by the PAC CLI MCP server and the Dataverse local proxy. Streamable HTTP is for remote servers such as the Dataverse MCP server at /api/mcp and Cedar's server. Server-sent events (SSE) is deprecated and no longer supported by Copilot Studio.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:17px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.life{stroke:#605e5c;stroke-width:1.5;stroke-dasharray:5 5}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="700" fill="#ffffff"/>
+<text class="h" x="20" y="30">MCP in one picture: who talks to whom, and what they say</text>
+
+<rect class="box" x="20" y="50" width="250" height="150" rx="8" fill="#dbe9f6"/>
+<text class="b" x="34" y="74">MCP host</text>
+<text x="34" y="96">Copilot Studio, Foundry agent,</text>
+<text x="34" y="116">Microsoft 365 Copilot, VS Code</text>
+<rect class="box" x="34" y="128" width="100" height="58" rx="6" fill="#ffffff"/><text x="44" y="152">Language</text><text x="44" y="172">model</text>
+<rect class="box" x="150" y="128" width="106" height="58" rx="6" fill="#fff4ce"/><text x="160" y="152">MCP client</text><text x="160" y="172">1 per server</text>
+
+<rect class="box" x="730" y="50" width="250" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="744" y="74">MCP server</text>
+<text x="744" y="96">Cedar Dispatch (C-56)</text>
+<rect class="box" x="744" y="110" width="70" height="76" rx="6" fill="#ffffff"/><text x="752" y="134">Tools</text><text class="s" x="752" y="154">actions</text><text class="s" x="752" y="172">to call</text>
+<rect class="box" x="822" y="110" width="76" height="76" rx="6" fill="#ffffff"/><text x="830" y="134">Resources</text><text class="s" x="830" y="154">data, UI</text><text class="s" x="830" y="172">to read</text>
+<rect class="box" x="906" y="110" width="68" height="76" rx="6" fill="#ffffff"/><text x="913" y="134">Prompts</text><text class="s" x="912" y="154">templates</text>
+
+<line class="life" x1="203" y1="200" x2="203" y2="560"/>
+<line class="life" x1="855" y1="200" x2="855" y2="560"/>
+<text class="s" x="330" y="222">JSON-RPC 2.0 in HTTP POST /mcp (Streamable HTTP)</text>
+
+<text class="b" x="215" y="252">1</text>
+<line class="ln" x1="210" y1="262" x2="848" y2="262" marker-end="url(#a)"/>
+<text x="235" y="256">initialize: protocolVersion, capabilities, clientInfo</text>
+<line class="ln" x1="848" y1="288" x2="210" y2="288" marker-end="url(#a)"/>
+<text x="400" y="306">result: serverInfo, capabilities, instructions, agreed version</text>
+
+<text class="b" x="215" y="338">2</text>
+<line class="ln" x1="210" y1="346" x2="848" y2="346" marker-end="url(#a)"/>
+<text x="235" y="340">tools/list</text>
+<line class="ln" x1="848" y1="370" x2="210" y2="370" marker-end="url(#a)"/>
+<text x="225" y="390">tools: name, description, inputSchema, annotations (readOnlyHint), _meta.ui.resourceUri</text>
+
+<text class="b" x="215" y="424">3</text>
+<line class="ln" x1="210" y1="432" x2="848" y2="432" marker-end="url(#a)"/>
+<text x="235" y="426">tools/call: name rank_candidates, arguments {work_order_number}</text>
+<line class="ln" x1="848" y1="456" x2="210" y2="456" marker-end="url(#a)"/>
+<text x="330" y="476">result: content (text), structuredContent, isError</text>
+
+<text class="b" x="215" y="510">4</text>
+<line class="ln" x1="210" y1="518" x2="848" y2="518" marker-end="url(#a)"/>
+<text x="235" y="512">resources/read ui://cedar-dispatch/candidates-card.html</text>
+<line class="ln" x1="848" y1="542" x2="210" y2="542" marker-end="url(#a)"/>
+<text x="225" y="560">HTML, type text/html;profile=mcp-app: the host renders it in a sandboxed frame</text>
+
+<text class="b" x="20" y="600">Transports</text>
+<rect class="box" x="20" y="612" width="300" height="70" rx="6" fill="#f3f2f1"/>
+<text class="b" x="32" y="634">stdio (local process)</text>
+<text class="s" x="32" y="654">PAC CLI MCP server, Dataverse local</text>
+<text class="s" x="32" y="672">proxy (npx @microsoft/dataverse)</text>
+<rect class="box" x="340" y="612" width="330" height="70" rx="6" fill="#dff6dd"/>
+<text class="b" x="352" y="634">Streamable HTTP (remote)</text>
+<text class="s" x="352" y="654">Dataverse https://&lt;org&gt;.crm.dynamics.com/api/mcp,</text>
+<text class="s" x="352" y="672">Cedar C-56; the only one Copilot Studio uses</text>
+<rect class="box" x="690" y="612" width="290" height="70" rx="6" fill="#fde7e9"/>
+<text class="b" x="702" y="634">SSE (deprecated)</text>
+<text class="s" x="702" y="654">Not supported by Copilot Studio</text>
+<text class="s" x="702" y="672">since August 2025: don't build on it</text>
+</svg>

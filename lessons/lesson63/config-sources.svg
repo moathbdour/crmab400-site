@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" role="img" aria-labelledby="t d">
+<title id="t">Where C-23 gets environment-specific configuration</title>
+<desc id="d">Three mechanisms. Connection references map each connector data source to a connection per environment. Environment variable references with the @envvar prefix in pa app add data-source store variable names instead of SharePoint site and list values in power.config.json, resolved in each environment. Runtime settings such as the agent name and choice values are read by the app from the Dataverse tables environmentvariabledefinition and environmentvariablevalue, current value first, then default. Secrets are never read by the app; they stay in Key Vault behind flows or connectors. Nothing environment-specific is compiled into the bundle.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="540" fill="#ffffff"/>
+<rect class="box" x="20" y="20" width="270" height="200" rx="8" fill="#dff6dd"/>
+<text class="h" x="34" y="48">1 Connection references</text>
+<text class="s" x="34" y="74">cedar_Office365Users</text>
+<text class="s" x="34" y="96">cedar_CopilotStudio</text>
+<text class="s" x="34" y="118">cedar_SharePointInvoices</text>
+<text class="s" x="34" y="146">power.config.json stores the</text>
+<text class="s" x="34" y="166">reference; each environment</text>
+<text class="s" x="34" y="186">maps it (settings file)</text>
+<rect class="box" x="315" y="20" width="270" height="200" rx="8" fill="#deecf9"/>
+<text class="h" x="329" y="48">2 @envvar: in data sources</text>
+<text class="s" x="329" y="74">--dataset "@envvar:cedar_InvoiceSite"</text>
+<text class="s" x="329" y="96">--table "@envvar:cedar_InvoiceList"</text>
+<text class="s" x="329" y="124">config keeps the NAME;</text>
+<text class="s" x="329" y="146">value resolved per environment</text>
+<text class="s" x="329" y="174">pa app list-environment-variables</text>
+<rect class="box" x="610" y="20" width="270" height="200" rx="8" fill="#fff4ce"/>
+<text class="h" x="624" y="48">3 Runtime settings</text>
+<text class="s" x="624" y="74">cedar_DispatchSettings (JSON)</text>
+<text class="s" x="624" y="96">read from Dataverse tables</text>
+<text class="s" x="624" y="118">environmentvariabledefinition</text>
+<text class="s" x="624" y="140">environmentvariablevalue</text>
+<text class="s" x="624" y="166">current value → default value</text>
+<text class="s" x="624" y="188">agentName, completedValue, …</text>
+<rect class="box" x="220" y="280" width="460" height="100" rx="8" fill="#deecf9"/>
+<text class="h" x="234" y="308">C-23 Dispatch Planner (same build everywhere)</text>
+<text class="s" x="234" y="334">Cedar-Dev · Cedar-Test · Cedar-Prod</text>
+<text class="s" x="234" y="358">no environment values compiled into the bundle</text>
+<line class="a" x1="155" y1="220" x2="300" y2="278"/>
+<line class="a" x1="450" y1="220" x2="450" y2="278"/>
+<line class="a" x1="745" y1="220" x2="600" y2="278"/>
+<rect class="box" x="20" y="420" width="860" height="100" rx="8" fill="#fde7e9"/>
+<text class="h" x="34" y="448">Never in the app</text>
+<text class="s" x="34" y="474">Secret environment variables (cedar_FieldLinkClientSecret → Key Vault) are used only by flows, connectors or functions.</text>
+<text class="s" x="34" y="498">App assets are publicly hosted: a value in the bundle is a value anyone can download.</text>
+</svg>

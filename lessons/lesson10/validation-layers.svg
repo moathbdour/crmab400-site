@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t">
+<title id="t">Where Dataverse column rules are enforced</title>
+<rect width="900" height="470" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="450" y="32" text-anchor="middle" font-size="20" font-weight="bold">Where does a Site column rule get enforced?</text>
+<rect x="20" y="60" width="200" height="70" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="120" y="90" text-anchor="middle" font-weight="bold">Omar on a form</text>
+<text x="120" y="112" text-anchor="middle">model-driven app</text>
+<rect x="20" y="160" width="200" height="70" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="120" y="190" text-anchor="middle" font-weight="bold">Cloud flow</text>
+<text x="120" y="212" text-anchor="middle">Dataverse connector</text>
+<rect x="20" y="260" width="200" height="70" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="120" y="290" text-anchor="middle" font-weight="bold">Karim's script</text>
+<text x="120" y="312" text-anchor="middle">Web API / SDK / FieldLink</text>
+<rect x="270" y="60" width="250" height="70" rx="8" fill="#fff4e0" stroke="#a86500"/>
+<text x="395" y="88" text-anchor="middle" font-weight="bold">Layer 1: app/form only</text>
+<text x="395" y="110" text-anchor="middle">Business required, form rules</text>
+<line x1="220" y1="95" x2="266" y2="95" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<path d="M220 195 H245 V380 H266" fill="none" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<path d="M220 295 H240 V380" fill="none" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="395" y1="130" x2="395" y2="346" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="270" y="350" width="610" height="100" rx="8" fill="#e6f4ea" stroke="#1e7b34"/>
+<text x="575" y="378" text-anchor="middle" font-weight="bold">Layer 2: Dataverse server (every client)</text>
+<text x="575" y="402" text-anchor="middle">Data type, max length, min/max value, precision, valid choice value,</text>
+<text x="575" y="424" text-anchor="middle">alternate key uniqueness, plug-ins (lesson 65); table-scope business rules</text>
+<rect x="560" y="60" width="320" height="130" rx="8" fill="#fdecea" stroke="#b3261e"/>
+<text x="720" y="88" text-anchor="middle" font-weight="bold">Not enforced for scripts</text>
+<text x="720" y="112" text-anchor="middle">Business required can be bypassed</text>
+<text x="720" y="134" text-anchor="middle">by Web API and SDK calls: a Site</text>
+<text x="720" y="156" text-anchor="middle">without Site type is still saved.</text>
+<text x="720" y="178" text-anchor="middle">Need a hard rule? Use layer 2.</text>
+<text x="100" y="380" text-anchor="middle" font-size="14">Arrows: path a save</text>
+<text x="100" y="400" text-anchor="middle" font-size="14">takes to the database</text>
+</g>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" role="img" aria-labelledby="t">
+<title id="t">Which activities appear on the Harbor View account timeline</title>
+<rect width="980" height="440" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Harbor View account timeline: direct activities and rolled-up activities</text>
+<rect x="360" y="55" width="260" height="70" rx="8" fill="#dbe9f7" stroke="#1f4e79" stroke-width="2"/>
+<text x="490" y="84" text-anchor="middle" font-weight="bold">Account: Harbor View</text>
+<text x="490" y="108" text-anchor="middle">Timeline on the account form</text>
+<rect x="20" y="190" width="200" height="80" rx="8" fill="#e8f3e8" stroke="#2e6b30"/>
+<text x="32" y="216" font-weight="bold">Regarding = account</text>
+<text x="32" y="240">Email "Contract terms"</text>
+<text x="32" y="262">Shown directly</text>
+<rect x="250" y="190" width="220" height="80" rx="8" fill="#e8f3e8" stroke="#2e6b30"/>
+<text x="262" y="216" font-weight="bold">Contact: Rana Mansour</text>
+<text x="262" y="240">Phone call regarding Rana</text>
+<text x="262" y="262">Rolled up (system rel.)</text>
+<rect x="500" y="190" width="220" height="80" rx="8" fill="#e8f3e8" stroke="#2e6b30"/>
+<text x="512" y="216" font-weight="bold">Case: Chiller Building B</text>
+<text x="512" y="240">Tasks and emails on case</text>
+<text x="512" y="262">Rolled up (system rel.)</text>
+<rect x="750" y="190" width="210" height="80" rx="8" fill="#fde2e1" stroke="#a4262c" stroke-width="2"/>
+<text x="762" y="216" font-weight="bold">Site: HV-B (custom)</text>
+<text x="762" y="240">"Chiller down again" call</text>
+<text x="762" y="262">Rolls up only if Rollup</text>
+<line x1="120" y1="188" x2="400" y2="128" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="360" y1="188" x2="460" y2="128" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="610" y1="188" x2="520" y2="128" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="855" y1="188" x2="585" y2="128" stroke="#a4262c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a)"/>
+<text x="700" y="150" fill="#a4262c">dashed = depends on Rollup View</text>
+<rect x="20" y="310" width="940" height="110" rx="8" fill="#f3f3f3" stroke="#555"/>
+<text x="36" y="338" font-weight="bold">Rule to remember</text>
+<text x="36" y="362">An activity has one Regarding row. The account timeline also shows activities regarding child rows when the</text>
+<text x="36" y="384">relationship from account to that child has Rollup View = Cascade All (or Active / User-owned). Site → Account is a custom</text>
+<text x="36" y="406">1:N created in lesson 11, so check its Advanced options → Rollup View before promising Lina a single customer history.</text>
+</g>
+</svg>

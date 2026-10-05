@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+<title id="t">How a dataset component gets and uses its rows</title>
+<desc id="d">The Open dispatch – Sami view query runs on Dataverse; the host adds property-set columns and pages the result into context.parameters.workOrders; updateView reads sortedRecordIds and formatted values and renders cards; user actions call openDatasetItem, setSelectedRecordIds, loadNextPage or refresh, which lead to a new updateView.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="520" fill="#ffffff"/>
+<rect class="box" x="20" y="30" width="250" height="110" rx="8" fill="#dff6dd"/>
+<text class="h" x="34" y="58">View: Open dispatch – Sami</text>
+<text class="s" x="34" y="82">filter: Active, status Not sent/</text>
+<text class="s" x="34" y="100">Sent/Rejected; sort Scheduled for</text>
+<text class="s" x="34" y="122">columns + mapped property-sets</text>
+<rect class="box" x="325" y="30" width="250" height="110" rx="8" fill="#f3f2f1"/>
+<text class="h" x="339" y="58">Host (model-driven grid)</text>
+<text class="s" x="339" y="82">runs query as the signed-in user</text>
+<text class="s" x="339" y="100">pages rows (setPageSize 25)</text>
+<text class="s" x="339" y="122">security trims rows and columns</text>
+<rect class="box" x="630" y="30" width="250" height="110" rx="8" fill="#deecf9"/>
+<text class="h" x="644" y="58">context.parameters.workOrders</text>
+<text class="s" x="644" y="82">loading · error · columns</text>
+<text class="s" x="644" y="100">sortedRecordIds · records[id]</text>
+<text class="s" x="644" y="122">paging · sorting · filtering</text>
+<line class="a" x1="270" y1="85" x2="323" y2="85"/>
+<line class="a" x1="575" y1="85" x2="628" y2="85"/>
+<rect class="box" x="630" y="200" width="250" height="110" rx="8" fill="#ffffff"/>
+<text class="h" x="644" y="228">updateView(context)</text>
+<text class="s" x="644" y="252">if loading: keep last render</text>
+<text class="s" x="644" y="270">toCards(rows) → group by status</text>
+<text class="s" x="644" y="290">render cards (textContent)</text>
+<line class="a" x1="755" y1="140" x2="755" y2="198"/>
+<rect class="box" x="20" y="200" width="555" height="110" rx="8" fill="#fff4ce"/>
+<text class="h" x="34" y="228">User actions on a card or the footer</text>
+<text class="s" x="34" y="252">open card → openDatasetItem(record.getNamedReference())</text>
+<text class="s" x="34" y="272">tick card → setSelectedRecordIds(ids) → command bar enables</text>
+<text class="s" x="34" y="292">"Load more" → paging.loadNextPage() · "Refresh" → refresh()</text>
+<line class="a" x1="630" y1="255" x2="577" y2="255"/>
+<path class="a" d="M300,310 L300,380 L460,380 L460,142"/>
+<text class="s" x="310" y="370">new data → host calls updateView again</text>
+<rect class="box" x="20" y="410" width="860" height="90" rx="8" fill="#fde7e9"/>
+<text class="h" x="34" y="438">Not possible through the dataset: writing values back</text>
+<text class="s" x="34" y="462">getOutputs has no dataset output. Edits go through context.webAPI (lesson 59) or the record form,</text>
+<text class="s" x="34" y="482">so Dataverse security, business rules and plug-ins still apply.</text>
+</svg>

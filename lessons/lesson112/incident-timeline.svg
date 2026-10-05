@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" role="img" aria-labelledby="t d">
+  <title id="t">INC-2026-007 timeline</title>
+  <desc id="d">Timeline from 07:30 to 09:30 UTC on 27 October: REL-031 deployed 07:35, failures start 07:36, Omar phones 07:44 (time to detect 8 minutes), Karim acknowledges 07:47, diagnosis 07:58, Dana deactivates the step 08:10 (time to mitigate 34 minutes), data-export alert AL-12 fires only at 09:20 (104 minutes after start).</desc>
+  <style>
+    text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#111827}
+    .b{font-weight:600}
+    .s{font-size:14px;fill:#374151}
+  </style>
+  <rect width="900" height="380" fill="#fff"/>
+  <text x="24" y="32" class="b">27 October 2026 (UTC) — 6 px per minute, 07:30 at x = 80</text>
+  <line x1="80" y1="190" x2="860" y2="190" stroke="#374151" stroke-width="2"/>
+  <g class="s">
+    <line x1="80" y1="184" x2="80" y2="196" stroke="#374151"/><text x="62" y="214">07:30</text>
+    <line x1="260" y1="184" x2="260" y2="196" stroke="#374151"/><text x="242" y="214">08:00</text>
+    <line x1="440" y1="184" x2="440" y2="196" stroke="#374151"/><text x="422" y="214">08:30</text>
+    <line x1="620" y1="184" x2="620" y2="196" stroke="#374151"/><text x="602" y="214">09:00</text>
+    <line x1="800" y1="184" x2="800" y2="196" stroke="#374151"/><text x="782" y="214">09:30</text>
+  </g>
+  <rect x="116" y="160" width="204" height="30" fill="#fecaca" stroke="#b91c1c"/>
+  <text x="124" y="180" class="s">saves failing 34 min</text>
+  <circle cx="110" cy="190" r="6" fill="#4338ca"/><text x="60" y="70" class="s">07:35 REL-031</text><line x1="110" y1="76" x2="110" y2="184" stroke="#4338ca" stroke-dasharray="3 3"/>
+  <circle cx="116" cy="190" r="6" fill="#b91c1c"/><text x="60" y="94" class="s">07:36 first failure</text>
+  <circle cx="164" cy="190" r="6" fill="#15803d"/><text x="150" y="120" class="s">07:44 Omar phones (detect)</text><line x1="164" y1="126" x2="164" y2="184" stroke="#15803d" stroke-dasharray="3 3"/>
+  <circle cx="182" cy="190" r="6" fill="#15803d"/><text x="190" y="146" class="s">07:47 Karim acknowledges</text>
+  <circle cx="248" cy="190" r="6" fill="#a16207"/><text x="214" y="250" class="s">07:58 two steps found</text>
+  <circle cx="320" cy="190" r="6" fill="#15803d"/><text x="300" y="274" class="s">08:10 Dana deactivates step (mitigate)</text>
+  <circle cx="740" cy="190" r="6" fill="#b45309"/><text x="640" y="250" class="s">09:20 AL-12 fires (export)</text>
+  <line x1="116" y1="300" x2="740" y2="300" stroke="#b45309" stroke-width="3"/>
+  <text x="300" y="322" class="s">alert latency 104 min: the export-based alert could not detect a blocking failure in time</text>
+  <line x1="116" y1="340" x2="164" y2="340" stroke="#15803d" stroke-width="3"/>
+  <text x="180" y="345" class="s">time to detect 8 min (a person, not monitoring) → action A3 synthetic check, AL-12b within 10 min</text>
+</svg>

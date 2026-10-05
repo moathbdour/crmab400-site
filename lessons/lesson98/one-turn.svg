@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">One conversational turn of the Cedar Service Assistant under generative orchestration</title>
+<desc id="d">A sequence from left to right. Sami asks in Teams: Is WO-1002 sent, and how reliable is BrightSpark this month? Step 1, the orchestrator reads the instructions and the names and descriptions of topics, tools and knowledge, plus the conversation history. Step 2, it plans: two intents, the tool Work order status with the input WO-1002 taken from the message, and the tool Subcontractor service levels with BRIGHTSPARK; the date range is missing, so step 3 generates a question: For which dates? Sami answers: September. Step 4 calls the agent flow C-43 as Cedar Automation, which returns named fields: found, status Accepted, site HV-B, scheduled time. Step 5 calls the gateway connector with Sami's own Microsoft Entra token; Sami is not a service manager and has no Sla.Read scope, so the gateway answers 403. Step 6, the orchestrator writes one answer from the tool results: WO-1002 is Accepted for HV-B at the scheduled Amman time; service levels are only available to service managers. The activity map in the test panel shows each step. Below, the contrast with the safety path: if the message says I smell gas, the orchestrator selects the topic Urgent safety issue, which sends fixed text and asks a yes or no question; nothing is generated. A note says that history and context influence the plan, so the same question can be handled differently in a new and an ongoing conversation, which is why evaluations use test sets.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.dash{stroke:#1b1b1b;stroke-width:1;stroke-dasharray:5 4}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">One turn: plan, ask, call tools with the right identity, answer</text>
+
+<rect class="box" x="20" y="44" width="170" height="40" rx="6" fill="#fff4ce"/><text class="b" x="32" y="70">Sami (Teams)</text>
+<rect class="box" x="230" y="44" width="200" height="40" rx="6" fill="#deecf9"/><text class="b" x="242" y="70">Orchestrator</text>
+<rect class="box" x="470" y="44" width="240" height="40" rx="6" fill="#dff6dd"/><text class="b" x="482" y="70">C-43 (Cedar Automation)</text>
+<rect class="box" x="750" y="44" width="230" height="40" rx="6" fill="#dff6dd"/><text class="b" x="762" y="70">Gateway (Sami's token)</text>
+<line class="dash" x1="105" y1="84" x2="105" y2="390"/><line class="dash" x1="330" y1="84" x2="330" y2="390"/>
+<line class="dash" x1="590" y1="84" x2="590" y2="390"/><line class="dash" x1="865" y1="84" x2="865" y2="390"/>
+
+<line class="ln" x1="105" y1="112" x2="326" y2="112" marker-end="url(#a)"/>
+<text class="s" x="112" y="104">"Is WO-1002 sent, and how reliable is BrightSpark?"</text>
+<text class="s" x="340" y="132">1 read instructions, names, descriptions, history</text>
+<text class="s" x="340" y="152">2 plan: Work order status (WO-1002) +</text>
+<text class="s" x="340" y="168">   Subcontractor service levels (BRIGHTSPARK)</text>
+<line class="ln" x1="330" y1="190" x2="109" y2="190" marker-end="url(#a)"/>
+<text class="s" x="120" y="184">3 "For which dates?" (missing input)</text>
+<line class="ln" x1="105" y1="216" x2="326" y2="216" marker-end="url(#a)"/>
+<text class="s" x="120" y="210">"September"</text>
+<line class="ln" x1="330" y1="246" x2="586" y2="246" marker-end="url(#a)"/>
+<text class="s" x="340" y="240">4 WorkOrderNumber = WO-1002</text>
+<line class="ln" x1="590" y1="270" x2="334" y2="270" marker-end="url(#a)"/>
+<text class="s" x="340" y="288">found · Accepted · HV-B · Wed 07 Oct 2026 09:00</text>
+<line class="ln" x1="330" y1="312" x2="861" y2="312" marker-end="url(#a)"/>
+<text class="s" x="600" y="306">5 GET …/BRIGHTSPARK/sla?from=2026-09-01&amp;to=2026-09-30</text>
+<line class="ln" x1="865" y1="336" x2="334" y2="336" marker-end="url(#a)"/>
+<text class="s" x="600" y="354">403: the token does not grant Sla.Read</text>
+<line class="ln" x1="330" y1="378" x2="109" y2="378" marker-end="url(#a)"/>
+<text class="s" x="112" y="372">6 one answer from the tool results</text>
+
+<rect class="box" x="20" y="404" width="960" height="66" rx="8" fill="#ffffff"/>
+<text class="s" x="32" y="428">Answer: "WO-1002 is Accepted for site HV-B, scheduled Wed 07 Oct 2026 09:00 (Amman time). Subcontractor service levels are</text>
+<text class="s" x="32" y="448">only available to service managers." Every step is visible on the activity map of the test panel.</text>
+
+<rect class="box" x="20" y="482" width="960" height="66" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="504">The safety path is different</text>
+<text class="s" x="32" y="526">"I smell gas" → the orchestrator selects the topic Urgent safety issue → fixed messages and a yes/no question; nothing is generated.</text>
+<text class="s" x="32" y="542">History and context influence plans, so the same question can be handled differently: evaluate with test sets, not one chat.</text>
+</svg>

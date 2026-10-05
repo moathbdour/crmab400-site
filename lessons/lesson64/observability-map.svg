@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" role="img" aria-labelledby="t d">
+<title id="t">Which tool sees which part of a C-23 session</title>
+<desc id="d">A session runs through four phases: launch and sign-in by the host, app load until interactive, data requests, and business events. Power Platform admin center Monitor sees phases one to three from the platform side for all users, including startup failures, with time to interactive, app open success rate, session count, data request success rate and latency. Application Insights sees only what happens after the app loads: sessionLoadSummary and networkRequest metrics forwarded by the logger, plus Cedar custom events and exceptions. Browser DevTools sees one reproducible session in full detail: console, network requests filtered by apihub.net and dynamics.com, and performance traces.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="920" height="520" fill="#ffffff"/>
+<text class="h" x="20" y="34">Session phases</text>
+<rect class="box" x="20" y="48" width="200" height="60" rx="8" fill="#eef3fb"/><text x="34" y="74">1 Launch + sign-in</text><text class="s" x="34" y="96">host, licence, DLP</text>
+<rect class="box" x="245" y="48" width="200" height="60" rx="8" fill="#eef3fb"/><text x="259" y="74">2 Load → interactive</text><text class="s" x="259" y="96">bundle, first data</text>
+<rect class="box" x="470" y="48" width="200" height="60" rx="8" fill="#eef3fb"/><text x="484" y="74">3 Data requests</text><text class="s" x="484" y="96">Dataverse, connectors</text>
+<rect class="box" x="695" y="48" width="205" height="60" rx="8" fill="#eef3fb"/><text x="709" y="74">4 Business events</text><text class="s" x="709" y="96">plan saved, errors</text>
+<path class="a" d="M220,78 L245,78"/><path class="a" d="M445,78 L470,78"/><path class="a" d="M670,78 L695,78"/>
+<rect class="box" x="20" y="140" width="650" height="100" rx="8" fill="#dff6dd"/>
+<text class="h" x="36" y="166">Admin center Monitor → Power Apps (all users, phases 1–3)</text>
+<text class="s" x="36" y="192">TTI, app open success rate, sessions, data request success + latency.</text>
+<text class="s" x="36" y="216">Sees startup failures. Recommendations need a managed environment.</text>
+<rect class="box" x="245" y="262" width="655" height="110" rx="8" fill="#fff4ce"/>
+<text class="h" x="261" y="288">Application Insights (all users, after load only, phases 2–4)</text>
+<text class="s" x="261" y="314">customEvents: sessionLoadSummary, networkRequest (setConfig logger)</text>
+<text class="s" x="261" y="338">+ cedar.* custom events and exceptions; KQL p75, alerts (lesson 105)</text>
+<text class="s" x="261" y="360">Blind to launch failures; needs connect-src in CSP.</text>
+<rect class="box" x="20" y="394" width="880" height="106" rx="8" fill="#fde7e9"/>
+<text class="h" x="36" y="420">Browser DevTools (one session you can reproduce, every phase in the browser)</text>
+<text class="s" x="36" y="446">Console: CSP violations, [cedar] logs. Network: filter apihub.net / dynamics.com, status, size, timing.</text>
+<text class="s" x="36" y="470">Performance: long tasks and render cost. Sources: breakpoints with source maps in Local Play.</text>
+<text class="s" x="36" y="492">Use it to explain a pattern that Monitor or Application Insights revealed.</text>
+</svg>

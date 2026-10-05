@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Decision flow of Cedar's case close guard and the work-complete follow-up</title>
+<desc id="d">Left lane, resolving a case: a CloseIncident request carries an IncidentResolution entity and a Status. The step runs on message Close, table incident, stage PreOperation. The plug-in takes the case ID from the incidentid lookup of the resolution, retrieves Case category and Root cause as the user, and rejects a Complaint without a root cause. It then counts active work orders of the case whose FieldLink status is not Completed, as SYSTEM, at most 51 rows with no columns, and rejects the request when the count is above zero. Otherwise the main operation resolves the case. Right lane, completing a work order: on Update PostOperation, when the pre-image and post-image show the status became Completed and the work order has a case, the plug-in counts the remaining open work orders of that case inside the transaction; when none remain and the case is still active it creates a task for the case owner.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">Resolving a case (C-10)</text>
+<text class="h" x="520" y="28">Completing a work order (C-09 v0.3)</text>
+<line x1="500" y1="14" x2="500" y2="586" stroke="#888" stroke-width="1" stroke-dasharray="6 5"/>
+
+<rect class="box" x="20" y="44" width="460" height="74" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="66">CloseIncident request (form, Web API, flow)</text>
+<text class="m" x="32" y="88">IncidentResolution: Entity (incidentid = case)</text>
+<text class="m" x="32" y="108">Status: OptionSetValue (5 = Problem Solved)</text>
+<path class="a" d="M250,118 L250,138"/>
+
+<rect class="box" x="20" y="138" width="460" height="54" rx="8" fill="#e6e6e6"/>
+<text class="b" x="32" y="160">Step: Close / incident / PreOperation (20), sync</text>
+<text x="32" y="180">No Target and no images on this message: read what you need.</text>
+<path class="a" d="M250,192 L250,212"/>
+
+<rect class="box" x="20" y="212" width="460" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="234">Retrieve the case as the user</text>
+<text class="m" x="32" y="256">ColumnSet(cedar_casecategory, cedar_rootcause)</text>
+<text x="32" y="276">Complaint without a root cause? Reject (HTTP 400).</text>
+<path class="a" d="M250,286 L250,306"/>
+
+<rect class="box" x="20" y="306" width="460" height="94" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="328">RetrieveMultiple work orders as SYSTEM</text>
+<text x="32" y="350">cedar_case = this case AND statecode = Active</text>
+<text x="32" y="370">AND FieldLink status is not Completed. No columns, top 51.</text>
+<text x="32" y="390">Count above 0? Reject with the count only (HTTP 400).</text>
+<path class="a" d="M250,400 L250,420"/>
+
+<rect class="box" x="20" y="420" width="460" height="54" rx="8" fill="#e6e6e6"/>
+<text class="b" x="32" y="442">Stage 30: the platform resolves the case</text>
+<text x="32" y="462">Creates the case resolution activity, sets state Resolved.</text>
+
+<text x="20" y="510">A rejection throws InvalidPluginExecutionException:</text>
+<text x="20" y="530">nothing is written, the case stays Active.</text>
+
+<rect class="box" x="520" y="44" width="460" height="74" rx="8" fill="#eef3fb"/>
+<text class="b" x="532" y="66">Update of a work order that includes FieldLink status</text>
+<text x="532" y="88">Step G5: Update / cedar_workorder / PostOperation (40), sync</text>
+<text x="532" y="108">Images "pre" and "post" from lesson 66, with two more columns.</text>
+<path class="a" d="M750,118 L750,138"/>
+
+<rect class="box" x="520" y="138" width="460" height="54" rx="8" fill="#e6e6e6"/>
+<text class="b" x="532" y="160">Status became Completed? Work order has a case?</text>
+<text x="532" y="180">From the images only. If not: stop, no data call at all.</text>
+<path class="a" d="M750,192 L750,212"/>
+
+<rect class="box" x="520" y="212" width="460" height="74" rx="8" fill="#fff4ce"/>
+<text class="b" x="532" y="234">Count the open work orders of the case as SYSTEM</text>
+<text x="532" y="256">Same query. It runs inside the transaction, so this work</text>
+<text x="532" y="276">order already counts as Completed. Any left? Stop.</text>
+<path class="a" d="M750,286 L750,306"/>
+
+<rect class="box" x="520" y="306" width="460" height="54" rx="8" fill="#fff4ce"/>
+<text class="b" x="532" y="328">Retrieve the case: statecode, ownerid</text>
+<text x="532" y="348">Case no longer Active? Stop.</text>
+<path class="a" d="M750,360 L750,380"/>
+
+<rect class="box" x="520" y="380" width="460" height="94" rx="8" fill="#dff6dd"/>
+<text class="b" x="532" y="402">Create a task for the case owner</text>
+<text class="m" x="532" y="424">subject: Work complete: review and resolve</text>
+<text class="m" x="532" y="444">regardingobjectid: the case; ownerid: its owner</text>
+<text x="532" y="464">Create is a new message: Depth 2, same transaction.</text>
+
+<text x="520" y="510">If the Create fails, the status update is rolled back too.</text>
+<text x="520" y="530">Omar sees the task on the case timeline and resolves the case.</text>
+<text class="b" x="20" y="574">One shared query, two identities: the user for what they do, SYSTEM for what must always hold.</text>
+</svg>

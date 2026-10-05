@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 480" role="img" aria-labelledby="t">
+<title id="t">Dependency chain in CedarServiceCore. The Cedar Operations app requires the Site main form and the Case main form. The Site form requires the Site table, the Services required column and the Account lookup column. Services required requires the global choice Service line. The Account lookup requires the account to site relationship, which requires the System Account table. The Case form requires the incident table from the Microsoft Customer Service managed solution, which must already be installed in the target. Arrows point from dependent to required.</title>
+<rect width="980" height="480" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Arrows point from dependent → required component</text>
+<rect x="20" y="60" width="200" height="56" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="36" y="84" font-weight="700">Cedar Operations</text><text x="36" y="104">model-driven app</text>
+<rect x="290" y="60" width="200" height="56" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="306" y="84" font-weight="700">Site – Cedar</text><text x="306" y="104">main form</text>
+<rect x="290" y="160" width="200" height="56" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="306" y="184" font-weight="700">Case – Cedar</text><text x="306" y="204">main form</text>
+<rect x="560" y="20" width="200" height="56" fill="#f5f9f3" stroke="#2f5d2a" stroke-width="2"/>
+<text x="576" y="44" font-weight="700">Site table</text><text x="576" y="64">cedar_site</text>
+<rect x="560" y="96" width="200" height="56" fill="#f5f9f3" stroke="#2f5d2a" stroke-width="2"/>
+<text x="576" y="120" font-weight="700">Services required</text><text x="576" y="140">column</text>
+<rect x="780" y="96" width="185" height="56" fill="#f5f9f3" stroke="#2f5d2a" stroke-width="2"/>
+<text x="792" y="120" font-weight="700">Service line</text><text x="792" y="140">global choice</text>
+<rect x="560" y="172" width="200" height="56" fill="#f5f9f3" stroke="#2f5d2a" stroke-width="2"/>
+<text x="576" y="196" font-weight="700">Account lookup</text><text x="576" y="216">cedar_account</text>
+<rect x="780" y="172" width="185" height="56" fill="#f5f9f3" stroke="#2f5d2a" stroke-width="2"/>
+<text x="792" y="196" font-weight="700">Relationship</text><text x="792" y="216">account → site</text>
+<rect x="780" y="262" width="185" height="56" fill="#fff6e8" stroke="#9a6a00" stroke-width="2"/>
+<text x="792" y="286" font-weight="700">Account table</text><text x="792" y="306">System (Microsoft)</text>
+<rect x="560" y="262" width="200" height="56" fill="#fff6e8" stroke="#9a6a00" stroke-width="2"/>
+<text x="576" y="286" font-weight="700">incident (Case)</text><text x="576" y="306">Customer Service app</text>
+<line x1="220" y1="88" x2="288" y2="88" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="220" y1="100" x2="288" y2="180" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="490" y1="80" x2="558" y2="50" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="490" y1="92" x2="558" y2="122" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="490" y1="104" x2="558" y2="192" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="760" y1="124" x2="778" y2="124" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="760" y1="200" x2="778" y2="200" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="872" y1="228" x2="872" y2="260" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="490" y1="200" x2="558" y2="280" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="350" width="940" height="110" fill="#fbeeee" stroke="#8a2a2a" stroke-width="2"/>
+<text x="36" y="376" font-weight="700">What the chain blocks</text>
+<text x="36" y="402">Delete Service line → blocked while Services required uses it (published dependency).</text>
+<text x="36" y="426">Export without Service line → warning: missing dependency; import into Cedar-Test then fails.</text>
+<text x="36" y="450">Import where Customer Service is not installed → fails: incident is a required component.</text>
+</g>
+</svg>

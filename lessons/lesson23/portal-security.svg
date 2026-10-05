@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 430" role="img" aria-labelledby="t">
+<title id="t">How Power Pages decides which cases Rana Mansour can see</title>
+<rect width="980" height="430" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Power Pages access chain: sign-in → contact → web role → table permission</text>
+<rect x="20" y="70" width="180" height="90" rx="8" fill="#fbeedd" stroke="#8a4b08" stroke-width="2"/>
+<text x="110" y="100" text-anchor="middle" font-weight="bold">Rana signs in</text>
+<text x="110" y="124" text-anchor="middle">Identity provider</text>
+<text x="110" y="146" text-anchor="middle">(Entra External ID)</text>
+<line x1="200" y1="115" x2="250" y2="115" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="252" y="70" width="190" height="90" rx="8" fill="#e8f3e8" stroke="#2e6b30" stroke-width="2"/>
+<text x="347" y="100" text-anchor="middle" font-weight="bold">Contact row</text>
+<text x="347" y="124" text-anchor="middle">Rana Mansour</text>
+<text x="347" y="146" text-anchor="middle">Company: Harbor View</text>
+<line x1="442" y1="115" x2="492" y2="115" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="494" y="70" width="210" height="90" rx="8" fill="#dbe9f7" stroke="#1f4e79" stroke-width="2"/>
+<text x="599" y="100" text-anchor="middle" font-weight="bold">Web role</text>
+<text x="599" y="124" text-anchor="middle">Cedar Customer Users</text>
+<text x="599" y="146" text-anchor="middle">(assigned to contact)</text>
+<line x1="704" y1="115" x2="754" y2="115" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="756" y="60" width="204" height="110" rx="8" fill="#dbe9f7" stroke="#1f4e79" stroke-width="2"/>
+<text x="858" y="88" text-anchor="middle" font-weight="bold">Table permission</text>
+<text x="858" y="112" text-anchor="middle">Case, Account access</text>
+<text x="858" y="134" text-anchor="middle">Read, Create, Append</text>
+<text x="858" y="156" text-anchor="middle">(no Write, no Delete)</text>
+<line x1="858" y1="170" x2="858" y2="220" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="520" y="222" width="440" height="180" rx="8" fill="#f2f2f2" stroke="#444" stroke-width="2"/>
+<text x="740" y="250" text-anchor="middle" font-weight="bold">Result on the My cases list</text>
+<text x="536" y="278">✔ Chiller tripped again – Building B (Harbor View)</text>
+<text x="536" y="302">✔ Chiller not cooling in Building B (Harbor View)</text>
+<text x="536" y="326">✘ Technician arrived two days late (Olive Grove)</text>
+<text x="536" y="350">✘ Work orders, subcontractor cost: no permission</text>
+<text x="536" y="382" font-style="italic">No table permission = no rows, even if the list exists.</text>
+<rect x="20" y="222" width="470" height="180" rx="8" fill="#fff4f4" stroke="#a4262c" stroke-width="2"/>
+<text x="255" y="250" text-anchor="middle" font-weight="bold">Anonymous visitor (not signed in)</text>
+<text x="36" y="278">Built-in role Anonymous Users</text>
+<text x="36" y="302">Cedar grants it: public pages only</text>
+<text x="36" y="326">No Case table permission → cannot read cases</text>
+<text x="36" y="350">Danger: Global access + Anonymous role</text>
+<text x="36" y="374">exposes every row on the internet</text>
+</g>
+</svg>

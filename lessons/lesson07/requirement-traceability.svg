@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="t">
+<title id="t">Traceability from a Cedar pain point to a test</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700;font-size:16px}.s{font-size:14px}</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#1b2a3a"/></marker></defs>
+<rect width="960" height="420" fill="#ffffff"/>
+<rect x="20" y="30" width="170" height="150" rx="10" fill="#fdecea" stroke="#b3261e" stroke-width="2"/>
+<text x="105" y="58" text-anchor="middle" class="h">1. Pain point</text>
+<text x="32" y="86" class="s">Urgent faults found</text>
+<text x="32" y="106" class="s">late; breaches seen</text>
+<text x="32" y="126" class="s">only at month end</text>
+<text x="32" y="160" class="s">Owner: Lina</text>
+<rect x="210" y="30" width="170" height="150" rx="10" fill="#fff6e0" stroke="#b07d10" stroke-width="2"/>
+<text x="295" y="58" text-anchor="middle" class="h">2. Requirement</text>
+<text x="222" y="86" class="s">REQ-05: 4-hour</text>
+<text x="222" y="106" class="s">response timer with</text>
+<text x="222" y="126" class="s">warning + escalation</text>
+<text x="222" y="160" class="s">Source: lesson 2</text>
+<rect x="400" y="30" width="170" height="150" rx="10" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="485" y="58" text-anchor="middle" class="h">3. User story</text>
+<text x="412" y="86" class="s">US-05a: As Omar, I</text>
+<text x="412" y="106" class="s">want a visible timer</text>
+<text x="412" y="126" class="s">on urgent cases so I</text>
+<text x="412" y="146" class="s">respond within 4 h</text>
+<rect x="590" y="30" width="170" height="150" rx="10" fill="#e6f4ea" stroke="#2e7d32" stroke-width="2"/>
+<text x="675" y="58" text-anchor="middle" class="h">4. Acceptance</text>
+<text x="602" y="86" class="s">Given an urgent case</text>
+<text x="602" y="106" class="s">created 08:00, when</text>
+<text x="602" y="126" class="s">it is 11:00 and not</text>
+<text x="602" y="146" class="s">responded, then warn</text>
+<rect x="780" y="30" width="160" height="150" rx="10" fill="#f3f0fa" stroke="#5b3f99" stroke-width="2"/>
+<text x="860" y="58" text-anchor="middle" class="h">5. Test + fit</text>
+<text x="792" y="86" class="s">TC-05a-1 in</text>
+<text x="792" y="106" class="s">Cedar-Test; fit =</text>
+<text x="792" y="126" class="s">standard SLA KPI</text>
+<text x="792" y="146" class="s">(lesson 21)</text>
+<line x1="190" y1="105" x2="208" y2="105" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="380" y1="105" x2="398" y2="105" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="570" y1="105" x2="588" y2="105" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="760" y1="105" x2="778" y2="105" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="220" width="920" height="170" rx="12" fill="#f7f9fb" stroke="#1b2a3a" stroke-width="1.5"/>
+<text x="480" y="250" text-anchor="middle" class="h">Why keep the chain (traceability)?</text>
+<text x="40" y="282">Forward (left to right): every pain point is covered by at least one story, and every story is tested.</text>
+<text x="40" y="310">Backward (right to left): every test, form change or plug-in exists because a real need asked for it.</text>
+<text x="40" y="338">Change impact: if Lina changes the SLA to 3 hours, follow the chain to find the story, criteria and tests to update.</text>
+<text x="40" y="366">Fit-gap: step 5 records whether standard features meet the story (fit) or something must be built (gap).</text>
+</svg>

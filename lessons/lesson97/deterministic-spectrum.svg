@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">From deterministic to non-deterministic logic in Power Platform</title>
+<desc id="d">A horizontal spectrum in three zones. Left, deterministic: the same input always gives the same output, and the logic can be read, tested exhaustively and audited. Power Platform examples: business rules, Power Fx formulas, plug-ins and custom APIs, cloud flows and agent flows without AI actions, alternate keys and duplicate rules, SLA calculations, classic orchestration where topics fire on trigger phrases. Middle, hybrid: a deterministic process with an AI step whose output is constrained and checked. Examples: a prompt with JSON output inside a flow with a guard, Power Fx AI functions such as AIClassify with a fixed category list, generative answers inside a topic, prompts as workflow nodes. Right, non-deterministic: the model chooses what to do and what to say. Examples: generative orchestration choosing topics, tools, knowledge and agents by their descriptions; agents on the GitHub Copilot harness that plan multi-step work; free-text drafts and summaries. Below, rows compare the zones. Repeatability: exact, exact around the AI step, varies. Testing: unit tests of rules, tests plus an evaluation set, evaluation sets and monitoring. Explaining a result: read the rule, read the rule plus the model answer kept as data, reconstruct from logs. Handles ambiguity and free text: poorly, at the AI step, well. Cost and latency per call: very low, plus one model call, several model calls. Arrows say: move logic left when a rule exists, the outcome is consequential or must be audited; move right only for what rules cannot express, and keep a deterministic boundary around it.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">Where does the logic run? Deterministic, hybrid, non-deterministic</text>
+
+<rect class="box" x="20" y="44" width="300" height="250" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="68">Deterministic</text>
+<text class="s" x="32" y="90">same input → same output, always</text>
+<text x="32" y="118">• business rules, Power Fx</text>
+<text x="32" y="140">• plug-ins and custom APIs</text>
+<text x="32" y="162">• cloud flows, agent flows</text>
+<text x="32" y="180">   without AI actions</text>
+<text x="32" y="202">• keys, duplicate rules, SLAs</text>
+<text x="32" y="224">• classic orchestration:</text>
+<text x="32" y="242">   topics on trigger phrases</text>
+<text class="s" x="32" y="272">Cedar: DR rules, routing, status mapping</text>
+
+<rect class="box" x="350" y="44" width="300" height="250" rx="8" fill="#fff4ce"/>
+<text class="b" x="362" y="68">Hybrid</text>
+<text class="s" x="362" y="90">deterministic process, one AI step, checked</text>
+<text x="362" y="118">• prompt with JSON output +</text>
+<text x="362" y="136">   a guard in a flow</text>
+<text x="362" y="158">• AI functions (AIClassify)</text>
+<text x="362" y="176">   with a fixed category list</text>
+<text x="362" y="198">• generative answers in a topic</text>
+<text x="362" y="220">• prompts as workflow nodes</text>
+<text class="s" x="362" y="272">Cedar: suggested case category (AI-02)</text>
+
+<rect class="box" x="680" y="44" width="300" height="250" rx="8" fill="#fde7e9"/>
+<text class="b" x="692" y="68">Non-deterministic</text>
+<text class="s" x="692" y="90">the model chooses what to do and say</text>
+<text x="692" y="118">• generative orchestration picks</text>
+<text x="692" y="136">   topics, tools, knowledge,</text>
+<text x="692" y="154">   agents by their descriptions</text>
+<text x="692" y="176">• GitHub Copilot harness agents</text>
+<text x="692" y="194">   plan multi-step work</text>
+<text x="692" y="216">• free-text drafts, summaries</text>
+<text class="s" x="692" y="272">Cedar: work order summary (AI-04)</text>
+
+<line class="ln" x1="40" y1="316" x2="960" y2="316" marker-end="url(#a)"/>
+<line class="ln" x1="960" y1="316" x2="40" y2="316" marker-end="url(#a)"/>
+
+<text class="b" x="20" y="350">Property</text>
+<text class="b" x="200" y="350">Deterministic</text><text class="b" x="450" y="350">Hybrid</text><text class="b" x="730" y="350">Non-deterministic</text>
+<text x="20" y="378">Repeatability</text><text x="200" y="378">exact</text><text x="450" y="378">exact around the AI step</text><text x="730" y="378">varies, even at temperature 0</text>
+<text x="20" y="404">Testing</text><text x="200" y="404">unit tests of rules</text><text x="450" y="404">tests + evaluation set</text><text x="730" y="404">evaluation sets, monitoring</text>
+<text x="20" y="430">Explaining a result</text><text x="200" y="430">read the rule</text><text x="450" y="430">rule + stored model answer</text><text x="730" y="430">reconstruct from logs</text>
+<text x="20" y="456">Free text, ambiguity</text><text x="200" y="456">poorly</text><text x="450" y="456">at the AI step</text><text x="730" y="456">well</text>
+<text x="20" y="482">Cost, latency per call</text><text x="200" y="482">very low</text><text x="450" y="482">+ one model call</text><text x="730" y="482">several model calls</text>
+
+<rect class="box" x="20" y="506" width="960" height="80" rx="8" fill="#ffffff"/>
+<text x="32" y="530">Move logic LEFT when a rule exists, when the outcome is consequential (money, safety, a customer, a partner, the system of record),</text>
+<text x="32" y="550">or when it must be explained and audited. Move RIGHT only for what rules cannot express (free text, language, judgement on</text>
+<text x="32" y="570">unstructured input), and keep a deterministic boundary around it: closed outputs, a guard, a human step, an evaluation gate.</text>
+</svg>

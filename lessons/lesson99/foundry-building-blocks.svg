@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Microsoft Foundry building blocks for the Cedar Dispatch Advisor</title>
+<desc id="d">An Azure resource group rg-cedar-dev holds the Foundry resource cedar-ai-dev. The resource holds model deployments, for example cedar-chat, used by agents and as the evaluation judge. Inside the resource, the project cedar-agents holds the prompt agent cedar-dispatch-advisor with immutable versions 1, 2 and 3, a stable endpoint and its own Microsoft Entra agent identity; conversations and responses; datasets and evaluation runs; and connections to Application Insights appi-cedar-dev for traces and to Key Vault. Around it, people and identities with Azure roles: Dana holds Foundry Account Owner on the resource, for projects, model deployments and assigning Foundry User; Karim and the pipeline identity cedar-ci-dev hold Foundry User on the project and build agents; callers that only chat hold Foundry Agent Consumer at agent scope. Karim's Python host calls the project endpoint with DefaultAzureCredential and runs the function tools itself, reading Cedar facts with its own identity. A note says that a Copilot Studio agent lives in a Dataverse solution, while a Foundry agent lives in an Azure project and is recreated from its definition in Git in each project.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:17px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.dash{stroke:#1b1b1b;stroke-width:1.5;fill:none;stroke-dasharray:6 4}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="30">Microsoft Foundry: where the Cedar Dispatch Advisor lives and who may do what</text>
+
+<rect class="dash" x="20" y="48" width="640" height="470" rx="10"/>
+<text class="b" x="34" y="72">Resource group rg-cedar-dev</text>
+<rect class="box" x="40" y="86" width="600" height="416" rx="10" fill="#eef4fb"/>
+<text class="b" x="54" y="110">Foundry resource cedar-ai-dev</text>
+<text x="54" y="130">endpoint https://cedar-ai-dev.services.ai.azure.com</text>
+<rect class="box" x="54" y="144" width="572" height="44" rx="6" fill="#ffffff"/>
+<text x="66" y="171">Model deployments: cedar-chat (GA model chosen by Dana) · used by agents and as evaluation judge</text>
+
+<rect class="box" x="54" y="200" width="572" height="290" rx="8" fill="#dbe9f6"/>
+<text class="b" x="68" y="224">Project cedar-agents</text>
+<text x="250" y="224">…/api/projects/cedar-agents</text>
+<rect class="box" x="68" y="236" width="300" height="160" rx="6" fill="#ffffff"/>
+<text class="b" x="80" y="258">Prompt agent cedar-dispatch-advisor</text>
+<text x="80" y="282">versions 1 · 2 · 3 (immutable)</text>
+<text x="80" y="304">model cedar-chat, instructions,</text>
+<text x="80" y="324">function tools rank_candidates and</text>
+<text x="80" y="344">get_subcontractor_profile</text>
+<text x="80" y="366">stable endpoint + Entra agent identity</text>
+<text x="80" y="386">metadata: cedarFingerprint, gitCommit</text>
+<rect class="box" x="382" y="236" width="230" height="70" rx="6" fill="#ffffff"/>
+<text class="b" x="394" y="260">Conversations, responses</text>
+<text x="394" y="284">history per conversation ID</text>
+<rect class="box" x="382" y="318" width="230" height="78" rx="6" fill="#ffffff"/>
+<text class="b" x="394" y="342">Datasets, evaluations</text>
+<text x="394" y="364">cedar-advisor-evalset</text>
+<text x="394" y="384">runs with built-in evaluators</text>
+<rect class="box" x="68" y="410" width="544" height="66" rx="6" fill="#ffffff"/>
+<text class="b" x="80" y="434">Connections</text>
+<text x="80" y="458">Application Insights appi-cedar-dev (traces, 90 days in the portal) · Key Vault</text>
+
+<rect class="box" x="690" y="48" width="290" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="702" y="72">Dana · Foundry Account Owner</text>
+<text x="702" y="96">on the resource: projects, model</text>
+<text x="702" y="116">deployments, assigns Foundry User;</text>
+<text x="702" y="136">does not build agents herself</text>
+<rect class="box" x="690" y="168" width="290" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="702" y="192">Karim, cedar-ci-dev · Foundry User</text>
+<text x="702" y="216">on the project: create agent</text>
+<text x="702" y="236">versions, chat, run evaluations;</text>
+<text x="702" y="256">cannot deploy models or assign roles</text>
+<rect class="box" x="690" y="288" width="290" height="84" rx="8" fill="#f3f2f1"/>
+<text class="b" x="702" y="312">Callers · Foundry Agent Consumer</text>
+<text x="702" y="336">at agent scope: use the endpoint</text>
+<text x="702" y="356">of this one agent, nothing else</text>
+<path class="ln" d="M690 100 L642 120" marker-end="url(#a)"/>
+<path class="ln" d="M690 220 L628 236" marker-end="url(#a)"/>
+<path class="ln" d="M690 330 L370 330" marker-end="url(#a)"/>
+
+<rect class="box" x="690" y="392" width="290" height="126" rx="8" fill="#fff4ce"/>
+<text class="b" x="702" y="416">Karim's Python host</text>
+<text x="702" y="440">DefaultAzureCredential → project</text>
+<text x="702" y="460">runs the function tools itself and</text>
+<text x="702" y="480">reads Cedar facts with its own</text>
+<text x="702" y="500">identity (Foundry never sees them)</text>
+<path class="ln" d="M690 450 L640 450" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="536" width="960" height="88" rx="8" fill="#f3f2f1"/>
+<text class="b" x="34" y="560">Compare with lesson 98</text>
+<text x="34" y="584">Copilot Studio agent C-24: a Dataverse solution component, moved with solution export/import, published per environment.</text>
+<text x="34" y="606">Foundry agent C-55: an Azure object in a project, recreated from its definition in Git in every project (dev, test, prod).</text>
+</svg>

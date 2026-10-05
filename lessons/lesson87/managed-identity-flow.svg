@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">How a function reaches Dataverse with a managed identity</title>
+<desc id="d">Four steps from left to right. One: the function code asks its credential object for a token for the scope https://cedar-dev.crm.dynamics.com/.default; there is no secret in code or settings, only the client ID of the user-assigned identity id-cedar-ops-dev. Two: the Azure platform's identity endpoint inside the function app vouches for the app and Microsoft Entra ID issues an access token whose application ID is the identity's client ID. Three: the function sends the token as a bearer token to Dataverse. Four: Dataverse finds the application user whose application ID equals that client ID, named Cedar Operations, and checks its security role Operations Health – Cedar. Below, three columns compare credentials: client secret (a text that expires, must be stored, rotated and can leak), certificate (a private key that must be stored and rotated), managed identity (nothing to store, rotate or leak; exists only in Azure; assigned to resources). A second row shows the same idea for the other connections of the app: host storage through AzureWebJobsStorage__accountName, the queue through OpsStorage__queueServiceUri, telemetry through an authentication string, each with a role assignment instead of a key. A last box: on a developer machine there is no managed identity; DefaultAzureCredential uses the developer's own sign-in, so local runs act as the developer.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">An identity with nothing to store: the platform vouches for the app</text>
+
+<rect class="box" x="20" y="48" width="222" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">1  Function code</text>
+<text x="32" y="96">credential.GetToken(</text>
+<text x="32" y="116">"https://cedar-dev.crm</text>
+<text x="32" y="136">.dynamics.com/.default")</text>
+<text x="32" y="164">Knows only the client ID</text>
+<text x="32" y="184">of id-cedar-ops-dev</text>
+<path class="a" d="M242,122 L264,122"/>
+
+<rect class="box" x="264" y="48" width="222" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="276" y="72">2  Azure + Microsoft Entra ID</text>
+<text x="276" y="96">The identity endpoint inside</text>
+<text x="276" y="116">the app proves which resource</text>
+<text x="276" y="136">is asking. Entra ID issues an</text>
+<text x="276" y="156">access token: appid = the</text>
+<text x="276" y="176">identity's client ID</text>
+<path class="a" d="M486,122 L508,122"/>
+
+<rect class="box" x="508" y="48" width="222" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="520" y="72">3  Request</text>
+<text x="520" y="96">Authorization: Bearer …</text>
+<text x="520" y="120">to the Dataverse Web API /</text>
+<text x="520" y="140">Organization service through</text>
+<text x="520" y="160">ServiceClient with a token</text>
+<text x="520" y="180">provider</text>
+<path class="a" d="M730,122 L752,122"/>
+
+<rect class="box" x="752" y="48" width="228" height="150" rx="8" fill="#f3f2f1"/>
+<text class="b" x="764" y="72">4  Dataverse</text>
+<text x="764" y="96">Application user whose</text>
+<text x="764" y="116">application ID = that client ID:</text>
+<text class="b" x="764" y="140">Cedar Operations</text>
+<text x="764" y="164">Role: Operations Health –</text>
+<text x="764" y="184">Cedar. Then the request runs.</text>
+
+<rect class="box" x="20" y="218" width="306" height="150" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="242">Client secret</text>
+<text x="32" y="266">A text. Stored somewhere.</text>
+<text x="32" y="288">Expires; someone must rotate it.</text>
+<text x="32" y="310">Can be copied, logged, mailed.</text>
+<text x="32" y="338">Lesson 85: Dev lab connection only</text>
+
+<rect class="box" x="346" y="218" width="306" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="358" y="242">Certificate</text>
+<text x="358" y="266">A private key. Stored in a vault</text>
+<text x="358" y="288">or a certificate store.</text>
+<text x="358" y="310">Expires; someone must rotate it.</text>
+<text x="358" y="338">Lessons 29, 80, 85: Test and Prod</text>
+
+<rect class="box" x="672" y="218" width="308" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="684" y="242">Managed identity</text>
+<text x="684" y="266">Nothing to store, rotate or leak.</text>
+<text x="684" y="288">Exists only for Azure resources.</text>
+<text x="684" y="310">Usable only from the resource it is</text>
+<text x="684" y="330">assigned to.</text>
+<text x="684" y="354">This lesson: every connection</text>
+
+<rect class="box" x="20" y="388" width="632" height="196" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="412">The same identity for every connection of the app (a role assignment instead of a key)</text>
+<text x="32" y="440">Host storage     AzureWebJobsStorage__accountName      Storage Blob Data Owner</text>
+<text x="32" y="464">Queue            OpsStorage__queueServiceUri            Storage Queue Data Contributor</text>
+<text x="32" y="488">Telemetry        APPLICATIONINSIGHTS_AUTHENTICATION_STRING   Monitoring Metrics Publisher</text>
+<text x="32" y="512">Dataverse        Cedar__Url + Cedar__ManagedIdentityClientId  application user + security role</text>
+<text x="32" y="542">For a user-assigned identity each connection also names it: …__credential = managedidentity</text>
+<text x="32" y="562">and …__clientId = the identity's client ID. The storage account has shared-key access turned off.</text>
+
+<rect class="box" x="672" y="388" width="308" height="196" rx="8" fill="#eef3fb"/>
+<text class="b" x="684" y="412">On a developer machine</text>
+<text x="684" y="438">There is no managed identity.</text>
+<text x="684" y="460">DefaultAzureCredential uses the</text>
+<text x="684" y="480">developer's own sign-in (az login).</text>
+<text x="684" y="506">Local runs therefore act as the</text>
+<text x="684" y="526">developer, with the developer's</text>
+<text x="684" y="546">Dataverse roles. Test the real</text>
+<text x="684" y="566">identity in Azure.</text>
+</svg>

@@ -1,0 +1,174 @@
+{
+  "person": "Karim Aziz",
+  "exam": "AB-400",
+  "sessions": [
+    {
+      "on": "2026-12-12",
+      "kind": "due",
+      "note": "07:30, cold, before the labs",
+      "answers": {
+        "B-20": "right",
+        "E-06": "right",
+        "E-08": "right",
+        "H-wrong-detail": "right",
+        "H-wrong-gate": "right",
+        "I-12": "right",
+        "I-14": "wrong",
+        "U-13": "right",
+        "U-18": "wrong",
+        "X-csp-frame-ancestors~csp-frame-src": "wrong",
+        "E-15": "right",
+        "E-17": "right",
+        "E-26": "right",
+        "H-wrong-place": "right",
+        "I-13": "right",
+        "U-02": "right",
+        "U-15": "right",
+        "B-10": "right",
+        "B-16": "right",
+        "E-16": "right",
+        "I-01": "right",
+        "I-08": "right",
+        "I-11": "right",
+        "E-21": "right",
+        "H-too-custom": "right",
+        "I-03": "right",
+        "I-07": "right",
+        "I-09": "right",
+        "I-10": "right",
+        "X-event-hubs~service-bus-topic": "right",
+        "X-service-bus-queue~webhook": "right",
+        "X-update-if-match~upsert": "right"
+      }
+    },
+    {
+      "on": "2026-12-12",
+      "kind": "extra",
+      "note": "18:00, after R5 and R11",
+      "answers": {
+        "U-18": "right",
+        "I-14": "right",
+        "X-csp-frame-ancestors~csp-frame-src": "right"
+      }
+    },
+    {
+      "on": "2026-12-13",
+      "kind": "due",
+      "note": "08:00, cold",
+      "answers": {
+        "I-14": "right",
+        "U-18": "right",
+        "X-csp-frame-ancestors~csp-frame-src": "right",
+        "B-02": "right",
+        "B-03": "right",
+        "B-05": "right",
+        "B-07": "right",
+        "B-08": "right",
+        "B-09": "right",
+        "B-11": "right",
+        "B-15": "wrong",
+        "B-18": "right",
+        "B-21": "right",
+        "I-04": "right",
+        "X-api-permission~application-user": "right",
+        "X-api-permission~service-channel": "right",
+        "X-custom-code~policy-template": "right",
+        "E-01": "right",
+        "E-02": "right",
+        "E-03": "right",
+        "E-04": "right",
+        "E-05": "right",
+        "E-12": "right",
+        "E-13": "right",
+        "U-01": "right",
+        "U-03": "right"
+      }
+    },
+    {
+      "on": "2026-12-13",
+      "kind": "extra",
+      "note": "17:30, after R10, R12 and R9",
+      "answers": {
+        "E-08": "right",
+        "B-20": "right",
+        "E-06": "right",
+        "H-wrong-detail": "right",
+        "H-wrong-gate": "right",
+        "I-12": "right",
+        "U-13": "right",
+        "B-16": "right",
+        "E-17": "right",
+        "B-10": "right",
+        "E-15": "right",
+        "E-26": "right",
+        "H-wrong-place": "right",
+        "I-13": "right"
+      }
+    }
+  ],
+  "labs": [
+    {
+      "id": "R5",
+      "on": "2026-12-12",
+      "exit": "pass",
+      "note": "Drew who frames whom for frame-src and frame-ancestors and taught it to Dana"
+    },
+    {
+      "id": "R11",
+      "on": "2026-12-12",
+      "exit": "pass",
+      "note": "Explained function key versus App Service authentication without notes"
+    },
+    {
+      "id": "R10",
+      "on": "2026-12-13",
+      "exit": "pass",
+      "note": "Said which step settings are exported, closed-book"
+    },
+    {
+      "id": "R12",
+      "on": "2026-12-13",
+      "exit": "pass",
+      "note": "Drew the layer stack and the removal of the active layer"
+    },
+    {
+      "id": "R9",
+      "on": "2026-12-13",
+      "exit": "pass",
+      "note": "Run with --domain integrations: stale Integrations ratings re-checked closed-book; none raised"
+    }
+  ],
+  "logistics": {
+    "id-name-matches": {
+      "ok": true,
+      "on": "2026-12-12",
+      "note": "Passport name matches the certification profile exactly"
+    },
+    "system-test": {
+      "ok": true,
+      "on": "2026-12-12",
+      "note": "Failed on the Cedar work laptop (security software stopped the OnVUE browser); passed on the personal laptop in the home office, wired connection"
+    },
+    "room": {
+      "ok": true,
+      "on": "2026-12-12",
+      "note": "Home office with a door, desk cleared, second monitor unplugged and turned away"
+    },
+    "phone": {
+      "ok": true,
+      "on": "2026-12-12",
+      "note": "Mobile number with country code in the certification profile"
+    },
+    "sandbox": {
+      "ok": true,
+      "on": "2026-12-12",
+      "note": "Exam sandbox: break dialog, Learn split screen, review screen"
+    },
+    "guide-checked": {
+      "ok": true,
+      "on": "2026-12-13",
+      "updated": "2026-09-14",
+      "note": "Study guide page unchanged since the catalogue"
+    }
+  }
+}

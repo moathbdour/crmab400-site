@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t">
+<title id="t">Anatomy of the Cedar Site table</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700;font-size:16px}.s{font-size:14px}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<rect width="960" height="560" fill="#ffffff"/>
+<text x="30" y="34" class="h">Table: Site   (display name Site / Sites · logical name cedar_site · Web API entity set cedar_sites)</text>
+<rect x="30" y="60" width="900" height="44" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="45" y="80" class="h">Site (primary key)</text><text x="45" y="98" class="m">cedar_siteid · GUID</text>
+<text x="305" y="80" class="h">Name (primary name)</text><text x="305" y="98" class="m">cedar_name · text</text>
+<text x="545" y="80" class="h">Site code</text><text x="545" y="98" class="m">cedar_sitecode · text</text>
+<text x="725" y="80" class="h">Created On (system)</text><text x="725" y="98" class="m">createdon · date</text>
+<rect x="30" y="104" width="900" height="40" fill="#fff6e0" stroke="#b07d10" stroke-width="1.5"/>
+<text x="45" y="129" class="m">6f1c…-…-0001</text><text x="305" y="129">Harbor View – Building B</text><text x="545" y="129" class="m">HV-B</text><text x="725" y="129">2026-09-28 09:14</text>
+<rect x="30" y="144" width="900" height="40" fill="#ffffff" stroke="#b07d10" stroke-width="1.5"/>
+<text x="45" y="169" class="m">6f1c…-…-0002</text><text x="305" y="169">Harbor View – Main Tower</text><text x="545" y="169" class="m">HV-MAIN</text><text x="725" y="169">2026-09-28 09:16</text>
+<rect x="30" y="184" width="900" height="40" fill="#fff6e0" stroke="#b07d10" stroke-width="1.5"/>
+<text x="45" y="209" class="m">6f1c…-…-0003</text><text x="305" y="209">Juniper Logistics – Warehouse 2</text><text x="545" y="209" class="m">JL-W2</text><text x="725" y="209">2026-09-28 09:20</text>
+<line x1="290" y1="60" x2="290" y2="224" stroke="#2f5d8a"/><line x1="530" y1="60" x2="530" y2="224" stroke="#2f5d8a"/><line x1="710" y1="60" x2="710" y2="224" stroke="#2f5d8a"/>
+<rect x="30" y="250" width="270" height="110" rx="10" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="45" y="276" class="h">Column = one attribute</text><text x="45" y="300" class="s">Header row above: every row</text><text x="45" y="320" class="s">has a value slot for it.</text><text x="45" y="340" class="s">Type fixed at creation.</text>
+<rect x="340" y="250" width="270" height="110" rx="10" fill="#fff6e0" stroke="#b07d10" stroke-width="2"/>
+<text x="355" y="276" class="h">Row = one record</text><text x="355" y="300" class="s">One real building. Identified</text><text x="355" y="320" class="s">by its GUID, never by its name.</text><text x="355" y="340" class="s">Names can repeat or change.</text>
+<rect x="650" y="250" width="280" height="110" rx="10" fill="#eaf5ea" stroke="#2d7a3a" stroke-width="2"/>
+<text x="665" y="276" class="h">Identifiers</text><text x="665" y="300" class="s">Primary key: system GUID.</text><text x="665" y="320" class="s">Alternate key: business code</text><text x="665" y="340" class="s">(HV-B), enforced unique.</text>
+<text x="30" y="400" class="h">Four names for the same table — who uses which</text>
+<rect x="30" y="415" width="210" height="120" rx="10" fill="#f4f4f4" stroke="#555" stroke-width="1.5"/>
+<text x="45" y="440" class="h">Display name</text><text x="45" y="464" class="s">"Site" / "Sites"</text><text x="45" y="486" class="s">Users, forms, views.</text><text x="45" y="508" class="s">Can be renamed.</text>
+<rect x="260" y="415" width="210" height="120" rx="10" fill="#f4f4f4" stroke="#555" stroke-width="1.5"/>
+<text x="275" y="440" class="h">Schema name</text><text x="275" y="464" class="m">cedar_Site</text><text x="275" y="486" class="s">.NET early-bound code.</text><text x="275" y="508" class="s">Fixed after creation.</text>
+<rect x="490" y="415" width="210" height="120" rx="10" fill="#f4f4f4" stroke="#555" stroke-width="1.5"/>
+<text x="505" y="440" class="h">Logical name</text><text x="505" y="464" class="m">cedar_site</text><text x="505" y="486" class="s">SDK, FetchXML, Client API.</text><text x="505" y="508" class="s">Lowercase, fixed.</text>
+<rect x="720" y="415" width="210" height="120" rx="10" fill="#f4f4f4" stroke="#555" stroke-width="1.5"/>
+<text x="735" y="440" class="h">Entity set name</text><text x="735" y="464" class="m">cedar_sites</text><text x="735" y="486" class="s">Web API URLs.</text><text x="735" y="508" class="s">Usually plural logical.</text>
+</svg>

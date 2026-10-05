@@ -1,0 +1,443 @@
+{
+  "person": "Karim Aziz",
+  "start": "2026-12-03",
+  "domains": [
+    "extend",
+    "ux"
+  ],
+  "habits": [
+    "wrong-gate",
+    "wrong-place"
+  ],
+  "cards": {
+    "E-01": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-02": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-03": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-04": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-05": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-06": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-07": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-08": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-09": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-10": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-11": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-12": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-13": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "E-14": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-15": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-16": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-17": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "guessed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-18": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-19": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-20": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-21": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-22": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-23": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-24": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-25": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-26": {
+      "box": 1,
+      "due": "2026-12-04",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        }
+      ]
+    },
+    "E-27": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-28": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-29": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "E-30": {
+      "box": 1,
+      "due": "2026-12-04",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        }
+      ]
+    },
+    "U-01": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "U-02": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-03": {
+      "box": 3,
+      "due": "2026-12-05",
+      "seeded": "rating 3",
+      "reviews": []
+    },
+    "U-04": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-05": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-06": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-07": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-08": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-09": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-10": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-11": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-12": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-13": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-14": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-15": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-16": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "guessed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-17": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-18": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-19": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-20": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-21": {
+      "box": 2,
+      "due": "2026-12-04",
+      "seeded": "rating 2",
+      "reviews": []
+    },
+    "U-22": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "H-wrong-gate": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "trap habit",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "H-wrong-place": {
+      "box": 2,
+      "due": "2026-12-05",
+      "seeded": "trap habit",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    }
+  }
+}

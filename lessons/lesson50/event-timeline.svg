@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" role="img" aria-labelledby="t d">
+<title id="t">Case form event timeline</title>
+<desc id="d">Timeline of events on the Cedar Case form: form data OnLoad and form OnLoad when Omar opens the case, Loaded once the form and data are ready, column OnChange when Omar changes Case category or Priority, OnSave before the record is sent where preventDefault can cancel, and OnPostSave after the save succeeds or fails. Lookup PreSearch fires before a lookup search.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2733}.h{font-weight:700}.s{font-size:14px;fill:#3b4a58}rect{stroke:#2f5d7c;stroke-width:2}.a{stroke:#2f5d7c;stroke-width:2;fill:none;marker-end:url(#m)}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f5d7c"/></marker></defs>
+<rect width="920" height="380" fill="#ffffff" stroke="none"/>
+<text x="20" y="30" class="h">Omar works one Case form — which events fire, in order</text>
+<path class="a" d="M20 190H900"/>
+<rect x="20" y="60" width="160" height="100" rx="8" fill="#e3f0fa"/><text x="32" y="86" class="h">1 Data OnLoad</text><text x="32" y="110" class="s">record data loaded</text><text x="32" y="130" class="s">(also after refresh)</text><text x="32" y="150" class="s">data.addOnLoad</text>
+<rect x="195" y="60" width="160" height="100" rx="8" fill="#e3f0fa"/><text x="207" y="86" class="h">2 Form OnLoad</text><text x="207" y="110" class="s">designer or</text><text x="207" y="130" class="s">ui.addOnLoad</text><text x="207" y="150" class="s">C-19: onLoad</text>
+<rect x="370" y="60" width="160" height="100" rx="8" fill="#e3f0fa"/><text x="382" y="86" class="h">3 Loaded</text><text x="382" y="110" class="s">form + data ready</text><text x="382" y="130" class="s">code only:</text><text x="382" y="150" class="s">ui.addLoaded</text>
+<rect x="545" y="60" width="170" height="100" rx="8" fill="#fdf1dc"/><text x="557" y="86" class="h">4 Column OnChange</text><text x="557" y="110" class="s">category/priority</text><text x="557" y="130" class="s">changed (on blur)</text><text x="557" y="150" class="s">attr.addOnChange</text>
+<rect x="730" y="60" width="170" height="100" rx="8" fill="#fbe3e3"/><text x="742" y="86" class="h">5 OnSave</text><text x="742" y="110" class="s">before save sent</text><text x="742" y="130" class="s">preventDefault()</text><text x="742" y="150" class="s">cancels save</text>
+<rect x="730" y="230" width="170" height="100" rx="8" fill="#e6f4e6"/><text x="742" y="256" class="h">6 OnPostSave</text><text x="742" y="280" class="s">after save result</text><text x="742" y="300" class="s">code only:</text><text x="742" y="320" class="s">entity.addOnPostSave</text>
+<path class="a" d="M815 160V225"/>
+<rect x="370" y="230" width="330" height="100" rx="8" fill="#f1ecf8"/><text x="382" y="256" class="h">Any time: lookup PreSearch</text><text x="382" y="280" class="s">before the Site lookup searches;</text><text x="382" y="300" class="s">code only: control.addPreSearch</text><text x="382" y="320" class="s">(filter sites to the customer)</text>
+<rect x="20" y="230" width="330" height="100" rx="8" fill="#f4f6f8"/><text x="32" y="256" class="h">Also: TabStateChange, OnReadyState-</text><text x="32" y="280" class="s">Complete (iframe), grid OnLoad,</text><text x="32" y="300" class="s">OnRecordSelect, process events.</text><text x="32" y="320" class="s">Max 50 handlers per event.</text>
+</svg>

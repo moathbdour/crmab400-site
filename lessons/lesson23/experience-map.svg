@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" role="img" aria-labelledby="t">
+<title id="t">Three app experiences over the same Cedar Service Dataverse data</title>
+<rect width="980" height="470" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">One Dataverse, three experiences for different people</text>
+<rect x="20" y="60" width="300" height="190" rx="8" fill="#e8f3e8" stroke="#2e6b30" stroke-width="2"/>
+<text x="170" y="86" text-anchor="middle" font-weight="bold">Canvas app</text>
+<text x="34" y="112">Cedar Site Check (phone)</text>
+<text x="34" y="136">User: Sami, internal, licensed</text>
+<text x="34" y="160">Built with: screens + Power Fx</text>
+<text x="34" y="184">Data: Dataverse + connectors</text>
+<text x="34" y="208">Watch: delegation limits</text>
+<text x="34" y="232">Security: user's roles</text>
+<rect x="340" y="60" width="300" height="190" rx="8" fill="#dbe9f7" stroke="#1f4e79" stroke-width="2"/>
+<text x="490" y="86" text-anchor="middle" font-weight="bold">Generative page</text>
+<text x="354" y="112">Dispatch board in Cedar Operations</text>
+<text x="354" y="136">User: Sami, internal, licensed</text>
+<text x="354" y="160">Built with: prompt → React/TS</text>
+<text x="354" y="184">Data: dataApi, up to 6 tables</text>
+<text x="354" y="208">Watch: review generated code</text>
+<text x="354" y="232">Security: user's roles</text>
+<rect x="660" y="60" width="300" height="190" rx="8" fill="#fbeedd" stroke="#8a4b08" stroke-width="2"/>
+<text x="810" y="86" text-anchor="middle" font-weight="bold">Power Pages site</text>
+<text x="674" y="112">Cedar Customer Portal</text>
+<text x="674" y="136">User: Rana, external contact</text>
+<text x="674" y="160">Built with: design studio</text>
+<text x="674" y="184">Data: lists, forms, /_api</text>
+<text x="674" y="208">Watch: anonymous exposure</text>
+<text x="674" y="232">Security: web roles + table perms</text>
+<line x1="170" y1="250" x2="400" y2="340" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="490" y1="250" x2="490" y2="340" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="810" y1="250" x2="580" y2="340" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="250" y="342" width="480" height="100" rx="8" fill="#f2f2f2" stroke="#444" stroke-width="2"/>
+<text x="490" y="370" text-anchor="middle" font-weight="bold">Microsoft Dataverse (Cedar data from lessons 9–22)</text>
+<text x="490" y="396" text-anchor="middle">Account, Contact, Case, Site, Work order, Project</text>
+<text x="490" y="420" text-anchor="middle">Business rules, plug-ins, audit and security apply to all three</text>
+</g>
+</svg>

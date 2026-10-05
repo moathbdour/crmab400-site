@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" role="img" aria-labelledby="t d">
+<title id="t">Retry decision for one failed request</title>
+<desc id="d">A decision flow. Question one: is the answer 429 or one of the three service protection codes? If yes, the request is throttled: the server did not process it, so wait exactly Retry-After and repeat it, whatever the method. If no, question two: is it 408, 502, 503, 504 or a lost connection? If yes, it is transient and the outcome is unknown, so ask whether the request is idempotent, that is GET, DELETE, PATCH with If-Match or a repeatable action. Idempotent: wait with exponential backoff and jitter, 1, 2, 4, 8 seconds up to a cap, and repeat. Not idempotent, such as a POST that creates a row: do not repeat; report an unknown outcome and check before sending again. If no, question three: is it 412? Then it is a conflict: read the row again and decide again. Otherwise it is permanent, for example 400 from a plug-in, 401, 403 or 404: report and never repeat. Every repeat first passes a gate: attempts left, at most six, and waiting budget left, at most 600 seconds. If not, give up: raise an error that carries the kind and the last Retry-After, and exit with code 3.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.l{font-size:14px;fill:#333;font-weight:700}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="540" fill="#ffffff"/>
+<text class="h" x="20" y="28">One failed request: classify first, then decide</text>
+
+<rect class="box" x="20" y="50" width="300" height="64" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="76">1. 429, or code 0x80072322 /</text>
+<text class="b" x="32" y="98">0x80072321 / 0x80072326?</text>
+<path class="a" d="M320,82 L420,82"/><text class="l" x="352" y="74">yes</text>
+<rect class="box" x="420" y="46" width="560" height="72" rx="8" fill="#dff6dd"/>
+<text class="b" x="432" y="72">THROTTLED: the server did not process it</text>
+<text x="432" y="96">Wait exactly Retry-After, then send the same request again. Any method, POST included.</text>
+
+<path class="a" d="M170,114 L170,150"/><text class="l" x="180" y="138">no</text>
+<rect class="box" x="20" y="150" width="300" height="64" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="176">2. 408, 502, 503, 504 or a</text>
+<text class="b" x="32" y="198">lost connection?</text>
+<path class="a" d="M320,182 L420,182"/><text class="l" x="352" y="174">yes</text>
+<rect class="box" x="420" y="146" width="560" height="112" rx="8" fill="#eef3fb"/>
+<text class="b" x="432" y="172">TRANSIENT: it may or may not have been processed</text>
+<text x="432" y="196">Idempotent (GET, DELETE, PATCH with If-Match, repeatable action):</text>
+<text x="432" y="216">   back off 1, 2, 4, 8 … s (cap 60 s) with jitter, then repeat.</text>
+<text x="432" y="240">Not idempotent (a POST that creates): do NOT repeat. Report "outcome unknown".</text>
+
+<path class="a" d="M170,214 L170,290"/><text class="l" x="180" y="260">no</text>
+<rect class="box" x="20" y="290" width="300" height="50" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="320">3. 412 / version mismatch?</text>
+<path class="a" d="M320,315 L420,315"/><text class="l" x="352" y="307">yes</text>
+<rect class="box" x="420" y="286" width="560" height="58" rx="8" fill="#eef3fb"/>
+<text class="b" x="432" y="310">CONFLICT: the row changed</text>
+<text x="432" y="332">Not a retry. Read again, decide again, a bounded number of times (lesson 78).</text>
+
+<path class="a" d="M170,340 L170,376"/><text class="l" x="180" y="364">no</text>
+<rect class="box" x="20" y="376" width="960" height="58" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="400">PERMANENT: 400 (plug-in refusal, validation), 401, 403, 404 …</text>
+<text x="32" y="422">The same request gets the same answer. Report it to a person. Never repeat.</text>
+
+<rect class="box" x="20" y="452" width="960" height="70" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="478">Gate before every repeat: attempts left (max 6)? waiting budget left (max 600 s)?</text>
+<text x="32" y="502">If not: give up, raise an error that carries the kind and the last Retry-After, exit with code 3. An idempotent job can simply run again later.</text>
+</svg>

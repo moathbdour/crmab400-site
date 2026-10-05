@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" role="img" aria-labelledby="t">
+<title id="t">Records the Summit Tower journey leaves behind and how they link</title>
+<rect width="1000" height="440" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1b1b1b">
+<text x="500" y="28" text-anchor="middle" font-size="19" font-weight="bold">Evidence trail: each arrow is a lookup you can query</text>
+<rect x="400" y="50" width="200" height="56" rx="8" fill="#dbe9f7" stroke="#1f4e79" stroke-width="2"/><text x="500" y="74" text-anchor="middle" font-weight="bold">Account</text><text x="500" y="95" text-anchor="middle">Summit Tower Offices</text>
+<rect x="20" y="170" width="200" height="56" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="120" y="194" text-anchor="middle" font-weight="bold">Opportunity (Won)</text><text x="120" y="215" text-anchor="middle">Fire-safety inspections</text>
+<rect x="260" y="170" width="200" height="56" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="360" y="194" text-anchor="middle" font-weight="bold">Case (Resolved)</text><text x="360" y="215" text-anchor="middle">Fire alarm panel fault</text>
+<rect x="540" y="170" width="200" height="56" rx="8" fill="#e8f3e8" stroke="#2e6b30"/><text x="640" y="194" text-anchor="middle" font-weight="bold">Site ST-A</text><text x="640" y="215" text-anchor="middle">Summit Tower – Tower A</text>
+<rect x="780" y="170" width="200" height="56" rx="8" fill="#e8f3e8" stroke="#2e6b30"/><text x="880" y="194" text-anchor="middle" font-weight="bold">Project</text><text x="880" y="215" text-anchor="middle">Fire-safety 2027</text>
+<rect x="260" y="310" width="200" height="56" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="360" y="334" text-anchor="middle" font-weight="bold">Phone call (done)</text><text x="360" y="355" text-anchor="middle">first response</text>
+<rect x="660" y="310" width="220" height="56" rx="8" fill="#e8f3e8" stroke="#2e6b30"/><text x="770" y="334" text-anchor="middle" font-weight="bold">Work order (Completed)</text><text x="770" y="355" text-anchor="middle">BrightSpark, FieldLink ID</text>
+<line x1="120" y1="170" x2="420" y2="106" stroke="#1b1b1b" marker-end="url(#a)"/><text x="170" y="130">Customer</text>
+<line x1="360" y1="170" x2="460" y2="108" stroke="#1b1b1b" marker-end="url(#a)"/><text x="330" y="150">Customer</text>
+<line x1="640" y1="170" x2="540" y2="108" stroke="#1b1b1b" marker-end="url(#a)"/><text x="600" y="150">Account</text>
+<line x1="880" y1="170" x2="600" y2="100" stroke="#1b1b1b" marker-end="url(#a)"/><text x="770" y="130">Customer</text>
+<line x1="360" y1="310" x2="360" y2="228" stroke="#1b1b1b" marker-end="url(#a)"/><text x="370" y="275">Regarding</text>
+<line x1="720" y1="310" x2="660" y2="228" stroke="#1b1b1b" marker-end="url(#a)"/><text x="620" y="275">Site</text>
+<line x1="820" y1="310" x2="870" y2="228" stroke="#1b1b1b" marker-end="url(#a)"/><text x="860" y="275">Project</text>
+<line x1="460" y1="200" x2="538" y2="200" stroke="#1b1b1b" marker-end="url(#a)"/><text x="462" y="160">Site (trial</text><text x="462" y="176">copy of ST-A)</text>
+<line x1="470" y1="338" x2="655" y2="338" stroke="#a35b00" stroke-width="2" stroke-dasharray="6 4"/><text x="480" y="390" fill="#7a4300">Case ↔ work order: text reference only (G-01)</text>
+<text x="20" y="425">Blue = Cedar-Trial (Dynamics 365)   Green = Karim-Dev (Cedar Lab)   Dashed = no lookup yet</text>
+</g></svg>

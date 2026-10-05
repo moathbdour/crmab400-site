@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" role="img" aria-labelledby="t d">
+<title id="t">Solution layer stack for the Case main form in Cedar-Test</title>
+<desc id="d">From bottom: System layer, Dynamics 365 Customer Service managed layer, CedarServiceCore 1.1.0.0 managed layer, pending CedarServiceCore_Upgrade 1.2.0.0, and the unmanaged Active layer on top. Runtime reads top-down; forms, apps and site maps merge, other components use top wins.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-size:18px;font-weight:600}.s{font-size:14px;fill:#333}</style>
+<rect width="760" height="460" fill="#ffffff"/>
+<text x="20" y="32" class="h">Case main form — layers in Cedar-Test (top is what users see)</text>
+<rect x="20" y="55" width="520" height="62" rx="6" fill="#fde2e1" stroke="#b42318" stroke-width="2"/>
+<text x="36" y="80" class="h">Active (unmanaged) layer</text>
+<text x="36" y="104" class="s">Hotfix typed directly in Test — should be empty</text>
+<rect x="20" y="127" width="520" height="62" rx="6" fill="#fff4d6" stroke="#9a6700" stroke-width="2" stroke-dasharray="7 4"/>
+<text x="36" y="152" class="h">CedarServiceCore_Upgrade 1.2.0.0 (pending)</text>
+<text x="36" y="176" class="s">Created by Stage for upgrade; removed by Apply upgrade</text>
+<rect x="20" y="199" width="520" height="62" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+<text x="36" y="224" class="h">CedarServiceCore 1.1.0.0 (managed, base)</text>
+<text x="36" y="248" class="s">Publisher Cedar Service — adds Site and Case category</text>
+<rect x="20" y="271" width="520" height="62" rx="6" fill="#e0f2e9" stroke="#15803d" stroke-width="2"/>
+<text x="36" y="296" class="h">Dynamics 365 Customer Service (managed)</text>
+<text x="36" y="320" class="s">Microsoft publisher — defines the Case form</text>
+<rect x="20" y="343" width="520" height="62" rx="6" fill="#eeeeee" stroke="#555" stroke-width="2"/>
+<text x="36" y="368" class="h">System layer</text>
+<text x="36" y="392" class="s">Platform tables and defaults</text>
+<line x1="600" y1="395" x2="600" y2="70" stroke="#1b1b1b" stroke-width="3"/>
+<polygon points="600,58 591,76 609,76" fill="#1b1b1b"/>
+<text x="560" y="425" class="s">imported later = higher</text>
+<text x="615" y="150" class="s">Runtime</text>
+<text x="615" y="170" class="s">evaluates</text>
+<text x="615" y="190" class="s">top-down</text>
+<text x="20" y="445" class="s">Merge: model-driven app, form, site map. Top wins: every other component (columns, views, flows, plug-in steps …).</text>
+</svg>

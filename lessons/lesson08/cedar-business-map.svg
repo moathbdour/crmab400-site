@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t">
+<title id="t">Cedar Service conceptual record map</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700;font-size:16px}.s{font-size:14px}</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#1b2a3a"/></marker></defs>
+<rect width="960" height="520" fill="#ffffff"/>
+<rect x="380" y="30" width="200" height="70" rx="10" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="480" y="60" text-anchor="middle" class="h">Account</text>
+<text x="480" y="84" text-anchor="middle" class="s">customer or subcontractor</text>
+<rect x="40" y="30" width="200" height="70" rx="10" fill="#fff6e0" stroke="#b07d10" stroke-width="2"/>
+<text x="140" y="60" text-anchor="middle" class="h">Lead</text>
+<text x="140" y="84" text-anchor="middle" class="s">Summit Tower enquiry</text>
+<rect x="720" y="30" width="200" height="70" rx="10" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="820" y="60" text-anchor="middle" class="h">Contact</text>
+<text x="820" y="84" text-anchor="middle" class="s">Rana Mansour</text>
+<rect x="40" y="200" width="200" height="70" rx="10" fill="#fff6e0" stroke="#b07d10" stroke-width="2"/>
+<text x="140" y="230" text-anchor="middle" class="h">Opportunity</text>
+<text x="140" y="254" text-anchor="middle" class="s">HVAC contract (Maya)</text>
+<rect x="290" y="200" width="180" height="70" rx="10" fill="#f3f0fa" stroke="#5b3f99" stroke-width="2"/>
+<text x="380" y="230" text-anchor="middle" class="h">Site (candidate)</text>
+<text x="380" y="254" text-anchor="middle" class="s">Building B</text>
+<rect x="510" y="200" width="180" height="70" rx="10" fill="#fdecea" stroke="#b3261e" stroke-width="2"/>
+<text x="600" y="230" text-anchor="middle" class="h">Case</text>
+<text x="600" y="254" text-anchor="middle" class="s">Chiller fault (Omar)</text>
+<rect x="740" y="200" width="180" height="70" rx="10" fill="#e6f4ea" stroke="#2e7d32" stroke-width="2"/>
+<text x="830" y="230" text-anchor="middle" class="h">Activity</text>
+<text x="830" y="254" text-anchor="middle" class="s">call, email, task</text>
+<rect x="40" y="370" width="200" height="70" rx="10" fill="#f3f0fa" stroke="#5b3f99" stroke-width="2"/>
+<text x="140" y="400" text-anchor="middle" class="h">Project (candidate)</text>
+<text x="140" y="424" text-anchor="middle" class="s">Lobby lighting (Sami)</text>
+<rect x="400" y="370" width="220" height="70" rx="10" fill="#e6f4ea" stroke="#2e7d32" stroke-width="2"/>
+<text x="510" y="400" text-anchor="middle" class="h">Work order</text>
+<text x="510" y="424" text-anchor="middle" class="s">Field Service or custom</text>
+<rect x="700" y="370" width="220" height="70" rx="10" fill="#f7f9fb" stroke="#1b2a3a" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="810" y="400" text-anchor="middle" class="h">FieldLink (external)</text>
+<text x="810" y="424" text-anchor="middle" class="s">BrightSpark status</text>
+<line x1="240" y1="65" x2="378" y2="65" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="250" y="55" class="s">qualifies to</text>
+<line x1="580" y1="65" x2="718" y2="65" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="600" y="55" class="s">1 : many</text>
+<line x1="420" y1="100" x2="190" y2="198" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="232" y="150" class="s">1 : many</text>
+<line x1="460" y1="100" x2="390" y2="198" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="428" y="165" class="s">1:N</text>
+<line x1="510" y1="100" x2="590" y2="198" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="560" y="150" class="s">1 : many</text>
+<line x1="690" y1="235" x2="738" y2="235" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="470" y1="235" x2="508" y2="235" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="140" y1="270" x2="140" y2="368" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="150" y="325" class="s">won creates</text>
+<line x1="600" y1="270" x2="530" y2="368" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="575" y="325" class="s">case creates</text>
+<line x1="240" y1="405" x2="398" y2="405" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="262" y="395" class="s">1 : many</text>
+<line x1="620" y1="405" x2="698" y2="405" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="698" y1="425" x2="622" y2="425" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="632" y="462" class="s">send / status sync</text>
+<text x="40" y="500" class="s">Blue = standard customer records. Amber = sales. Red/green = service. Purple = candidate custom tables (decided in lesson 16). Dashed = outside Dataverse.</text>
+</svg>

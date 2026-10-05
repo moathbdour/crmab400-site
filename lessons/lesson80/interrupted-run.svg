@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" role="img" aria-labelledby="t d">
+<title id="t">An interrupted run and its completion by the next run</title>
+<desc id="d">Two timelines for one file of 250 lines, written in batches of 100. Run 1 at 02:00: the journal records started; one query reads the stored statuses; batch 1 with 100 updates is committed; batch 2 is answered with a service protection fault after the client has used up its retries; batch 3 is not sent; the journal records throttled; the exit code is 3 and the file stays in the inbox. Run 2 at 03:00 with the same file: the journal shows that the previous run was throttled, so the file is applied again; one query now shows that 100 rows are already Accepted; the plan skips those 100 lines and writes the other 150 in two batches; the journal records completed; the exit code is 0 and the file is archived. Final state: 250 work orders Accepted, each updated exactly once. The guarantee is at-least-once delivery combined with idempotent rules.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="440" fill="#ffffff"/>
+<text class="h" x="20" y="28">250 lines, batches of 100: run 1 is throttled, run 2 finishes. Nothing is written twice.</text>
+
+<text class="b" x="20" y="66">Run 1 · 02:00</text>
+<rect class="box" x="20" y="78" width="140" height="78" rx="6" fill="#eef3fb"/><text x="30" y="102">journal:</text><text class="b" x="30" y="124">started</text>
+<path class="a" d="M160,117 L176,117"/>
+<rect class="box" x="176" y="78" width="140" height="78" rx="6" fill="#dff6dd"/><text x="186" y="102">1 query</text><text x="186" y="124">250 rows: Sent</text>
+<path class="a" d="M316,117 L332,117"/>
+<rect class="box" x="332" y="78" width="140" height="78" rx="6" fill="#dff6dd"/><text class="b" x="342" y="102">batch 1</text><text x="342" y="124">100 updates</text><text x="342" y="144">committed</text>
+<path class="a" d="M472,117 L488,117"/>
+<rect class="box" x="488" y="78" width="160" height="78" rx="6" fill="#fde7e9"/><text class="b" x="498" y="102">batch 2</text><text x="498" y="124">throttled, retries</text><text x="498" y="144">used up</text>
+<path class="a" d="M648,117 L664,117"/>
+<rect class="box" x="664" y="78" width="140" height="78" rx="6" fill="#f3f2f1" stroke-dasharray="5 4"/><text class="b" x="674" y="102">batch 3</text><text x="674" y="124">not sent</text>
+<path class="a" d="M804,117 L820,117"/>
+<rect class="box" x="820" y="78" width="160" height="78" rx="6" fill="#fff4ce"/><text x="830" y="102">journal: throttled</text><text class="b" x="830" y="124">exit 3</text><text x="830" y="144">file stays in inbox</text>
+
+<text class="b" x="20" y="206">Run 2 · 03:00 · the same file</text>
+<rect class="box" x="20" y="218" width="140" height="92" rx="6" fill="#eef3fb"/><text x="30" y="242">journal says:</text><text x="30" y="262">last run throttled</text><text class="b" x="30" y="284">→ apply again</text>
+<path class="a" d="M160,264 L176,264"/>
+<rect class="box" x="176" y="218" width="140" height="92" rx="6" fill="#dff6dd"/><text x="186" y="242">1 query</text><text x="186" y="262">100 Accepted</text><text x="186" y="282">150 Sent</text>
+<path class="a" d="M316,264 L332,264"/>
+<rect class="box" x="332" y="218" width="140" height="92" rx="6" fill="#fff4ce"/><text class="b" x="342" y="242">plan</text><text x="342" y="262">skip 100 lines</text><text x="342" y="282">(same status)</text><text x="342" y="302">write 150</text>
+<path class="a" d="M472,264 L488,264"/>
+<rect class="box" x="488" y="218" width="316" height="92" rx="6" fill="#dff6dd"/><text class="b" x="498" y="242">2 batches: 100 + 50 updates</text><text x="498" y="266">committed</text>
+<path class="a" d="M804,264 L820,264"/>
+<rect class="box" x="820" y="218" width="160" height="92" rx="6" fill="#dff6dd"/><text x="830" y="242">journal: completed</text><text class="b" x="830" y="264">exit 0</text><text x="830" y="284">Applied 150,</text><text x="830" y="302">Skipped 100</text>
+
+<rect class="box" x="20" y="338" width="960" height="84" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="364">Why this works without per-batch bookkeeping</text>
+<text x="32" y="388">Delivery is at-least-once (the file is processed again). The rules are idempotent (a status that is already there is skipped).</text>
+<text x="32" y="410">Together: 250 work orders Accepted, each updated exactly once. The same happens after a crash; then the journal shows "started" only.</text>
+</svg>

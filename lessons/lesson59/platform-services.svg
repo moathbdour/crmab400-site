@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">How C-22 reaches platform services through the context object</title>
+<desc id="d">The manifest feature-usage declarations WebAPI, Utility and Device.captureImage decide which context services exist at runtime. C-22 uses context.webAPI to read and create notes, context.utils to check Write privilege, context.navigation to confirm, context.device to capture a photo when available, and formatting and resources for display. All calls run as the signed-in user inside Dataverse security.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="560" fill="#ffffff"/>
+<rect class="box" x="20" y="24" width="280" height="150" rx="8" fill="#fff4ce"/>
+<text class="h" x="34" y="52">Manifest feature-usage (v0.3)</text>
+<text class="s" x="34" y="78">WebAPI  required="true"</text>
+<text class="s" x="34" y="100">Utility  required="true"</text>
+<text class="s" x="34" y="122">Device.captureImage  required="false"</text>
+<text class="s" x="34" y="150">no declaration = service is null</text>
+<rect class="box" x="340" y="24" width="220" height="150" rx="8" fill="#f3f2f1"/>
+<text class="h" x="354" y="52">Host builds context</text>
+<text class="s" x="354" y="78">enables declared features</text>
+<text class="s" x="354" y="100">checks host support</text>
+<text class="s" x="354" y="122">optional feature missing →</text>
+<text class="s" x="354" y="144">captureImage is null</text>
+<line class="a" x1="300" y1="100" x2="338" y2="100"/>
+<rect class="box" x="600" y="24" width="280" height="150" rx="8" fill="#deecf9"/>
+<text class="h" x="614" y="52">C-22 FieldLinkTimeline v0.3</text>
+<text class="s" x="614" y="78">init: start privilege check</text>
+<text class="s" x="614" y="100">updateView: render timeline</text>
+<text class="s" x="614" y="122">live region announces changes</text>
+<text class="s" x="614" y="144">never touches formContext</text>
+<line class="a" x1="560" y1="100" x2="598" y2="100"/>
+<rect class="box" x="20" y="230" width="200" height="130" rx="8" fill="#dff6dd"/>
+<text class="h" x="34" y="258">context.webAPI</text>
+<text class="s" x="34" y="282">retrieveMultipleRecords</text>
+<text class="s" x="34" y="302">  latest note on record</text>
+<text class="s" x="34" y="324">createRecord annotation</text>
+<text class="s" x="34" y="344">  site photo</text>
+<rect class="box" x="240" y="230" width="200" height="130" rx="8" fill="#dff6dd"/>
+<text class="h" x="254" y="258">context.utils</text>
+<text class="s" x="254" y="282">getEntityMetadata</text>
+<text class="s" x="254" y="302">hasEntityPrivilege</text>
+<text class="s" x="254" y="324">  Write on work order?</text>
+<rect class="box" x="460" y="230" width="200" height="130" rx="8" fill="#dff6dd"/>
+<text class="h" x="474" y="258">context.navigation</text>
+<text class="s" x="474" y="282">openConfirmDialog</text>
+<text class="s" x="474" y="302">  before Completed</text>
+<text class="s" x="474" y="324">openAlertDialog</text>
+<text class="s" x="474" y="344">  photo too large</text>
+<rect class="box" x="680" y="230" width="200" height="130" rx="8" fill="#dff6dd"/>
+<text class="h" x="694" y="258">context.device</text>
+<text class="s" x="694" y="282">captureImage (phone)</text>
+<text class="s" x="694" y="302">returns FileObject</text>
+<text class="s" x="694" y="324">button hidden when null</text>
+<path class="a" d="M740,174 L740,200 L120,200 L120,228"/>
+<line class="a" x1="340" y1="200" x2="340" y2="228"/>
+<line class="a" x1="560" y1="200" x2="560" y2="228"/>
+<line class="a" x1="780" y1="200" x2="780" y2="228"/>
+<rect class="box" x="20" y="400" width="420" height="130" rx="8" fill="#f3f2f1"/>
+<text class="h" x="34" y="428">Display services (no declaration needed)</text>
+<text class="s" x="34" y="454">formatting.formatDateShort – user's date format</text>
+<text class="s" x="34" y="476">resources.getString – resx labels, user language</text>
+<text class="s" x="34" y="498">mode.trackContainerResize – narrow → compact</text>
+<text class="s" x="34" y="520">userSettings – language, time zone</text>
+<rect class="box" x="460" y="400" width="420" height="130" rx="8" fill="#fde7e9"/>
+<text class="h" x="474" y="428">Dataverse still decides</text>
+<text class="s" x="474" y="454">Every webAPI call runs as the signed-in user.</text>
+<text class="s" x="474" y="476">hasEntityPrivilege only hides a button (UX);</text>
+<text class="s" x="474" y="498">roles, column security and plug-ins enforce.</text>
+<text class="s" x="474" y="520">Calls count toward API limits.</text>
+</svg>

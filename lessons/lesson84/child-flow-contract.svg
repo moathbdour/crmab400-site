@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Two parent flows, one child flow for the rule, one child flow for failures</title>
+<desc id="d">On the left two parent flows: Cedar – First response sent (email) and Cedar – First response sent (phone call). Each keeps only its trigger and one action, Run a Child Flow with retry policy None, passing CaseId and Source. In the middle the child flow Cedar – Mark first response (child): manual trigger with the text inputs CaseId and Source; a Try scope with Get the case, Outcome and a condition that updates First Response Sent when the outcome is marked; a Catch scope that runs after Try has failed or timed out and builds an error text; a Respond action in the finally position that always answers with result and message; and a Terminate with status Failed when Try did not succeed. The contract: result is one of marked, already-marked, inactive or failed; message is empty or names the failed action and the error. Back in the parent a condition runs after the child call whatever its status: when the call failed or the result is failed, it calls the second child, Cedar – Report flow failure (child), with flow name, run link, failed step, message and record, and then ends with Terminate Failed. On the right the report child sends one mail to the address in an environment variable and answers reported yes or no. Notes: both children live in the same solution as the parents; children with connectors other than Dataverse need their connections embedded under Run only users; a child cannot receive connections from the parent.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.r{stroke:#a4262c;stroke-width:1.8;marker-end:url(#mr);fill:none;stroke-dasharray:6 4}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker><marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#a4262c"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">One rule in one place: parents call, the child decides, a second child reports</text>
+
+<rect class="box" x="20" y="50" width="270" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="74">Parent: First response sent</text>
+<text class="b" x="32" y="94">(email)</text>
+<text x="32" y="120">Trigger: email Sent, outgoing,</text>
+<text x="32" y="140">regarding a case (lesson 81)</text>
+<text x="32" y="166">Run a Child Flow · retry None</text>
+<text x="32" y="186">CaseId, Source = email</text>
+
+<rect class="box" x="20" y="214" width="270" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="238">Parent: First response sent</text>
+<text class="b" x="32" y="258">(phone call)</text>
+<text x="32" y="284">Trigger: call completed, outgoing,</text>
+<text x="32" y="304">regarding a case</text>
+<text x="32" y="330">Run a Child Flow · retry None</text>
+<text x="32" y="350">CaseId, Source = phonecall</text>
+
+<path class="a" d="M290,125 L340,180"/><path class="a" d="M290,289 L340,240"/>
+
+<rect class="box" x="340" y="50" width="330" height="330" rx="8" fill="#dff6dd"/>
+<text class="b" x="352" y="74">Child: Mark first response</text>
+<text x="352" y="98">Trigger: Manually trigger a flow</text>
+<text x="352" y="118">inputs CaseId, Source (text)</text>
+<rect class="box" x="352" y="130" width="306" height="78" rx="6" fill="#ffffff"/>
+<text class="b" x="362" y="150">Try</text>
+<text x="362" y="172">Get the case → Outcome →</text>
+<text x="362" y="192">if 'marked': update First Response Sent</text>
+<path class="r" d="M505,208 L505,222"/>
+<rect class="box" x="352" y="222" width="306" height="52" rx="6" fill="#fde7e9"/>
+<text class="b" x="362" y="242">Catch (after Try failed / timed out)</text>
+<text x="362" y="262">result('Try') → Error text</text>
+<path class="a" d="M505,274 L505,288"/>
+<rect class="box" x="352" y="288" width="306" height="34" rx="6" fill="#fff4ce"/>
+<text x="362" y="310">Respond (always): result, message</text>
+<path class="a" d="M505,322 L505,336"/>
+<rect class="box" x="352" y="336" width="306" height="34" rx="6" fill="#ffffff"/>
+<text x="362" y="358">If Try failed: Terminate (Failed)</text>
+
+<rect class="box" x="20" y="394" width="650" height="190" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="418">The contract of the child</text>
+<text x="32" y="444">result = marked | already-marked | inactive | failed          message = '' or "action: error"</text>
+<text class="b" x="32" y="474">Back in each parent</text>
+<text x="32" y="498">Condition, run after the call with any finished status:</text>
+<text x="32" y="518">call not Succeeded OR result = failed  →  Report the failure (child 2)  →  Terminate (Failed)</text>
+<text x="32" y="548">Same solution. A child cannot receive connections from its parent: connectors other than</text>
+<text x="32" y="568">Dataverse must be embedded in the child (Run only users → Use this connection).</text>
+
+<path class="r" d="M670,490 L720,360"/>
+<rect class="box" x="690" y="50" width="290" height="310" rx="8" fill="#fff4ce"/>
+<text class="b" x="702" y="74">Child: Report flow failure</text>
+<text x="702" y="98">inputs FlowName, RunUrl,</text>
+<text x="702" y="118">FailedAction, Message, Record</text>
+<rect class="box" x="702" y="132" width="266" height="72" rx="6" fill="#ffffff"/>
+<text class="b" x="712" y="152">Try</text>
+<text x="712" y="174">Send one mail to the address in</text>
+<text x="712" y="192">cedar_AutomationAlertRecipients</text>
+<rect class="box" x="702" y="216" width="266" height="34" rx="6" fill="#ffffff"/>
+<text x="712" y="238">Respond (always): reported yes | no</text>
+<text x="702" y="278">Used by every Cedar flow: one place</text>
+<text x="702" y="298">to change who is told, and how.</text>
+<text x="702" y="326">Outlook connection embedded in the</text>
+<text x="702" y="346">child (Run only users).</text>
+
+<rect class="box" x="690" y="394" width="290" height="190" rx="8" fill="#eef3fb"/>
+<text class="b" x="702" y="418">Why a child flow</text>
+<text x="702" y="444">A fix reaches both parents at once.</text>
+<text x="702" y="466">Testable alone: it is an instant flow.</text>
+<text x="702" y="488">Callable from an app or an agent.</text>
+<text x="702" y="510">Fewer actions and less nesting</text>
+<text x="702" y="530">per flow (limits: 500 and 8).</text>
+<text x="702" y="556">Cost: one more run, one more</text>
+<text x="702" y="574">thing that can be turned off.</text>
+</svg>

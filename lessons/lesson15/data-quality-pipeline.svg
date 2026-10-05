@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t">
+<title id="t">Cedar Service data quality pipeline: profile, clean, map, import, detect, merge, monitor</title>
+<rect width="960" height="560" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="480" y="32" text-anchor="middle" font-size="20" font-weight="bold">Getting Cedar Site data in cleanly — and keeping it clean</text>
+<rect x="20" y="60" width="200" height="120" rx="8" fill="#f2f2f2" stroke="#444"/>
+<text x="120" y="86" text-anchor="middle" font-weight="bold">1. Profile source</text>
+<text x="120" y="110" text-anchor="middle">cedar-sites-import.csv</text>
+<text x="120" y="132" text-anchor="middle">count blanks, variants,</text>
+<text x="120" y="154" text-anchor="middle">bad choice values</text>
+<line x1="220" y1="120" x2="258" y2="120" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="260" y="60" width="200" height="120" rx="8" fill="#f2f2f2" stroke="#444"/>
+<text x="360" y="86" text-anchor="middle" font-weight="bold">2. Clean + map</text>
+<text x="360" y="110" text-anchor="middle">trim, upper-case codes,</text>
+<text x="360" y="132" text-anchor="middle">ISO dates, choice labels,</text>
+<text x="360" y="154" text-anchor="middle">Customer → Account</text>
+<line x1="460" y1="120" x2="498" y2="120" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="500" y="60" width="200" height="120" rx="8" fill="#e6f0fb" stroke="#0f5aa6"/>
+<text x="600" y="86" text-anchor="middle" font-weight="bold">3. Import</text>
+<text x="600" y="110" text-anchor="middle">Import Data wizard</text>
+<text x="600" y="132" text-anchor="middle">or Power Query dataflow</text>
+<text x="600" y="154" text-anchor="middle">(key = Site code)</text>
+<line x1="700" y1="120" x2="738" y2="120" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="740" y="60" width="200" height="120" rx="8" fill="#fff4e0" stroke="#a15c00"/>
+<text x="840" y="86" text-anchor="middle" font-weight="bold">4. Review results</text>
+<text x="840" y="110" text-anchor="middle">created / updated /</text>
+<text x="840" y="132" text-anchor="middle">failed rows; fix and</text>
+<text x="840" y="154" text-anchor="middle">re-import failures only</text>
+<line x1="840" y1="180" x2="840" y2="238" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="20" y="240" width="920" height="150" rx="8" fill="#ffffff" stroke="#444" stroke-dasharray="6 4"/>
+<text x="480" y="264" text-anchor="middle" font-weight="bold">Ongoing guards inside Dataverse (lesson 15)</text>
+<rect x="40" y="280" width="280" height="96" rx="8" fill="#e9f6ec" stroke="#1e7b34"/>
+<text x="180" y="304" text-anchor="middle" font-weight="bold">Required columns + types</text>
+<text x="180" y="328" text-anchor="middle">block blanks, bad numbers</text>
+<text x="180" y="350" text-anchor="middle">(lesson 10) — hard stop</text>
+<rect x="340" y="280" width="280" height="96" rx="8" fill="#e9f6ec" stroke="#1e7b34"/>
+<text x="480" y="304" text-anchor="middle" font-weight="bold">Alternate key on Site code</text>
+<text x="480" y="328" text-anchor="middle">database rejects exact</text>
+<text x="480" y="350" text-anchor="middle">duplicates — hard stop</text>
+<rect x="640" y="280" width="280" height="96" rx="8" fill="#fff4e0" stroke="#a15c00"/>
+<text x="780" y="304" text-anchor="middle" font-weight="bold">Duplicate detection rule</text>
+<text x="780" y="328" text-anchor="middle">warns on create, update,</text>
+<text x="780" y="350" text-anchor="middle">import — user may override</text>
+<line x1="780" y1="390" x2="780" y2="438" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="560" y="440" width="380" height="100" rx="8" fill="#f3e8fb" stroke="#6b2fa0"/>
+<text x="750" y="466" text-anchor="middle" font-weight="bold">5. Detect jobs + merge / clean up</text>
+<text x="750" y="490" text-anchor="middle">scheduled bulk detection job; merge</text>
+<text x="750" y="512" text-anchor="middle">accounts/contacts/leads; custom Site = manual</text>
+<rect x="20" y="440" width="500" height="100" rx="8" fill="#f2f2f2" stroke="#444"/>
+<text x="270" y="466" text-anchor="middle" font-weight="bold">6. Monitor quality KPIs (Dana)</text>
+<text x="270" y="490" text-anchor="middle">duplicate customer count, blank required-</text>
+<text x="270" y="512" text-anchor="middle">recommended fields, failed import rows</text>
+<line x1="560" y1="490" x2="522" y2="490" stroke="#1b1b1b" marker-end="url(#a)"/>
+</g>
+</svg>

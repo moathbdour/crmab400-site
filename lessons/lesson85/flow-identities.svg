@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">The identities of a cloud flow</title>
+<desc id="d">A flow in the centre with five identities around it. Owner: who may edit the flow and receives the platform's notifications; the owner's licence sets the performance profile; a service principal can be the owner. Connection: the identity every action uses; for Dataverse one of three authentication types, OAuth as a signed-in person (not shareable), Service principal with client ID, secret and tenant (shareable), or Client certificate auth with a PFX file and password (shareable); the service principal must exist in the environment as an application user with a security role. Connection reference: the solution component the flow points to; each environment binds it to its own connection. Run as, optional and only on the Dataverse row trigger: Flow owner, Row owner or Modifying user for actions that use the invoker's connection; the flow owner needs the privilege Act on Behalf of Another User. Run-only users: who may start an instant flow, with their own or the embedded connections. Below, the Cedar picture: before, the connection reference cedar_DataverseAutomation pointed to Karim's OAuth connection, so rows were modified by Karim, the role was Karim's and the flows stopped when his access changed; after, it points to a service principal connection of the app registration cedar-automation, application user Cedar Automation with the roles Flow Automation – Cedar and Plug-in Automation – Cedar, rows are modified by Cedar Automation, and the kill switch is to disable the application user.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">One flow, five answers to “who?”</text>
+
+<rect class="box" x="20" y="46" width="300" height="130" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="70">Owner (and co-owners)</text>
+<text x="32" y="94">May edit the flow, sees its runs,</text>
+<text x="32" y="114">gets the platform's failure mails.</text>
+<text x="32" y="134">Licence → performance profile.</text>
+<text x="32" y="158">Can be a service principal.</text>
+
+<rect class="box" x="350" y="46" width="300" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="362" y="70">Connection reference</text>
+<text x="362" y="94">Solution component the flow points to:</text>
+<text x="362" y="114">cedar_DataverseAutomation.</text>
+<text x="362" y="134">Each environment binds it to its own</text>
+<text x="362" y="158">connection (settings file).</text>
+
+<rect class="box" x="680" y="46" width="300" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="692" y="70">Connection = identity of actions</text>
+<text x="692" y="94">OAuth: a signed-in person</text>
+<text x="692" y="114">Service principal: client ID + secret</text>
+<text x="692" y="134">Client certificate auth: PFX + password</text>
+<text x="692" y="158">→ application user + security role</text>
+
+<path class="a" d="M650,111 L680,111"/>
+<path class="a" d="M500,214 L500,178"/>
+
+<rect class="box" x="400" y="214" width="200" height="60" rx="8" fill="#ffffff"/>
+<text class="b" x="452" y="240">Cloud flow</text>
+<text x="424" y="262">trigger + actions</text>
+<path class="a" d="M400,230 L250,178"/>
+<path class="a" d="M400,258 L322,300"/>
+<path class="a" d="M600,258 L678,300"/>
+
+<rect class="box" x="20" y="292" width="300" height="118" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="316">Run-only users (instant flows)</text>
+<text x="32" y="340">Who may start the flow.</text>
+<text x="32" y="360">Per connection: “Provided by run-only</text>
+<text x="32" y="380">user” or “Use this connection”</text>
+<text x="32" y="400">(embedded: required for child flows).</text>
+
+<rect class="box" x="680" y="292" width="300" height="118" rx="8" fill="#f3f2f1"/>
+<text class="b" x="692" y="316">Run as (Dataverse row trigger)</text>
+<text x="692" y="340">Flow owner · Row owner · Modifying user</text>
+<text x="692" y="360">for actions using the invoker's connection.</text>
+<text x="692" y="380">Owner needs “Act on Behalf of Another</text>
+<text x="692" y="400">User”. Cedar: not used.</text>
+
+<rect class="box" x="20" y="430" width="470" height="194" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="454">Cedar before this lesson</text>
+<text x="32" y="480">cedar_DataverseAutomation → Karim's OAuth connection</text>
+<text x="32" y="502">Rows “Modified by Karim Aziz”</text>
+<text x="32" y="524">Privileges = Karim's roles (far more than the flows need)</text>
+<text x="32" y="546">A role change, a password reset with MFA, or Karim</text>
+<text x="32" y="566">leaving stops every flow (the Thursday of lesson 84)</text>
+<text x="32" y="588">Failure mails go to one person's inbox</text>
+
+<rect class="box" x="510" y="430" width="470" height="194" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="454">Cedar after this lesson</text>
+<text x="522" y="480">cedar_DataverseAutomation → service principal connection</text>
+<text x="522" y="502">App registration cedar-automation → application user</text>
+<text x="522" y="524">Cedar Automation → role Flow Automation – Cedar</text>
+<text x="522" y="546">Rows “Modified by Cedar Automation”; audit shows it</text>
+<text x="522" y="566">Credential in Key Vault, expiry in the register</text>
+<text x="522" y="588">Kill switch: disable the application user</text>
+<text x="522" y="610">One connection per environment; none in Git</text>
+</svg>

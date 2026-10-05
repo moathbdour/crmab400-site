@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 670" width="1000" height="670" role="img" aria-labelledby="t d">
+  <title id="t">Three UX surfaces and the five questions that decide UX scenario items</title>
+  <desc id="d">Columns for client script, PCF code component and code app, each answered for where the code runs, how it reads and writes data, which identity it uses, how it is deployed and where you debug it.</desc>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #1f2937; }
+    .h { font-size: 20px; font-weight: 700; }
+    .q { font-size: 15px; font-weight: 700; fill: #374151; }
+    .c { font-size: 14px; }
+    .small { font-size: 14px; fill: #4b5563; }
+  </style>
+  <rect x="0" y="0" width="1000" height="670" fill="#ffffff"/>
+  <text x="500" y="34" text-anchor="middle" class="h">Extend the user experience: one question set, three surfaces</text>
+
+  <!-- column headers -->
+  <rect x="190" y="56" width="260" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="320" y="80" text-anchor="middle" class="h" style="font-size:18px">Client script</text>
+  <text x="320" y="101" text-anchor="middle" class="small">U-01…U-05 · C-19 Case triage</text>
+  <rect x="465" y="56" width="260" height="56" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="595" y="80" text-anchor="middle" class="h" style="font-size:18px">PCF code component</text>
+  <text x="595" y="101" text-anchor="middle" class="small">U-06…U-10 · C-22, C-25</text>
+  <rect x="740" y="56" width="250" height="56" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="865" y="80" text-anchor="middle" class="h" style="font-size:18px">Code app</text>
+  <text x="865" y="101" text-anchor="middle" class="small">U-11…U-22 · C-23 Planner</text>
+
+  <!-- rows -->
+  <g>
+    <rect x="10" y="124" width="980" height="92" fill="#f9fafb" stroke="#d1d5db"/>
+    <text x="20" y="150" class="q">1 Where does</text><text x="20" y="168" class="q">the code run?</text>
+    <text x="200" y="150" class="c">Form, column, lookup, save</text><text x="200" y="168" class="c">events; command actions</text><text x="200" y="186" class="c">(executionContext → formContext)</text>
+    <text x="475" y="150" class="c">Inside a field, grid or page;</text><text x="475" y="168" class="c">init → updateView ⇄ getOutputs</text><text x="475" y="186" class="c">→ destroy</text>
+    <text x="750" y="150" class="c">Standalone React/TypeScript</text><text x="750" y="168" class="c">app on Power Platform hosting;</text><text x="750" y="186" class="c">can be embedded (frame-ancestors)</text>
+  </g>
+  <g>
+    <rect x="10" y="222" width="980" height="92" fill="#ffffff" stroke="#d1d5db"/>
+    <text x="20" y="248" class="q">2 How does it</text><text x="20" y="266" class="q">read and write?</text>
+    <text x="200" y="248" class="c">getAttribute / getValue;</text><text x="200" y="266" class="c">Xrm.WebApi (logical names,</text><text x="200" y="284" class="c">_x_value, @odata.bind, execute)</text>
+    <text x="475" y="248" class="c">Bound property via</text><text x="475" y="266" class="c">notifyOutputChanged; webAPI,</text><text x="475" y="284" class="c">utils, device in feature-usage</text>
+    <text x="750" y="248" class="c">Generated services: Dataverse</text><text x="750" y="266" class="c">tables, actions, instant flows,</text><text x="750" y="284" class="c">connectors via references</text>
+  </g>
+  <g>
+    <rect x="10" y="320" width="980" height="92" fill="#f9fafb" stroke="#d1d5db"/>
+    <text x="20" y="346" class="q">3 Which</text><text x="20" y="364" class="q">identity?</text>
+    <text x="200" y="346" class="c">Signed-in user. UI only:</text><text x="200" y="364" class="c">never enforcement, never</text><text x="200" y="382" class="c">secrets in a web resource</text>
+    <text x="475" y="346" class="c">Signed-in user through the host;</text><text x="475" y="364" class="c">check privileges, still handle</text><text x="475" y="382" class="c">a refused request</text>
+    <text x="750" y="346" class="c">Signed-in user (Dataverse);</text><text x="750" y="364" class="c">connection owner (connectors);</text><text x="750" y="382" class="c">assets are public: no secrets</text>
+  </g>
+  <g>
+    <rect x="10" y="418" width="980" height="92" fill="#ffffff" stroke="#d1d5db"/>
+    <text x="20" y="444" class="q">4 How is it</text><text x="20" y="462" class="q">deployed?</text>
+    <text x="200" y="444" class="c">JS web resource, registered</text><text x="200" y="462" class="c">per form (designer or code);</text><text x="200" y="480" class="c">publish; solution + pipeline</text>
+    <text x="475" y="444" class="c">Solution with forms/views that</text><text x="475" y="462" class="c">bind it; bump the version; canvas</text><text x="475" y="480" class="c">makers accept the update</text>
+    <text x="750" y="444" class="c">pa app push to Dev; managed</text><text x="750" y="462" class="c">solution + settings file to Test/</text><text x="750" y="480" class="c">Prod; Premium licence, sharing</text>
+  </g>
+  <g>
+    <rect x="10" y="516" width="980" height="92" fill="#f9fafb" stroke="#d1d5db"/>
+    <text x="20" y="542" class="q">5 Where do</text><text x="20" y="560" class="q">you debug?</text>
+    <text x="200" y="542" class="c">DevTools, &amp;flags=, Monitor</text><text x="200" y="560" class="c">form checker, Command</text><text x="200" y="578" class="c">checker (&amp;ribbondebug=true)</text>
+    <text x="475" y="542" class="c">Test harness (npm start),</text><text x="475" y="560" class="c">DevTools, Monitor; functional</text><text x="475" y="578" class="c">tests with a real role</text>
+    <text x="750" y="542" class="c">Monitor (app opens), DevTools</text><text x="750" y="560" class="c">(CSP, apihub.net, dynamics.com),</text><text x="750" y="578" class="c">Application Insights metrics</text>
+  </g>
+  <text x="500" y="634" text-anchor="middle" class="small">Most wrong options answer one of these five questions wrongly: the wrong event or host, the wrong data path,</text>
+  <text x="500" y="656" text-anchor="middle" class="small">the wrong identity, the wrong release path, or the wrong diagnostic tool.</text>
+</svg>

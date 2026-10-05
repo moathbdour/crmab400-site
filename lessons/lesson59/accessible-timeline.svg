@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" role="img" aria-labelledby="t d">
+<title id="t">Accessible structure of the C-22 timeline</title>
+<desc id="d">Left: what a sighted user sees - pills Not sent done, Sent done, Accepted current, button Mark as In progress, latest note and Add site photo button. Right: what a screen reader gets - an ordered list labelled FieldLink status, list items with the words done or current step, aria-current step on Accepted, a native button, a polite status region that announces Status changed to In progress, and focus moved to the new button after re-render.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.m{font-family:Consolas,monospace;font-size:14px;fill:#1b1b1b}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="540" fill="#ffffff"/>
+<text class="h" x="20" y="30">What Sami sees</text>
+<rect class="box" x="20" y="44" width="360" height="400" rx="8" fill="#faf9f8"/>
+<rect x="36" y="64" width="150" height="34" rx="16" fill="#dff6dd" stroke="#107c10" stroke-width="1.5"/>
+<text x="48" y="87">✓ Not sent</text>
+<rect x="200" y="64" width="150" height="34" rx="16" fill="#dff6dd" stroke="#107c10" stroke-width="1.5"/>
+<text x="212" y="87">✓ Sent</text>
+<rect x="36" y="112" width="150" height="34" rx="16" fill="#deecf9" stroke="#0078d4" stroke-width="2.5"/>
+<text x="48" y="135" font-weight="700">● Accepted</text>
+<rect x="200" y="112" width="160" height="34" rx="4" fill="#ffffff" stroke="#0f6cbd" stroke-width="2"/>
+<text x="210" y="135">Mark as In progress</text>
+<rect x="36" y="160" width="150" height="34" rx="16" fill="#ffffff" stroke="#8a8886" stroke-width="1.5"/>
+<text x="48" y="183">Completed</text>
+<text class="s" x="36" y="230">Latest note (05/10/2026 13:12):</text>
+<text class="s" x="36" y="252">"Technician assigned, arriving 14:00"</text>
+<rect x="36" y="272" width="170" height="34" rx="4" fill="#ffffff" stroke="#0f6cbd" stroke-width="2"/>
+<text x="48" y="295">Add site photo</text>
+<text class="s" x="36" y="336">Status line (visible and announced):</text>
+<text class="s" x="36" y="358">"Status changed to In progress."</text>
+<text class="s" x="36" y="400">Meaning never by colour alone:</text>
+<text class="s" x="36" y="422">✓ / ● symbols + words + border width</text>
+<text class="h" x="440" y="30">What assistive technology gets</text>
+<rect class="box" x="440" y="44" width="440" height="400" rx="8" fill="#deecf9"/>
+<text class="m" x="456" y="72">&lt;ol aria-label="FieldLink status"&gt;</text>
+<text class="m" x="472" y="96">&lt;li&gt;Not sent, done&lt;/li&gt;</text>
+<text class="m" x="472" y="120">&lt;li&gt;Sent, done&lt;/li&gt;</text>
+<text class="m" x="472" y="144">&lt;li aria-current="step"&gt;Accepted,</text>
+<text class="m" x="488" y="164">current step&lt;/li&gt;</text>
+<text class="m" x="472" y="188">&lt;li&gt;&lt;button&gt;Mark as In progress</text>
+<text class="m" x="488" y="208">&lt;/button&gt;&lt;/li&gt;</text>
+<text class="m" x="472" y="232">&lt;li&gt;Completed, not started&lt;/li&gt;</text>
+<text class="m" x="456" y="256">&lt;/ol&gt;</text>
+<text class="m" x="456" y="288">&lt;p&gt;Latest note …&lt;/p&gt;</text>
+<text class="m" x="456" y="312">&lt;button&gt;Add site photo&lt;/button&gt;</text>
+<text class="m" x="456" y="344">&lt;p role="status"&gt;…&lt;/p&gt;</text>
+<text class="s" x="456" y="380">role="status" = polite live region.</text>
+<text class="s" x="456" y="404">Keyboard: Tab reaches each native button;</text>
+<text class="s" x="456" y="426">Enter/Space activate; focus restored after render.</text>
+<line class="a" x1="380" y1="130" x2="438" y2="150"/>
+<line class="a" x1="380" y1="350" x2="438" y2="344"/>
+<rect class="box" x="20" y="464" width="860" height="60" rx="8" fill="#fff4ce"/>
+<text class="s" x="34" y="490">Checks: keyboard-only walk-through · Narrator reads step state · 200% zoom and 320 px width (compact)</text>
+<text class="s" x="34" y="512">· text contrast ≥ 4.5:1, pill borders ≥ 3:1 · Accessibility Insights FastPass: 0 failures</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="t">
+<title id="t">How the browser turns site-briefing.html and site-briefing.css into the page, the accessibility tree and a screen reader announcement</title>
+<rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f3b57"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<rect x="20" y="30" width="200" height="80" rx="8" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="35" y="60" font-weight="700">site-briefing.html</text><text x="35" y="85" font-size="14">structure + meaning</text>
+<rect x="20" y="140" width="200" height="80" rx="8" fill="#fdf3e7" stroke="#8a4b08" stroke-width="2"/>
+<text x="35" y="170" font-weight="700">site-briefing.css</text><text x="35" y="195" font-size="14">presentation only</text>
+<rect x="290" y="30" width="250" height="190" rx="8" fill="#fff" stroke="#1f3b57" stroke-width="2"/>
+<text x="305" y="58" font-weight="700">DOM tree (parsed HTML)</text>
+<text x="305" y="84" font-size="14">html (lang="en")</text>
+<text x="320" y="106" font-size="14">header › h1 "HV-B briefing"</text>
+<text x="320" y="128" font-size="14">main › section › h2</text>
+<text x="335" y="150" font-size="14">table (th scope="row")</text>
+<text x="335" y="172" font-size="14">form › label + select</text>
+<text x="320" y="194" font-size="14">footer</text>
+<line x1="220" y1="70" x2="286" y2="110" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="220" y1="180" x2="286" y2="170" stroke="#8a4b08" stroke-width="2" marker-end="url(#a)"/>
+<text x="228" y="150" font-size="14" fill="#8a4b08">styles</text>
+<rect x="610" y="30" width="270" height="110" rx="8" fill="#eef7ee" stroke="#1d5e2a" stroke-width="2"/>
+<text x="625" y="58" font-weight="700">Rendered page (visual)</text>
+<text x="625" y="84" font-size="14">box model, layout, colour</text>
+<text x="625" y="106" font-size="14">what Sami sees on a tablet</text>
+<rect x="610" y="170" width="270" height="130" rx="8" fill="#f3eefa" stroke="#4b2a7a" stroke-width="2"/>
+<text x="625" y="198" font-weight="700">Accessibility tree</text>
+<text x="625" y="222" font-size="14">role + name + state</text>
+<text x="625" y="244" font-size="14">heading level 1 "HV-B briefing"</text>
+<text x="625" y="266" font-size="14">combobox "Issue type", required</text>
+<line x1="540" y1="90" x2="606" y2="85" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="540" y1="180" x2="606" y2="220" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="610" y="330" width="270" height="80" rx="8" fill="#fff" stroke="#4b2a7a" stroke-width="2"/>
+<text x="625" y="358" font-weight="700">Screen reader / keyboard</text>
+<text x="625" y="382" font-size="14">"Issue type, combo box, required"</text>
+<line x1="745" y1="300" x2="745" y2="326" stroke="#4b2a7a" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="260" width="520" height="150" rx="8" fill="#fff8f8" stroke="#9b1c1c" stroke-width="2"/>
+<text x="35" y="288" font-weight="700" fill="#9b1c1c">Where accessibility breaks</text>
+<text x="35" y="314" font-size="14">div styled like a button: looks right, no role, no Tab stop</text>
+<text x="35" y="338" font-size="14">input without label: accessibility tree name is empty</text>
+<text x="35" y="362" font-size="14">red text only for "access blocked": colour is the only signal</text>
+<text x="35" y="386" font-size="14">outline: none on :focus: keyboard users lose their place</text>
+</g>
+</svg>

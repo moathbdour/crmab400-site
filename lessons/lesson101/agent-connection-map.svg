@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" role="img" aria-labelledby="t d">
+<title id="t">Connecting agents in both directions: Copilot Studio calling other agents, and custom agents calling Copilot Studio agents</title>
+<desc id="d">Left half: a main Copilot Studio agent can use six kinds of other agents. A child agent lives inside the main agent with its own instructions, tools and knowledge, but no own authentication or publishing. Another Copilot Studio agent in the same environment must be published and available to connect; it is the only kind that agents on the GitHub Copilot harness can connect. An A2A agent from any framework is reached by its endpoint URL, with the agent card filling in name and description, and None, API key or OAuth 2.0 authentication; it uses the custom connector infrastructure. A Microsoft Foundry agent, in public preview, is reached through a project connection and its agent ID and needs the Activity protocol on its endpoint. A Microsoft 365 Agents SDK agent, in preview, is reached at its messaging endpoint ending in /api/messages. A Fabric data agent, in preview, cannot be used in redirects or instruction references. Right half: a custom agent or app can call a Copilot Studio agent through the A2A client channel or the MCP client channel, both early release, for published agents on the GitHub Copilot harness, with Entra delegated permissions MCS.InvokeAsA2A or MCS.InvokeAsMCP; through the Copilot Studio client library of the Microsoft 365 Agents SDK, taught in lesson 103; or from flows and apps with the Microsoft Copilot Studio connector action Execute Agent. Status as checked on 4 October 2026.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:18px}.b{font-weight:700;font-size:15px}.tag{font-weight:700;font-size:14px;fill:#7a3b00}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.6;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="800" fill="#ffffff"/>
+<text class="h" x="20" y="32">Agent connections: two directions (checked 2026-10-04)</text>
+
+<text class="b" x="20" y="66">A. A Copilot Studio agent uses other agents</text>
+<rect class="box" x="20" y="80" width="200" height="96" rx="8" fill="#dbe9f6"/>
+<text class="b" x="34" y="106">Main agent</text>
+<text x="34" y="128">Copilot Studio,</text>
+<text x="34" y="148">generative orchestration</text>
+<text x="34" y="168">chooses by description</text>
+
+<rect class="box" x="270" y="80" width="328" height="70" rx="8" fill="#e8f3e8"/>
+<text class="b" x="282" y="102">Child agent</text>
+<text x="282" y="122">inside the main agent; own instructions,</text>
+<text x="282" y="141">tools, knowledge; no own auth or publishing</text>
+
+<rect class="box" x="270" y="160" width="328" height="70" rx="8" fill="#e8f3e8"/>
+<text class="b" x="282" y="182">Other Copilot Studio agent</text>
+<text x="282" y="202">same environment, published, "available to</text>
+<text x="282" y="221">connect"; the only kind on GitHub Copilot harness</text>
+
+<rect class="box" x="270" y="240" width="328" height="88" rx="8" fill="#e8f3e8"/>
+<text class="b" x="282" y="262">A2A agent (any framework)</text>
+<text x="282" y="282">endpoint URL; agent card fills name/description</text>
+<text x="282" y="301">auth: None, API key or OAuth 2.0</text>
+<text x="282" y="320">runs on custom connector infrastructure</text>
+
+<rect class="box" x="270" y="338" width="328" height="88" rx="8" fill="#fff4e0"/>
+<text class="b" x="282" y="360">Microsoft Foundry agent</text><text class="tag" x="524" y="360">PREVIEW</text>
+<text x="282" y="380">project connection + agent ID; new Foundry</text>
+<text x="282" y="399">agents only; Activity protocol must be on</text>
+<text x="282" y="418">(otherwise HTTP 400 at run time)</text>
+
+<rect class="box" x="270" y="436" width="328" height="70" rx="8" fill="#fff4e0"/>
+<text class="b" x="282" y="458">Microsoft 365 Agents SDK agent</text><text class="tag" x="524" y="458">PREVIEW</text>
+<text x="282" y="478">messaging endpoint …/api/messages</text>
+<text x="282" y="497">(Activity protocol)</text>
+
+<rect class="box" x="270" y="516" width="328" height="70" rx="8" fill="#fff4e0"/>
+<text class="b" x="282" y="538">Fabric data agent</text><text class="tag" x="524" y="538">PREVIEW</text>
+<text x="282" y="558">no topic redirect, no reference in</text>
+<text x="282" y="577">instructions, not in Microsoft Copilot</text>
+
+<path class="ln" d="M220,128 H245 V115 H268" marker-end="url(#a)"/>
+<path class="ln" d="M245,128 V195 H268" marker-end="url(#a)"/>
+<path class="ln" d="M245,195 V284 H268" marker-end="url(#a)"/>
+<path class="ln" d="M245,284 V382 H268" marker-end="url(#a)"/>
+<path class="ln" d="M245,382 V471 H268" marker-end="url(#a)"/>
+<path class="ln" d="M245,471 V551 H268" marker-end="url(#a)"/>
+
+<text class="b" x="622" y="66">B. Custom agents or apps call a Copilot Studio agent</text>
+<rect class="box" x="622" y="80" width="358" height="88" rx="8" fill="#f1e6f7"/>
+<text class="b" x="634" y="102">A2A client channel</text><text class="tag" x="800" y="102">EARLY RELEASE</text>
+<text x="634" y="122">published agent exposed as an A2A agent;</text>
+<text x="634" y="141">GitHub Copilot harness; Entra delegated</text>
+<text x="634" y="160">MCS.InvokeAsA2A, user must have agent access</text>
+
+<rect class="box" x="622" y="178" width="358" height="70" rx="8" fill="#f1e6f7"/>
+<text class="b" x="634" y="200">MCP client channel</text><text class="tag" x="800" y="200">EARLY RELEASE</text>
+<text x="634" y="220">the agent becomes a tool on an MCP server;</text>
+<text x="634" y="239">same app registration, MCS.InvokeAsMCP</text>
+
+<rect class="box" x="622" y="258" width="358" height="70" rx="8" fill="#f1e6f7"/>
+<text class="b" x="634" y="280">Copilot Studio client library</text>
+<text x="634" y="300">Microsoft 365 Agents SDK in your own code</text>
+<text x="634" y="319">(conversation with the agent) - lesson 103</text>
+
+<rect class="box" x="622" y="338" width="358" height="70" rx="8" fill="#f1e6f7"/>
+<text class="b" x="634" y="360">Microsoft Copilot Studio connector</text>
+<text x="634" y="380">"Execute Agent" / "Execute Agent and wait"</text>
+<text x="634" y="399">in cloud flows and apps; user connection</text>
+
+<rect class="box" x="622" y="436" width="358" height="150" rx="8" fill="#f7f7f7"/>
+<text class="b" x="634" y="460">Which side owns what</text>
+<text x="634" y="484">The CALLED agent keeps its own instructions,</text>
+<text x="634" y="504">model, tools, evaluation and release cycle.</text>
+<text x="634" y="528">The CALLER decides when to delegate (from the</text>
+<text x="634" y="548">description) and what to do with the answer.</text>
+<text x="634" y="572">Every hop adds latency and a place to test.</text>
+
+<rect class="box" x="20" y="616" width="960" height="160" rx="8" fill="#ffffff"/>
+<text class="b" x="34" y="642">Rules of thumb used in this lesson</text>
+<text x="34" y="668">1. Same team, one task, no own auth or publishing → child agent. Own ALM, own settings or reuse → connected agent.</text>
+<text x="34" y="692">2. Learn's signal to split: the main agent picks badly among roughly 30-40 tools, topics and agents (test it).</text>
+<text x="34" y="716">3. An agent with connected agents can't itself be connected to a second main agent - keep the graph shallow.</text>
+<text x="34" y="740">4. Preview connections stay in development until GA; a deterministic check can't run inside the CALLER,</text>
+<text x="34" y="762">    so put it in front of the CALLED agent (Cedar's choice, next diagram).</text>
+</svg>

@@ -1,0 +1,12 @@
+{
+  "id": "<run-1-id>",
+  "testSetId": "<test-set-id>",
+  "state": "Completed",
+  "startTime": "2026-10-08T07:40:00Z",
+  "endTime": "2026-10-08T07:52:00Z",
+  "totalTestCases": 20,
+  "runOnPublishedBot": false,
+  "mcsConnectionId": "<copilot-studio-connection-id>",
+  "profile": "karim.aziz@<tenant>.onmicrosoft.com",
+  "agentVersion": "2026-10-08.1"
+}

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" role="img" aria-labelledby="t d">
+<title id="t">The dispatch digest as a pipeline of collections</title>
+<desc id="d">Data flows from left to right, with the numbers of the lesson sample. List rows returns 8 raw work orders: raw values plus formatted value annotations. The Select action named Rows maps each one to seven flat properties: Number, Site, Subcontractor, Status, When in Amman time, Urgent and Flag; the array still has 8 items. From Rows, five Filter array actions run side by side: Needs attention keeps 3 rows, namely WO-1001 overdue, WO-1003 rejected and WO-1004 unplanned; Overdue keeps 1; Unplanned 1; Rejected 1; Next 24 h keeps 3. The function length applied to each filter gives the numbers in the subject: Dispatch digest Tue 6 Oct: 1 overdue, 1 unplanned, 1 rejected, 3 in the next 24 h (8 open). Create HTML table turns the 3 attention rows into a table; a Compose chooses between the table and the sentence All clear; one Send an email action sends the result. There is no loop and no variable: 12 actions whatever the number of work orders. The old flow had 47 actions, a loop with five conditions and six variables, and took four minutes.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.n{font-weight:700;fill:#0b5a8f;font-size:15px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="580" fill="#ffffff"/>
+<text class="h" x="20" y="28">Map, filter, count, format: collections in, collections out</text>
+
+<rect class="box" x="20" y="50" width="200" height="190" rx="8" fill="#eef3fb"/>
+<text class="b" x="30" y="74">List rows</text>
+<text x="30" y="98">Filter rows, Select</text>
+<text x="30" y="118">columns, Sort by,</text>
+<text x="30" y="138">Row count 500:</text>
+<text x="30" y="158">work done at the source</text>
+<text class="n" x="30" y="190">8 raw rows</text>
+<text x="30" y="212">integers, GUIDs, UTC,</text>
+<text x="30" y="230">…FormattedValue</text>
+
+<path class="a" d="M220,145 L246,145"/>
+<rect class="box" x="246" y="50" width="220" height="190" rx="8" fill="#fff4ce"/>
+<text class="b" x="256" y="74">Select “Rows” (map)</text>
+<text x="256" y="98">Number, Site, Subcontractor,</text>
+<text x="256" y="118">Status, When (Amman time),</text>
+<text x="256" y="138">Urgent, Flag</text>
+<text x="256" y="162">coalesce, if, empty,</text>
+<text x="256" y="182">convertFromUtc, ticks</text>
+<text class="n" x="256" y="214">8 flat rows</text>
+
+<path class="a" d="M466,90 L500,70"/>
+<path class="a" d="M466,145 L500,145"/>
+<path class="a" d="M466,200 L500,222"/>
+<rect class="box" x="500" y="44" width="230" height="56" rx="8" fill="#dff6dd"/>
+<text class="b" x="510" y="66">Filter array “Needs attention”</text>
+<text class="n" x="510" y="88">3 rows: WO-1001, 1003, 1004</text>
+<rect class="box" x="500" y="112" width="230" height="78" rx="8" fill="#dff6dd"/>
+<text class="b" x="510" y="134">Filter arrays for counting</text>
+<text x="510" y="156">Overdue 1 · Unplanned 1</text>
+<text x="510" y="176">Rejected 1 · Next 24 h 3</text>
+<rect class="box" x="500" y="202" width="230" height="46" rx="8" fill="#f3f2f1"/>
+<text x="510" y="230">length(body('Rows')) = 8</text>
+
+<path class="a" d="M730,72 L760,72"/>
+<rect class="box" x="760" y="44" width="220" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="770" y="66">Create HTML table</text>
+<text x="770" y="88">3 rows, 7 columns</text>
+<path class="a" d="M730,150 L760,150"/>
+<rect class="box" x="760" y="112" width="220" height="78" rx="8" fill="#eef3fb"/>
+<text class="b" x="770" y="134">Compose “Subject”</text>
+<text x="770" y="156">text with @{length(…)}</text>
+<text x="770" y="176">and the local date</text>
+
+<rect class="box" x="20" y="270" width="960" height="92" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="296">Result for the sample at 2026-10-06T03:30:00Z (06:30 in Amman)</text>
+<text x="32" y="322">Subject: Dispatch digest Tue 6 Oct: 1 overdue, 1 unplanned, 1 rejected, 3 in the next 24 h (8 open)</text>
+<text x="32" y="346">Body: the table, or “All clear …” when Needs attention is empty (a Compose with if). Then one Send an email action.</text>
+
+<rect class="box" x="20" y="380" width="470" height="180" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="406">This design</text>
+<text x="32" y="432">12 actions for 8 or 400 work orders</text>
+<text x="32" y="454">No Apply to each, no variable</text>
+<text x="32" y="476">Every step's output is an array you can open</text>
+<text x="32" y="498">in the run history</text>
+<text x="32" y="520">One “Now” for all rows; replaceable by a fixed</text>
+<text x="32" y="542">moment for tests with a known answer</text>
+
+<rect class="box" x="510" y="380" width="470" height="180" rx="8" fill="#fde7e9"/>
+<text class="b" x="522" y="406">The flow it replaces</text>
+<text x="522" y="432">47 actions; a loop with five conditions</text>
+<text x="522" y="454">Six counters and a string variable built row by row</text>
+<text x="522" y="476">Four minutes; times in UTC</text>
+<text x="522" y="498">Counted work in progress as overdue</text>
+<text x="522" y="520">Failed on the first work order without a date</text>
+</svg>

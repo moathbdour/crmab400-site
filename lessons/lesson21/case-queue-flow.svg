@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-labelledby="t">
+<title id="t">Cedar case lifecycle: intake, routing to queues, pick, work, resolve</title>
+<rect width="980" height="420" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">How a Cedar case moves: intake → queue → agent → resolution</text>
+<rect x="20" y="60" width="180" height="90" rx="8" fill="#fff4d6" stroke="#8a5a00"/>
+<text x="32" y="86" font-weight="bold">1 Intake</text>
+<text x="32" y="110">Phone (Omar), email</text>
+<text x="32" y="132">to support mailbox</text>
+<rect x="240" y="60" width="200" height="90" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="252" y="86" font-weight="bold">2 Case (incident)</text>
+<text x="252" y="110">Customer, Site, Category,</text>
+<text x="252" y="132">Priority; SLA applied</text>
+<rect x="480" y="60" width="200" height="90" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="492" y="86" font-weight="bold">3 Routing rule set</text>
+<text x="492" y="110">Save &amp; Route evaluates</text>
+<text x="492" y="132">rule items in order</text>
+<line x1="200" y1="105" x2="238" y2="105" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="440" y1="105" x2="478" y2="105" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="730" y="50" width="230" height="56" rx="8" fill="#fde2e1" stroke="#a4262c"/>
+<text x="742" y="72" font-weight="bold">Cedar Urgent Faults</text>
+<text x="742" y="94">High + Critical fault</text>
+<rect x="730" y="116" width="230" height="56" rx="8" fill="#e8f3e8" stroke="#2e6b30"/>
+<text x="742" y="138" font-weight="bold">Cedar Service Desk</text>
+<text x="742" y="160">everything else</text>
+<rect x="730" y="182" width="230" height="56" rx="8" fill="#efe6f7" stroke="#5c2d91"/>
+<text x="742" y="204" font-weight="bold">Cedar Managers</text>
+<text x="742" y="226">Complaint (Lina)</text>
+<line x1="680" y1="95" x2="728" y2="78" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="680" y1="112" x2="728" y2="144" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="680" y1="130" x2="728" y2="208" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="480" y="270" width="220" height="100" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="492" y="296" font-weight="bold">4 Queue item</text>
+<text x="492" y="320">Pick: Worked By = Omar,</text>
+<text x="492" y="342">case owner becomes Omar</text>
+<text x="492" y="362">(Release / Route to move)</text>
+<line x1="845" y1="238" x2="702" y2="300" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="240" y="270" width="200" height="100" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="252" y="296" font-weight="bold">5 Work the case</text>
+<text x="252" y="320">Activities on timeline,</text>
+<text x="252" y="342">First Response Sent = Yes,</text>
+<text x="252" y="362">On Hold pauses SLA</text>
+<line x1="480" y1="320" x2="442" y2="320" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="270" width="180" height="100" rx="8" fill="#e8f3e8" stroke="#2e6b30"/>
+<text x="32" y="296" font-weight="bold">6 Resolve</text>
+<text x="32" y="320">Case Resolution activity;</text>
+<text x="32" y="342">state Resolved, read-only;</text>
+<text x="32" y="362">Reactivate if needed</text>
+<line x1="240" y1="320" x2="202" y2="320" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="405" font-style="italic">A queue holds a pointer (queue item) to the case; it does not own it. Security roles, not private queues, control who can read the case.</text>
+</g>
+</svg>

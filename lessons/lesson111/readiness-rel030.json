@@ -1,0 +1,46 @@
+{
+  "release": "REL-030",
+  "title": "Release 2 - customer service operations (repeat faults, arrival notice)",
+  "plannedStartUtc": "2026-10-20T07:00:00Z",
+  "freezeDates": ["2026-12-24", "2026-12-31"],
+  "solutions": [
+    { "name": "CedarConnectors", "version": "1.2.0.312", "productionVersion": "1.1.0.287" },
+    { "name": "CedarServiceCore", "version": "1.10.0.312", "productionVersion": "1.9.0.298" }
+  ],
+  "gates": [
+    { "id": "unit-tests", "status": "pass", "evidence": "pipelines run 312: node 78 passed, pytest 105 passed" },
+    { "id": "component-tests", "status": "pass", "evidence": "pipelines run 312: Cedar.Service.Plugins.ComponentTests passed (incl. RepeatFaultTests 12); webresources 67 passed" },
+    { "id": "solution-checker", "status": "pass", "evidence": "PowerPlatformChecker run 312: High 0, Medium 3 reviewed (docs/releases/REL-030/checker.sarif)" },
+    { "id": "secret-scan", "status": "pass", "evidence": "scan-secrets OK, run 312" },
+    { "id": "threat-check", "status": "pass", "evidence": "check-threats --release OK: 32 threats (TH-32 added)" },
+    { "id": "design-check", "status": "pass", "evidence": "check-design OK: 8 requirements, 7 components" },
+    { "id": "test-environment-uat", "status": "pass", "evidence": "docs/releases/REL-030/uat.md signed by Omar Saleh and Lina Farah, 2026-10-15" },
+    { "id": "performance-budget", "status": "pass", "evidence": "Cedar-Test perf-03: RepeatFaultPlugin p95 38 ms; case create p75 +41 ms (docs/operations/perf/perf-log.md)" },
+    { "id": "alert-catalog", "status": "pass", "evidence": "check-alerts OK with AL-12, AL-13" }
+  ],
+  "productionSettings": {
+    "environmentVariables": [
+      { "schemaName": "cedar_FieldLinkApiHost", "type": "Text", "value": "api.fieldlink.example" },
+      { "schemaName": "cedar_FieldLinkSyncEnabled", "type": "Boolean", "value": "yes" },
+      { "schemaName": "cedar_AutomationAlertRecipients", "type": "Text", "value": "automation-alerts@cedarservice.example" },
+      { "schemaName": "cedar_FieldLinkClientSecret", "type": "Secret", "value": "/subscriptions/<subscription-id>/resourceGroups/rg-cedar-prod/providers/Microsoft.KeyVault/vaults/kv-cedar-prod/secrets/fieldlink-client-secret" }
+    ],
+    "connectionReferences": [
+      { "logicalName": "cedar_DataverseAutomation", "connectionId": "<prod-connection-id-1>" },
+      { "logicalName": "cedar_OutlookNotifications", "connectionId": "<prod-connection-id-2>" }
+    ]
+  },
+  "operations": {
+    "newAlerts": [
+      { "id": "AL-12", "name": "Repeat-fault plug-in failures", "runbook": "docs/operations/runbooks/al-12-repeat-fault-plugin.md" },
+      { "id": "AL-13", "name": "Arrival notice flow failures", "runbook": "docs/operations/runbooks/al-13-arrival-notice.md" }
+    ],
+    "rollback": { "plan": "Revert forward: Dana deactivates the C-65 step and turns off flow C-69 within 5 minutes (runbook; the unmanaged change is removed by the next release); if needed release 1.10.1 (higher version) built from the previous commit. No downgrade.", "owner": "Karim Aziz" },
+    "backupBeforeRelease": true,
+    "supportHandover": "docs/releases/REL-030/handover.md (what changed, known issues, contacts) reviewed with Omar's team lead"
+  },
+  "approvals": [
+    { "role": "business-owner", "name": "Lina Farah", "approved": true, "at": "2026-10-16T10:12:00Z" },
+    { "role": "platform-admin", "name": "Dana Khoury", "approved": true, "at": "2026-10-16T11:30:00Z" }
+  ]
+}

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+  <title id="t">Cedar data flow diagram with trust boundaries</title>
+  <desc id="d">Users and FieldLink outside; Power Platform boundary containing Dataverse, model-driven app, code app and Copilot Studio agent; Azure boundary containing func-cedar-fieldlink, Service Bus and Key Vault; Azure DevOps pipeline. Flows DF-01 to DF-06 cross boundaries.</desc>
+  <style>
+    text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#111827}
+    .b{font-weight:600}
+    .s{font-size:14px;fill:#374151}
+    .f{font-size:14px;fill:#b91c1c;font-weight:600}
+  </style>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker></defs>
+  <rect width="900" height="520" fill="#fff"/>
+  <!-- external -->
+  <rect x="20" y="40" width="150" height="60" rx="30" fill="#f3f4f6" stroke="#374151"/>
+  <text x="40" y="76" class="b">Sami / Omar</text>
+  <rect x="730" y="40" width="150" height="60" fill="#f3f4f6" stroke="#374151"/>
+  <text x="760" y="68" class="b">FieldLink</text><text x="752" y="88" class="s">external API</text>
+  <rect x="20" y="420" width="170" height="60" fill="#f3f4f6" stroke="#374151"/>
+  <text x="34" y="446" class="b">Azure DevOps</text><text x="34" y="466" class="s">+ Pipelines host</text>
+  <!-- Power Platform boundary -->
+  <rect x="210" y="130" width="300" height="270" fill="none" stroke="#4338ca" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="220" y="152" class="b" fill="#4338ca">Trust boundary: Power Platform (Cedar-Prod)</text>
+  <rect x="230" y="170" width="120" height="50" fill="#e0e7ff" stroke="#4338ca"/><text x="240" y="200">Code app</text>
+  <rect x="370" y="170" width="120" height="50" fill="#e0e7ff" stroke="#4338ca"/><text x="380" y="200">Agent C-24</text>
+  <rect x="280" y="290" width="160" height="70" fill="#c7d2fe" stroke="#4338ca"/><text x="300" y="320" class="b">Dataverse</text><text x="300" y="342" class="s">plug-ins, roles</text>
+  <!-- Azure boundary -->
+  <rect x="560" y="130" width="320" height="270" fill="none" stroke="#15803d" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="570" y="152" class="b" fill="#15803d">Trust boundary: Azure (rg-cedar-prod)</text>
+  <rect x="580" y="175" width="180" height="55" fill="#dcfce7" stroke="#15803d"/><text x="590" y="200">func-cedar-fieldlink</text><text x="590" y="220" class="s">status + outbound</text>
+  <rect x="580" y="295" width="140" height="55" fill="#dcfce7" stroke="#15803d"/><text x="590" y="327">Service Bus</text>
+  <rect x="750" y="295" width="110" height="55" fill="#fef9c3" stroke="#a16207"/><text x="760" y="327">Key Vault</text>
+  <!-- flows -->
+  <line x1="120" y1="100" x2="270" y2="168" stroke="#b91c1c" marker-end="url(#a)"/><text x="130" y="140" class="f">DF-04</text>
+  <line x1="800" y1="100" x2="700" y2="173" stroke="#b91c1c" marker-end="url(#a)"/><text x="770" y="135" class="f">DF-01</text>
+  <line x1="760" y1="190" x2="790" y2="102" stroke="#b91c1c" marker-end="url(#a)"/><text x="800" y="160" class="f">DF-03</text>
+  <line x1="440" y1="330" x2="578" y2="322" stroke="#b91c1c" marker-end="url(#a)"/><text x="480" y="318" class="f">DF-02</text>
+  <line x1="430" y1="220" x2="380" y2="288" stroke="#b91c1c" marker-end="url(#a)"/><text x="410" y="262" class="f">DF-05</text>
+  <line x1="190" y1="440" x2="300" y2="362" stroke="#b91c1c" marker-end="url(#a)"/><text x="200" y="400" class="f">DF-06</text>
+  <line x1="740" y1="230" x2="790" y2="293" stroke="#a16207" stroke-dasharray="4 3"/><text x="768" y="270" class="s">MI reads secrets</text>
+  <text x="230" y="500" class="s">Every red arrow crosses a trust boundary: C-63 requires all six STRIDE categories to be considered for it (threat or reasoned "not applicable").</text>
+</svg>

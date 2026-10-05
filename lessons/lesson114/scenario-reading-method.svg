@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+  <title id="t">Five-step method for AB-400 scenario items</title>
+  <desc id="d">Steps 1 Requirement, 2 Signals, 3 Ladder, 4 Eliminate, 5 Verify, applied to scenario BS-03 about blocking the Completed status for every channel.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+  </defs>
+  <rect width="1000" height="640" fill="#ffffff"/>
+  <text x="500" y="38" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#0f172a">Reading a scenario item: five steps, about two minutes</text>
+
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#0f172a">
+    <!-- step boxes -->
+    <rect x="20" y="70" width="180" height="200" rx="10" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+    <text x="110" y="100" text-anchor="middle" font-size="18" font-weight="700">1 Requirement</text>
+    <text x="34" y="132" font-size="15">Who needs what,</text>
+    <text x="34" y="154" font-size="15">and how will they</text>
+    <text x="34" y="176" font-size="15">know it works?</text>
+    <text x="34" y="208" font-size="15" font-style="italic">Read the question</text>
+    <text x="34" y="230" font-size="15" font-style="italic">line first.</text>
+
+    <rect x="215" y="70" width="180" height="200" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+    <text x="305" y="100" text-anchor="middle" font-size="18" font-weight="700">2 Signals</text>
+    <text x="229" y="132" font-size="15">Underline deciding</text>
+    <text x="229" y="154" font-size="15">phrases: channel,</text>
+    <text x="229" y="176" font-size="15">timing, volume,</text>
+    <text x="229" y="198" font-size="15">identity, owner,</text>
+    <text x="229" y="220" font-size="15">"without code",</text>
+    <text x="229" y="242" font-size="15">"least privilege".</text>
+
+    <rect x="410" y="70" width="180" height="200" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+    <text x="500" y="100" text-anchor="middle" font-size="18" font-weight="700">3 Ladder</text>
+    <text x="424" y="132" font-size="15">Prefer, in order:</text>
+    <text x="424" y="154" font-size="15">out of the box,</text>
+    <text x="424" y="176" font-size="15">configuration,</text>
+    <text x="424" y="198" font-size="15">low-code, pro-code.</text>
+    <text x="424" y="220" font-size="15">GA before preview,</text>
+    <text x="424" y="242" font-size="15">unless asked.</text>
+
+    <rect x="605" y="70" width="180" height="200" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+    <text x="695" y="100" text-anchor="middle" font-size="18" font-weight="700">4 Eliminate</text>
+    <text x="619" y="132" font-size="15">Strike each option</text>
+    <text x="619" y="154" font-size="15">by naming the one</text>
+    <text x="619" y="176" font-size="15">signal it fails.</text>
+    <text x="619" y="208" font-size="15">No reason to strike</text>
+    <text x="619" y="230" font-size="15">it? It may be right.</text>
+
+    <rect x="800" y="70" width="180" height="200" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+    <text x="890" y="100" text-anchor="middle" font-size="18" font-weight="700">5 Verify</text>
+    <text x="814" y="132" font-size="15">Security, ALM and</text>
+    <text x="814" y="154" font-size="15">limits still hold?</text>
+    <text x="814" y="176" font-size="15">Right number of</text>
+    <text x="814" y="198" font-size="15">selections? Then</text>
+    <text x="814" y="220" font-size="15">answer, mark your</text>
+    <text x="814" y="242" font-size="15">confidence, move on.</text>
+
+    <!-- arrows between steps -->
+    <line x1="200" y1="170" x2="213" y2="170" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="395" y1="170" x2="408" y2="170" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="590" y1="170" x2="603" y2="170" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="785" y1="170" x2="798" y2="170" stroke="#334155" stroke-width="2" marker-end="url(#a)"/>
+
+    <!-- worked example -->
+    <rect x="20" y="300" width="960" height="320" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+    <text x="40" y="332" font-size="19" font-weight="700">Worked example: BS-03 "No Completed work order without a completion summary"</text>
+    <text x="40" y="368" font-size="16"><tspan font-weight="700">1</tspan> Requirement: block the save of Status = Completed when Completion summary is empty.</text>
+    <text x="40" y="398" font-size="16"><tspan font-weight="700">2</tspan> Signals: "must hold in every case" and three channels: app, Web API integration, cloud flow.</text>
+    <text x="58" y="420" font-size="16">Two channels never open a form, so the logic must run on the server, before the commit.</text>
+    <text x="40" y="450" font-size="16"><tspan font-weight="700">3</tspan> Ladder: Entity-scope business rule (no code) first; synchronous plug-in if the rule grows.</text>
+    <text x="40" y="480" font-size="16"><tspan font-weight="700">4</tspan> Eliminate: form OnSave script (form only) · async plug-in and Dataverse-triggered flow</text>
+    <text x="58" y="502" font-size="16">(both run after the commit, so the bad row is already saved).</text>
+    <text x="40" y="532" font-size="16"><tspan font-weight="700">5</tspan> Verify: "Which TWO each meet the requirement on their own" → select exactly two:</text>
+    <text x="58" y="554" font-size="16">A Entity-scope business rule and B synchronous PreValidation/PreOperation plug-in.</text>
+    <text x="40" y="596" font-size="15" fill="#334155">Signals point to an execution point (lesson 42), not to a product name. Learn the mapping, not the answer.</text>
+  </g>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="1000" height="660" role="img" aria-labelledby="t d">
+  <title id="t">Five platform surfaces and the five questions that decide platform scenario items</title>
+  <desc id="d">Cards for plug-ins and custom APIs, Dataverse APIs and SDKs, Azure Functions, cloud flows and custom agents, each answered for when it runs, which identity reaches the data, what happens on failure or repeat, which limit applies and where to look first.</desc>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #1f2937; }
+    .h { font-size: 17px; font-weight: 700; }
+    .s { font-size: 14px; fill: #4b5563; }
+    .c { font-size: 14px; }
+    .k { font-size: 14px; font-weight: 700; }
+  </style>
+  <rect width="1000" height="660" fill="#ffffff"/>
+  <text x="500" y="32" text-anchor="middle" class="h" style="font-size:20px">Extend Microsoft Power Platform: five surfaces, five questions</text>
+
+  <!-- legend card -->
+  <rect x="20" y="56" width="470" height="180" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="36" y="84" class="h">Ask these before reading the options</text>
+  <text x="36" y="112" class="c"><tspan class="k">1 When</tspan> does it run (stage, trigger, schedule, call)?</text>
+  <text x="36" y="136" class="c"><tspan class="k">2 Who</tspan> reaches the data (user, SYSTEM, app user)?</text>
+  <text x="36" y="160" class="c"><tspan class="k">3 Fails</tspan>: what if it fails, times out or runs twice?</text>
+  <text x="36" y="184" class="c"><tspan class="k">4 Limit</tspan>: which number in the stem matters?</text>
+  <text x="36" y="208" class="c"><tspan class="k">5 Look</tspan>: where would you look first?</text>
+
+  <!-- plug-ins -->
+  <rect x="510" y="56" width="470" height="180" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="526" y="82" class="h">Plug-ins and custom APIs</text>
+  <text x="964" y="82" text-anchor="end" class="s">E-01…E-11 · C-09, C-27, C-28</text>
+  <text x="526" y="110" class="c"><tspan class="k">When</tspan> stage 10 / 20 / 40 in the save; async after commit</text>
+  <text x="526" y="134" class="c"><tspan class="k">Who</tspan> UserId (run-as), null = SYSTEM, Initiating = caller</text>
+  <text x="526" y="158" class="c"><tspan class="k">Fails</tspan> sync: all rolls back; async: failed system job</text>
+  <text x="526" y="182" class="c"><tspan class="k">Limit</tspan> 2 min per operation, aim under 2 s, Depth 8</text>
+  <text x="526" y="206" class="c"><tspan class="k">Look</tspan> trace log, System Jobs, Plug-ins analytics</text>
+
+  <!-- APIs and SDKs -->
+  <rect x="20" y="252" width="470" height="180" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="36" y="278" class="h">Dataverse APIs and SDKs</text>
+  <text x="474" y="278" text-anchor="end" class="s">E-12…E-18 · C-31…C-36</text>
+  <text x="36" y="306" class="c"><tspan class="k">When</tspan> when the client calls; background ops later</text>
+  <text x="36" y="330" class="c"><tspan class="k">Who</tspan> delegated user, or application user + role</text>
+  <text x="36" y="354" class="c"><tspan class="k">Fails</tspan> 401 token, 403 role, 412 etag, 429 Retry-After</text>
+  <text x="36" y="378" class="c"><tspan class="k">Limit</tspan> 6,000 requests, 20 min, 52 concurrent / 5 min</text>
+  <text x="36" y="402" class="c"><tspan class="k">Look</tspan> status and error code, Retry-After, dop hint</text>
+
+  <!-- Functions -->
+  <rect x="510" y="252" width="470" height="180" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="526" y="278" class="h">Azure Functions</text>
+  <text x="964" y="278" text-anchor="end" class="s">E-19…E-21 · C-44, C-45</text>
+  <text x="526" y="306" class="c"><tspan class="k">When</tspan> timer (6-field NCRONTAB, UTC), queue, HTTP</text>
+  <text x="526" y="330" class="c"><tspan class="k">Who</tspan> managed identity + app user per environment</text>
+  <text x="526" y="354" class="c"><tspan class="k">Fails</tspan> timer not retried; queue 5 tries, then poison</text>
+  <text x="526" y="378" class="c"><tspan class="k">Limit</tspan> HTTP answers within 230 s; durable for longer</text>
+  <text x="526" y="402" class="c"><tspan class="k">Look</tspan> Application Insights, poison queue, status URL</text>
+
+  <!-- flows -->
+  <rect x="20" y="448" width="470" height="180" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="36" y="474" class="h">Cloud flows</text>
+  <text x="474" y="474" text-anchor="end" class="s">E-22…E-26 · C-37…C-42</text>
+  <text x="36" y="502" class="c"><tspan class="k">When</tspan> after commit; Select columns, Filter rows</text>
+  <text x="36" y="526" class="c"><tspan class="k">Who</tspan> the connection behind the connection reference</text>
+  <text x="36" y="550" class="c"><tspan class="k">Fails</tspan> retries 408/429/5xx only; run after; Terminate</text>
+  <text x="36" y="574" class="c"><tspan class="k">Limit</tspan> Do until 60 / PT1H; loops sequential by default</text>
+  <text x="36" y="598" class="c"><tspan class="k">Look</tspan> run history, result('Try'), failure alerts</text>
+
+  <!-- agents -->
+  <rect x="510" y="448" width="470" height="180" rx="8" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+  <text x="526" y="474" class="h">Custom agents</text>
+  <text x="964" y="474" text-anchor="end" class="s">E-27…E-30 · C-55…C-59</text>
+  <text x="526" y="502" class="c"><tspan class="k">When</tspan> when the orchestrator calls a tool or an agent</text>
+  <text x="526" y="526" class="c"><tspan class="k">Who</tspan> user token (Work IQ, client library) or agent ID</text>
+  <text x="526" y="550" class="c"><tspan class="k">Fails</tspan> approval requests; 400 / 404 / 401–403 errors</text>
+  <text x="526" y="574" class="c"><tspan class="k">Limit</tspan> preview status, Copilot Credits, Ask 30/min</text>
+  <text x="526" y="598" class="c"><tspan class="k">Look</tspan> Foundry traces, tool call items, test chat</text>
+
+  <text x="500" y="650" text-anchor="middle" class="s">Karim's lesson 116 falls were all question 2: Entra API permissions taken for Dataverse authorization.</text>
+</svg>

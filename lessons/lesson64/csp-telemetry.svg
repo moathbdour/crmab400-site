@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" role="img" aria-labelledby="t d">
+<title id="t">How CSP decides what C-23 may load and call</title>
+<desc id="d">Sami's browser opens apps.powerapps.com, which hosts the Cedar Dispatch Planner in a frame served from powerplatformusercontent.com. The environment's code app CSP is attached to the app. Data calls made through the Power Apps client library go through the platform and keep working. A direct request to Application Insights ingestion is blocked by connect-src 'none' until Dana adds the ingestion origin. Embedding the planner in the Cedar Operations model-driven app is blocked by frame-ancestors until the crm.dynamics.com origin is added. Violations appear in the DevTools console and, when reporting is enabled, are posted to the reporting endpoint whether or not CSP is enforced.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.r{font-size:14px;fill:#b3261e;font-weight:700}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.x{stroke:#b3261e;stroke-width:2;stroke-dasharray:6 4;marker-end:url(#mx);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker><marker id="mx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#b3261e"/></marker></defs>
+<rect width="920" height="560" fill="#ffffff"/>
+<rect class="box" x="20" y="20" width="420" height="300" rx="10" fill="#eef3fb"/>
+<text class="h" x="36" y="46">Sami's browser – apps.powerapps.com (host)</text>
+<rect class="box" x="40" y="64" width="380" height="236" rx="8" fill="#ffffff"/>
+<text class="h" x="56" y="90">C-23 frame (powerplatformusercontent.com)</text>
+<text class="s" x="56" y="114">Carries the environment's code app CSP:</text>
+<text class="s" x="56" y="136">default-src 'self'  script-src 'self' &lt;platform&gt;</text>
+<text class="s" x="56" y="158">connect-src 'none' → replaced by Cedar values</text>
+<text class="s" x="56" y="180">frame-ancestors 'self' https://*.powerapps.com</text>
+<text class="s" x="56" y="210">Generated services (Dataverse, connectors)</text>
+<text class="s" x="56" y="230">→ client library → platform: allowed</text>
+<text class="s" x="56" y="262">telemetry.ts → App Insights ingestion</text>
+<text class="s" x="56" y="282">→ checked against connect-src</text>
+<rect class="box" x="520" y="20" width="380" height="90" rx="8" fill="#dff6dd"/>
+<text class="h" x="536" y="46">Dataverse + connectors</text>
+<text class="s" x="536" y="70">dynamics.com / apihub.net requests</text>
+<text class="s" x="536" y="92">(DevTools filter strings per Learn)</text>
+<path class="a" d="M420,220 L520,70"/>
+<rect class="box" x="520" y="140" width="380" height="100" rx="8" fill="#fde7e9"/>
+<text class="h" x="536" y="166">Application Insights ingestion</text>
+<text class="s" x="536" y="190">Blocked until connect-src lists the origin</text>
+<text class="s" x="536" y="212">shown in the console violation message</text>
+<path class="x" d="M420,272 L520,200"/>
+<text class="r" x="446" y="258">blocked</text>
+<rect class="box" x="520" y="270" width="380" height="100" rx="8" fill="#fde7e9"/>
+<text class="h" x="536" y="296">Cedar Operations (crm.dynamics.com)</text>
+<text class="s" x="536" y="320">iframe web resource embedding C-23:</text>
+<text class="s" x="536" y="342">refused until frame-ancestors adds it</text>
+<path class="x" d="M520,330 L440,300"/>
+<rect class="box" x="20" y="360" width="420" height="180" rx="10" fill="#fff4ce"/>
+<text class="h" x="36" y="388">Where violations show up</text>
+<text class="s" x="36" y="414">1 DevTools Console (Errors only): "… violates the</text>
+<text class="s" x="36" y="436">following Content Security Policy directive"</text>
+<text class="s" x="36" y="462">2 Reporting endpoint, if Enable reporting is on –</text>
+<text class="s" x="36" y="484">sent whether or not CSP is enforced</text>
+<text class="s" x="36" y="514">Enforce off + reporting on = observe-only rollout</text>
+<rect class="box" x="520" y="400" width="380" height="140" rx="10" fill="#eef3fb"/>
+<text class="h" x="536" y="426">Who changes CSP</text>
+<text class="s" x="536" y="452">Environment admin (Dana): admin center →</text>
+<text class="s" x="536" y="474">Settings → Product → Privacy + Security →</text>
+<text class="s" x="536" y="496">Content security policy → App tab, or the</text>
+<text class="s" x="536" y="518">PowerApps_CSP* settings API. Per environment.</text>
+</svg>

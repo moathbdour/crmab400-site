@@ -1,0 +1,1070 @@
+{
+  "bank": "Cedar AB-400 scenario review: Develop integrations",
+  "domain": "integrations",
+  "version": "1.0",
+  "lesson": 117,
+  "checkedOn": "2026-10-05",
+  "minutesPerItem": 2,
+  "cases": {
+    "CASE-4": {
+      "title": "LedgerLine billing feed",
+      "text": "Cedar Service is moving invoicing to LedgerLine, a fictional billing provider. On Thursday 3 December 2026 Lina Farah, Dana Khoury and Karim Aziz agree four requirements. (1) Each work order that becomes Completed must reach LedgerLine within minutes; LedgerLine's receiver is down for up to six hours every Sunday, and each completion must produce exactly one invoice (LedgerLine's API accepts an Idempotency-Key header). (2) LedgerLine's reporting job keeps a copy of Cedar's sites through change tracking; it was switched off for nine days in November. (3) LedgerLine sends back an invoice number per FieldLink ID; the function that writes it must never create work orders and must report, per message, whether a work order was updated. (4) Finance flows call LedgerLine's invoice API through a custom connector; LedgerLine's API accepts only the OAuth 2.0 client credentials grant, finance wants to see which user triggered each call, and no secret may be stored in flows or connections. Constraints: Cedar-Prod uses the topic cedar-workorder-events; only FieldLink Sync and the billing function may write work order columns owned by integrations."
+    }
+  },
+  "items": [
+    {
+      "id": "IT-01",
+      "objectives": [
+        "I-04"
+      ],
+      "lessons": [
+        89,
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink's receiver is offline every night from 01:00 to 03:00 for maintenance. Every change of a work order's Scheduled for must reach FieldLink, none may be lost, and Sami Nasser's saves must never wait for FieldLink. Which listening option should Karim recommend?",
+      "options": {
+        "A": "An asynchronous webhook step that posts the execution context to FieldLink's HTTPS endpoint.",
+        "B": "A Service Bus queue registered as a service endpoint with an asynchronous step; a consumer forwards the messages to FieldLink when it is available.",
+        "C": "A synchronous webhook step, so that a failed delivery is visible to the user at once.",
+        "D": "A cloud flow on \"When a row is added, modified or deleted\" that calls FieldLink with an HTTP action."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"offline every night\", \"none may be lost\", \"never wait\": a durable broker between Dataverse and the partner.",
+      "why": "A Service Bus queue keeps the messages while the receiver is down; Dataverse posts to the queue asynchronously, so the save doesn't wait, and the consumer delivers later and dead-letters what can never succeed.",
+      "distractors": {
+        "A": "A webhook has nowhere to keep a message: the call fails, only 502, 503 and 504 get one more attempt, and the failed system job loses the event unless something repairs it.",
+        "C": "A synchronous webhook makes every save fail while FieldLink is offline, the opposite of \"never wait\", and still stores nothing.",
+        "D": "A flow retries an action only a few times within minutes; a two-hour outage ends in failed runs that someone must resubmit, and nothing is queued."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-place",
+        "D": "late"
+      },
+      "names": {
+        "A": "webhook",
+        "B": "service-bus-queue",
+        "C": "webhook",
+        "D": "flow-trigger"
+      }
+    },
+    {
+      "id": "IT-02",
+      "objectives": [
+        "I-04"
+      ],
+      "lessons": [
+        89,
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The operations wallboard team wants every work order status change as it happens, about 40,000 events an hour at month-end, and must be able to re-read the last 24 hours after a bug fix. No event needs to be confirmed individually. Which option fits best?",
+      "options": {
+        "A": "A Service Bus topic with one subscription for the wallboard.",
+        "B": "An Event Hubs service endpoint (workorder-status) with an asynchronous step; the wallboard reads with its own consumer group.",
+        "C": "A webhook to an Azure Function that writes each event into a SQL table the wallboard queries.",
+        "D": "Change tracking on cedar_workorder, read every hour."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"stream\", \"40,000 an hour\", \"re-read the last 24 hours\", \"no event confirmed individually\": an event stream with retention and reader positions.",
+      "why": "Event Hubs is built for high-volume, time-ordered streams: each consumer group keeps its own position and can move it back within the retention period to replay. Nothing is completed or dead-lettered per event.",
+      "distractors": {
+        "A": "A topic delivers each message once per subscription and removes it on completion; replaying yesterday's messages isn't what a broker for individual messages does.",
+        "C": "This builds a home-made stream: an endpoint, a store and a reader to maintain, while the platform already publishes to Event Hubs without code.",
+        "D": "Change tracking returns the current state of each changed row once an hour, not each change as it happens."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "too-custom",
+        "D": "late"
+      },
+      "names": {
+        "A": "service-bus-topic",
+        "B": "event-hubs",
+        "C": "webhook",
+        "D": "change-tracking"
+      }
+    },
+    {
+      "id": "IT-03",
+      "objectives": [
+        "I-03"
+      ],
+      "lessons": [
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink, the audit store and the new billing service each need every work order event. Each consumer works at its own pace, and a message one consumer can't process must be set aside for that consumer only. What should Karim register?",
+      "options": {
+        "A": "One service endpoint for the Service Bus topic cedar-workorder-events (Designation Type Topic) with one asynchronous step, and one subscription per consumer.",
+        "B": "Three Service Bus queues, each registered as its own service endpoint with its own step.",
+        "C": "One Event Hubs service endpoint, with a consumer group per consumer.",
+        "D": "One webhook per consumer, each with its own asynchronous step."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"each need every event\", \"own pace\", \"set aside for that consumer only\": publish once, one subscription and dead-letter queue per consumer.",
+      "why": "A topic copies each message into every subscription. Dataverse posts once; each subscription has its own delivery count and dead-letter queue, and adding a consumer later is a new subscription, not a new registration.",
+      "distractors": {
+        "B": "It works, but Dataverse posts three times through three system jobs for the same event, and each new consumer needs another endpoint and step in the solution.",
+        "C": "Consumer groups give each reader its own position, but Event Hubs has no completion or dead-letter queue per message, so a bad message can't be set aside for one consumer.",
+        "D": "Webhooks store nothing for a consumer that is down and have no dead-letter queue."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "wrong-place",
+        "D": "wrong-place"
+      },
+      "names": {
+        "A": "service-bus-topic",
+        "B": "service-bus-queue",
+        "C": "event-hubs",
+        "D": "webhook"
+      }
+    },
+    {
+      "id": "IT-04",
+      "objectives": [
+        "I-03"
+      ],
+      "lessons": [
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Dana Khoury asks Karim to register the event hub workorder-status in Cedar-Test with the Plug-in Registration Tool. What does he need, and what does he choose?",
+      "options": {
+        "A": "A shared access signature policy on the event hub with the Send claim; Register New Service Endpoint with its connection string, Designation Type Event Hub, Message Format JSON.",
+        "B": "Register New Web Hook with the event hub's URL and an HttpHeader authorization value holding a SAS token.",
+        "C": "The environment's managed identity with the Azure Event Hubs Data Sender role, selected as the endpoint's authorization.",
+        "D": "A shared access signature policy with the Listen claim, so Dataverse can check that the hub exists."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"register the event hub\", \"Plug-in Registration Tool\": a service endpoint from a SAS connection string.",
+      "why": "Dataverse registers Event Hubs as a service endpoint with a SAS policy; only SAS authorization is permitted for this designation. Send is the only right the sender needs.",
+      "distractors": {
+        "B": "A webhook endpoint posts a RemoteExecutionContext over HTTPS to a web application; an event hub is registered as a service endpoint with the Event Hub designation.",
+        "C": "Service endpoints for Event Hubs accept only SAS authorization; there is no managed identity option for the endpoint.",
+        "D": "Listen lets a client read; Dataverse sends, so it needs Send, and nothing more."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "unsupported",
+        "D": "wrong-detail"
+      },
+      "names": {
+        "A": "event-hubs",
+        "B": "webhook"
+      }
+    },
+    {
+      "id": "IT-05",
+      "objectives": [
+        "I-02"
+      ],
+      "lessons": [
+        90,
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The billing service needs a message on the topic only when a work order's cedar_status changes. Karim must not write code for it. What should he register in the Plug-in Registration Tool?",
+      "options": {
+        "A": "A step on the service endpoint: message Update, table cedar_workorder, filtering attributes cedar_status, PostOperation, asynchronous.",
+        "B": "A custom plug-in that compares the pre-image and post-image and calls IServiceEndpointNotificationService when the status changed.",
+        "C": "A step on the service endpoint: message Update, table cedar_workorder, filtering attributes cedar_status, PostOperation, synchronous.",
+        "D": "A step on the service endpoint for Update with no filtering attributes; billing ignores the messages it doesn't need."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"only when cedar_status changes\", \"no code\": a step registered directly on the endpoint with filtering attributes.",
+      "why": "A step registered on a service endpoint posts the execution context without custom code. Filtering attributes make the step run only when one of the listed columns is in the update, and Service Bus endpoints take asynchronous steps.",
+      "distractors": {
+        "B": "It works, but it's code for a filter the step registration already provides; a custom publisher is for decisions the registration can't express.",
+        "C": "Service Bus endpoints accept asynchronous steps only; synchronous registration is possible for webhooks, not for a topic.",
+        "D": "Every update of every column would be posted: more system jobs and messages, and billing receives data it doesn't need."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "unsupported",
+        "D": "too-broad"
+      },
+      "names": {
+        "A": "endpoint-step",
+        "B": "custom-publisher",
+        "C": "endpoint-step",
+        "D": "endpoint-step"
+      }
+    },
+    {
+      "id": "IT-06",
+      "objectives": [
+        "I-01"
+      ],
+      "lessons": [
+        91
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "WorkOrderEventPublisherPlugin decides in code whether a change is a reschedule or a cancellation, adds the shared variable cedar.eventKind and then publishes the context to the endpoint \"Cedar work order events\". Which code publishes it?",
+      "options": {
+        "A": "var notify = (IServiceEndpointNotificationService)serviceProvider.GetService(typeof(IServiceEndpointNotificationService)); notify.Execute(new EntityReference(\"serviceendpoint\", endpointId), context);",
+        "B": "A ServiceBusSender created from a connection string stored in the step's secure configuration, sending the serialised context.",
+        "C": "service.Create(new Entity(\"serviceendpoint\") { [\"name\"] = \"Cedar work order events\" }) with the context in a text column.",
+        "D": "new HttpClient().PostAsync(topicUrl, json) from the plug-in with a SAS token."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"publishes the context to the endpoint\" from plug-in code: the notification service.",
+      "why": "A custom Azure-aware plug-in gets IServiceEndpointNotificationService from the service provider and calls Execute with an EntityReference to the serviceendpoint row and the execution context. The call returns a string: empty for queue, topic and event hub contracts.",
+      "distractors": {
+        "B": "It puts a send credential into the plug-in's configuration and bypasses the registered endpoint, its authentication and the asynchronous service's retries.",
+        "C": "Creating a serviceendpoint row registers a new endpoint (or fails); it doesn't post a message.",
+        "D": "It rebuilds the post by hand with a token in code, loses the platform's retries and system-job visibility, and needs a secret in the plug-in."
+      },
+      "traps": {
+        "B": "unsafe",
+        "C": "unsupported",
+        "D": "too-custom"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-07",
+      "objectives": [
+        "I-01"
+      ],
+      "lessons": [
+        91,
+        96
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The asynchronous publisher plug-in also creates a cedar_integrationlog row before it calls Execute. After the topic was unreachable for ten minutes, one change produced four log rows but only one message. What should Karim change?",
+      "options": {
+        "A": "Remove everything from the plug-in except preparing the context and posting; let the consumer log, using OperationId to recognise a repeated post.",
+        "B": "Register the plug-in synchronously, so the post isn't retried.",
+        "C": "Catch the exception around Execute and return normally, so the system job succeeds the first time.",
+        "D": "Create the log row only when context.Depth is 1."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"four log rows, one message\", \"unreachable for ten minutes\": the asynchronous retry runs the whole plug-in again.",
+      "why": "When the post of an asynchronous Azure-aware plug-in fails, the system job is retried and the entire plug-in runs again. Learn's rule: do nothing in it but modify the context and post. OperationId and OperationCreatedOn in the posted context support duplicate detection and sequencing.",
+      "distractors": {
+        "B": "A synchronous publisher makes saves fail while the bus is down, and Learn recommends asynchronous registration for these plug-ins.",
+        "C": "Swallowing the failure marks the job successful and loses the event for good; the retry is the protection.",
+        "D": "A retry isn't a deeper call; Depth stays the same on every attempt, so the rows are still created."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "unsafe",
+        "D": "unsupported"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-08",
+      "objectives": [
+        "I-04"
+      ],
+      "lessons": [
+        89,
+        90
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Finance owns a credit-check service in Azure that must approve every new work order for a customer on credit hold before it's saved; a refusal must cancel the save. The rule must stay in finance's service. Which option meets this?",
+      "options": {
+        "A": "A synchronous webhook step on Create of cedar_workorder; a non-2xx answer from the service cancels the operation.",
+        "B": "A Service Bus queue endpoint with an asynchronous step; the service deletes refused work orders.",
+        "C": "A cloud flow on row added that checks the service and sets the work order to Cancelled.",
+        "D": "An Event Hubs endpoint read by the credit-check service."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"before it's saved\", \"cancel the save\", \"rule must stay in finance's service\": a synchronous external call.",
+      "why": "Webhooks can be registered for synchronous steps. The save waits for the answer (time-out 60 seconds), and a failure cancels the operation with an error for the user. Know the cost: an outside service now decides whether users can save, so keep it fast and highly available.",
+      "distractors": {
+        "B": "Asynchronous delivery runs after the commit; the work order already exists and others may have acted on it.",
+        "C": "A flow runs after the commit; marking it Cancelled is a correction, not a refusal.",
+        "D": "A stream is read later by consumers; it can't take part in the save."
+      },
+      "traps": {
+        "B": "late",
+        "C": "late",
+        "D": "wrong-place"
+      },
+      "names": {
+        "A": "webhook",
+        "B": "service-bus-queue",
+        "C": "flow-trigger",
+        "D": "event-hubs"
+      }
+    },
+    {
+      "id": "IT-09",
+      "objectives": [
+        "I-05"
+      ],
+      "lessons": [
+        92
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's reporting database needs all work order and site changes every hour, including deleted rows. Karim's first draft queries rows with modifiedon greater than the last run. What should he use instead?",
+      "options": {
+        "A": "Change tracking: request the entity set with Prefer: odata.track-changes, store the @odata.deltaLink, and follow it next hour; deletions arrive as $deletedEntity entries.",
+        "B": "Keep the modifiedon query and add a second query for statecode eq 1 to find deleted rows.",
+        "C": "The Event Hubs stream workorder-status, written into the reporting database.",
+        "D": "Read the audit history of both tables every hour."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"every hour\", \"including deleted rows\", \"keeps its own copy\": a pull of changes since a token.",
+      "why": "Change tracking returns new, updated and deleted rows since the last token, on the consumer's schedule. Nothing is lost while the consumer is down, and Dataverse needs no knowledge of the consumer.",
+      "distractors": {
+        "B": "Deleted rows are gone, not inactive; statecode only finds deactivated rows. A modifiedon query never sees deletions.",
+        "C": "The stream carries status events of one table; the database would miss sites, other columns and deletions.",
+        "D": "Audit is for who changed what; it isn't a synchronisation feed, may be off for columns, and is read row by row."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-place",
+        "D": "wrong-place"
+      },
+      "names": {
+        "A": "change-tracking",
+        "B": "modifiedon-query",
+        "C": "event-hubs"
+      }
+    },
+    {
+      "id": "IT-10",
+      "objectives": [
+        "I-05"
+      ],
+      "lessons": [
+        92
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "To keep the copy small, Karim adds $filter=statecode eq 0 to his change-tracking request. Dataverse now refuses the request. What is the correct fix?",
+      "options": {
+        "A": "Remove $filter; select columns with $select only and filter in the consumer.",
+        "B": "Replace $filter with $top=5000.",
+        "C": "Enable Track changes on the table again and repeat the request.",
+        "D": "Send the same filter as FetchXML with a delta token."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"change-tracking request\", \"$filter\", \"refused\": a documented restriction.",
+      "why": "With the track-changes preference, $filter, $orderby, $expand and $top aren't supported; only $select shapes the result. The consumer applies its own filter.",
+      "distractors": {
+        "B": "$top is also unsupported with change tracking; paging uses the server's next links.",
+        "C": "The table is already tracked (the request was refused for the parameter, not the table).",
+        "D": "FetchXML has no delta token; the SDK equivalent is RetrieveEntityChangesRequest, without a filter either."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-gate",
+        "D": "unsupported"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-11",
+      "objectives": [
+        "I-06"
+      ],
+      "lessons": [
+        93
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim adds the alternate key cedar_FieldLinkIdKey to Work order and, one minute later, his import that writes to cedar_workorders(cedar_fieldlinkid='FL-77310') fails because the key can't be used. What should he do?",
+      "options": {
+        "A": "Wait until the key's index status is Active; if it's Failed, find the duplicate values, fix them and reactivate the key.",
+        "B": "Publish all customizations again.",
+        "C": "Add column security to cedar_fieldlinkid so the key is protected.",
+        "D": "Write the key value in double quotes in the address."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"one minute later\", \"the key can't be used\": the key's index is created by a system job.",
+      "why": "A new key is usable only after its index exists. A system job builds it; EntityKeyIndexStatus moves from Pending through In Progress to Active, or Failed (usually duplicate values). After fixing the data, ReactivateEntityKey restarts it.",
+      "distractors": {
+        "B": "Publishing doesn't build the index; the system job does.",
+        "C": "Key columns can't have column security; it would make things worse.",
+        "D": "Text key values are written in single quotes; the address was right."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-12",
+      "objectives": [
+        "I-06"
+      ],
+      "lessons": [
+        93
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Karim needs to identify the work order with FieldLink ID FL-77310 without knowing its GUID. Which TWO are correct?",
+      "options": {
+        "A": "Web API address cedar_workorders(cedar_fieldlinkid='FL-77310').",
+        "B": "SDK new Entity(\"cedar_workorder\", \"cedar_fieldlinkid\", \"FL-77310\"), which stores the value in KeyAttributes.",
+        "C": "PATCH cedar_workorders?$filter=cedar_fieldlinkid eq 'FL-77310'.",
+        "D": "SDK new Entity(\"cedar_workorder\") { [\"cedar_fieldlinkid\"] = \"FL-77310\" } passed to UpdateRequest.",
+        "E": "Web API address cedar_workorders(cedar_fieldlinkid=FL-77310)."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"without knowing its GUID\": an alternate key in the address or in KeyAttributes.",
+      "why": "An alternate key identifies a row in a Web API address (text in single quotes) or through the Entity and EntityReference constructors that fill KeyAttributes.",
+      "distractors": {
+        "C": "PATCH works on one row's address; a filtered collection isn't an updatable address.",
+        "D": "That puts the value into Attributes, the data to save; the row is still unidentified and the update fails.",
+        "E": "A text key value without quotes isn't a valid address."
+      },
+      "traps": {
+        "C": "unsupported",
+        "D": "wrong-detail",
+        "E": "wrong-detail"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-13",
+      "objectives": [
+        "I-07"
+      ],
+      "lessons": [
+        93,
+        96
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A repair job sets FieldLink status on existing work orders by FieldLink ID. If no work order has that ID, nothing may be created; the job should count it as \"missing\". Which request should Karim send?",
+      "options": {
+        "A": "PATCH cedar_workorders(cedar_fieldlinkid='FL-…') with If-Match: *; 404 means missing.",
+        "B": "PATCH cedar_workorders(cedar_fieldlinkid='FL-…') without headers; Dataverse creates or updates as needed.",
+        "C": "PATCH cedar_workorders(cedar_fieldlinkid='FL-…') with If-None-Match: *.",
+        "D": "An UpsertRequest; if RecordCreated is true, delete the new row and count it as missing."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"existing\", \"nothing may be created\", \"count it as missing\": update-only by key.",
+      "why": "If-Match: * turns the PATCH into an update: when no row matches the key, Dataverse answers 404 Not Found and creates nothing.",
+      "distractors": {
+        "B": "Without If-Match the PATCH is an upsert and creates a nearly empty work order for an unknown ID.",
+        "C": "If-None-Match: * is create-only: it refuses existing rows (412) and creates the unknown ones, the opposite of what's asked.",
+        "D": "It creates a row and then removes it: two writes, events and plug-ins fire for a row that should never exist."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "too-custom"
+      },
+      "names": {
+        "A": "update-if-match",
+        "B": "upsert",
+        "C": "create-only",
+        "D": "upsert"
+      }
+    },
+    {
+      "id": "IT-14",
+      "objectives": [
+        "I-07"
+      ],
+      "lessons": [
+        93
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A partner file lists sites by site code; some exist in Cedar and some don't. A run may be repeated after a time-out, and Lina Farah wants to know how many sites were created. How should Karim write each row with the SDK?",
+      "options": {
+        "A": "An UpsertRequest whose Target is new Entity(\"cedar_site\", \"cedar_sitecode\", code) with only the data columns in Attributes; count RecordCreated.",
+        "B": "Retrieve by key, then Create or Update depending on the result.",
+        "C": "A CreateRequest; on the duplicate-key error, send an UpdateRequest.",
+        "D": "An UpsertRequest with the site code also in Attributes, to be sure the key is saved."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"some exist and some don't\", \"may be repeated\", \"how many were created\": upsert by key with RecordCreated.",
+      "why": "Upsert by alternate key is idempotent: a repeated row finds the existing site and updates it. UpsertResponse.RecordCreated says which rows were created. Keep key values out of Attributes.",
+      "distractors": {
+        "B": "Two calls per row, and another writer can create the row between the read and the create.",
+        "C": "It uses an error as control flow and needs two calls for every existing row.",
+        "D": "Learn's guidance: don't include key values in the data; on update they're removed, and on create a different value in the data would override the key."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "too-custom",
+        "D": "wrong-detail"
+      },
+      "names": {
+        "A": "upsert",
+        "B": "retrieve-then-write",
+        "C": "create-only"
+      }
+    },
+    {
+      "id": "IT-15",
+      "objectives": [
+        "I-08"
+      ],
+      "lessons": [
+        94
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The FieldLink Jobs connector uses OAuth 2.0 with FieldLink's authorization server. After Karim selected \"Update to unique redirect URL\", new connections fail at FieldLink's sign-in page with a redirect URI error. What should he do?",
+      "options": {
+        "A": "Add the connector's redirect URL, shown on the Security tab, to FieldLink's client registration; each environment's connector has its own.",
+        "B": "Grant admin consent for the Dynamics CRM user_impersonation permission.",
+        "C": "Switch the connector to API key authentication with FieldLink's client secret as the key.",
+        "D": "Add https://global.consent.azure-apim.net/redirect to FieldLink's registration and keep the global redirect."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"unique redirect URL\", \"redirect URI error\": the provider doesn't know the connector's new redirect address.",
+      "why": "Custom connectors use a per-connector redirect URI. The OAuth provider must list exactly that URL, and every environment's connector has its own.",
+      "distractors": {
+        "B": "Dataverse permissions don't affect FieldLink's sign-in page.",
+        "C": "A client secret used as a shared API key gives every connection user the same credential and drops the user sign-in.",
+        "D": "The global redirect URI is the older mechanism that per-connector URIs replace."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "unsafe",
+        "D": "legacy-preview"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-16",
+      "objectives": [
+        "I-10"
+      ],
+      "lessons": [
+        94
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A partner sends an OpenAPI 3.0.1 file of 1.4 MB that describes 160 operations; Cedar needs three of them. How should Karim create the connector?",
+      "options": {
+        "A": "Import the file as it is from a URL; the portal converts it.",
+        "B": "Produce an OpenAPI 2.0 definition with the three operations, below 1 MB, and import that file.",
+        "C": "Split the 3.0.1 file into two files of 0.7 MB and import both.",
+        "D": "Choose Import from GitHub and point it at the partner's file."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"OpenAPI 3.0.1\", \"1.4 MB\", \"needs three\": the import limits.",
+      "why": "Custom connectors import OpenAPI 2.0 definitions smaller than 1 MB. Describing only the operations you need also keeps the connector small and its review easy.",
+      "distractors": {
+        "A": "Importing a 3.0 or a 1 MB+ file fails; URL import has the same limits.",
+        "C": "Both halves are still OpenAPI 3.0, and two connectors for one API complicate every consumer.",
+        "D": "Import from GitHub copies a connector from the microsoft/PowerPlatformConnectors repository; it doesn't convert a partner file."
+      },
+      "traps": {
+        "A": "unsupported",
+        "C": "wrong-detail",
+        "D": "wrong-place"
+      },
+      "names": {
+        "B": "openapi-import",
+        "D": "github-import"
+      }
+    },
+    {
+      "id": "IT-17",
+      "objectives": [
+        "I-10"
+      ],
+      "lessons": [
+        94
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "An independent-publisher connector for a weather service already exists in the microsoft/PowerPlatformConnectors repository. Karim wants a custom copy in CedarConnectors that he can change. What is the fastest supported way?",
+      "options": {
+        "A": "Create it from the repository's connector (Import from GitHub, or pac connector create with its apiDefinition.swagger.json and apiProperties.json).",
+        "B": "Import an OpenAPI file from the URL of the connector's README.md.",
+        "C": "Rebuild the connector from blank, operation by operation.",
+        "D": "Export the certified connector from another tenant's solution and import it."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"already exists in microsoft/PowerPlatformConnectors\", \"a custom copy\": start from the repository's definition files.",
+      "why": "The repository holds each connector's apiDefinition.swagger.json and apiProperties.json; the maker portal's Import from GitHub option and the CLI create a custom connector from them.",
+      "distractors": {
+        "B": "A README is documentation, not an OpenAPI definition.",
+        "C": "It works but recreates what the repository already provides.",
+        "D": "Certified connectors aren't solution components you can export from another tenant."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "too-custom",
+        "D": "unsupported"
+      },
+      "names": {
+        "A": "github-import",
+        "B": "openapi-import"
+      }
+    },
+    {
+      "id": "IT-18",
+      "objectives": [
+        "I-11"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's SLA API is published in Azure API Management. Lina wants a connector for it in Cedar-Test with the least effort, and later changes should be pushed from the same place. What should Karim do?",
+      "options": {
+        "A": "In API Management, open APIs, choose Power Platform, then Create a connector for the API and the Cedar-Test environment; use Update a connector for later changes.",
+        "B": "Export the OpenAPI from API Management, edit it by hand and import it into a blank connector.",
+        "C": "Call the API from every flow with the HTTP action and the subscription key in the URL.",
+        "D": "Create a Logic App that calls the API and let flows call the Logic App."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"published in API Management\", \"least effort\", \"changes from the same place\": the API Management export.",
+      "why": "API Management creates the custom connector in the chosen Power Platform environment directly, optionally with a subscription key connection parameter or OAuth details, and updates it from the same blade.",
+      "distractors": {
+        "B": "It works but adds manual steps and a copy that drifts from API Management.",
+        "C": "It spreads a key into every flow and gives up a connector's reuse and data policy control.",
+        "D": "It adds another hop and still exposes no connector to makers."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "unsafe",
+        "D": "wrong-place"
+      },
+      "names": {
+        "A": "apim-export",
+        "B": "openapi-import"
+      }
+    },
+    {
+      "id": "IT-19",
+      "objectives": [
+        "I-12"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim's Azure Function behind a custom connector must know which user called it, to check the delegated scope Sla.Read per user. How should the function be secured?",
+      "options": {
+        "A": "Authorization level Function, with the function key as the connector's API key.",
+        "B": "App Service authentication with Microsoft Entra ID in front of an anonymous HTTP trigger; the connector uses OAuth 2.0 with Entra ID; the function reads X-MS-CLIENT-PRINCIPAL.",
+        "C": "Authorization level Admin, with the master key stored in a connection reference.",
+        "D": "Pass the user's email address as a query parameter from the flow."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"which user called it\", \"delegated scope per user\": validate a user token before the code runs.",
+      "why": "App Service authentication validates the Entra token (audience, issuer, allowed client) and passes the claims in X-MS-CLIENT-PRINCIPAL, so the function can check scopes per user. A function key identifies no one.",
+      "distractors": {
+        "A": "A shared key proves only that the caller has the key; every user looks the same.",
+        "C": "The master key grants admin access to the whole function app, far more than one connector needs.",
+        "D": "Anyone can type any email address; nothing is verified."
+      },
+      "traps": {
+        "A": "wrong-gate",
+        "C": "too-broad",
+        "D": "unsafe"
+      },
+      "names": {
+        "A": "function-key",
+        "B": "easy-auth"
+      }
+    },
+    {
+      "id": "IT-20",
+      "objectives": [
+        "I-13"
+      ],
+      "lessons": [
+        94
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "In the FieldLink Jobs connector, the Subcontractor parameter of CreateJob should be a drop-down filled from the ListSubcontractors operation, so it follows changes in FieldLink. Which extension should Karim add?",
+      "options": {
+        "A": "x-ms-dynamic-values with operationId ListSubcontractors, value-collection, value-path and value-title.",
+        "B": "An enum with today's subcontractor references.",
+        "C": "x-ms-visibility: important.",
+        "D": "x-ms-summary: \"Subcontractor\"."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"drop-down filled from another operation\", \"follows changes\": dynamic values.",
+      "why": "x-ms-dynamic-values calls another operation at design time and shows its results: value-collection points to the array, value-path to the value and value-title to the label.",
+      "distractors": {
+        "B": "A static list goes stale as soon as FieldLink adds a subcontractor.",
+        "C": "Visibility decides where a parameter is shown, not its values.",
+        "D": "x-ms-summary is the parameter's display title."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      },
+      "names": {}
+    },
+    {
+      "id": "IT-21",
+      "objectives": [
+        "I-09"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink moves job creation from /v1/jobs to /v2/jobs with the same body. Forty flows use the CreateJob action, and Lina doesn't want any of them changed. What should Karim add to the connector?",
+      "options": {
+        "A": "A Route request policy on CreateJob with the new path /v2/jobs.",
+        "B": "Custom code that rewrites the request URL to /v2/jobs before calling SendAsync.",
+        "C": "A new operation CreateJobV2 and an update of the forty flows.",
+        "D": "A Set host URL policy pointing at the v2 host."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"path moves\", \"same body\", \"no flow changed\": a declarative policy on the existing operation.",
+      "why": "Route request sends an operation's call to another path on the same service; the operation keeps its name, inputs and outputs, so consumers don't change. GA templates need no code.",
+      "distractors": {
+        "B": "Code works but adds a script to maintain and test for something a GA template does declaratively.",
+        "C": "It changes forty flows, which is exactly what Lina ruled out.",
+        "D": "The host doesn't change, only the path."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "too-custom",
+        "D": "wrong-detail"
+      },
+      "names": {
+        "A": "policy-template",
+        "B": "custom-code"
+      }
+    },
+    {
+      "id": "IT-22",
+      "objectives": [
+        "I-09"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Every call of the FieldLink Jobs connector must carry the header X-Cedar-Environment with the value the user entered as a connection parameter environmentName. What is the simplest way?",
+      "options": {
+        "A": "A Set HTTP header policy with the value @connectionParameters('environmentName') and an empty operation list, so it applies to all operations.",
+        "B": "An internal header parameter with a fixed default value on every operation.",
+        "C": "Custom code that copies the connection parameter into the header.",
+        "D": "An environment variable referenced inside the policy."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"every call\", \"header\", \"value from a connection parameter\": the GA header template with an expression.",
+      "why": "Set HTTP header writes a header in the Request section; @connectionParameters reads the connection's value, and an empty operation list applies the template to every operation.",
+      "distractors": {
+        "B": "A fixed default is the same for every connection; the requirement is the value each connection entered.",
+        "C": "Code repeats what a GA template does.",
+        "D": "Environment variables inside policies are preview (and another Learn page says unsupported); the value is a connection parameter anyway."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "too-custom",
+        "D": "legacy-preview"
+      },
+      "names": {
+        "A": "policy-template",
+        "C": "custom-code"
+      }
+    },
+    {
+      "id": "IT-23",
+      "objectives": [
+        "I-14"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink's availability operation returns an object such as {\"slots\": {\"2026-12-07T08:00Z\": \"free\", …}}. Flows need an array of free slots in Amman local time, without past slots. Where should Karim put this logic?",
+      "options": {
+        "A": "Custom code in the connector: a Script class deriving from ScriptBase whose ExecuteAsync forwards the request with SendAsync and reshapes the response.",
+        "B": "The Convert object to array policy template.",
+        "C": "Expressions in each of the flows that use the action.",
+        "D": "A Set property policy template that adds a localTime property."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"reshape\", \"filter\", \"convert time zones\": logic beyond templates, stateless, one API.",
+      "why": "Custom code transforms request and response payloads beyond what templates can do. The script forwards the request with its credentials and returns the new shape, so every consumer gets the array.",
+      "distractors": {
+        "B": "It turns the object into an array but can't filter past slots or convert times, and it's a preview template.",
+        "C": "Every flow repeats the same logic and the repetitions drift apart.",
+        "D": "Set property can add a fixed or expression value but can't compute a time per slot or drop entries, and it's preview too."
+      },
+      "traps": {
+        "B": "legacy-preview",
+        "C": "too-custom",
+        "D": "legacy-preview"
+      },
+      "names": {
+        "A": "custom-code",
+        "B": "policy-template",
+        "D": "policy-template"
+      }
+    },
+    {
+      "id": "IT-24",
+      "objectives": [
+        "I-14"
+      ],
+      "lessons": [
+        95
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Which TWO statements about custom code in a custom connector are true?",
+      "options": {
+        "A": "The script must finish within 2 minutes.",
+        "B": "The script file must be smaller than 1 MB, and a connector has one script.",
+        "C": "The script can reference any NuGet package it needs.",
+        "D": "The script can write traces to Application Insights through an ILogger.",
+        "E": "The script can reach an on-premises API through the data gateway."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"custom code\", \"TWO true\": the documented limits.",
+      "why": "Learn documents the 2-minute limit, the 1 MB script size and one script per connector. The runtime is .NET Standard 2.0 with a fixed list of namespaces.",
+      "distractors": {
+        "C": "Only the listed namespaces are available; no packages can be added.",
+        "D": "Logging and tracing aren't supported in connector code yet.",
+        "E": "Custom code doesn't support the on-premises data gateway."
+      },
+      "traps": {
+        "C": "unsupported",
+        "D": "unsupported",
+        "E": "unsupported"
+      },
+      "names": {}
+    },
+    {
+      "id": "CI-1",
+      "case": "CASE-4",
+      "objectives": [
+        "I-04",
+        "I-03"
+      ],
+      "lessons": [
+        89,
+        91,
+        96
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Case study CASE-4, requirement 1. Which TWO parts make the billing feed meet the requirement?",
+      "options": {
+        "A": "A service endpoint for a Service Bus queue (or a billing subscription on cedar-workorder-events) with an asynchronous step on Update of cedar_workorder filtered on cedar_status.",
+        "B": "A Service Bus-triggered function that sends each message to LedgerLine with the message id as idempotency key, lets the broker redeliver on transient failures and dead-letters permanent ones.",
+        "C": "An asynchronous webhook step that posts directly to LedgerLine's receiver.",
+        "D": "A synchronous plug-in that calls LedgerLine and cancels the completion if LedgerLine is down.",
+        "E": "An Event Hubs endpoint read by LedgerLine once a day."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"within minutes\", \"down up to six hours on Sundays\", \"exactly one invoice\": a broker plus an idempotent consumer.",
+      "why": "The broker keeps messages through LedgerLine's maintenance; the consumer delivers with the message id as idempotency key, so a redelivery can't create a second invoice, and permanent failures are set aside with a reason.",
+      "distractors": {
+        "C": "A webhook stores nothing while LedgerLine is down for six hours; the events would be lost.",
+        "D": "Completing work orders would fail every Sunday, and an outside system would control Cedar's saves.",
+        "E": "Once a day isn't \"within minutes\", and Event Hubs has no per-message dead-lettering for invoices that fail."
+      },
+      "traps": {
+        "C": "wrong-place",
+        "D": "wrong-place",
+        "E": "late"
+      },
+      "names": {
+        "A": "service-bus-queue",
+        "B": "service-bus-queue",
+        "C": "webhook",
+        "E": "event-hubs"
+      }
+    },
+    {
+      "id": "CI-2",
+      "case": "CASE-4",
+      "objectives": [
+        "I-05"
+      ],
+      "lessons": [
+        92,
+        96
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-4, requirement 2. LedgerLine's reporting job, which follows a change-tracking delta link for cedar_site, was switched off for nine days. What must it do now?",
+      "options": {
+        "A": "Load all sites again with a new change-tracking request, replace its copy, and continue with the new delta link.",
+        "B": "Send the old delta link with $filter=modifiedon ge the last run date.",
+        "C": "Ask Dana to raise the change-tracking retention to 30 days and send the old delta link again.",
+        "D": "Start a new delta link today and keep the existing copy as it is."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"nine days\", \"delta link\": older than the default seven-day window.",
+      "why": "Changes are kept for seven days by default. An older token fails, so the consumer reloads; deletions during the gap can only be found by comparing a full load with its copy.",
+      "distractors": {
+        "B": "$filter isn't supported with change tracking, and the expired token can't be repaired.",
+        "C": "Raising retention now doesn't bring back changes that already expired.",
+        "D": "Sites deleted or changed during the nine days would stay wrong in the copy."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "late",
+        "D": "wrong-detail"
+      },
+      "names": {
+        "A": "change-tracking",
+        "B": "modifiedon-query"
+      }
+    },
+    {
+      "id": "CI-3",
+      "case": "CASE-4",
+      "objectives": [
+        "I-07",
+        "I-06"
+      ],
+      "lessons": [
+        93,
+        96
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-4, requirement 3. How should the function write each invoice number?",
+      "options": {
+        "A": "PATCH cedar_workorders(cedar_fieldlinkid='…') with If-Match: * and the invoice column; 204 is updated, 404 is an unknown work order and nothing is created.",
+        "B": "PATCH cedar_workorders(cedar_fieldlinkid='…') with Prefer: return=representation; 201 means created, 200 updated.",
+        "C": "An UpsertRequest per invoice; delete rows where RecordCreated is true.",
+        "D": "A POST to cedar_workorders with the FieldLink ID and invoice number."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"must never create work orders\", \"say whether each row was updated\": update-only by key.",
+      "why": "If-Match: * makes the keyed PATCH update-only: 204 for an update and 404 for an unknown key, with nothing created. A repeated message updates the same value again, which is harmless.",
+      "distractors": {
+        "B": "Without If-Match the PATCH is an upsert; the status codes would only tell LedgerLine that a work order was created by mistake.",
+        "C": "Creating and deleting rows fires plug-ins and events for work orders that must never exist.",
+        "D": "A POST creates a new work order every time."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "too-custom",
+        "D": "wrong-place"
+      },
+      "names": {
+        "A": "update-if-match",
+        "B": "upsert",
+        "C": "upsert"
+      }
+    },
+    {
+      "id": "CI-4",
+      "case": "CASE-4",
+      "objectives": [
+        "I-08",
+        "I-12"
+      ],
+      "lessons": [
+        94,
+        95
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-4, requirement 4. How should the connector and LedgerLine access be built?",
+      "options": {
+        "A": "An Azure Function behind the connector: App Service authentication with Entra ID and a connector using OAuth 2.0 with Entra ID; the function reads the caller from X-MS-CLIENT-PRINCIPAL, logs it, and gets LedgerLine's client secret from Key Vault with its managed identity to call LedgerLine with client credentials.",
+        "B": "A custom connector to LedgerLine configured with the OAuth 2.0 client credentials grant.",
+        "C": "A connector with API key authentication whose key is LedgerLine's client secret, in one connection shared with the finance team.",
+        "D": "A function with authorization level Function; each flow passes the user's name in a header."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"accepts only client credentials\", \"finance wants to see who triggered each call\", \"no secret in flows\": an API you own between the connector and LedgerLine.",
+      "why": "Custom connectors don't support the client credentials grant, so the credential lives in a function you own. Entra authentication in front of the function identifies each user, and the managed identity reads the secret from Key Vault.",
+      "distractors": {
+        "B": "Learn states that client credentials aren't supported by custom connectors.",
+        "C": "Everyone with the shared connection acts with LedgerLine's secret, and nothing records which user called.",
+        "D": "A function key identifies no one, and a header the caller types proves nothing."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "unsafe",
+        "D": "wrong-gate"
+      },
+      "names": {
+        "A": "function-gateway",
+        "D": "function-key"
+      }
+    }
+  ]
+}

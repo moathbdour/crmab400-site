@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="t">
+<title id="t">Rollback decision for a bad CedarServiceCore release</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700}.q{fill:#eef4fb;stroke:#2b5d8c;stroke-width:2}.a{fill:#eef8ee;stroke:#2e7d32;stroke-width:2}.r{fill:#fdecea;stroke:#b3261e;stroke-width:2}line{stroke:#333;stroke-width:2;marker-end:url(#m)}</style>
+<defs><marker id="m" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect width="900" height="360" fill="#fff"/>
+<rect class="q" x="20" y="30" width="250" height="80" rx="8"/><text class="h" x="35" y="60">1.5.0.0 broke Prod.</text><text x="35" y="86">Was data lost or corrupted?</text>
+<rect class="r" x="20" y="200" width="250" height="110" rx="8"/><text class="h" x="35" y="228">Yes: restore</text><text x="35" y="254">Restore environment backup</text><text x="35" y="278">to a copy; recover rows;</text><text x="35" y="302">admin + Dana decide</text>
+<rect class="q" x="330" y="30" width="250" height="80" rx="8"/><text class="h" x="345" y="60">No. Is a hotfix quick</text><text x="345" y="86">(under an hour)?</text>
+<rect class="a" x="330" y="200" width="250" height="110" rx="8"/><text class="h" x="345" y="228">Yes: fix forward</text><text x="345" y="254">branch, fix, PR,</text><text x="345" y="278">version 1.5.1.0,</text><text x="345" y="302">normal CI/CD</text>
+<rect class="a" x="640" y="30" width="240" height="140" rx="8"/><text class="h" x="655" y="60">No: revert forward</text><text x="655" y="86">git revert the release</text><text x="655" y="110">commit, set 1.5.1.0,</text><text x="655" y="134">build = 1.4 behaviour,</text><text x="655" y="158">deploy as upgrade</text>
+<line x1="145" y1="110" x2="145" y2="198"/><text x="152" y="160">yes</text>
+<line x1="270" y1="70" x2="328" y2="70"/><text x="282" y="60">no</text>
+<line x1="455" y1="110" x2="455" y2="198"/><text x="462" y="160">yes</text>
+<line x1="580" y1="70" x2="638" y2="70"/><text x="592" y="60">no</text>
+<text x="640" y="220" class="h">Never:</text><text x="640" y="246">import 1.4.0.0 over 1.5.0.0</text><text x="640" y="270">(lower version is blocked);</text><text x="640" y="294">uninstall the managed solution</text><text x="640" y="318">(deletes its tables and data)</text>
+</svg>

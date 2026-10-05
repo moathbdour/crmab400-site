@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">Five ways Omar reaches a row in Dataverse</title>
+<desc id="d">Omar Test reaches rows through his own security role depth, through roles of the owner team Cedar Field Coordination for team-owned work orders, through a direct share, through a share to a team he belongs to, and through membership of a record access team created from the Case collaborators template.</desc>
+<rect width="900" height="560" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="230" width="170" height="90" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="105" y="265" text-anchor="middle" font-weight="bold">Omar Test</text>
+<text x="105" y="288" text-anchor="middle">Cedar Service BU</text>
+<text x="105" y="308" text-anchor="middle">Service Agent – Cedar</text>
+<g stroke="#444" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M190,245 L330,70"/><path d="M190,260 L330,170"/><path d="M190,275 L330,275"/><path d="M190,290 L330,380"/><path d="M190,305 L330,485"/>
+</g>
+<rect x="330" y="30" width="250" height="80" rx="8" fill="#f1f3f4" stroke="#555" stroke-width="2"/>
+<text x="345" y="58" font-weight="bold">1. Own role depth</text>
+<text x="345" y="80">Case Read BU, Write User</text>
+<text x="345" y="100">(lesson 26)</text>
+<rect x="330" y="130" width="250" height="80" rx="8" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="345" y="158" font-weight="bold">2. Owner team member</text>
+<text x="345" y="180">Cedar Field Coordination</text>
+<text x="345" y="200">+ Dispatch Team – Cedar role</text>
+<rect x="330" y="235" width="250" height="80" rx="8" fill="#fef3e0" stroke="#b36200" stroke-width="2"/>
+<text x="345" y="263" font-weight="bold">3. Direct share</text>
+<text x="345" y="285">GrantAccess to Omar</text>
+<text x="345" y="305">(Read, Write …)</text>
+<rect x="330" y="340" width="250" height="80" rx="8" fill="#fef3e0" stroke="#b36200" stroke-width="2"/>
+<text x="345" y="368" font-weight="bold">4. Share to a team</text>
+<text x="345" y="390">GrantAccess to a team</text>
+<text x="345" y="410">Omar is a member of</text>
+<rect x="330" y="445" width="250" height="80" rx="8" fill="#f3e8fd" stroke="#6b2fb3" stroke-width="2"/>
+<text x="345" y="473" font-weight="bold">5. Record access team</text>
+<text x="345" y="495">Template Case collaborators</text>
+<text x="345" y="515">(no role; rights from template)</text>
+<g stroke="#444" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M580,70 L680,120"/><path d="M580,170 L680,200"/><path d="M580,275 L680,280"/><path d="M580,380 L680,360"/><path d="M580,485 L680,430"/>
+</g>
+<rect x="680" y="100" width="200" height="360" rx="10" fill="#ffffff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="780" y="140" text-anchor="middle" font-weight="bold">Row access</text>
+<text x="780" y="170" text-anchor="middle">= union of all</text>
+<text x="780" y="192" text-anchor="middle">five paths</text>
+<text x="780" y="240" text-anchor="middle">Nothing subtracts.</text>
+<text x="780" y="280" text-anchor="middle">Shares are stored</text>
+<text x="780" y="302" text-anchor="middle">per row and principal</text>
+<text x="780" y="324" text-anchor="middle">(PrincipalObjectAccess)</text>
+<text x="780" y="372" text-anchor="middle">Paths 3–5 need</text>
+<text x="780" y="394" text-anchor="middle">at least User-level</text>
+<text x="780" y="416" text-anchor="middle">privilege on the table</text>
+</g>
+</svg>

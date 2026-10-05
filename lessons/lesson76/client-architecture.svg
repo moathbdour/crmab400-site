@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Structure of the Cedar .NET client application</title>
+<desc id="d">Four layers from top to bottom. Composition: Program.cs reads configuration from appsettings.json, environment variables and user secrets into CedarSettings, creates a logger, asks ConnectionFactory for a connection and runs one use case; it is the only place that knows about files, the console and exit codes. Connection: ConnectionFactory validates the settings, builds a connection string or passes a token provider, creates one ServiceClient and checks IsReady and LastError; ServiceClient uses MSAL for tokens and retries throttled requests. Use case: StatusSync receives an IOrganizationService and a logger, finds each work order by FieldLink ID, asks the rules what to do, and sends an update with only the status column and the row version. Pure rules: StatusRules, StatusFile and CedarSettings validation have no dependency on Dataverse. On the right, tests: rule tests and use case tests with a fake IOrganizationService run without any environment; only the connection layer needs a real environment. At the bottom, Dataverse applies the roles of the connection's identity and runs Cedar's plug-ins on every update.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">Only one layer knows how to connect; everything else depends on IOrganizationService</text>
+
+<rect class="box" x="20" y="46" width="660" height="104" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="70">1. Composition – Program.cs</text>
+<text x="32" y="94">Configuration: appsettings.json → environment variables → user secrets (later source wins) → CedarSettings.</text>
+<text x="32" y="114">Creates the logger, connects once, runs ONE use case, prints a summary, returns an exit code.</text>
+<text x="32" y="134">The only place that knows about files, the console and process exit codes.</text>
+
+<path class="a" d="M350,150 L350,170"/>
+<rect class="box" x="20" y="170" width="660" height="104" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="194">2. Connection – ConnectionFactory</text>
+<text x="32" y="218">Validates settings • builds the connection string (Interactive or Certificate) or passes a token provider •</text>
+<text x="32" y="238">creates ONE ServiceClient • checks IsReady, reports LastError. ServiceClient: MSAL tokens, renewal,</text>
+<text x="32" y="258">retries for throttling (429).</text>
+
+<path class="a" d="M350,274 L350,294"/>
+<rect class="box" x="20" y="294" width="660" height="104" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="318">3. Use case – StatusSync(IOrganizationService, ILogger)</text>
+<text x="32" y="342">For each update: find the work order by FieldLink ID → ask the rules → send UpdateRequest with only</text>
+<text x="32" y="362">cedar_fieldlinkstatus and the row version → classify faults (conflict, refused, failed) → continue.</text>
+<text x="32" y="382">Never creates a connection. Runs unchanged with a fake service.</text>
+
+<path class="a" d="M350,398 L350,418"/>
+<rect class="box" x="20" y="418" width="660" height="80" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="442">4. Pure rules – StatusRules, StatusFile, CedarSettings.Problems</text>
+<text x="32" y="466">No Dataverse, no I/O: which status may follow which, how a feed line is parsed, which settings are missing.</text>
+<text x="32" y="486">Reused later by the Azure Function (lesson 87) and the integration (lessons 90–96).</text>
+
+<rect class="box" x="700" y="46" width="280" height="452" rx="8" fill="#fde7e9"/>
+<text class="b" x="712" y="70">Tests and what they need</text>
+<text x="712" y="100">Layer 4: rule tests.</text>
+<text x="712" y="120">Need nothing.</text>
+<text x="712" y="156">Layer 3: use case tests with a</text>
+<text x="712" y="176">fake IOrganizationService that</text>
+<text x="712" y="196">records requests and can throw</text>
+<text x="712" y="216">a fault. Need nothing.</text>
+<text x="712" y="252">Layer 2: needs a real environment</text>
+<text x="712" y="272">and identity: WhoAmI check,</text>
+<text x="712" y="292">lesson 73 gates.</text>
+<text x="712" y="328">Layer 1: one end-to-end run with</text>
+<text x="712" y="348">the sample file in Cedar-Dev.</text>
+<text x="712" y="384">Secrets never in appsettings.json</text>
+<text x="712" y="404">or Git: thumbprint and IDs are</text>
+<text x="712" y="424">not secrets; the private key</text>
+<text x="712" y="444">stays in the certificate store.</text>
+
+<path class="a" d="M350,498 L350,520"/>
+<rect class="box" x="20" y="520" width="960" height="64" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="544">Dataverse (Cedar-Dev)</text>
+<text x="32" y="568">Applies the roles of the connection's identity (Karim, or FieldLink Sync) and runs Cedar's plug-ins (guards, urgency sync) on every update.</text>
+</svg>

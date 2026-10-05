@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">One feed file through the unattended nightly sync</title>
+<desc id="d">The scheduled wrapper script takes the oldest file from the inbox and starts cedar-sync. Step 1, journal: if this exact content, identified by its SHA-256 hash, was completed before, the run is skipped with exit code 0. Step 2, parse and validate: a file that is not valid JSON or has more than 20,000 lines is rejected with exit code 4 and goes to quarantine; bad lines are rejected one by one and listed; exact duplicates are dropped. Step 3, read and plan as in lesson 78; with the dry-run option the job stops here and reports. Step 4, the journal gets the entry started, then the writes go out in batches; ServiceClient waits when throttled; if it is still throttled the journal gets throttled and the exit code is 3, and the file stays in the inbox for the next scheduled run. Step 5, the journal gets completed with the summary, the run report is written, and the exit code is 0 if clean or 1 if lines need a person; the file goes to the archive. Exit code 2 means configuration, connection or another active run; the file stays in the inbox. Below, the Python reconciliation reads the same file and asks Dataverse independently whether any work order is behind the feed.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">02:00, nobody watching: every exit has a place for the file and someone who reacts</text>
+
+<rect class="box" x="20" y="46" width="150" height="70" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="72">Inbox</text><text x="32" y="96">oldest file first</text>
+<path class="a" d="M170,81 L196,81"/>
+
+<rect class="box" x="196" y="46" width="186" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="206" y="70">1. Journal</text>
+<text x="206" y="94">SHA-256 of the content</text>
+<text x="206" y="118">completed before?</text>
+<text x="206" y="146">→ skip, exit 0</text>
+<text x="206" y="174">(--force overrides)</text>
+<path class="a" d="M382,121 L404,121"/>
+
+<rect class="box" x="404" y="46" width="186" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="414" y="70">2. Parse + validate</text>
+<text x="414" y="94">not JSON / &gt; 20,000</text>
+<text x="414" y="114">lines → exit 4</text>
+<text x="414" y="140">bad line → rejected</text>
+<text x="414" y="160">and listed</text>
+<text x="414" y="184">duplicates dropped</text>
+<path class="a" d="M590,121 L612,121"/>
+
+<rect class="box" x="612" y="46" width="170" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="622" y="70">3. Read + plan</text>
+<text x="622" y="94">1 query / 200 IDs</text>
+<text x="622" y="118">plan in memory</text>
+<text x="622" y="146">--dry-run: stop</text>
+<text x="622" y="166">here and report</text>
+<path class="a" d="M782,121 L804,121"/>
+
+<rect class="box" x="804" y="46" width="176" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="814" y="70">4. Write</text>
+<text x="814" y="94">journal: started</text>
+<text x="814" y="118">batches of 100</text>
+<text x="814" y="146">still throttled →</text>
+<text x="814" y="166">journal: throttled,</text>
+<text x="814" y="186">exit 3</text>
+
+<path class="a" d="M892,196 L892,226"/>
+<rect class="box" x="612" y="226" width="368" height="74" rx="8" fill="#eef3fb"/>
+<text class="b" x="622" y="250">5. Finish</text>
+<text x="622" y="272">journal: completed + summary; run report (counts, IDs, reasons)</text>
+<text x="622" y="292">exit 0 clean  |  exit 1 lines need a person</text>
+
+<text class="h" x="20" y="340">Exit code → where the file goes → who reacts</text>
+<rect class="box" x="20" y="354" width="186" height="96" rx="8" fill="#dff6dd"/>
+<text class="b" x="30" y="378">0 clean / applied before</text><text x="30" y="402">→ archive</text><text x="30" y="426">nobody</text>
+<rect class="box" x="216" y="354" width="186" height="96" rx="8" fill="#fff4ce"/>
+<text class="b" x="226" y="378">1 needs attention</text><text x="226" y="402">→ archive</text><text x="226" y="426">Sami reads the report</text>
+<rect class="box" x="412" y="354" width="186" height="96" rx="8" fill="#fde7e9"/>
+<text class="b" x="422" y="378">2 config / connection</text><text x="422" y="402">→ stays in the inbox</text><text x="422" y="426">Dana; next run retries</text>
+<rect class="box" x="608" y="354" width="186" height="96" rx="8" fill="#fff4ce"/>
+<text class="b" x="618" y="378">3 throttled</text><text x="618" y="402">→ stays in the inbox</text><text x="618" y="426">03:00 run continues</text>
+<rect class="box" x="804" y="354" width="176" height="96" rx="8" fill="#fde7e9"/>
+<text class="b" x="814" y="378">4 file rejected</text><text x="814" y="402">→ quarantine</text><text x="814" y="426">new export requested</text>
+
+<rect class="box" x="20" y="474" width="960" height="110" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="500">Independent check: python -m cedar_service.reconcile &lt;the same file&gt;</text>
+<text x="32" y="526">Another language, the Web API, another identity, a different question: is any work order BEHIND what the feed last said?</text>
+<text x="32" y="550">Further along is fine (late lines, work done in the app). Exit 1 when something is behind or ambiguous.</text>
+<text x="32" y="574">The job runs as the application user FieldLink Sync with a certificate; on the job host it refuses to run as a person.</text>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">What a plug-in registration consists of</title>
+<desc id="d">A plug-in registration is four kinds of rows. The assembly row (table pluginassembly) holds the compiled DLL; optionally it belongs to a plug-in package (pluginpackage), a NuGet file that also carries dependent assemblies. Each class that implements IPlugin becomes a plug-in type row (plugintype). Each type has zero or more step rows (sdkmessageprocessingstep) that say when the class runs: message, table, stage, mode, order, filtering attributes, user and configuration. A step can own image rows (sdkmessageprocessingstepimage) and one secure configuration row that is not exported with solutions. Assemblies and steps are solution components and travel to Test and Production by solution import.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">A registration is data: four kinds of rows that tell Dataverse what to run and when</text>
+
+<rect class="box" x="20" y="50" width="300" height="118" rx="8" fill="#e6e6e6"/>
+<text class="b" x="32" y="74">Plug-in package (optional)</text>
+<text class="m" x="32" y="96">pluginpackage</text>
+<text x="32" y="118">NuGet file: your assembly plus</text>
+<text x="32" y="138">dependent assemblies. No signing.</text>
+<text x="32" y="158">Cedar: not used yet (lesson 70).</text>
+
+<path class="a" d="M320,109 L370,109"/>
+<text x="326" y="100">holds</text>
+
+<rect class="box" x="370" y="50" width="290" height="118" rx="8" fill="#eef3fb"/>
+<text class="b" x="382" y="74">1. Assembly</text>
+<text class="m" x="382" y="96">pluginassembly</text>
+<text x="382" y="118">The DLL, stored in the database.</text>
+<text x="382" y="138">Sandbox isolation. Max 16 MB.</text>
+<text x="382" y="158">Cedar.Service.Plugins 1.0.4.0</text>
+
+<path class="a" d="M660,109 L710,109"/>
+<text x="664" y="100">lists</text>
+
+<rect class="box" x="710" y="50" width="270" height="118" rx="8" fill="#eef3fb"/>
+<text class="b" x="722" y="74">2. Plug-in type</text>
+<text class="m" x="722" y="96">plugintype</text>
+<text x="722" y="118">One row per class that implements</text>
+<text x="722" y="138">IPlugin. Created automatically.</text>
+<text x="722" y="158">WorkOrderGuardPlugin, ...</text>
+
+<path class="a" d="M845,168 L845,200 L500,200 L500,226"/>
+<text x="610" y="194">has 0..n</text>
+
+<rect class="box" x="150" y="226" width="700" height="170" rx="8" fill="#dff6dd"/>
+<text class="b" x="162" y="250">3. Step  (the registration you create in the Plug-in Registration Tool)</text>
+<text class="m" x="162" y="272">sdkmessageprocessingstep</text>
+<text x="162" y="296">WHEN: message + primary table + filtering attributes (Update)</text>
+<text x="162" y="318">WHERE: stage 10 / 20 / 40, execution order (rank)</text>
+<text x="162" y="340">HOW: synchronous or asynchronous, Run in User's Context, deployment Server</text>
+<text x="162" y="362">WITH: unsecure configuration (text stored on the step row)</text>
+<text x="162" y="384">STATE: enabled or disabled</text>
+
+<path class="a" d="M320,396 L240,440"/>
+<path class="a" d="M680,396 L760,440"/>
+
+<rect class="box" x="20" y="440" width="460" height="100" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="464">4. Image (0..n per step)</text>
+<text class="m" x="32" y="486">sdkmessageprocessingstepimage</text>
+<text x="32" y="508">Pre or post snapshot, alias, named columns.</text>
+<text x="32" y="528">Deleted together with its step.</text>
+
+<rect class="box" x="520" y="440" width="460" height="100" rx="8" fill="#fde7e9"/>
+<text class="b" x="532" y="464">Secure configuration (0..1 per step)</text>
+<text class="m" x="532" y="486">sdkmessageprocessingstepsecureconfig</text>
+<text x="532" y="508">Readable by system administrators only.</text>
+<text x="532" y="528">NOT exported with a solution: re-enter per environment.</text>
+
+<rect class="box" x="20" y="560" width="960" height="62" rx="8" fill="#e6e6e6"/>
+<text class="b" x="32" y="584">Solutions carry the registration</text>
+<text x="32" y="606">Assembly and steps (with images and unsecure configuration) are solution components. Add each step to CedarServiceCore; Test and Prod get them by import, never by PRT.</text>
+</svg>

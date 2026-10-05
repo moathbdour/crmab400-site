@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" role="img" aria-labelledby="t">
+<title id="t">Where business rules run: form-scope rules run only in model-driven forms; entity-scope rules run in forms and on the Dataverse server for every create or update, including API, import and flows; business process flows guide users on the form and store their state in a separate instance table</title>
+<rect width="980" height="520" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Work order logic: where each no-code rule runs</text>
+<rect x="30" y="55" width="420" height="300" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="45" y="82" font-weight="bold">Client: model-driven form (Sami's browser)</text>
+<rect x="45" y="100" width="390" height="70" rx="6" fill="#ffffff" stroke="#1f4e79"/>
+<text x="60" y="124" font-weight="bold">Form scope rules (All Forms / one form)</text>
+<text x="60" y="148">Show/hide, lock, set required, recommend</text>
+<rect x="45" y="185" width="390" height="70" rx="6" fill="#ffffff" stroke="#1f4e79"/>
+<text x="60" y="209" font-weight="bold">Business process flow bar</text>
+<text x="60" y="233">Prepare &gt; Dispatch &gt; Track &gt; Close</text>
+<rect x="45" y="270" width="390" height="70" rx="6" fill="#fff4d6" stroke="#8a6d00"/>
+<text x="60" y="294" font-weight="bold">Entity scope rule, client copy</text>
+<text x="60" y="318">Instant error before Save</text>
+<rect x="530" y="55" width="420" height="300" rx="8" fill="#e3f2e1" stroke="#2e6b2e"/>
+<text x="545" y="82" font-weight="bold">Server: Dataverse</text>
+<rect x="545" y="100" width="390" height="70" rx="6" fill="#fff4d6" stroke="#8a6d00"/>
+<text x="560" y="124" font-weight="bold">Entity scope rule, server copy</text>
+<text x="560" y="148">Set value, default, error on create/update</text>
+<rect x="545" y="185" width="390" height="70" rx="6" fill="#ffffff" stroke="#2e6b2e"/>
+<text x="560" y="209" font-weight="bold">cedar_workorder row</text>
+<text x="560" y="233">Saved only if every server rule passes</text>
+<rect x="545" y="270" width="390" height="70" rx="6" fill="#ffffff" stroke="#2e6b2e"/>
+<text x="560" y="294" font-weight="bold">BPF instance table</text>
+<text x="560" y="318">Active stage, traversed path, status</text>
+<line x1="435" y1="305" x2="545" y2="135" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="455" y="200">Save</text>
+<line x1="435" y1="220" x2="545" y2="305" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="455" y="290">Next stage</text>
+<rect x="530" y="385" width="420" height="110" rx="8" fill="#f3f3f3" stroke="#555"/>
+<text x="545" y="410" font-weight="bold">Other callers (no form)</text>
+<text x="545" y="436">Web API, import, cloud flow, FieldLink sync</text>
+<text x="545" y="462">Hit entity scope rules only.</text>
+<text x="545" y="486">Form scope rules and BPF gates do not apply.</text>
+<line x1="740" y1="385" x2="740" y2="175" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="30" y="385" width="420" height="110" rx="8" fill="#fde2e1" stroke="#a4262c"/>
+<text x="45" y="410" font-weight="bold">Rule of thumb</text>
+<text x="45" y="436">Must always be true for data: entity scope</text>
+<text x="45" y="462">(or a plug-in, lesson 65).</text>
+<text x="45" y="486">Helps a person fill a form: form scope or BPF.</text>
+</g>
+</svg>

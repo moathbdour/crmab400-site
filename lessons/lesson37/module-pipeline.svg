@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t">
+<title id="t">Site briefing TypeScript modules: types.ts is imported by briefing.ts, http.ts and main.ts; main.ts imports briefing.ts and http.ts. Path 1: tsc checks types and emits dist JavaScript ES modules that the browser loads with script type module. Path 2: Node strips types and runs the tests directly without checking them, so npm run typecheck is required.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="520" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">1. Source modules (src/*.ts) — arrows point from importer to imported</text>
+<rect x="370" y="50" width="220" height="62" fill="#fff4dc" stroke="#8a5a00"/>
+<text x="382" y="75" font-weight="600">types.ts</text>
+<text x="382" y="98" font-size="14">interfaces, unions, ISSUE_TYPES</text>
+<rect x="40" y="160" width="230" height="62" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="52" y="185" font-weight="600">briefing.ts (pure logic)</text>
+<text x="52" y="208" font-size="14">toBriefing, validateReport…</text>
+<rect x="365" y="160" width="230" height="62" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="377" y="185" font-weight="600">http.ts (network)</text>
+<text x="377" y="208" font-size="14">HttpError, fetchJson…</text>
+<rect x="690" y="160" width="230" height="62" fill="#e8f5e9" stroke="#2e6b35"/>
+<text x="702" y="185" font-weight="600">main.ts (DOM only here)</text>
+<text x="702" y="208" font-size="14">start(), readReport…</text>
+<path d="M155 160L400 116" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M480 160V116" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M805 160L560 116" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M690 191H600" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M700 222C600 262 280 262 190 226" stroke="#1f3b57" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="20" y="300" font-weight="700" font-size="17">2. Browser path (checked)</text>
+<rect x="20" y="315" width="200" height="70" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="32" y="342" font-weight="600">npm run build</text>
+<text x="32" y="366" font-size="14">tsc: check + emit</text>
+<rect x="260" y="315" width="200" height="70" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="272" y="342" font-weight="600">dist/*.js + .map</text>
+<text x="272" y="366" font-size="14">types erased, .ts→.js</text>
+<rect x="500" y="315" width="200" height="70" fill="#e8f5e9" stroke="#2e6b35"/>
+<text x="512" y="342" font-weight="600">site-briefing.html</text>
+<text x="512" y="366" font-size="14">type="module" main.js</text>
+<path d="M220 350H255" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M460 350H495" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="720" y="342" font-size="14">Type error → build fails,</text>
+<text x="720" y="362" font-size="14">nothing reaches Sami</text>
+<text x="20" y="425" font-weight="700" font-size="17">3. Test path (fast, NOT checked)</text>
+<rect x="20" y="440" width="200" height="62" fill="#fdecea" stroke="#9b2c2c"/>
+<text x="32" y="466" font-weight="600">npm test</text>
+<text x="32" y="489" font-size="14">node --test *.test.ts</text>
+<rect x="260" y="440" width="200" height="62" fill="#fdecea" stroke="#9b2c2c"/>
+<text x="272" y="466" font-weight="600">Node strips types</text>
+<text x="272" y="489" font-size="14">then runs JavaScript</text>
+<path d="M220 471H255" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="500" y="466" font-size="14">Wrong types still run here. Always also run</text>
+<text x="500" y="489" font-size="14" font-weight="600">npm run typecheck (src + test)</text>
+</g>
+</svg>

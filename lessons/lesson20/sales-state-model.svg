@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="t">
+<title id="t">Lead and opportunity status model with the Lead to Opportunity Sales Process stages Qualify, Develop, Propose, Close</title>
+<rect width="980" height="360" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Status (state) versus stage (process) in Sales</text>
+<rect x="20" y="60" width="200" height="70" rx="8" fill="#fff4d6" stroke="#8a5a00"/>
+<text x="35" y="88" font-weight="bold">Stage 1 Qualify</text>
+<text x="35" y="112">on the lead</text>
+<rect x="260" y="60" width="200" height="70" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="275" y="88" font-weight="bold">Stage 2 Develop</text>
+<text x="275" y="112">on the opportunity</text>
+<rect x="500" y="60" width="200" height="70" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="515" y="88" font-weight="bold">Stage 3 Propose</text>
+<text x="515" y="112">quote, proposal</text>
+<rect x="740" y="60" width="220" height="70" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="755" y="88" font-weight="bold">Stage 4 Close</text>
+<text x="755" y="112">final proposal, decision</text>
+<line x1="220" y1="95" x2="258" y2="95" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="460" y1="95" x2="498" y2="95" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="700" y1="95" x2="738" y2="95" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="175" font-weight="bold">Lead status</text>
+<text x="20" y="200">Open: New, Contacted → Qualified (3) or Disqualified: Lost, Cannot Contact,</text>
+<text x="20" y="222">No Longer Interested, Canceled. Only Qualify / Disqualify / Reactivate change it.</text>
+<text x="20" y="262" font-weight="bold">Opportunity status</text>
+<text x="20" y="287">Open: In Progress, On Hold → Won (3) via Close as Won, or Lost: Canceled (4), Out-Sold (5)</text>
+<text x="20" y="309">via Close as Lost. Closing writes an Opportunity Close activity; Reopen returns it to Open.</text>
+<text x="20" y="342" font-style="italic">Stage answers "where are we in the sale?"; status answers "is this record still alive?" They are separate columns.</text>
+</g>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Cedar Service integration map: twelve flows, their direction and their transport</title>
+<desc id="d">Dataverse in the Cedar environments stands in the middle. On the right is FieldLink, the subcontractor work-order system. Four flows connect them. IN-01, outbound command: a dispatch request leaves Dataverse through a cloud flow triggered by the business event cedar_RequestDispatch and a custom connector, and FieldLink answers with its job ID. IN-02, outbound event: a work order that was rescheduled or cancelled after sending goes to a Service Bus topic with subscriptions for FieldLink and for audit; the first increment is an asynchronous webhook to a function. IN-03, inbound event: FieldLink calls an HTTPS endpoint of Cedar, a function that checks the signature, accepts, queues and lets a worker apply status and arrival. IN-04, inbound file: the nightly status file is applied by the durable function of lesson 88 and serves as the backstop. On the left are Cedar's own consumers. IN-05: every status change goes as a stream to Event Hubs for the live wallboard. IN-06: Rafi's reporting database pulls changes with change tracking. IN-07: a managed link exports tables for long-term analytics. IN-12: a cloud flow tells the case owner that a subcontractor arrived. At the bottom are three flows that never leave or are not copied: IN-08, a credit hold rule enforced by a plug-in step inside the transaction; IN-09, invoice history shown through a virtual table over CedarLedger; IN-10, sensor readings arriving through Event Hubs into an elastic table in release 2; and IN-11, clean site rows upserted by a command-line tool.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Who tells whom, about what, and how: the integration decisions IN-01 to IN-12</text>
+
+<rect class="box" x="380" y="60" width="240" height="380" rx="8" fill="#eef3fb"/>
+<text class="b" x="392" y="86">Dataverse (Cedar)</text>
+<text x="392" y="110">owns: work order, case, site</text>
+<text x="392" y="134">cedar_workorder</text>
+<text x="392" y="154">cedar_RequestDispatch</text>
+<text x="392" y="174">plug-in steps, flows</text>
+<text x="392" y="410">FieldLink owns: job progress</text>
+<text x="392" y="430">neither overwrites the other</text>
+
+<rect class="box" x="790" y="60" width="190" height="380" rx="8" fill="#fff4ce"/>
+<text class="b" x="802" y="86">FieldLink</text>
+<text x="802" y="110">subcontractor</text>
+<text x="802" y="130">work-order system</text>
+<text x="802" y="154">REST + OAuth only</text>
+
+<path class="a" d="M620,200 L790,200"/>
+<text class="b" x="628" y="186">IN-01 command</text>
+<text x="628" y="220">flow + connector</text>
+<path class="a" d="M620,262 L790,262"/>
+<text class="b" x="628" y="250">IN-02 event</text>
+<text x="628" y="282">Service Bus topic</text>
+<path class="a" d="M790,330 L620,330"/>
+<text class="b" x="628" y="318">IN-03 event</text>
+<text x="628" y="350">HTTPS + queue</text>
+<path class="a" d="M790,392 L620,392"/>
+<text class="b" x="628" y="380">IN-04 file</text>
+<text x="628" y="412">nightly, backstop</text>
+
+<rect class="box" x="20" y="60" width="190" height="80" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="84">Live wallboard</text>
+<text x="32" y="106">status changes</text>
+<text x="32" y="126">as a stream</text>
+<path class="a" d="M380,100 L210,100"/>
+<text class="b" x="218" y="88">IN-05 Event Hubs</text>
+
+<rect class="box" x="20" y="158" width="190" height="80" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="182">Reporting database</text>
+<text x="32" y="204">Rafi, hourly,</text>
+<text x="32" y="224">with deletions</text>
+<path class="a" d="M210,198 L380,198"/>
+<text class="b" x="218" y="186">IN-06 change tracking</text>
+<text x="218" y="218">the consumer pulls</text>
+
+<rect class="box" x="20" y="256" width="190" height="80" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="280">Analytics lake</text>
+<text x="32" y="302">all tables,</text>
+<text x="32" y="322">release 2</text>
+<path class="a" d="M380,296 L210,296"/>
+<text class="b" x="218" y="284">IN-07 managed link</text>
+
+<rect class="box" x="20" y="354" width="190" height="86" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="378">Case owner</text>
+<text x="32" y="400">"subcontractor</text>
+<text x="32" y="420">arrived" mail</text>
+<path class="a" d="M380,396 L210,396"/>
+<text class="b" x="218" y="384">IN-12 cloud flow</text>
+<text x="218" y="416">on a business event</text>
+
+<rect class="box" x="20" y="462" width="960" height="182" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="486">Not every requirement is a message</text>
+<rect class="box" x="32" y="500" width="225" height="130" rx="6" fill="#ffffff"/>
+<text class="b" x="44" y="524">IN-08 plug-in step</text>
+<text x="44" y="548">credit hold must stop</text>
+<text x="44" y="568">the save: inside the</text>
+<text x="44" y="588">transaction, no call to</text>
+<text x="44" y="608">an outside system</text>
+<rect class="box" x="269" y="500" width="225" height="130" rx="6" fill="#ffffff"/>
+<text class="b" x="281" y="524">IN-09 virtual table</text>
+<text x="281" y="548">invoice history stays in</text>
+<text x="281" y="568">CedarLedger; nothing is</text>
+<text x="281" y="588">copied, nothing drifts</text>
+<rect class="box" x="506" y="500" width="225" height="130" rx="6" fill="#ffffff"/>
+<text class="b" x="518" y="524">IN-10 Event Hubs in</text>
+<text x="518" y="548">sensor readings, 34,560</text>
+<text x="518" y="568">a day, through a function</text>
+<text x="518" y="588">into an elastic table</text>
+<text x="518" y="608">(release 2)</text>
+<rect class="box" x="743" y="500" width="225" height="130" rx="6" fill="#ffffff"/>
+<text class="b" x="755" y="524">IN-11 bulk upsert</text>
+<text x="755" y="548">clean site rows from</text>
+<text x="755" y="568">Dana's tool, a few times</text>
+<text x="755" y="588">a year, dry run first</text>
+</svg>

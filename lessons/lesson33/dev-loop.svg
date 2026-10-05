@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="t">
+<title id="t">Karim's developer loop: workstation, Git repository, Power Platform CLI and Karim-Dev environment</title>
+<rect width="900" height="420" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f3b57"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<rect x="20" y="20" width="400" height="380" rx="12" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="40" y="48" font-weight="700" font-size="17">Karim's workstation (local)</text>
+<rect x="40" y="70" width="170" height="70" rx="8" fill="#fff" stroke="#1f3b57"/>
+<text x="55" y="98" font-weight="600">VS Code</text><text x="55" y="120" font-size="14">editor, terminal, Copilot</text>
+<rect x="230" y="70" width="170" height="70" rx="8" fill="#fff" stroke="#1f3b57"/>
+<text x="245" y="98" font-weight="600">pac CLI</text><text x="245" y="120" font-size="14">auth profile Karim-Dev</text>
+<rect x="40" y="170" width="360" height="110" rx="8" fill="#fff" stroke="#1f3b57"/>
+<text x="55" y="196" font-weight="600">Working folder  C:\src\cedar-service</text>
+<text x="55" y="220" font-size="14">docs/learning/  (old cedar-learning notes)</text>
+<text x="55" y="242" font-size="14">solutions/CedarLab/src  (unpacked XML)</text>
+<text x="55" y="264" font-size="14">src/  tools/  .gitignore  README.md</text>
+<rect x="40" y="310" width="360" height="70" rx="8" fill="#fff" stroke="#1f3b57"/>
+<text x="55" y="338" font-weight="600">Local Git repository (.git)</text>
+<text x="55" y="360" font-size="14">commits on branch feature/lesson33-setup</text>
+<rect x="500" y="40" width="370" height="130" rx="12" fill="#f3f0fa" stroke="#4b2e83" stroke-width="2"/>
+<text x="520" y="70" font-weight="700" font-size="17">Karim-Dev (Dataverse, cloud)</text>
+<text x="520" y="98" font-size="14">solution Cedar Lab: Site, Project, Work order,</text>
+<text x="520" y="120" font-size="14">Cedar Operations app, roles, business rules</text>
+<text x="520" y="148" font-size="14">Customizations are made here (maker portal)</text>
+<rect x="500" y="250" width="370" height="130" rx="12" fill="#f0f7ef" stroke="#2d6a2d" stroke-width="2"/>
+<text x="520" y="280" font-weight="700" font-size="17">Remote repository (private)</text>
+<text x="520" y="308" font-size="14">GitHub or Azure Repos: cedar-service</text>
+<text x="520" y="330" font-size="14">main branch protected, pull requests</text>
+<text x="520" y="352" font-size="14">shared history and backup</text>
+<path d="M400 105 C460 105 460 105 498 105" stroke="#1f3b57" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="425" y="94" font-size="14">1 export</text>
+<path d="M315 140 L315 168" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="322" y="160" font-size="14">2 unpack</text>
+<path d="M220 280 L220 308" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="228" y="300" font-size="14">3 add + commit</text>
+<path d="M400 345 L498 330" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="420" y="325" font-size="14">4 push</text>
+<path d="M498 290 L402 245" stroke="#2d6a2d" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="425" y="258" font-size="14">pull / clone</text>
+</g></svg>

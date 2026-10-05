@@ -1,0 +1,222 @@
+{
+  "domain": "integrations",
+  "version": "1.0",
+  "lesson": 117,
+  "checkedOn": "2026-10-05",
+  "rules": [
+    {
+      "objective": "I-01",
+      "topic": "Publish from plug-in code",
+      "rule": "Get IServiceEndpointNotificationService from the service provider and call Execute(new EntityReference(\"serviceendpoint\", id), context). Register asynchronously in the sandbox; a failed post reruns the whole plug-in, so it only prepares the context and posts. OperationId and OperationCreatedOn let consumers detect repeats.",
+      "signals": [
+        "decide in code whether to post",
+        "shared variable",
+        "post to an endpoint by ID",
+        "plug-in ran four times"
+      ],
+      "trap": "Sending with a Service Bus SDK and a stored connection string, or doing other work in the publisher",
+      "lessons": [
+        91,
+        96
+      ]
+    },
+    {
+      "objective": "I-02",
+      "topic": "Publish with the Plug-in Registration Tool",
+      "rule": "Register the endpoint (webhook, queue, topic or event hub), then a step on it: message, table, filtering attributes, stage and mode, optionally images. No code; Service Bus and Event Hubs endpoints take asynchronous steps only, webhooks also synchronous.",
+      "signals": [
+        "no code",
+        "only when column X changes",
+        "register a step on the endpoint"
+      ],
+      "trap": "A custom plug-in for a filter the step already provides, or a step without filtering attributes",
+      "lessons": [
+        90,
+        91
+      ]
+    },
+    {
+      "objective": "I-03",
+      "topic": "Register service endpoints",
+      "rule": "Webhook: URL plus HttpHeader, WebhookKey (query parameter code) or HttpQueryString, contract 8, 256 KB, 60 s. Service Bus queue or topic and Event Hubs: Register New Service Endpoint from a SAS connection string with Send only, designation and message format (JSON); 192 KB. One topic endpoint plus a subscription per consumer beats one endpoint per consumer.",
+      "signals": [
+        "SAS policy",
+        "designation type",
+        "several consumers",
+        "WebhookKey"
+      ],
+      "trap": "Listen claim or managed identity for the endpoint; three queue endpoints where one topic serves",
+      "lessons": [
+        90,
+        91
+      ]
+    },
+    {
+      "objective": "I-04",
+      "topic": "Recommend a listening option",
+      "rule": "Block the save: synchronous plug-in, or a synchronous webhook if the rule must stay outside. Partner sometimes offline or every message must be processed: Service Bus queue; several consumers: topic. High-volume stream, replay, analytics: Event Hubs. Simple HTTPS endpoint, low volume: asynchronous webhook. No code: flow trigger. Own copy, deletions, own schedule: change tracking.",
+      "signals": [
+        "offline every night",
+        "several systems need it",
+        "stream",
+        "replay",
+        "must cancel the save",
+        "no code"
+      ],
+      "trap": "A webhook for a partner that is sometimes down; a topic where a stream with replay is asked",
+      "lessons": [
+        89,
+        90,
+        91
+      ]
+    },
+    {
+      "objective": "I-05",
+      "topic": "Synchronise with change tracking",
+      "rule": "Enable Track changes; GET the entity set with $select and Prefer: odata.track-changes, store @odata.deltaLink, follow it later. Deletions are $deletedEntity entries with the id. $filter, $orderby, $expand and $top are refused. Changes are kept 7 days by default: an older token means a full reload. Apply changes, then store the token. The caller needs organization-level read.",
+      "signals": [
+        "keeps its own copy",
+        "including deletions",
+        "every hour",
+        "delta link",
+        "switched off for nine days"
+      ],
+      "trap": "Polling modifiedon (misses deletions), adding $filter, or raising retention to rescue an expired token",
+      "lessons": [
+        92,
+        96
+      ]
+    },
+    {
+      "objective": "I-06",
+      "topic": "Use alternate keys",
+      "rule": "Key columns: decimal, whole number, single line of text, date and time, lookup or choice; up to 16 columns and 900 bytes, 10 keys per table, no column security. The index is built by a system job (Pending, In Progress, Active, Failed). Address rows as entityset(key='value') or with new Entity/EntityReference(table, key, value), which fills KeyAttributes, not Attributes.",
+      "signals": [
+        "without knowing the GUID",
+        "the key can't be used yet",
+        "business key from the partner"
+      ],
+      "trap": "Putting the key value in Attributes, unquoted text values, or expecting the key to work before the index is Active",
+      "lessons": [
+        93
+      ]
+    },
+    {
+      "objective": "I-07",
+      "topic": "Upsert, update-only or create-only",
+      "rule": "UpsertRequest or a keyed PATCH without If-Match creates or updates idempotently (RecordCreated, or 201/200 with return=representation; 204 otherwise). If-Match: * means update only (404, nothing created); If-None-Match: * means create only (412). Leave key values out of the data. Send only the columns the source owns.",
+      "signals": [
+        "some exist and some don't",
+        "may be repeated",
+        "must never create",
+        "seed data only"
+      ],
+      "trap": "An upsert where an unknown key must not create a row",
+      "lessons": [
+        93,
+        96
+      ]
+    },
+    {
+      "objective": "I-08",
+      "topic": "Authenticate custom connectors",
+      "rule": "No auth, basic, API key, or OAuth 2.0 authorization code (generic or Entra ID with a per-connector redirect URI to register at the provider). Client credentials aren't supported: put a function you own in between. Entra ID can use the connector's managed identity instead of a client secret (single-tenant app, federated credential). Secrets as Key Vault environment variables.",
+      "signals": [
+        "redirect URI error",
+        "API accepts only client credentials",
+        "no client secret to rotate"
+      ],
+      "trap": "Configuring the client credentials grant in the connector, or a client secret used as a shared API key",
+      "lessons": [
+        94,
+        95
+      ]
+    },
+    {
+      "objective": "I-09",
+      "topic": "Policy templates",
+      "rule": "GA templates change calls without code: Set HTTP header, Set query string parameter, Route request (another path), Set host URL (host from expressions). Expressions @headers, @queryParameters, @connectionParameters; sections Request, Response, Failure; an empty operation list applies to all. Six reshaping templates and environment variables in policies are preview.",
+      "signals": [
+        "path moved",
+        "header on every call",
+        "host per connection",
+        "flows must not change"
+      ],
+      "trap": "Custom code or new operations for what a GA template does",
+      "lessons": [
+        95
+      ]
+    },
+    {
+      "objective": "I-10",
+      "topic": "Import existing API definitions",
+      "rule": "OpenAPI 2.0 file or URL below 1 MB (convert 3.0 and trim to the needed operations), a Postman collection, a connector from microsoft/PowerPlatformConnectors (Import from GitHub or pac connector create with apiDefinition and apiProperties), or the API Management export for Azure APIs.",
+      "signals": [
+        "OpenAPI 3.0",
+        "larger than 1 MB",
+        "already in the PowerPlatformConnectors repository"
+      ],
+      "trap": "Importing a 3.0 or oversized file, or pointing GitHub import at a partner file",
+      "lessons": [
+        94
+      ]
+    },
+    {
+      "objective": "I-11",
+      "topic": "Connector for an Azure service",
+      "rule": "For an API published in Azure API Management: APIs → Power Platform → Create a connector, choosing the environment, optionally a subscription key parameter or OAuth; update it from the same place. Azure Functions can be imported into API Management first or described by an OpenAPI definition.",
+      "signals": [
+        "published in API Management",
+        "least effort",
+        "update from the same place"
+      ],
+      "trap": "Exporting and hand-editing the definition, or HTTP actions with keys in every flow",
+      "lessons": [
+        95
+      ]
+    },
+    {
+      "objective": "I-12",
+      "topic": "Azure Function for a connector",
+      "rule": "Use a function when the logic needs a secret, a grant connectors can't use, several sources, state, logging or private network access. Secure it with App Service authentication (Entra ID) so it can read the user from X-MS-CLIENT-PRINCIPAL; read secrets from Key Vault with its managed identity; answer HTTP within 230 seconds.",
+      "signals": [
+        "must know which user called",
+        "needs a secret",
+        "client credentials only"
+      ],
+      "trap": "A function key as the connector's API key when the user must be known",
+      "lessons": [
+        87,
+        95
+      ]
+    },
+    {
+      "objective": "I-13",
+      "topic": "Extend the OpenAPI definition",
+      "rule": "summary titles an operation, x-ms-summary a parameter or property; x-ms-visibility important, advanced or internal (internal and required needs a default); x-ms-dynamic-values fills a list from another operation (operationId, parameters, value-collection, value-path, value-title); x-ms-capabilities testConnection; x-ms-trigger and x-ms-notification-url for triggers.",
+      "signals": [
+        "drop-down from another operation",
+        "hidden but required",
+        "friendly field title"
+      ],
+      "trap": "A static enum for values that change, or confusing summary with x-ms-summary",
+      "lessons": [
+        94
+      ]
+    },
+    {
+      "objective": "I-14",
+      "topic": "Custom code transformations",
+      "rule": "A Script class deriving from ScriptBase overrides ExecuteAsync and calls this.Context.SendAsync, then reshapes the request or response. Limits: 2 minutes, 1 MB, one script per connector, .NET Standard 2.0 with listed namespaces, no gateway, no logging; an empty scriptOperations list runs it for every operation.",
+      "signals": [
+        "reshape the response",
+        "filter or compute per item",
+        "beyond templates"
+      ],
+      "trap": "Preview reshaping templates that can't compute, or repeating expressions in every flow",
+      "lessons": [
+        95
+      ]
+    }
+  ]
+}

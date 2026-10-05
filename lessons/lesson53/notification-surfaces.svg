@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t d">
+<title id="t">Where each Client API message appears</title>
+<desc id="d">A model-driven app window: a global notification bar at the top of the app from Xrm.App.addGlobalNotification, a form notification bar under the form header from formContext.ui.setFormNotification, a control notification under the Site field from setNotification or addNotification, and a centered modal dialog from Xrm.Navigation.openConfirmDialog. A side dialog on the right comes from navigateTo with target 2 and position 2.</desc>
+<rect width="900" height="470" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="20" width="860" height="430" rx="8" fill="#f7f7f7" stroke="#555"/>
+<rect x="20" y="20" width="860" height="40" rx="8" fill="#1f3b5c"/><text x="40" y="46" fill="#ffffff" font-weight="bold">Cedar Service Hub (app header)</text>
+<rect x="30" y="68" width="840" height="36" fill="#dff3e4" stroke="#2e7d32"/><text x="42" y="92">1 Global notification — Xrm.App.addGlobalNotification (whole app, survives navigation)</text>
+<rect x="30" y="112" width="600" height="36" fill="#fff4ce" stroke="#8a6d00"/><text x="42" y="136">2 Form notification — formContext.ui.setFormNotification</text>
+<text x="42" y="178" font-weight="bold">Case CAS-01052 · Chiller not cooling</text>
+<text x="42" y="212">Site</text><rect x="120" y="196" width="300" height="28" fill="#ffffff" stroke="#555"/><text x="130" y="216">HV-MAIN</text>
+<text x="120" y="244" fill="#b00020">3 Control notification — setNotification / addNotification</text>
+<rect x="160" y="270" width="380" height="150" rx="8" fill="#ffffff" stroke="#1f5fa8" stroke-width="2"/>
+<text x="178" y="298" font-weight="bold">4 Modal dialog (centre)</text>
+<text x="178" y="324">openAlertDialog / openConfirmDialog /</text>
+<text x="178" y="346">openErrorDialog / navigateTo target 2</text>
+<text x="178" y="372">Blocks the page until closed;</text>
+<text x="178" y="394">the promise resolves on close.</text>
+<rect x="650" y="112" width="220" height="330" fill="#eef4fb" stroke="#1f5fa8" stroke-width="2"/>
+<text x="664" y="140" font-weight="bold">5 Side dialog</text>
+<text x="664" y="166">navigateTo with</text>
+<text x="664" y="188">target 2, position 2</text>
+<text x="664" y="222">e.g. open case</text>
+<text x="664" y="244">CAS-01041 without</text>
+<text x="664" y="266">leaving CAS-01052</text>
+</g>
+</svg>

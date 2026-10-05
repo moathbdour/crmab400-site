@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">Developer workflow for the Foundry Dispatch Advisor</title>
+<desc id="d">Left to right. Git branch feature/lesson99-dispatch-advisor holds the agent definition as code: instructions.md, the tool specifications, the ranker, the guard, the facts snapshot and the evaluation set. Stage 1, pull request build, needs no Azure: 17 pytest cases and the evaluation-set check against the ranker. Stage 2, after merge, in project cedar-agents of cedar-ai-dev: ensure_agent creates a new immutable version only when the definition fingerprint changed, otherwise reuses the latest version. Stage 3, cloud evaluation gate: Foundry sends the 14 evaluation queries to that version and scores them with tool_call_accuracy, tool_selection and tool_input_accuracy; each must pass at 0.9 or more, otherwise the pipeline stops. Stage 4, the same code runs against the test project in cedar-ai-test, creating the agent there from the same definition; nothing is exported or imported. Lina reviews the bands with Sami before release 2. Below: the portal playground is used for exploring and its changes are copied back into Git; a version created by hand is not trusted by the pipeline because its fingerprint does not match.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:17px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="30">From Git to a gated agent version in each Foundry project</text>
+
+<rect class="box" x="20" y="52" width="180" height="300" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="76">Git (definition</text><text class="b" x="32" y="94">as code)</text>
+<text x="32" y="122">instructions.md</text><text x="32" y="144">TOOL_SPECS</text><text x="32" y="166">ranker, guard</text>
+<text x="32" y="188">facts snapshot</text><text x="32" y="210">evaluation set</text><text x="32" y="232">(14 queries)</text>
+<text x="32" y="270">feature/lesson99-</text><text x="32" y="290">dispatch-advisor</text>
+
+<rect class="box" x="225" y="52" width="175" height="300" rx="8" fill="#e6f4ea"/>
+<text class="b" x="237" y="76">1 PR build</text><text x="237" y="98">no Azure needed</text>
+<text x="237" y="130">pytest: 17 cases</text><text x="237" y="152">(ranker, tools,</text><text x="237" y="174">guard, host loop</text><text x="237" y="196">with fakes)</text>
+<text x="237" y="228">evaluation set</text><text x="237" y="250">agrees with the</text><text x="237" y="272">ranker</text>
+
+<rect class="box" x="425" y="52" width="175" height="300" rx="8" fill="#dbe9f6"/>
+<text class="b" x="437" y="76">2 Dev project</text><text x="437" y="98">cedar-ai-dev /</text><text x="437" y="118">cedar-agents</text>
+<text x="437" y="150">ensure_agent:</text><text x="437" y="172">fingerprint changed</text><text x="437" y="194">→ new immutable</text><text x="437" y="216">version; unchanged</text><text x="437" y="238">→ reuse latest</text>
+<text x="437" y="270">metadata records</text><text x="437" y="290">the Git commit</text>
+
+<rect class="box" x="625" y="52" width="175" height="300" rx="8" fill="#fde7e9"/>
+<text class="b" x="637" y="76">3 Evaluation gate</text><text x="637" y="98">Foundry cloud</text><text x="637" y="118">evaluation</text>
+<text x="637" y="150">target: that</text><text x="637" y="172">agent version</text>
+<text x="637" y="204">tool_call_accuracy</text><text x="637" y="226">tool_selection</text><text x="637" y="248">tool_input_accuracy</text>
+<text x="637" y="280">each ≥ 0.9,</text><text x="637" y="300">else stop</text>
+
+<rect class="box" x="825" y="52" width="155" height="300" rx="8" fill="#dbe9f6"/>
+<text class="b" x="837" y="76">4 Test project</text><text x="837" y="98">cedar-ai-test</text>
+<text x="837" y="130">same code, same</text><text x="837" y="152">definition: the</text><text x="837" y="174">agent is created</text><text x="837" y="196">there; nothing is</text><text x="837" y="218">exported</text>
+<text x="837" y="252">Lina and Sami</text><text x="837" y="274">review before</text><text x="837" y="296">release 2</text>
+
+<path class="ln" d="M200 200 H221" marker-end="url(#a)"/><path class="ln" d="M400 200 H421" marker-end="url(#a)"/>
+<path class="ln" d="M600 200 H621" marker-end="url(#a)"/><path class="ln" d="M800 200 H821" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="376" width="960" height="166" rx="8" fill="#fff4ce"/>
+<text class="b" x="34" y="400">Rules of the workflow (ADR-017)</text>
+<text x="34" y="426">• The playground is for exploring. A change that works there is copied into Git and released by the pipeline.</text>
+<text x="34" y="450">• A version created by hand has no matching fingerprint, so the next pipeline run creates a fresh version from Git.</text>
+<text x="34" y="474">• Function tools run in the host, so the cloud gate scores tool choice and arguments; the answers are checked by the guard.</text>
+<text x="34" y="498">• Each project gets its own agent and agent identity; roles are assigned per project, never copied.</text>
+<text x="34" y="522">• Rollback = point callers at an earlier version, which is still there because versions are immutable.</text>
+</svg>

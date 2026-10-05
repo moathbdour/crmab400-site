@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-labelledby="t d">
+<title id="t">Cedar expected-access heat map</title>
+<desc id="d">Rows are personas, columns are Case, Work order, Subcontractor cost, Opportunity and Site. Cells show expected Read access scope.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700}.n{fill:#f6d5d5}.u{fill:#fdebc8}.b{fill:#d9ecd0}.o{fill:#b8dca5}rect{stroke:#8a9aa9}</style>
+<text x="20" y="30" class="h">Expected Read scope (write/delete are tested separately)</text>
+<g class="h"><text x="200" y="70">Case</text><text x="330" y="70">Work order</text><text x="470" y="70">Sub. cost</text><text x="600" y="70">Opportunity</text><text x="750" y="70">Site</text></g>
+<text x="20" y="112" class="h">Omar (Agent)</text><text x="20" y="172" class="h">Lina (Manager)</text><text x="20" y="232" class="h">Maya (Sales Rep)</text><text x="20" y="292" class="h">Sami (dispatch team)</text><text x="20" y="352" class="h">FieldLink Sync (app)</text>
+<g>
+<rect class="b" x="180" y="85" width="120" height="45"/><text x="190" y="113">BU</text>
+<rect class="b" x="310" y="85" width="130" height="45"/><text x="320" y="113">BU</text>
+<rect class="n" x="450" y="85" width="130" height="45"/><text x="460" y="113">none (null)</text>
+<rect class="n" x="590" y="85" width="140" height="45"/><text x="600" y="113">none</text>
+<rect class="o" x="740" y="85" width="130" height="45"/><text x="750" y="113">Org</text>
+<rect class="o" x="180" y="145" width="120" height="45"/><text x="190" y="173">Parent:Child</text>
+<rect class="o" x="310" y="145" width="130" height="45"/><text x="320" y="173">Parent:Child</text>
+<rect class="b" x="450" y="145" width="130" height="45"/><text x="460" y="173">read+update</text>
+<rect class="n" x="590" y="145" width="140" height="45"/><text x="600" y="173">none</text>
+<rect class="o" x="740" y="145" width="130" height="45"/><text x="750" y="173">Org</text>
+<rect class="u" x="180" y="205" width="120" height="45"/><text x="190" y="233">User (shared)</text>
+<rect class="n" x="310" y="205" width="130" height="45"/><text x="320" y="233">none</text>
+<rect class="n" x="450" y="205" width="130" height="45"/><text x="460" y="233">none</text>
+<rect class="b" x="590" y="205" width="140" height="45"/><text x="600" y="233">BU</text>
+<rect class="o" x="740" y="205" width="130" height="45"/><text x="750" y="233">Org</text>
+<rect class="u" x="180" y="265" width="120" height="45"/><text x="190" y="293">team rows</text>
+<rect class="b" x="310" y="265" width="130" height="45"/><text x="320" y="293">BU</text>
+<rect class="b" x="450" y="265" width="130" height="45"/><text x="460" y="293">read+create</text>
+<rect class="n" x="590" y="265" width="140" height="45"/><text x="600" y="293">none</text>
+<rect class="o" x="740" y="265" width="130" height="45"/><text x="750" y="293">Org</text>
+<rect class="n" x="180" y="325" width="120" height="45"/><text x="190" y="353">none (403)</text>
+<rect class="o" x="310" y="325" width="130" height="45"/><text x="320" y="353">Org</text>
+<rect class="b" x="450" y="325" width="130" height="45"/><text x="460" y="353">read+update</text>
+<rect class="n" x="590" y="325" width="140" height="45"/><text x="600" y="353">none</text>
+<rect class="o" x="740" y="325" width="130" height="45"/><text x="750" y="353">Org</text>
+</g>
+</svg>

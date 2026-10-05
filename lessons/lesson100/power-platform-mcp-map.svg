@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 730" role="img" aria-labelledby="t d">
+<title id="t">Power Platform MCP servers, their clients and the controls between them</title>
+<desc id="d">Left, the clients: a Copilot Studio agent (built-in MCP connectors, the onboarding wizard or a custom connector), a Foundry agent (MCP tool with server label, allowed tools, approval setting and a project connection), a Microsoft 365 Copilot declarative agent (MCP plugin that can render MCP Apps widgets) and developer tools (VS Code with GitHub Copilot, GitHub Copilot CLI, Claude). Right, the Power Platform MCP servers: the Dataverse MCP server at /api/mcp with generally available tools for search, describe, read_query, record and table changes, skills and files, plus /api/mcp_preview for preview tools; the Power Apps MCP server, preview, with log_for_review, request_assistance and invoke_data_entry for the agent feed; the App MCP of a model-driven app, preview, which generates a declarative agent with grid and form tools and custom tools with HTML widgets; the Power Pages MCP server, preview, governed by web roles and table permissions; the PAC CLI MCP server, local over stdio, for developers; a published Copilot Studio agent exposed as an MCP server through the MCP client channel, early release; and Dynamics 365 MCP servers available as connectors. Bottom right, your own server, such as Cedar Dispatch C-56. In the middle, the controls: the Power Platform admin center turns the Dataverse MCP server on per environment and lists the allowed clients (Copilot Studio on by default; GitHub Copilot, the Dataverse CLI and custom Microsoft Entra apps by client ID); data policies govern MCP servers used through connectors in Copilot Studio; Dataverse security roles apply to the identity that calls; Dataverse MCP tools are charged in Copilot Credits when the agent is built outside Copilot Studio.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:17px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:2;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="730" fill="#ffffff"/>
+<text class="h" x="20" y="30">Power Platform MCP servers: who calls them, and what stands in between</text>
+
+<text class="b" x="20" y="62">Clients (custom agents and tools)</text>
+<rect class="box" x="20" y="74" width="290" height="92" rx="8" fill="#dbe9f6"/>
+<text class="b" x="32" y="96">Copilot Studio agent</text>
+<text class="s" x="32" y="116">Add tool → Model Context Protocol:</text>
+<text class="s" x="32" y="134">built-in connectors, onboarding wizard,</text>
+<text class="s" x="32" y="152">or a custom connector (CedarConnectors)</text>
+<rect class="box" x="20" y="178" width="290" height="92" rx="8" fill="#dbe9f6"/>
+<text class="b" x="32" y="200">Foundry agent</text>
+<text class="s" x="32" y="220">MCP tool: server_label, server_url,</text>
+<text class="s" x="32" y="238">allowed_tools, require_approval,</text>
+<text class="s" x="32" y="256">project connection (key, Entra, OAuth)</text>
+<rect class="box" x="20" y="282" width="290" height="74" rx="8" fill="#dbe9f6"/>
+<text class="b" x="32" y="304">Microsoft 365 Copilot</text>
+<text class="s" x="32" y="324">declarative agent with an MCP plugin;</text>
+<text class="s" x="32" y="342">renders MCP Apps widgets</text>
+<rect class="box" x="20" y="368" width="290" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="390">Developer tools</text>
+<text class="s" x="32" y="410">VS Code + GitHub Copilot, Copilot CLI,</text>
+<text class="s" x="32" y="428">Claude (remote or local proxy)</text>
+
+<rect class="box" x="330" y="74" width="300" height="368" rx="8" fill="#fff4ce"/>
+<text class="b" x="344" y="98">Controls in between</text>
+<text class="b" x="344" y="128">Power Platform admin center</text>
+<text class="s" x="344" y="148">Environment → Settings → Features:</text>
+<text class="s" x="344" y="166">Dataverse MCP on/off, preview on/off,</text>
+<text class="s" x="344" y="184">Advanced Settings → allowed clients</text>
+<text class="s" x="344" y="202">(Copilot Studio on by default; others</text>
+<text class="s" x="344" y="220">by client ID, Is Enabled = Yes)</text>
+<text class="b" x="344" y="252">Data policies</text>
+<text class="s" x="344" y="272">MCP in Copilot Studio goes through</text>
+<text class="s" x="344" y="290">connectors, so data policies apply</text>
+<text class="b" x="344" y="322">Dataverse security</text>
+<text class="s" x="344" y="342">roles and row access of the identity</text>
+<text class="s" x="344" y="360">that calls; no MCP-specific rules</text>
+<text class="b" x="344" y="392">Cost</text>
+<text class="s" x="344" y="412">Dataverse MCP tools: Copilot Credits</text>
+<text class="s" x="344" y="430">when the agent is built outside Copilot Studio</text>
+
+<line class="ln" x1="310" y1="258" x2="330" y2="258" marker-end="url(#a)"/>
+<line class="ln" x1="630" y1="258" x2="652" y2="258" marker-end="url(#a)"/>
+
+<text class="b" x="652" y="62">Power Platform MCP servers</text>
+<rect class="box" x="652" y="74" width="328" height="110" rx="8" fill="#dff6dd"/>
+<text class="b" x="664" y="96">Dataverse MCP server</text>
+<text class="s" x="664" y="116">https://&lt;org&gt;.crm.dynamics.com/api/mcp</text>
+<text class="s" x="664" y="134">search, describe, read_query, search_data,</text>
+<text class="s" x="664" y="152">create/update/delete record and table, files</text>
+<text class="s" x="664" y="170">/api/mcp_preview: preview tools (opt in)</text>
+<rect class="box" x="652" y="192" width="328" height="56" rx="8" fill="#dff6dd"/>
+<text class="b" x="664" y="214">Power Apps MCP server (preview)</text>
+<text class="s" x="664" y="234">log_for_review, request_assistance, invoke_data_entry</text>
+<rect class="box" x="652" y="256" width="328" height="56" rx="8" fill="#dff6dd"/>
+<text class="b" x="664" y="278">App MCP of a model-driven app (preview)</text>
+<text class="s" x="664" y="298">declarative agent; custom tools with HTML widgets</text>
+<rect class="box" x="652" y="320" width="160" height="56" rx="8" fill="#dff6dd"/>
+<text class="b" x="662" y="342">Power Pages MCP</text>
+<text class="s" x="662" y="362">(preview) web roles</text>
+<rect class="box" x="820" y="320" width="160" height="56" rx="8" fill="#dff6dd"/>
+<text class="b" x="830" y="342">PAC CLI MCP</text>
+<text class="s" x="830" y="362">local, stdio, dev only</text>
+<rect class="box" x="652" y="384" width="160" height="58" rx="8" fill="#dff6dd"/>
+<text class="b" x="662" y="406">Copilot Studio</text>
+<text class="s" x="662" y="426">agent as MCP server</text>
+<rect class="box" x="820" y="384" width="160" height="58" rx="8" fill="#dff6dd"/>
+<text class="b" x="830" y="406">Dynamics 365</text>
+<text class="s" x="830" y="426">MCP servers (connectors)</text>
+
+<rect class="box" x="20" y="470" width="960" height="130" rx="8" fill="#f3f2f1"/>
+<text class="b" x="34" y="494">Three questions for every connection</text>
+<text x="34" y="520">1. Whose identity reaches the data? The signed-in user (OAuth passthrough, delegated), the agent (agent identity,</text>
+<text x="52" y="540">app role) or a shared key. Dataverse decides with that identity's security roles.</text>
+<text x="34" y="564">2. Which tools may the agent see? Turn tools off in Copilot Studio, or list allowed_tools in Foundry.</text>
+<text x="34" y="588">3. Who confirms a write? require_approval in Foundry, a confirmation step or no write tool at all in Copilot Studio.</text>
+
+<rect class="box" x="652" y="620" width="328" height="92" rx="8" fill="#e8daef"/>
+<text class="b" x="664" y="642">Your own MCP server</text>
+<text class="s" x="664" y="662">Cedar Dispatch C-56: read-only tools and the</text>
+<text class="s" x="664" y="680">candidates card widget, hosted in</text>
+<text class="s" x="664" y="698">Azure Container Apps</text>
+<rect class="box" x="20" y="620" width="610" height="92" rx="8" fill="#ffffff"/>
+<text class="b" x="34" y="642">Status on 2026-10-03</text>
+<text class="s" x="34" y="662">Preview: Power Apps MCP server, App MCP, Power Pages MCP, Dataverse preview tools.</text>
+<text class="s" x="34" y="680">Early release: the MCP client channel of Copilot Studio.</text>
+<text class="s" x="34" y="698">Copilot Studio's Dataverse MCP page still says preview; the Power Apps overview doesn't.</text>
+</svg>

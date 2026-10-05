@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+<title id="t">Client API object model</title>
+<desc id="d">The form event passes executionContext to Cedar's handler. executionContext.getFormContext returns formContext, which has data (entity with attributes, process) and ui (tabs, sections, controls, notifications). The Xrm global object sits beside it with Navigation, Utility, WebApi, App, Device and Encoding.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2733}.h{font-weight:700}.s{font-size:14px;fill:#3b4a58}rect{stroke:#2f5d7c;stroke-width:2}.a{stroke:#2f5d7c;stroke-width:2;fill:none;marker-end:url(#m)}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f5d7c"/></marker></defs>
+<rect width="900" height="520" fill="#ffffff" stroke="none"/>
+<rect x="20" y="20" width="250" height="70" rx="8" fill="#fdf1dc"/><text x="35" y="48" class="h">Form event (OnLoad, OnChange)</text><text x="35" y="72" class="s">Case form, Cedar Operations</text>
+<path class="a" d="M145 90V125"/><text x="155" y="112" class="s">passes executionContext</text>
+<rect x="20" y="130" width="250" height="90" rx="8" fill="#e3f0fa"/><text x="35" y="155" class="h">executionContext</text><text x="35" y="178" class="s">getFormContext(), getEventSource()</text><text x="35" y="200" class="s">getEventArgs(), shared variables</text>
+<path class="a" d="M145 220V255"/><text x="155" y="243" class="s">getFormContext()</text>
+<rect x="20" y="260" width="560" height="240" rx="8" fill="#eaf6ec"/><text x="35" y="285" class="h">formContext (this form, this record)</text>
+<rect x="40" y="300" width="250" height="185" rx="6" fill="#ffffff"/><text x="55" y="325" class="h">data</text><text x="55" y="350" class="s">entity: getId, getEntityName,</text><text x="55" y="372" class="s">  getIsDirty, save</text><text x="55" y="396" class="s">attributes: cedar_casecategory,</text><text x="55" y="418" class="s">  prioritycode → getValue/setValue</text><text x="55" y="442" class="s">process: business process flow</text><text x="55" y="466" class="s">refresh(), save()</text>
+<rect x="310" y="300" width="250" height="185" rx="6" fill="#ffffff"/><text x="325" y="325" class="h">ui</text><text x="325" y="350" class="s">getFormType(), formSelector</text><text x="325" y="372" class="s">tabs → sections</text><text x="325" y="396" class="s">controls: setVisible,</text><text x="325" y="418" class="s">  setDisabled, setNotification</text><text x="325" y="442" class="s">setFormNotification</text><text x="325" y="466" class="s">quickForms</text>
+<path class="a" d="M290 400H305"/><text x="232" y="515" class="s">one attribute → many controls (attribute.controls)</text>
+<rect x="620" y="20" width="260" height="480" rx="8" fill="#f1ecfa"/><text x="635" y="48" class="h">Xrm (global, not form-bound)</text>
+<text x="635" y="85" class="s">Xrm.Utility.getGlobalContext()</text><text x="645" y="107" class="s">userSettings, client, org URL</text>
+<text x="635" y="145" class="s">Xrm.Navigation</text><text x="645" y="167" class="s">openForm, dialogs (lesson 53)</text>
+<text x="635" y="205" class="s">Xrm.WebApi</text><text x="645" y="227" class="s">retrieve/create (lesson 52)</text>
+<text x="635" y="265" class="s">Xrm.App</text><text x="645" y="287" class="s">sidePanes, global notifications</text>
+<text x="635" y="325" class="s">Xrm.Device, Xrm.Encoding,</text><text x="645" y="347" class="s">Xrm.Panel (deprecated)</text>
+<text x="635" y="400" class="h" style="fill:#9b2c2c">Xrm.Page — deprecated</text><text x="635" y="424" class="s">use formContext instead</text>
+</svg>

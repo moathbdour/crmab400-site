@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "owner": "Karim Aziz",
+  "approvedBy": "Lina Farah",
+  "totalMs": 3000,
+  "clientMs": 1500,
+  "serverMs": 1000,
+  "pluginStepMs": 200,
+  "maxSdkCalls": 10,
+  "externalMs": 0
+}

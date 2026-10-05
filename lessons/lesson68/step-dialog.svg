@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Simplified mock-up of the Register New Step dialog</title>
+<desc id="d">A simplified drawing of the Register New Step dialog in the Plug-in Registration Tool, filled in for Cedar step R1. Left column: Message Update, Primary Entity cedar_workorder, Secondary Entity empty, Filtering Attributes cedar_fieldlinkstatus, Event Handler Cedar.Service.Plugins.WorkOrderRejectedPlugin, Step Name Cedar: WO rejected – Update – PostOperation async, Run in User's Context Cedar Automation, Execution Order 10. Lower left: Event Pipeline Stage of Execution PostOperation, Execution Mode Asynchronous, Deployment Server, and the check box Delete AsyncOperation if StatusCode = Successful ticked. Right column: Unsecure Configuration text box and Secure Configuration text box. Numbered notes explain each group.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700}.f{fill:#ffffff;stroke:#767676;stroke-width:1.2}.box{stroke:#1b1b1b;stroke-width:1.5}.m{font-family:Consolas,monospace;font-size:14px}.n{fill:#0b5cab}.nt{fill:#ffffff;font-weight:700;font-size:14px}</style>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Register New Step (simplified drawing) filled in for Cedar step R1</text>
+<rect class="box" x="20" y="44" width="960" height="430" rx="6" fill="#f3f3f3"/>
+
+<text class="b" x="36" y="70">General Configuration Information</text>
+<text x="36" y="100">Message</text><rect class="f" x="200" y="84" width="330" height="24"/><text class="m" x="208" y="101">Update</text>
+<text x="36" y="132">Primary Entity</text><rect class="f" x="200" y="116" width="330" height="24"/><text class="m" x="208" y="133">cedar_workorder</text>
+<text x="36" y="164">Secondary Entity</text><rect class="f" x="200" y="148" width="330" height="24"/>
+<text x="36" y="196">Filtering Attributes</text><rect class="f" x="200" y="180" width="330" height="24"/><text class="m" x="208" y="197">cedar_fieldlinkstatus</text>
+<text x="36" y="228">Event Handler</text><rect class="f" x="200" y="212" width="330" height="24"/><text class="m" x="208" y="229">...WorkOrderRejectedPlugin</text>
+<text x="36" y="260">Step Name</text><rect class="f" x="200" y="244" width="330" height="24"/><text class="m" x="208" y="261">Cedar: WO rejected – Update – ...</text>
+<text x="36" y="292">Run in User's Context</text><rect class="f" x="200" y="276" width="330" height="24"/><text class="m" x="208" y="293">Cedar Automation</text>
+<text x="36" y="324">Execution Order</text><rect class="f" x="200" y="308" width="80" height="24"/><text class="m" x="208" y="325">10</text>
+
+<text class="b" x="36" y="362">Stage</text>
+<text x="36" y="386">○ PreValidation</text><text x="36" y="408">○ PreOperation</text><text x="36" y="430">● PostOperation</text>
+<text class="b" x="200" y="362">Execution Mode</text>
+<text x="200" y="386">● Asynchronous</text><text x="200" y="408">○ Synchronous</text>
+<text class="b" x="370" y="362">Deployment</text>
+<text x="370" y="386">☑ Server</text><text x="370" y="408">☐ Offline</text>
+<text x="36" y="458">☑ Delete AsyncOperation if StatusCode = Successful</text>
+
+<text class="b" x="570" y="70">Unsecure Configuration</text>
+<rect class="f" x="570" y="84" width="390" height="130"/><text class="m" x="578" y="104">(empty for R1; G1 and G2 hold</text><text class="m" x="578" y="124">pastGraceMinutes=5;trace=context)</text>
+<text class="b" x="570" y="250">Secure Configuration</text>
+<rect class="f" x="570" y="264" width="390" height="130"/><text class="m" x="578" y="284">(empty: Cedar keeps no secrets here)</text>
+
+<circle class="n" cx="548" cy="96" r="11"/><text class="nt" x="544" y="101">1</text>
+<circle class="n" cx="548" cy="192" r="11"/><text class="nt" x="544" y="197">2</text>
+<circle class="n" cx="548" cy="288" r="11"/><text class="nt" x="544" y="293">3</text>
+<circle class="n" cx="300" cy="320" r="11"/><text class="nt" x="296" y="325">4</text>
+<circle class="n" cx="500" cy="382" r="11"/><text class="nt" x="496" y="387">5</text>
+<circle class="n" cx="430" cy="454" r="11"/><text class="nt" x="426" y="459">6</text>
+<circle class="n" cx="948" cy="66" r="11"/><text class="nt" x="944" y="71">7</text>
+
+<text x="20" y="502"><tspan class="b">1</tspan> Message + Primary Entity decide which operations can start the step. Always set the table when the message has one.</text>
+<text x="20" y="524"><tspan class="b">2</tspan> Update only: the step runs when one of these columns is in the request, changed or not. Never tick the primary key.</text>
+<text x="20" y="546"><tspan class="b">3</tspan> Calling User by default. Another user changes context.UserId for the whole step; InitiatingUserId stays the real caller.</text>
+<text x="20" y="568"><tspan class="b">4</tspan> Lowest number first within a stage. Equal numbers run in no guaranteed order: set it deliberately (Cedar: 10, 20, 30).</text>
+<text x="20" y="590"><tspan class="b">5</tspan> Asynchronous is offered only with PostOperation. The step becomes a system job after the commit.</text>
+<text x="20" y="612"><tspan class="b">6</tspan> Removes the system job row when it succeeds, which keeps the AsyncOperation table small. Failed jobs stay for diagnosis.</text>
+<text x="20" y="634"><tspan class="b">7</tspan> Two strings handed to the class constructor. Unsecure travels in the solution; secure does not and only administrators can read it.</text>
+</svg>

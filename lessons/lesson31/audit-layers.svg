@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t d">
+<title id="t">Three switches that decide whether Dataverse writes an audit record</title>
+<desc id="d">A change to Work order WO-1002 Subcontractor cost is audited only if all three switches are on: environment Start auditing in Cedar-Test, table Audit changes to its data on Work order, and column Enable auditing on Subcontractor cost. If all are on and the new value differs from the old value, an audit row is written to log storage and appears in Audit History and Audit Summary. Separately, Log access records sign-ins, and Read logs sends read activity to Microsoft Purview for production environments.</desc>
+<rect width="960" height="520" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="30" width="250" height="90" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="36" y="60" font-weight="bold">1. Environment</text>
+<text x="36" y="84">Start auditing = On</text>
+<text x="36" y="106">(Cedar-Test, retention 7 years)</text>
+<rect x="355" y="30" width="250" height="90" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="371" y="60" font-weight="bold">2. Table</text>
+<text x="371" y="84">Work order: Audit changes</text>
+<text x="371" y="106">to its data = On</text>
+<rect x="690" y="30" width="250" height="90" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="706" y="60" font-weight="bold">3. Column</text>
+<text x="706" y="84">Subcontractor cost:</text>
+<text x="706" y="106">Enable auditing = On</text>
+<path d="M270 75 H355 M605 75 H690" stroke="#1b1b1b" stroke-width="2"/>
+<text x="285" y="66">AND</text><text x="620" y="66">AND</text>
+<path d="M815 120 V170 H480 V200" stroke="#1b1b1b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1b1b1b"/></marker></defs>
+<rect x="250" y="200" width="460" height="80" rx="10" fill="#fff4e5" stroke="#b35900" stroke-width="2"/>
+<text x="266" y="230" font-weight="bold">Lina updates WO-1002 cost 1,850.00 → 1,900.00</text>
+<text x="266" y="256">New value differs from old value → audit row written</text>
+<path d="M480 280 V320" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="160" y="320" width="640" height="80" rx="10" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="176" y="350" font-weight="bold">Audit table (log storage, read-only, short delay)</text>
+<text x="176" y="376">Read via Audit History (record), Audit Summary (environment), Web API/SDK</text>
+<rect x="20" y="430" width="440" height="70" rx="10" fill="#f3f3f3" stroke="#555" stroke-width="2"/>
+<text x="36" y="458" font-weight="bold">Log access: sign-ins (action 64/65)</text>
+<text x="36" y="482">Stored in the same audit table</text>
+<rect x="500" y="430" width="440" height="70" rx="10" fill="#f3f3f3" stroke="#555" stroke-width="2"/>
+<text x="516" y="458" font-weight="bold">Read logs: reads/exports → Microsoft Purview</text>
+<text x="516" y="482">Production environments only; not Audit History</text>
+</g>
+</svg>

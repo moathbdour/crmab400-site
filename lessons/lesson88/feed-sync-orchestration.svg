@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="t d">
+<title id="t">The FieldLink feed sync as a durable orchestration, with its monitoring</title>
+<desc id="d">The function app func-cedar-fieldlink-dev. On the left, how a run starts: the timer function FeedSweep at 02:00, 03:00 and 04:00 Amman time lists the blob folder inbox, and the HTTP function StartSync accepts POST api/sync-runs/name and answers 202 with a status URL. Both compute the hash of the file content and use it as the orchestration instance ID, feed-hash, so that one content has one run: a running instance is not started again and completed content is moved to the archive as a duplicate. In the middle, the orchestrator FeedSync: it calls the activity PrepareFeed, which reads and validates the file and returns counts and the number of chunks; then it loops: the activity ApplyChunk applies chunk i to Dataverse as the application user FieldLink Sync Functions through the bulk writer of lesson 78; when the result says throttled, the orchestrator waits with a durable timer for the time Dataverse asked, bounded between 30 seconds and 15 minutes, and applies the same chunk again, at most six waits; when all chunks are done it calls FinishFeed, which writes a report blob, moves the file to archive, or to quarantine when the file was rejected, and logs the line cedar.fieldlinkSync. On the right, the stores: the blob container fieldlink-feeds with inbox, archive, quarantine and reports, the task hub with history and instances, and Dataverse. At the bottom, monitoring: the status endpoint shows runtime status and custom status with chunks done; Application Insights receives the log lines cedar.fieldlinkChunk, cedar.fieldlinkThrottled and cedar.fieldlinkSync; the timer function SyncWatch at 05:30 asks the task hub and the inbox whether the night finished and logs cedar.fieldlinkSyncWatch with findings SYNC-01 to SYNC-04; one alert rule fires on anything other than a clean completion.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.d{stroke:#444;stroke-width:1.6;stroke-dasharray:6 4;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="680" fill="#ffffff"/>
+<text class="h" x="20" y="28">func-cedar-fieldlink-dev: one run per file content, resumable, observable</text>
+
+<rect class="box" x="20" y="48" width="230" height="96" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="72">FeedSweep (timer)</text>
+<text x="32" y="94">02:00, 03:00, 04:00 Amman</text>
+<text x="32" y="114">lists inbox/, max 10 files</text>
+<text x="32" y="134">starts and returns</text>
+
+<rect class="box" x="20" y="160" width="230" height="96" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="184">StartSync (HTTP)</text>
+<text x="32" y="206">POST /api/sync-runs/{name}</text>
+<text x="32" y="226">202 + status URL at once</text>
+<text x="32" y="246">409 if already applied</text>
+
+<rect class="box" x="20" y="272" width="230" height="96" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="296">One run per content</text>
+<text x="32" y="318">instance ID = feed-&lt;hash&gt;</text>
+<text x="32" y="338">running → not started again</text>
+<text x="32" y="358">completed → archive, skip</text>
+
+<path class="a" d="M250,96 L300,150"/>
+<path class="a" d="M250,208 L300,190"/>
+
+<rect class="box" x="300" y="48" width="380" height="320" rx="8" fill="#eef3fb"/>
+<text class="b" x="312" y="72">FeedSync (orchestrator)</text>
+<text x="312" y="92">decides and waits; replayed from its history</text>
+<rect class="box" x="316" y="104" width="348" height="52" rx="6" fill="#dff6dd"/>
+<text class="b" x="328" y="126">1. PrepareFeed (activity)</text>
+<text x="328" y="146">read, hash check, validate → counts, chunks</text>
+<rect class="box" x="316" y="166" width="348" height="52" rx="6" fill="#dff6dd"/>
+<text class="b" x="328" y="188">2. ApplyChunk i (activity), one at a time</text>
+<text x="328" y="208">whole work orders per chunk; safe to repeat</text>
+<rect class="box" x="316" y="228" width="348" height="68" rx="6" fill="#ffffff"/>
+<text class="b" x="328" y="250">throttled? durable timer, then chunk i again</text>
+<text x="328" y="270">wait = Retry-After, 30 s to 15 min, max 6 waits</text>
+<text x="328" y="288">nothing runs and nothing is billed while waiting</text>
+<rect class="box" x="316" y="306" width="348" height="52" rx="6" fill="#dff6dd"/>
+<text class="b" x="328" y="328">3. FinishFeed (activity)</text>
+<text x="328" y="348">report, move file, log cedar.fieldlinkSync</text>
+
+<rect class="box" x="730" y="48" width="250" height="110" rx="8" fill="#f3f2f1"/>
+<text class="b" x="742" y="72">Blob container fieldlink-feeds</text>
+<text x="742" y="94">inbox/      arrives here</text>
+<text x="742" y="114">archive/    completed, attention</text>
+<text x="742" y="134">quarantine/ rejected file</text>
+<text x="742" y="152">reports/    one JSON per run</text>
+<rect class="box" x="730" y="172" width="250" height="84" rx="8" fill="#f3f2f1"/>
+<text class="b" x="742" y="196">Dataverse</text>
+<text x="742" y="218">as FieldLink Sync Functions</text>
+<text x="742" y="238">(managed identity, no secret)</text>
+<rect class="box" x="730" y="270" width="250" height="98" rx="8" fill="#f3f2f1"/>
+<text class="b" x="742" y="294">Task hub (storage account)</text>
+<text x="742" y="316">History and Instances tables,</text>
+<text x="742" y="336">control and work-item queues</text>
+<text x="742" y="356">= the journal of lesson 80</text>
+<path class="a" d="M664,130 L730,104"/>
+<path class="a" d="M664,192 L730,208"/>
+<path class="a" d="M664,332 L730,150"/>
+<path class="d" d="M680,300 L730,316"/>
+
+<rect class="box" x="20" y="388" width="960" height="276" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="412">Monitoring: three ways to ask "what happened?"</text>
+<rect class="box" x="32" y="426" width="300" height="222" rx="6" fill="#ffffff"/>
+<text class="b" x="44" y="450">Status endpoint (one run)</text>
+<text x="44" y="474">runtimeStatus: Pending, Running,</text>
+<text x="44" y="494">Completed, Failed, Terminated</text>
+<text x="44" y="518">customStatus while running:</text>
+<text x="44" y="538">phase, chunksDone / chunks,</text>
+<text x="44" y="558">throttleWaits, totals</text>
+<text x="44" y="582">output when completed:</text>
+<text x="44" y="602">outcome completed, attention,</text>
+<text x="44" y="622">rejected or throttled + totals</text>
+<rect class="box" x="346" y="426" width="300" height="222" rx="6" fill="#ffffff"/>
+<text class="b" x="358" y="450">Application Insights (all runs)</text>
+<text x="358" y="474">cedar.fieldlinkChunk</text>
+<text x="358" y="494">cedar.fieldlinkThrottled</text>
+<text x="358" y="514">cedar.fieldlinkSync &lt;outcome&gt; …</text>
+<text x="358" y="538">names and counts only,</text>
+<text x="358" y="558">never row data</text>
+<text x="358" y="582">queries: docs/operations/</text>
+<text x="358" y="602">sync-queries.kql</text>
+<text x="358" y="626">one alert rule until lesson 105</text>
+<rect class="box" x="660" y="426" width="308" height="222" rx="6" fill="#fff4ce"/>
+<text class="b" x="672" y="450">SyncWatch (timer, 05:30 Amman)</text>
+<text x="672" y="474">asks the task hub and the inbox:</text>
+<text x="672" y="498">SYNC-01 a run failed</text>
+<text x="672" y="518">SYNC-02 a run is stuck (≥ 120 min)</text>
+<text x="672" y="538">SYNC-03 files still in the inbox</text>
+<text x="672" y="558">SYNC-04 a run ended not clean</text>
+<text x="672" y="582">logs cedar.fieldlinkSyncWatch</text>
+<text x="672" y="602">silence is not success:</text>
+<text x="672" y="622">the watch speaks every morning</text>
+</svg>

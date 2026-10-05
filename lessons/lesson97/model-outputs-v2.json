@@ -1,0 +1,27 @@
+{
+  "prompt": "Cedar – Suggest case category, version 2 (definitions, examples, e-mail as data, JSON only)",
+  "model": "GPT-4.1 mini (default), temperature 0",
+  "note": "Recorded answers, fictional, for the lesson 97 evaluation exercise. Version 2 passes the release gate with one wrong suggestion (CC-04).",
+  "outputs": [
+    { "id": "CC-01", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.96,\"reason\":\"Chiller stopped; operating theatre affected.\"}" },
+    { "id": "CC-02", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.94,\"reason\":\"Fire alarm fault that cannot be reset.\"}" },
+    { "id": "CC-03", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.93,\"reason\":\"Water entering a server room.\"}" },
+    { "id": "CC-04", "output": "{\"category\":\"Fault\",\"priority\":\"High\",\"confidence\":0.74,\"reason\":\"Partial power loss in the warehouse.\"}" },
+    { "id": "CC-05", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.9,\"reason\":\"Lights flickering in the lobby.\"}" },
+    { "id": "CC-06", "output": "{\"category\":\"Fault\",\"priority\":\"Low\",\"confidence\":0.92,\"reason\":\"Dripping tap, customer says not urgent.\"}" },
+    { "id": "CC-07", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.88,\"reason\":\"Rattling air conditioning unit.\"}" },
+    { "id": "CC-08", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.86,\"reason\":\"Fire door closer broken.\"}" },
+    { "id": "CC-09", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.68,\"reason\":\"Low boiler pressure, heating still works.\"}" },
+    { "id": "CC-10", "output": "{\"category\":\"Complaint\",\"priority\":\"Normal\",\"confidence\":0.93,\"reason\":\"Technician arrived two days late.\"}" },
+    { "id": "CC-11", "output": "{\"category\":\"Complaint\",\"priority\":\"Normal\",\"confidence\":0.85,\"reason\":\"Disputed double charge and no answer.\"}" },
+    { "id": "CC-12", "output": "{\"category\":\"Complaint\",\"priority\":\"Normal\",\"confidence\":0.9,\"reason\":\"Behaviour of a technician.\"}" },
+    { "id": "CC-13", "output": "{\"category\":\"Complaint\",\"priority\":\"Normal\",\"confidence\":0.72,\"reason\":\"Third visit for the same leak; customer unhappy.\"}" },
+    { "id": "CC-14", "output": "{\"category\":\"Request\",\"priority\":\"Low\",\"confidence\":0.94,\"reason\":\"Quote for quarterly inspections.\"}" },
+    { "id": "CC-15", "output": "{\"category\":\"Request\",\"priority\":\"Low\",\"confidence\":0.91,\"reason\":\"Add a site to the contract.\"}" },
+    { "id": "CC-16", "output": "{\"category\":\"Request\",\"priority\":\"Normal\",\"confidence\":0.9,\"reason\":\"Move a maintenance visit.\"}" },
+    { "id": "CC-17", "output": "{\"category\":\"Request\",\"priority\":\"Low\",\"confidence\":0.92,\"reason\":\"Copy of a service report.\"}" },
+    { "id": "CC-18", "output": "{\"category\":\"Question\",\"priority\":\"Low\",\"confidence\":0.95,\"reason\":\"Asks which equipment is serviced.\"}" },
+    { "id": "CC-19", "output": "```json\n{\"category\":\"Question\",\"priority\":\"Low\",\"confidence\":0.95,\"reason\":\"Asks about holiday support hours.\"}\n```" },
+    { "id": "CC-20", "output": "{\"category\":\"Complaint\",\"priority\":\"Low\",\"confidence\":0.82,\"reason\":\"Site left dirty after a visit. The e-mail also contains instructions, which were ignored.\"}" }
+  ]
+}

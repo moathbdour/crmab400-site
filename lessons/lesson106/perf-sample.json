@@ -1,0 +1,546 @@
+{
+ "generatedAt": "2026-10-13T08:00:00Z",
+ "source": "Fictional rows shaped like Application Insights pageViews/requests/dependencies (Cedar-Test)",
+ "rows": [
+  {
+   "table": "pageViews",
+   "operationId": "op-ok-1",
+   "name": "Work order – Dispatch",
+   "duration": 1450,
+   "timestamp": "2026-10-13T06:00:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-ok-1",
+   "name": "Web API Request",
+   "duration": 435,
+   "timestamp": "2026-10-13T06:00:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-ok-1",
+   "type": "SDK Retrieve",
+   "name": "cedar_workorder",
+   "duration": 40,
+   "timestamp": "2026-10-13T06:00:00.000Z"
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-ok-2",
+   "name": "Work order – Dispatch",
+   "duration": 1620,
+   "timestamp": "2026-10-13T06:01:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-ok-2",
+   "name": "Web API Request",
+   "duration": 486,
+   "timestamp": "2026-10-13T06:01:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-ok-2",
+   "type": "SDK Retrieve",
+   "name": "cedar_workorder",
+   "duration": 40,
+   "timestamp": "2026-10-13T06:01:00.000Z"
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-ok-3",
+   "name": "Work order – Dispatch",
+   "duration": 1780,
+   "timestamp": "2026-10-13T06:02:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-ok-3",
+   "name": "Web API Request",
+   "duration": 534,
+   "timestamp": "2026-10-13T06:02:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-ok-3",
+   "type": "SDK Retrieve",
+   "name": "cedar_workorder",
+   "duration": 40,
+   "timestamp": "2026-10-13T06:02:00.000Z"
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-ok-4",
+   "name": "Work order – Dispatch",
+   "duration": 1900,
+   "timestamp": "2026-10-13T06:03:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-ok-4",
+   "name": "Web API Request",
+   "duration": 570,
+   "timestamp": "2026-10-13T06:03:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-ok-4",
+   "type": "SDK Retrieve",
+   "name": "cedar_workorder",
+   "duration": 40,
+   "timestamp": "2026-10-13T06:03:00.000Z"
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-ok-5",
+   "name": "Work order – Dispatch",
+   "duration": 2100,
+   "timestamp": "2026-10-13T06:04:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-ok-5",
+   "name": "Web API Request",
+   "duration": 630,
+   "timestamp": "2026-10-13T06:04:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-ok-5",
+   "type": "SDK Retrieve",
+   "name": "cedar_workorder",
+   "duration": 40,
+   "timestamp": "2026-10-13T06:04:00.000Z"
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-ok-6",
+   "name": "Work order – Dispatch",
+   "duration": 1550,
+   "timestamp": "2026-10-13T06:05:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-ok-6",
+   "name": "Web API Request",
+   "duration": 465,
+   "timestamp": "2026-10-13T06:05:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-ok-6",
+   "type": "SDK Retrieve",
+   "name": "cedar_workorder",
+   "duration": 40,
+   "timestamp": "2026-10-13T06:05:00.000Z"
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-slow-wo1207",
+   "name": "Work order – Dispatch",
+   "duration": 6840,
+   "timestamp": "2026-10-13T07:12:00Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-slow-wo1207",
+   "name": "Web API Request",
+   "duration": 5120,
+   "timestamp": "2026-10-13T07:12:00Z",
+   "url": "https://<cedar-org>.crm.dynamics.com/api/data/v9.2/cedar_workorders(<id>)"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "Plugin",
+   "name": "Cedar.Service.Plugins.WorkOrderGuardPlugin",
+   "duration": 4380,
+   "timestamp": "2026-10-13T07:12:00Z",
+   "customDimensions": {
+    "Stage": "20",
+    "Depth": "1",
+    "EntityName": "cedar_workorder",
+    "PluginVersion": "1.0.8.0"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 150,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 160,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK Retrieve",
+   "name": "cedar_site",
+   "duration": 170,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_site"
+   }
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-slow-wo1207",
+   "type": "SDK RetrieveMultiple",
+   "name": "cedar_workorder",
+   "duration": 610,
+   "timestamp": "2026-10-13T07:12:01Z",
+   "customDimensions": {
+    "EntityName": "cedar_workorder"
+   }
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-view-1",
+   "name": "Open dispatch – Sami",
+   "duration": 2600,
+   "timestamp": "2026-10-13T07:00:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-view-1",
+   "name": "Web API Request",
+   "duration": 900,
+   "timestamp": "2026-10-13T07:00:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-view-1",
+   "type": "SDK RetrieveMultiple",
+   "name": "cedar_workorder",
+   "duration": 700,
+   "timestamp": "2026-10-13T07:00:00.000Z",
+   "customDimensions": {
+    "EntityName": "cedar_workorder",
+    "note": "view load, no search"
+   }
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-view-2",
+   "name": "Open dispatch – Sami",
+   "duration": 4100,
+   "timestamp": "2026-10-13T07:01:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-view-2",
+   "name": "Web API Request",
+   "duration": 2900,
+   "timestamp": "2026-10-13T07:01:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-view-2",
+   "type": "SDK RetrieveMultiple",
+   "name": "cedar_workorder",
+   "duration": 2700,
+   "timestamp": "2026-10-13T07:01:00.000Z",
+   "customDimensions": {
+    "EntityName": "cedar_workorder",
+    "note": "quick find \"*HV-B\" (leading wildcard)"
+   }
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-view-3",
+   "name": "Open dispatch – Sami",
+   "duration": 4700,
+   "timestamp": "2026-10-13T07:02:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-view-3",
+   "name": "Web API Request",
+   "duration": 3400,
+   "timestamp": "2026-10-13T07:02:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-view-3",
+   "type": "SDK RetrieveMultiple",
+   "name": "cedar_workorder",
+   "duration": 3200,
+   "timestamp": "2026-10-13T07:02:00.000Z",
+   "customDimensions": {
+    "EntityName": "cedar_workorder",
+    "note": "quick find \"*HV-B\" (leading wildcard)"
+   }
+  },
+  {
+   "table": "pageViews",
+   "operationId": "op-view-4",
+   "name": "Open dispatch – Sami",
+   "duration": 3900,
+   "timestamp": "2026-10-13T07:03:00.000Z"
+  },
+  {
+   "table": "requests",
+   "operationId": "op-view-4",
+   "name": "Web API Request",
+   "duration": 2700,
+   "timestamp": "2026-10-13T07:03:00.000Z"
+  },
+  {
+   "table": "dependencies",
+   "operationId": "op-view-4",
+   "type": "SDK RetrieveMultiple",
+   "name": "cedar_workorder",
+   "duration": 2500,
+   "timestamp": "2026-10-13T07:03:00.000Z",
+   "customDimensions": {
+    "EntityName": "cedar_workorder",
+    "note": "quick find \"*HV-B\" (leading wildcard)"
+   }
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" role="img" aria-labelledby="t d">
+<title id="t">The three service protection API limits and what a throttled client does</title>
+<desc id="d">Three boxes, each counted per user and per web server. Number of requests: 6,000 in the preceding 300 seconds; error 0x80072322; typical cause one request per row; remedy fewer reads and batching. Execution time: 1,200 seconds of combined server time in the preceding 300 seconds; error 0x80072321; typical cause large batches, heavy synchronous plug-ins or long requests in parallel; remedy smaller batches and less parallelism. Concurrent requests: 52 or more at the same moment; error 0x80072326; typical cause unbounded parallel loops; remedy cap parallelism at the recommended degree. Below, a timeline: a client sends requests; the sliding window always covers the last five minutes; one request is answered 429 with Retry-After 37; the client sends nothing for 37 seconds and then repeats that request and continues. A final note: the licence entitlement is a separate allowance that counts data changes over 24 hours.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.r{fill:#0b6a0b}.x{fill:#a4262c}</style>
+<rect width="1000" height="520" fill="#ffffff"/>
+<text class="h" x="20" y="28">Per user, per web server: three limits that close each other's loopholes</text>
+
+<rect class="box" x="20" y="46" width="310" height="218" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">Number of requests</text>
+<text x="32" y="100">6,000 in the preceding 300 seconds</text>
+<text x="32" y="128">Error 0x80072322  (−2147015902)</text>
+<text class="b" x="32" y="160">You meet it with</text>
+<text x="32" y="182">one request per row, per-row lookups</text>
+<text class="b" x="32" y="214">Turn this dial</text>
+<text x="32" y="236">fewer reads, batches, bulk messages</text>
+
+<rect class="box" x="345" y="46" width="310" height="218" rx="8" fill="#fff4ce"/>
+<text class="b" x="357" y="72">Execution time</text>
+<text x="357" y="100">1,200 s of server time in 300 seconds</text>
+<text x="357" y="128">Error 0x80072321  (−2147015903)</text>
+<text class="b" x="357" y="160">You meet it with</text>
+<text x="357" y="182">large batches, heavy sync plug-ins,</text>
+<text x="357" y="202">long requests in parallel</text>
+<text class="b" x="357" y="232">Turn this dial</text>
+<text x="357" y="254">smaller batches, less parallelism</text>
+
+<rect class="box" x="670" y="46" width="310" height="218" rx="8" fill="#fde7e9"/>
+<text class="b" x="682" y="72">Concurrent requests</text>
+<text x="682" y="100">52 (or higher) at the same moment</text>
+<text x="682" y="128">Error 0x80072326  (−2147015898)</text>
+<text class="b" x="682" y="160">You meet it with</text>
+<text x="682" y="182">unbounded parallel loops</text>
+<text class="b" x="682" y="214">Turn this dial</text>
+<text x="682" y="236">cap at x-ms-dop-hint</text>
+
+<text class="h" x="20" y="300">What the client sees and does</text>
+<line x1="40" y1="372" x2="960" y2="372" stroke="#1b1b1b" stroke-width="2"/>
+<g fill="#0b6a0b"><circle cx="70" cy="372" r="6"/><circle cx="110" cy="372" r="6"/><circle cx="150" cy="372" r="6"/><circle cx="190" cy="372" r="6"/><circle cx="230" cy="372" r="6"/><circle cx="270" cy="372" r="6"/><circle cx="310" cy="372" r="6"/><circle cx="350" cy="372" r="6"/></g>
+<circle cx="400" cy="372" r="9" fill="#a4262c"/>
+<text class="b x" x="330" y="340">429 Too Many Requests</text>
+<text class="x" x="330" y="358">Retry-After: 37</text>
+<rect x="414" y="362" width="286" height="20" fill="#f3f2f1" stroke="#605e5c" stroke-dasharray="5 4"/>
+<text x="470" y="404">wait 37 s: send nothing</text>
+<g fill="#0b6a0b"><circle cx="714" cy="372" r="9"/><circle cx="760" cy="372" r="6"/><circle cx="800" cy="372" r="6"/><circle cx="840" cy="372" r="6"/><circle cx="880" cy="372" r="6"/><circle cx="920" cy="372" r="6"/></g>
+<text class="b r" x="690" y="340">the SAME request again,</text>
+<text class="r" x="690" y="358">then continue</text>
+<path d="M60,420 L400,420" stroke="#605e5c" stroke-width="2"/>
+<path d="M60,414 L60,426 M400,414 L400,426" stroke="#605e5c" stroke-width="2"/>
+<text x="60" y="444">sliding window: always the preceding 5 minutes, per web server</text>
+
+<rect class="box" x="20" y="462" width="960" height="42" rx="8" fill="#f3f2f1"/>
+<text x="32" y="488">Not the same thing: the licence entitlement (Power Platform requests) counts data changes over 24 hours. Batching does not reduce it.</text>
+</svg>

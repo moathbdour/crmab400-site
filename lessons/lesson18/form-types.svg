@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="t">
+<title id="t">Cedar Operations form types: Site main form with header, tabs, Account quick view, Work orders subgrid and Contacts subgrid; plus New in the subgrid opening the Work order quick create form with Site prefilled</title>
+<rect width="980" height="560" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Site main form: where quick view, subgrids and quick create fit</text>
+<rect x="30" y="50" width="590" height="480" rx="8" fill="#f3f3f3" stroke="#555"/>
+<text x="45" y="76" font-weight="bold">Main form "Site – Cedar" (type Main = 2)</text>
+<rect x="45" y="88" width="560" height="44" rx="6" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="60" y="116">Header: Site code HV-B · Site type Hospital · Owner</text>
+<rect x="45" y="142" width="560" height="30" fill="#ffffff" stroke="#555"/>
+<text x="60" y="163">Tabs: General | Work | Related</text>
+<rect x="45" y="182" width="270" height="150" rx="6" fill="#ffffff" stroke="#555"/>
+<text x="60" y="206" font-weight="bold">Section: Details</text>
+<text x="60" y="232">Name, Account (lookup)</text>
+<text x="60" y="256">Services required, Floor area</text>
+<text x="60" y="280">After-hours access</text>
+<text x="60" y="304">Access notes</text>
+<rect x="330" y="182" width="275" height="150" rx="6" fill="#fff4d6" stroke="#8a6d00"/>
+<text x="345" y="206" font-weight="bold">Quick view form (type 6)</text>
+<text x="345" y="232">Account: Harbor View</text>
+<text x="345" y="256">Main phone 555-0100</text>
+<text x="345" y="280">Read-only, follows the</text>
+<text x="345" y="304">Account lookup</text>
+<rect x="45" y="345" width="560" height="100" rx="6" fill="#e3f2e1" stroke="#2e6b2e"/>
+<text x="60" y="369" font-weight="bold">Subgrid: Work orders (Related records only, view Active Work Orders)</text>
+<text x="60" y="395">WO-1001 Replace chiller control board · Sent</text>
+<text x="60" y="421">Command: + New Work order</text>
+<rect x="45" y="455" width="560" height="60" rx="6" fill="#e3f2e1" stroke="#2e6b2e"/>
+<text x="60" y="479" font-weight="bold">Subgrid: Site contacts (N:N) · Rana Mansour, Karam Haddad</text>
+<text x="60" y="503">Command: Add existing contact</text>
+<line x1="330" y1="421" x2="680" y2="300" stroke="#1b1b1b" marker-end="url(#a)"/>
+<text x="470" y="352" font-size="14">+ New</text>
+<rect x="680" y="200" width="270" height="220" rx="8" fill="#fde2e1" stroke="#9b1c1c"/>
+<text x="695" y="226" font-weight="bold">Quick create form (type 7)</text>
+<text x="695" y="252">Work order – Quick</text>
+<text x="695" y="278">Site = HV-B (prefilled)</text>
+<text x="695" y="302">Name, Service line</text>
+<text x="695" y="326">Case, Subcontractor</text>
+<text x="695" y="350">Scheduled for</text>
+<text x="695" y="378" font-size="14">One section, max 3 columns</text>
+<text x="695" y="400" font-size="14">No subgrids / quick views</text>
+<text x="680" y="460" font-size="14">Needs: table option</text>
+<text x="680" y="480" font-size="14">"Enable quick create forms"</text>
+<text x="680" y="500" font-size="14">Saves and returns to Site</text>
+</g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Simplified mock-up of the Copilot Studio form for adding an A2A agent, filled in for Cedar Dispatch Advisor</title>
+<desc id="d">A simplified drawing, not a product screenshot, of the Agents page of the Cedar Service Assistant after Add agent and A2A agent. Fields from top to bottom: Endpoint URL https://ca-cedar-advisor-dev.example/a2a, the message endpoint and not the card URL; Name Cedar Dispatch Advisor and Description, filled in from the agent card; Authentication OAuth 2.0; Client ID of the app registration Cedar Copilot Studio A2A client; Client secret, stored in the connection and taken from Key Vault, never written in a file; Authorization URL and Token URL and Refresh URL on login.microsoftonline.com for the tenant ID. Buttons Save and then Add and configure. Five callouts on the right explain: 1 the endpoint is the message endpoint /a2a, the card is read from /.well-known; 2 the description is filled in from the card and decides routing, so it says what the agent does not do; 3 OAuth 2.0 with Entra ID, never None or an API key; 4 the secret comes from Key Vault and lives in the connection, not in Git; 5 after saving, copy the redirect URI shown by the connection into the client app registration, then sign in and test.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:18px}.b{font-weight:700;font-size:15px}.lab{font-weight:600;font-size:14px}.n{font-weight:700;font-size:14px;fill:#ffffff}.box{stroke:#8a8a8a;stroke-width:1.2}.frame{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#0f6cbd;stroke-width:1.6;fill:none}</style>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="30">Add agent → A2A agent (simplified; labels may differ in your tenant)</text>
+<rect class="frame" x="20" y="44" width="600" height="580" rx="10" fill="#fafafa"/>
+<text class="b" x="40" y="74">Connect to an A2A agent</text>
+
+<text class="lab" x="40" y="106">Endpoint URL</text>
+<rect class="box" x="40" y="114" width="560" height="32" rx="4" fill="#ffffff"/><text x="50" y="135">https://ca-cedar-advisor-dev.example/a2a</text>
+<text class="lab" x="40" y="168">Name</text>
+<rect class="box" x="40" y="176" width="560" height="32" rx="4" fill="#ffffff"/><text x="50" y="197">Cedar Dispatch Advisor</text>
+<text class="lab" x="40" y="230">Description</text>
+<rect class="box" x="40" y="238" width="560" height="74" rx="4" fill="#ffffff"/>
+<text x="50" y="259">Explains which subcontractors Cedar's dispatch rules rank first for</text>
+<text x="50" y="279">one work order and why others are not eligible. It doesn't give work</text>
+<text x="50" y="299">order status or service level figures and doesn't dispatch.</text>
+<text class="lab" x="40" y="334">Authentication</text>
+<rect class="box" x="40" y="342" width="270" height="32" rx="4" fill="#ffffff"/><text x="50" y="363">OAuth 2.0                                   ▾</text>
+<text class="lab" x="40" y="396">Client ID</text>
+<rect class="box" x="40" y="404" width="270" height="32" rx="4" fill="#ffffff"/><text x="50" y="425">&lt;cedar-cs-a2a-client-app-id&gt;</text>
+<text class="lab" x="330" y="396">Client secret</text>
+<rect class="box" x="330" y="404" width="270" height="32" rx="4" fill="#ffffff"/><text x="340" y="425">••••••••••••••••</text>
+<text class="lab" x="40" y="458">Authorization URL</text>
+<rect class="box" x="40" y="466" width="560" height="32" rx="4" fill="#ffffff"/><text x="50" y="487">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/authorize</text>
+<text class="lab" x="40" y="520">Token URL / Refresh URL</text>
+<rect class="box" x="40" y="528" width="560" height="32" rx="4" fill="#ffffff"/><text x="50" y="549">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/token</text>
+<rect x="40" y="578" width="90" height="32" rx="4" fill="#0f6cbd"/><text x="66" y="599" style="fill:#ffffff;font-weight:600">Save</text>
+
+<circle cx="640" cy="130" r="12" fill="#0f6cbd"/><text class="n" x="636" y="135">1</text>
+<path class="ln" d="M628,130 H604"/>
+<text x="664" y="126">Message endpoint (/a2a), not the card URL.</text>
+<text x="664" y="146">The card is read from /.well-known/… .</text>
+<circle cx="640" cy="260" r="12" fill="#0f6cbd"/><text class="n" x="636" y="265">2</text>
+<path class="ln" d="M628,260 H604"/>
+<text x="664" y="250">Filled in from the card. The orchestrator</text>
+<text x="664" y="270">routes by it: say what it does NOT do, so</text>
+<text x="664" y="290">it doesn't overlap Work order status.</text>
+<circle cx="640" cy="358" r="12" fill="#0f6cbd"/><text class="n" x="636" y="363">3</text>
+<path class="ln" d="M628,358 H314"/>
+<text x="664" y="354">Entra ID through OAuth 2.0; never None,</text>
+<text x="664" y="374">never an API key (ADR-018, rule AG-10).</text>
+<circle cx="640" cy="420" r="12" fill="#0f6cbd"/><text class="n" x="636" y="425">4</text>
+<path class="ln" d="M628,420 H604"/>
+<text x="664" y="416">Secret from Key Vault, typed here once;</text>
+<text x="664" y="436">it lives in the connection, not in Git.</text>
+<circle cx="640" cy="512" r="12" fill="#0f6cbd"/><text class="n" x="636" y="517">5</text>
+<path class="ln" d="M628,512 H604"/>
+<text x="664" y="508">After Save: copy the redirect URI the</text>
+<text x="664" y="528">connection shows into the client app</text>
+<text x="664" y="548">registration, then sign in and test.</text>
+</svg>

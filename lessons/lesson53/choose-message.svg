@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-labelledby="t d">
+<title id="t">Choosing a message type</title>
+<desc id="d">Decision flow. Does the user have to decide before continuing? Yes: confirm dialog. No: is it about one field? Yes: control notification, with a recommendation action if there is a fix. No: is it about this record? Yes: form notification. No: global notification, dismissible, with an optional action.</desc>
+<rect width="900" height="400" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="30" width="250" height="60" rx="8" fill="#eef4fb" stroke="#1f5fa8"/><text x="34" y="56">Must the user decide</text><text x="34" y="76">before continuing?</text>
+<rect x="20" y="170" width="250" height="60" rx="8" fill="#eef4fb" stroke="#1f5fa8"/><text x="34" y="196">Is it about one field?</text>
+<rect x="20" y="300" width="250" height="60" rx="8" fill="#eef4fb" stroke="#1f5fa8"/><text x="34" y="326">Is it about this record?</text>
+<line x1="145" y1="90" x2="145" y2="168" stroke="#333" stroke-width="2" marker-end="url(#a)"/><text x="155" y="135">No</text>
+<line x1="145" y1="230" x2="145" y2="298" stroke="#333" stroke-width="2" marker-end="url(#a)"/><text x="155" y="270">No</text>
+<line x1="270" y1="60" x2="478" y2="60" stroke="#333" stroke-width="2" marker-end="url(#a)"/><text x="360" y="52">Yes</text>
+<line x1="270" y1="200" x2="478" y2="200" stroke="#333" stroke-width="2" marker-end="url(#a)"/><text x="360" y="192">Yes</text>
+<line x1="270" y1="330" x2="478" y2="330" stroke="#333" stroke-width="2" marker-end="url(#a)"/><text x="360" y="322">Yes</text>
+<rect x="480" y="30" width="400" height="60" rx="8" fill="#dff3e4" stroke="#2e7d32"/><text x="494" y="56">openConfirmDialog (Yes/No, resolves</text><text x="494" y="76">{ confirmed: true|false })</text>
+<rect x="480" y="170" width="400" height="60" rx="8" fill="#dff3e4" stroke="#2e7d32"/><text x="494" y="196">Control notification; addNotification</text><text x="494" y="216">RECOMMENDATION when there is a fix</text>
+<rect x="480" y="300" width="400" height="44" rx="8" fill="#dff3e4" stroke="#2e7d32"/><text x="494" y="327">setFormNotification (INFO/WARNING/ERROR)</text>
+<text x="20" y="392">Otherwise (app-wide, outlives the form): Xrm.App.addGlobalNotification — dismissible, optional action.</text>
+</g>
+</svg>

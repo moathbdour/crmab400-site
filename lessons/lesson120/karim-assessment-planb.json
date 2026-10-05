@@ -1,0 +1,363 @@
+{
+  "person": "Karim Aziz",
+  "assessedOn": "2026-12-15",
+  "target": 2,
+  "plan": {
+    "start": "2026-11-30",
+    "examDate": "2026-12-15",
+    "hoursPerWeek": 6,
+    "minutesPerGap": 30
+  },
+  "ratings": {
+    "B-01": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-02": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-03": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-04": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-05": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-07) closed-book"
+    },
+    "B-06": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-08) closed-book"
+    },
+    "B-07": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-08": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-17) closed-book"
+    },
+    "B-09": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-10": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-06) closed-book"
+    },
+    "B-11": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-12": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-13": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-24) closed-book"
+    },
+    "B-14": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-15": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-16": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-40) closed-book"
+    },
+    "B-17": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-27) closed-book"
+    },
+    "B-18": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-19": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-20": {
+      "rating": 1,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule not recalled closed-book"
+    },
+    "B-21": {
+      "rating": 2,
+      "evidence": "Lesson 119 calibration lab 2026-12-10: rule recalled and explained closed-book"
+    },
+    "B-22": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-38) closed-book"
+    },
+    "U-01": {
+      "rating": 2,
+      "evidence": "Score report 2026-12-15: ux bar medium, capped at 2"
+    },
+    "U-02": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-02) closed-book"
+    },
+    "U-03": {
+      "rating": 2,
+      "evidence": "Score report 2026-12-15: ux bar medium, capped at 2"
+    },
+    "U-04": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-07) closed-book"
+    },
+    "U-05": {
+      "rating": 2,
+      "evidence": "Lesson 53 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "U-06": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-10) closed-book"
+    },
+    "U-07": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-11) closed-book"
+    },
+    "U-08": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-12) closed-book"
+    },
+    "U-09": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-09) closed-book"
+    },
+    "U-10": {
+      "rating": 2,
+      "evidence": "Lesson 59 check 4/5 without notes; recalled Device, Utility and WebAPI members, 2026-11-14"
+    },
+    "U-11": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-16) closed-book"
+    },
+    "U-12": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-17) closed-book"
+    },
+    "U-13": {
+      "rating": 1,
+      "evidence": "Lesson 119 PA2 2026-12-11: 0/1 correct (PB-16) closed-book"
+    },
+    "U-14": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 1/1 correct (UX-19) closed-book"
+    },
+    "U-15": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-22) closed-book"
+    },
+    "U-16": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-25) closed-book"
+    },
+    "U-17": {
+      "rating": 2,
+      "evidence": "Lesson 63 check 5/5 without notes; wrote the @envvar: data source command from memory, 2026-11-13"
+    },
+    "U-18": {
+      "rating": 1
+    },
+    "U-19": {
+      "rating": 2,
+      "evidence": "Lesson 64 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "U-20": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 2/2 correct (UX-25, CU-4) closed-book"
+    },
+    "U-21": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-11-28: 2/2 correct (UX-26, CU-2) closed-book"
+    },
+    "U-22": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-33) closed-book"
+    },
+    "E-01": {
+      "rating": 3,
+      "evidence": "Lesson 65 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-04"
+    },
+    "E-02": {
+      "rating": 3,
+      "evidence": "Lesson 66 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-05"
+    },
+    "E-03": {
+      "rating": 3,
+      "evidence": "Lesson 67 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-06"
+    },
+    "E-04": {
+      "rating": 3,
+      "evidence": "Lesson 66 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-07"
+    },
+    "E-05": {
+      "rating": 3,
+      "evidence": "Lesson 67 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-02"
+    },
+    "E-06": {
+      "rating": 1,
+      "evidence": "Lesson 119 PA2 2026-12-11: 0/1 correct (PB-10) closed-book"
+    },
+    "E-07": {
+      "rating": 2,
+      "evidence": "Lesson 70 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "E-08": {
+      "rating": 1,
+      "evidence": "Lesson 119 PA2 2026-12-11: 0/1 correct (PB-13) closed-book"
+    },
+    "E-09": {
+      "rating": 2,
+      "evidence": "Lesson 70 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "E-10": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-24) closed-book"
+    },
+    "E-11": {
+      "rating": 2,
+      "evidence": "Lesson 71 check 5/5 without notes; explained version 2 subject identifier to Dana, 2026-11-11"
+    },
+    "E-12": {
+      "rating": 3,
+      "evidence": "Lesson 74 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-03"
+    },
+    "E-13": {
+      "rating": 3,
+      "evidence": "Lesson 75 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-04"
+    },
+    "E-14": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-37) closed-book"
+    },
+    "E-15": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 2/2 correct (PB-20, PB-23) closed-book"
+    },
+    "E-16": {
+      "rating": 2,
+      "evidence": "Lesson 73 knowledge check at least 4 of 5 without notes, 2026-11-07"
+    },
+    "E-17": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-26) closed-book"
+    },
+    "E-18": {
+      "rating": 2,
+      "evidence": "Lesson 76 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "E-19": {
+      "rating": 2,
+      "evidence": "Lesson 88 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "E-20": {
+      "rating": 2,
+      "evidence": "Lesson 87 knowledge check at least 4 of 5 without notes, 2026-11-05"
+    },
+    "E-21": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 2/2 correct (PB-41, PB-43) closed-book"
+    },
+    "E-22": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-29) closed-book"
+    },
+    "E-23": {
+      "rating": 2,
+      "evidence": "Lesson 84 knowledge check at least 4 of 5 without notes, 2026-11-02"
+    },
+    "E-24": {
+      "rating": 2,
+      "evidence": "Lesson 81 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "E-25": {
+      "rating": 2,
+      "evidence": "Lesson 84 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "E-26": {
+      "rating": 2,
+      "evidence": "Lesson 119 PA2 2026-12-11: 1/1 correct (PB-36) closed-book"
+    },
+    "E-27": {
+      "rating": 2,
+      "evidence": "Lesson 100 check 5/5 without notes; drew the Dataverse MCP client chain from memory, 2026-11-12"
+    },
+    "E-28": {
+      "rating": 2,
+      "evidence": "Lesson 114 scenario drill 2026-12-02: 1/1 correct (EX-28) closed-book"
+    },
+    "E-29": {
+      "rating": 2,
+      "evidence": "Lesson 102 check 4/5 without notes; listed the three Work IQ routes and their identities, 2026-11-13"
+    },
+    "E-30": {
+      "rating": 2,
+      "evidence": "Lesson 118 practice assessment 2026-12-08: 1/1 correct (PA-40) closed-book"
+    },
+    "I-01": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-02": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-03": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-04": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-05": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-06": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-07": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-08": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-09": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-10": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-11": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-12": {
+      "rating": 1,
+      "evidence": "Lesson 119 PA2 2026-12-11: 0/1 correct (PB-48) closed-book"
+    },
+    "I-13": {
+      "rating": 1,
+      "evidence": "Score report 2026-12-15: integrations bar short, capped at 1"
+    },
+    "I-14": {
+      "rating": 1
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+<title id="t">How Dataverse decides what Omar sees in Subcontractor cost</title>
+<desc id="d">A request from Omar Test for work order WO-1002 passes three checks. First, row access from roles, teams, shares or hierarchy decides whether the row is returned at all. Second, if the column is secured, Dataverse looks for column security profiles on Omar or his teams, or a field share for this one row. Third, the value is returned in full, masked if a preview masking rule exists, or empty when no permission applies. System administrators skip the column check.</desc>
+<rect width="900" height="520" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="30" width="200" height="80" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="120" y="62" text-anchor="middle" font-weight="bold">Omar Test requests</text>
+<text x="120" y="86" text-anchor="middle">WO-1002 with cost</text>
+<rect x="290" y="30" width="270" height="80" rx="10" fill="#f1f3f4" stroke="#555" stroke-width="2"/>
+<text x="425" y="58" text-anchor="middle" font-weight="bold">1. Row access</text>
+<text x="425" y="80" text-anchor="middle">role depth, team, share,</text>
+<text x="425" y="98" text-anchor="middle">access team, hierarchy</text>
+<rect x="630" y="30" width="250" height="80" rx="10" fill="#fdecea" stroke="#b3261e" stroke-width="2"/>
+<text x="755" y="62" text-anchor="middle" font-weight="bold">No row access</text>
+<text x="755" y="86" text-anchor="middle">row not returned at all</text>
+<rect x="290" y="190" width="270" height="100" rx="10" fill="#f1f3f4" stroke="#555" stroke-width="2"/>
+<text x="425" y="218" text-anchor="middle" font-weight="bold">2. Column secured?</text>
+<text x="425" y="242" text-anchor="middle">profiles on user or team</text>
+<text x="425" y="262" text-anchor="middle">+ field share for this row</text>
+<text x="425" y="282" text-anchor="middle">(most permissive wins)</text>
+<rect x="630" y="190" width="250" height="100" rx="10" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="755" y="222" text-anchor="middle" font-weight="bold">Not secured or</text>
+<text x="755" y="244" text-anchor="middle">System Administrator</text>
+<text x="755" y="266" text-anchor="middle">value returned</text>
+<rect x="20" y="380" width="260" height="100" rx="10" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="150" y="412" text-anchor="middle" font-weight="bold">Read Allowed</text>
+<text x="150" y="436" text-anchor="middle">value 1,850.00 returned</text>
+<text x="150" y="458" text-anchor="middle">(Lina Test)</text>
+<rect x="320" y="380" width="260" height="100" rx="10" fill="#fff4e5" stroke="#a15c00" stroke-width="2"/>
+<text x="450" y="412" text-anchor="middle" font-weight="bold">Read + masking rule</text>
+<text x="450" y="436" text-anchor="middle">masked text (preview)</text>
+<text x="450" y="458" text-anchor="middle">unmask needs UnMaskedData</text>
+<rect x="620" y="380" width="260" height="100" rx="10" fill="#fdecea" stroke="#b3261e" stroke-width="2"/>
+<text x="750" y="412" text-anchor="middle" font-weight="bold">No permission</text>
+<text x="750" y="436" text-anchor="middle">API: null, form: ******** lock</text>
+<text x="750" y="458" text-anchor="middle">(Omar Test)</text>
+<g stroke="#444" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M220,70 L288,70"/><path d="M560,70 L628,70"/><path d="M425,110 L425,188"/><path d="M560,240 L628,240"/>
+<path d="M340,290 L170,378"/><path d="M425,290 L445,378"/><path d="M510,290 L720,378"/>
+</g>
+<text x="566" y="62" font-size="14">denied</text>
+<text x="435" y="150" font-size="14">row allowed</text>
+<text x="566" y="232" font-size="14">no</text>
+<text x="200" y="330" font-size="14">yes: evaluate</text>
+</g>
+</svg>

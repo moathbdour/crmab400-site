@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="t d">
+<title id="t">Cedar Release Pipeline topology</title>
+<desc id="d">The Cedar-Pipelines-Host environment stores the pipeline configuration, artifacts and run history. Karim deploys CedarServiceCore from Cedar-Dev; the host exports managed and unmanaged artifacts once, deploys to Cedar-Test, then the same artifact to Cedar-Prod after approval.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2733}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#3d4b59}rect{stroke:#2f5d7c;stroke-width:2;rx:10}.a{stroke:#2f5d7c;stroke-width:2.5;fill:none;marker-end:url(#m)}.g{stroke:#a4521d;stroke-dasharray:6 4}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f5d7c"/></marker></defs>
+<rect x="250" y="20" width="400" height="120" fill="#eef4f9"/>
+<text x="270" y="48" class="h">Cedar-Pipelines-Host (production, custom host)</text>
+<text x="270" y="74" class="s">Power Platform Pipelines app · Deployment Pipeline Configuration</text>
+<text x="270" y="98" class="s">Pipeline: Cedar Release Pipeline · stage runs · artifacts</text>
+<text x="270" y="122" class="s">Extension flows: pre-export, approval, pre-deployment</text>
+<rect x="20" y="250" width="220" height="110" fill="#f4f7ec"/>
+<text x="36" y="280" class="h">Cedar-Dev</text>
+<text x="36" y="304" class="s">Development Environment</text>
+<text x="36" y="328" class="s">unmanaged CedarServiceCore</text>
+<text x="36" y="350" class="s">Karim selects Deploy</text>
+<rect x="340" y="250" width="220" height="110" fill="#fff"/>
+<text x="356" y="280" class="h">Stage: Test</text>
+<text x="356" y="304" class="s">Target: Cedar-Test (managed env)</text>
+<text x="356" y="328" class="s">Gate: pre-export check</text>
+<text x="356" y="350" class="s">Deploys as requesting maker</text>
+<rect x="660" y="250" width="220" height="110" fill="#fff"/>
+<text x="676" y="280" class="h">Stage: Production</text>
+<text x="676" y="304" class="s">Target: Cedar-Prod (managed env)</text>
+<text x="676" y="328" class="s">Previous stage: Test</text>
+<text x="676" y="350" class="s">Delegated SP + approval + window</text>
+<path class="a" d="M240 305H336"/><text x="250" y="295" class="s">1 export once</text>
+<path class="a" d="M560 305H656"/><text x="566" y="295" class="s">2 same artifact</text>
+<path class="a g" d="M130 250V190H330V144"/><text x="140" y="182" class="s">request + notes</text>
+<path class="a g" d="M450 144V246"/><text x="458" y="200" class="s">artifact stored</text>
+<path class="a g" d="M620 144L760 246"/><text x="700" y="190" class="s">approve (Lina)</text>
+<text x="20" y="400" class="s">Solid arrows: deployment order. Dashed: host interactions. No stage can be skipped; Prod requires Test first.</text>
+</svg>

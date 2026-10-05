@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t d">
+<title id="t">Cedar access troubleshooting ladder</title>
+<desc id="d">Diagnose "I can't see it" from the outside in. Step 1 sign-in: is the user enabled in Microsoft Entra ID and licensed? Step 2 environment: member of the environment security group and present in Dataverse; run diagnostics in the admin center. Step 3 app: is the app shared with one of the user's roles? Step 4 row: does a role, business unit, team, share or hierarchy grant the privilege at the needed depth? Use Check access or RetrievePrincipalAccessInfo. Step 5 column: does a column security profile grant read? Step 6 not a security issue: view filters, inactive status, propagation delay or data policy for flows. Each step lists the evidence to capture: audit history to find what changed.</desc>
+<rect width="960" height="560" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="20" y="30" font-weight="bold" font-size="17">Omar Test: "I can't see the chiller case" — check each rung, top to bottom</text>
+<g>
+<rect x="20" y="50" width="920" height="70" rx="8" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="36" y="78" font-weight="bold">1. Sign-in</text><text x="220" y="78">Entra account enabled? Licence assigned and synced?</text>
+<text x="220" y="102">Evidence: Entra sign-in logs, Microsoft 365 admin center licences</text>
+<rect x="20" y="130" width="920" height="70" rx="8" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="36" y="158" font-weight="bold">2. Environment</text><text x="220" y="158">In security group Cedar CRM users? User row exists and enabled?</text>
+<text x="220" y="182">Evidence: admin center Users → Run diagnostics</text>
+<rect x="20" y="210" width="920" height="70" rx="8" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="36" y="238" font-weight="bold">3. App</text><text x="220" y="238">Cedar Operations shared with Service Agent – Cedar? Any role at all?</text>
+<text x="220" y="262">Evidence: app sharing panel, Manage roles (direct + group team)</text>
+<rect x="20" y="290" width="920" height="70" rx="8" fill="#fff4e5" stroke="#b35900" stroke-width="2"/>
+<text x="36" y="318" font-weight="bold">4. Row</text><text x="220" y="318">Privilege + depth via role, BU, owner team, access team, share?</text>
+<text x="220" y="342">Evidence: Check access on the record, RetrievePrincipalAccessInfo, Audit History</text>
+<rect x="20" y="370" width="920" height="70" rx="8" fill="#fff4e5" stroke="#b35900" stroke-width="2"/>
+<text x="36" y="398" font-weight="bold">5. Column</text><text x="220" y="398">Secured column? Column security profile via user or team?</text>
+<text x="220" y="422">Evidence: profile Users/Teams tabs, field shares</text>
+<rect x="20" y="450" width="920" height="70" rx="8" fill="#f3f3f3" stroke="#555" stroke-width="2"/>
+<text x="36" y="478" font-weight="bold">6. Not security</text><text x="220" y="478">View filter, inactive row, wrong app/form, cache, data policy on a flow</text>
+<text x="220" y="502">Evidence: switch to All view, Advanced find, flow checker</text>
+</g>
+</g>
+</svg>

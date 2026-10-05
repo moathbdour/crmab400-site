@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="t d">
+<title id="t">Options for listening to Dataverse events, as a ladder</title>
+<desc id="d">A ladder of questions, asked from top to bottom; the first yes decides. One: must the listener stop or change the operation? Then a synchronous plug-in step inside the pipeline. Two: is the need a copy of tables for analytics? Then a managed link to Azure Synapse or Fabric, not events. Three: does the consumer keep its own copy and tolerate a delay of fifteen minutes or more? Then the consumer pulls with change tracking. Four: is it a time-ordered stream that readers analyse or replay, or more than a million events a day? Then Azure Event Hubs. Five: must nothing be lost while the listener is down, are there several subscribers, or must events of one key stay in order? Then Azure Service Bus, a topic for several subscribers and a queue for one. Six: do makers own the reaction and is the volume modest? Then a cloud flow with a Dataverse or business event trigger. Otherwise: a webhook, an HTTPS POST of the execution context to one endpoint. On the right, facts for each rung: plug-in, two-minute limit, in the transaction; managed link, no code; change tracking, includes deletions, the consumer owns the token; Event Hubs, partitions, consumer groups, retention, no per-event delete; Service Bus, asynchronous steps only, payload limit 192 kilobytes, retried by the asynchronous service; cloud flow, connectors and run history; webhook, synchronous or asynchronous steps, 60-second time-out, payload limit 256 kilobytes, one more attempt only for 502, 503 and 504.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="700" fill="#ffffff"/>
+<text class="h" x="20" y="28">Something happened in Dataverse. Who needs to know, and how sure must it be?</text>
+<text x="20" y="52">Ask from the top. The first "yes" decides.</text>
+
+<g>
+<rect class="box" x="20" y="68" width="380" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="92">1. Must it stop or change the operation?</text>
+<text x="32" y="114">a rule that has to hold for every caller,</text>
+<text x="32" y="132">before the data is committed</text>
+<path class="a" d="M400,105 L440,105"/>
+<rect class="box" x="440" y="68" width="230" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="92">Plug-in step (sync)</text>
+<text x="452" y="114">lessons 65 to 69</text>
+<text x="690" y="92">in the transaction; 2-minute limit;</text>
+<text x="690" y="112">never call an outside system from it</text>
+</g>
+<g>
+<rect class="box" x="20" y="156" width="380" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="180">2. Is it a copy of tables for analytics?</text>
+<text x="32" y="202">reports over history, joined with other data</text>
+<path class="a" d="M400,193 L440,193"/>
+<rect class="box" x="440" y="156" width="230" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="180">Synapse Link / Fabric link</text>
+<text x="452" y="202">a managed export</text>
+<text x="690" y="180">no code, no events;</text>
+<text x="690" y="200">configured by an administrator</text>
+</g>
+<g>
+<rect class="box" x="20" y="244" width="380" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="268">3. Does the consumer keep its own copy</text>
+<text x="32" y="290">and tolerate 15 minutes or more of delay?</text>
+<path class="a" d="M400,281 L440,281"/>
+<rect class="box" x="440" y="244" width="230" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="268">Change tracking (pull)</text>
+<text x="452" y="290">lesson 92</text>
+<text x="690" y="268">new, changed and deleted rows since</text>
+<text x="690" y="288">a token; the consumer owns the pace</text>
+</g>
+<g>
+<rect class="box" x="20" y="332" width="380" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="356">4. Is it a stream to analyse or replay,</text>
+<text x="32" y="378">or more than a million events a day?</text>
+<path class="a" d="M400,369 L440,369"/>
+<rect class="box" x="440" y="332" width="230" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="356">Azure Event Hubs</text>
+<text x="452" y="378">lesson 91</text>
+<text x="690" y="356">partitions, consumer groups, retention;</text>
+<text x="690" y="376">readers keep a position; no dead-letter</text>
+</g>
+<g>
+<rect class="box" x="20" y="420" width="380" height="88" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="444">5. Must nothing be lost while the listener</text>
+<text x="32" y="466">is down? Several subscribers? Order per key?</text>
+<text x="32" y="488">each event matters and gets handled once</text>
+<path class="a" d="M400,464 L440,464"/>
+<rect class="box" x="440" y="420" width="230" height="88" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="444">Azure Service Bus</text>
+<text x="452" y="466">topic: several subscribers</text>
+<text x="452" y="486">queue: one (lesson 91)</text>
+<text x="690" y="444">asynchronous steps only; payload</text>
+<text x="690" y="464">limit 192 KB; the asynchronous service</text>
+<text x="690" y="484">retries the post; dead-letter queue</text>
+</g>
+<g>
+<rect class="box" x="20" y="522" width="380" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="546">6. Do makers own the reaction,</text>
+<text x="32" y="568">with connectors and modest volume?</text>
+<path class="a" d="M400,559 L440,559"/>
+<rect class="box" x="440" y="522" width="230" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="546">Cloud flow</text>
+<text x="452" y="568">lessons 71, 81</text>
+<text x="690" y="546">row trigger or "When an action is</text>
+<text x="690" y="566">performed"; run history; flow limits</text>
+</g>
+<g>
+<rect class="box" x="20" y="610" width="380" height="74" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="634">Otherwise</text>
+<text x="32" y="656">one HTTP consumer that answers quickly</text>
+<path class="a" d="M400,647 L440,647"/>
+<rect class="box" x="440" y="610" width="230" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="452" y="634">Webhook</text>
+<text x="452" y="656">lesson 90</text>
+<text x="690" y="634">sync or async; 60 s time-out; 256 KB;</text>
+<text x="690" y="654">one more attempt only for 502/503/504</text>
+</g>
+</svg>

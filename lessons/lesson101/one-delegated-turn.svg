@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 820" role="img" aria-labelledby="t d">
+<title id="t">Sequence of one delegated turn: Sami asks C-24, C-24 delegates to C-57, C-57 asks Foundry, Foundry calls C-56, and the checked answer comes back</title>
+<desc id="d">Five lifelines from left to right: Sami in Teams, C-24 orchestrator in Copilot Studio, C-57 A2A agent in Container Apps, the Foundry agent, and the C-56 MCP server. 1: Sami asks "Who should take WO-1101?". 2: the C-24 orchestrator compares descriptions and picks the connected agent Cedar Dispatch Advisor rather than the tool Work order status. 3: C-24 sends POST /a2a with method message/send: the text, a contextId and the chat history in metadata, with Sami's bearer token for Dispatch.Read. 4: C-57 checks the token and the permission, takes the text of at most 1,000 characters and, if the text has no work order number, the latest number the user wrote earlier. 5: C-57 calls responses.create on the agent's stable endpoint with its managed identity. 6: Foundry calls rank_candidates on C-56 with the agent identity. 7: C-56 returns the ranked result as JSON. 8: Foundry returns output text and the mcp_call items. 9: C-57 runs the guard GD-1 to GD-5 on the text against the mcp_call output and keeps the text or replaces it with the rules-only summary, then writes one audit line. 10: C-57 returns one A2A message with role agent. 11: C-24 passes the answer on unchanged to Sami. A note says that only the text and one validated number cross from the history, and that a failure in steps 5 to 8 gives the rules-only answer marked as degraded.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:18px}.b{font-weight:700;font-size:15px}.n{font-weight:700;font-size:14px;fill:#ffffff}.box{stroke:#1b1b1b;stroke-width:1.5}.life{stroke:#6b6b6b;stroke-width:1.2;stroke-dasharray:4 4}.ln{stroke:#1b1b1b;stroke-width:1.6;fill:none}.act{stroke:#1b1b1b;stroke-width:1.2}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="820" fill="#ffffff"/>
+<text class="h" x="20" y="32">One delegated turn (release 2 design)</text>
+
+<rect class="box" x="20" y="50" width="150" height="50" rx="8" fill="#f7f7f7"/><text class="b" x="34" y="72">Sami</text><text x="34" y="92">Teams</text>
+<rect class="box" x="210" y="50" width="170" height="50" rx="8" fill="#dbe9f6"/><text class="b" x="222" y="72">C-24</text><text x="222" y="92">orchestrator</text>
+<rect class="box" x="420" y="50" width="170" height="50" rx="8" fill="#e8f3e8"/><text class="b" x="432" y="72">C-57</text><text x="432" y="92">A2A agent</text>
+<rect class="box" x="630" y="50" width="170" height="50" rx="8" fill="#fff4e0"/><text class="b" x="642" y="72">Foundry agent</text><text x="642" y="92">pinned v3</text>
+<rect class="box" x="840" y="50" width="140" height="50" rx="8" fill="#f1e6f7"/><text class="b" x="852" y="72">C-56</text><text x="852" y="92">MCP server</text>
+<path class="life" d="M95,100 V700"/><path class="life" d="M295,100 V700"/><path class="life" d="M505,100 V700"/><path class="life" d="M715,100 V700"/><path class="life" d="M910,100 V700"/>
+
+<circle cx="30" cy="130" r="11" fill="#1b1b1b"/><text class="n" x="26" y="135">1</text>
+<path class="ln" d="M95,140 H293" marker-end="url(#a)"/><text x="104" y="132">"Who should take WO-1101?"</text>
+
+<circle cx="30" cy="176" r="11" fill="#1b1b1b"/><text class="n" x="26" y="181">2</text>
+<text x="305" y="158">picks the connected agent</text>
+<text x="305" y="176">by description, not the</text>
+<text x="305" y="194">Work order status tool</text>
+
+<circle cx="30" cy="232" r="11" fill="#1b1b1b"/><text class="n" x="26" y="237">3</text>
+<path class="ln" d="M295,246 H503" marker-end="url(#a)"/><text x="304" y="224">POST /a2a  message/send</text><text x="304" y="240">text, contextId, history</text>
+<text x="304" y="266">Bearer: Sami, Dispatch.Read</text>
+
+<circle cx="30" cy="300" r="11" fill="#1b1b1b"/><text class="n" x="26" y="305">4</text>
+<text x="515" y="292">401 / 403 checks;</text>
+<text x="515" y="310">question = text (≤ 1,000)</text>
+<text x="515" y="328">+ one WO number from a</text>
+<text x="515" y="346">USER turn in the history</text>
+
+<circle cx="30" cy="374" r="11" fill="#1b1b1b"/><text class="n" x="26" y="379">5</text>
+<path class="ln" d="M505,382 H713" marker-end="url(#a)"/><text x="514" y="374">responses.create</text>
+<text x="514" y="400">managed identity</text>
+
+<circle cx="30" cy="424" r="11" fill="#1b1b1b"/><text class="n" x="26" y="429">6</text>
+<path class="ln" d="M715,434 H908" marker-end="url(#a)"/><text x="724" y="426">mcp_call rank_candidates</text>
+
+<circle cx="30" cy="468" r="11" fill="#1b1b1b"/><text class="n" x="26" y="473">7</text>
+<path class="ln" d="M910,478 H717" marker-end="url(#a)"/><text x="724" y="470">ranked result (JSON)</text>
+
+<circle cx="30" cy="512" r="11" fill="#1b1b1b"/><text class="n" x="26" y="517">8</text>
+<path class="ln" d="M715,522 H507" marker-end="url(#a)"/><text x="514" y="514">output_text + mcp_call items</text>
+
+<circle cx="30" cy="560" r="11" fill="#1b1b1b"/><text class="n" x="26" y="565">9</text>
+<text x="515" y="554">guard GD-1…GD-5 against</text>
+<text x="515" y="572">the mcp_call output: keep</text>
+<text x="515" y="590">text or rules-only summary;</text>
+<text x="515" y="608">audit line</text>
+
+<circle cx="30" cy="634" r="11" fill="#1b1b1b"/><text class="n" x="22" y="639">10</text>
+<path class="ln" d="M505,644 H297" marker-end="url(#a)"/><text x="304" y="636">one Message (role agent)</text>
+
+<circle cx="30" cy="680" r="11" fill="#1b1b1b"/><text class="n" x="22" y="685">11</text>
+<path class="ln" d="M295,690 H97" marker-end="url(#a)"/><text x="104" y="682">answer passed on unchanged</text>
+
+<rect class="box" x="20" y="716" width="960" height="92" rx="8" fill="#ffffff"/>
+<text x="34" y="740">• From Copilot Studio's chat history only ONE validated token crosses (a WO number from a user turn); the rest is ignored.</text>
+<text x="34" y="764">• If steps 5-8 fail or take longer than 45 s, C-57 answers with the rules (degraded) or a short message - never an error.</text>
+<text x="34" y="788">• Steps 3 and 10 are A2A; 5 and 8 are the Responses API; 6 and 7 are MCP - three protocols, three identities.</text>
+</svg>

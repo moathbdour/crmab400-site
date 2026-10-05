@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">Where the time of a synchronous plug-in step goes</title>
+<desc id="d">A horizontal time bar for one save of a case that sets priority High, before and after optimisation. Before: about 30 milliseconds to start the step, a Retrieve with all columns, a query without row limit, then 40 Update calls each of which runs the work order pipeline with four more steps, for about 3.4 seconds in total, above the 2 second guidance. After: early exit checks from images take under a millisecond, one capped query that returns only rows that differ, at most 25 minimal updates that start one filtered step each which returns on the guard token, about 0.9 seconds. Below the bars a ladder lists the order of optimisation: do not run, run later, read less, write less, hold locks briefly, measure.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.s{stroke:#1b1b1b;stroke-width:1}</style>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">One save of a case (Priority → High, 40 open work orders): time inside step U1, illustrative numbers</text>
+
+<text class="b" x="20" y="62">Before</text>
+<rect class="s" x="90" y="44" width="10" height="30" fill="#e6e6e6"/>
+<rect class="s" x="100" y="44" width="60" height="30" fill="#fde7e9"/>
+<rect class="s" x="160" y="44" width="90" height="30" fill="#fde7e9"/>
+<rect class="s" x="250" y="44" width="690" height="30" fill="#fde7e9"/>
+<text x="90" y="94">start</text>
+<text x="100" y="114">Retrieve, all columns</text>
+<text x="160" y="134">query, no row limit, all open work orders</text>
+<text x="420" y="64">40 × Update, each runs 4 more steps (G2, G4, G5, U2)</text>
+<text x="800" y="94">≈ 3.4 s</text>
+
+<line x1="590" y1="36" x2="590" y2="232" stroke="#a4262c" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="596" y="228" fill="#a4262c">2 s guidance for a synchronous plug-in</text>
+
+<text class="b" x="20" y="182">After</text>
+<rect class="s" x="90" y="164" width="6" height="30" fill="#dff6dd"/>
+<rect class="s" x="96" y="164" width="40" height="30" fill="#dff6dd"/>
+<rect class="s" x="136" y="164" width="230" height="30" fill="#dff6dd"/>
+<text x="90" y="214">image check</text>
+<text x="96" y="234">one query: only rows that differ, no columns, top 26</text>
+<text x="150" y="184">≤ 25 × minimal Update, U2 returns on token</text>
+<text x="376" y="184">≈ 0.9 s</text>
+
+<text class="h" x="20" y="282">The order to optimise in</text>
+<rect class="box" x="20" y="298" width="310" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="322">1. Do not run</text>
+<text x="32" y="346">Filtering attributes, right message and</text>
+<text x="32" y="366">table, no duplicate steps, early return</text>
+<text x="32" y="386">from Target and images.</text>
+<rect class="box" x="345" y="298" width="310" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="357" y="322">2. Run later</text>
+<text x="357" y="346">Asynchronous step, flow or Azure</text>
+<text x="357" y="366">Function for anything that is not a rule</text>
+<text x="357" y="386">or that calls an external service.</text>
+<rect class="box" x="670" y="298" width="310" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="682" y="322">3. Read less</text>
+<text x="682" y="346">Images instead of Retrieve; named</text>
+<text x="682" y="366">columns; row cap; filter on the server;</text>
+<text x="682" y="386">one query instead of one per row.</text>
+<rect class="box" x="20" y="424" width="310" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="448">4. Write less</text>
+<text x="32" y="472">Change the Target in a Pre stage; only</text>
+<text x="32" y="492">changed columns; only rows that differ;</text>
+<text x="32" y="512">cap the loop; no batch or threads.</text>
+<rect class="box" x="345" y="424" width="310" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="357" y="448">5. Hold locks briefly</text>
+<text x="357" y="472">Every write in a sync step locks rows</text>
+<text x="357" y="492">until the commit. Write last, same</text>
+<text x="357" y="512">order everywhere, short transaction.</text>
+<rect class="box" x="670" y="424" width="310" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="682" y="448">6. Measure</text>
+<text x="682" y="472">Trace log duration columns, admin</text>
+<text x="682" y="492">center Dataverse analytics (Plug-ins),</text>
+<text x="682" y="512">Application Insights. Then change.</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">One advisor question: the function-call loop of the Responses API</title>
+<desc id="d">Sequence with four lifelines: Sami, the coordinator; Karim's advisor host in Python; the Foundry project's Responses API running agent cedar-dispatch-advisor version 3; and the deterministic ranker with the facts snapshot. Step 1: Sami asks who should take WO-1101. Step 2: the host creates a response with the conversation ID, the question and the agent reference. Step 3: the model plans and returns a function_call item rank_candidates with arguments work_order_number WO-1101 and call ID call_1; nothing in Foundry runs Cedar code, and the run expires after 10 minutes. Step 4: the host validates the argument and runs the ranker, which returns Riverstone Mechanical first with high acceptance, high on-time and heavy load, then AquaFlow Plumbing, bands only, no figures. Step 5: the host sends a function_call_output item for call_1 in the same conversation. Step 6: the model writes the answer from the tool output. Step 7: the host's guard checks GD-1 to GD-5: no figures, no action claims, only names from the tool output, rank 1 first, the no-eligible wording. If it passes, Sami sees the model's answer; if it fails, Sami sees the rules-only summary built from the same tool output.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:17px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.life{stroke:#605e5c;stroke-width:1.5;stroke-dasharray:5 5}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="30">One question to the Dispatch Advisor: who runs what</text>
+
+<rect class="box" x="30" y="48" width="150" height="50" rx="6" fill="#f3f2f1"/><text class="b" x="45" y="70">Sami</text><text x="45" y="90">field coordinator</text>
+<rect class="box" x="250" y="48" width="200" height="50" rx="6" fill="#fff4ce"/><text class="b" x="262" y="70">Advisor host</text><text x="262" y="90">Python, Karim's code</text>
+<rect class="box" x="520" y="48" width="220" height="50" rx="6" fill="#dbe9f6"/><text class="b" x="532" y="70">Foundry Responses API</text><text x="532" y="90">agent version 3, cedar-chat</text>
+<rect class="box" x="790" y="48" width="190" height="50" rx="6" fill="#e6f4ea"/><text class="b" x="802" y="70">Ranker + facts</text><text x="802" y="90">deterministic (AI-10)</text>
+<line class="life" x1="105" y1="98" x2="105" y2="600"/><line class="life" x1="350" y1="98" x2="350" y2="600"/>
+<line class="life" x1="630" y1="98" x2="630" y2="600"/><line class="life" x1="885" y1="98" x2="885" y2="600"/>
+
+<path class="ln" d="M105 130 H346" marker-end="url(#a)"/><text x="115" y="124">1 "Who should take WO-1101?"</text>
+<path class="ln" d="M350 175 H626" marker-end="url(#a)"/><text x="360" y="152">2 responses.create(conversation,</text><text x="360" y="169">input, agent_reference)</text>
+<path class="ln" d="M630 225 H354" marker-end="url(#a)"/><text x="360" y="202">3 function_call rank_candidates</text><text x="360" y="219">{"work_order_number":"WO-1101"} call_1</text>
+<text x="640" y="225">model plans; Foundry runs no Cedar code;</text><text x="640" y="243">submit outputs within 10 minutes</text>
+<path class="ln" d="M350 285 H881" marker-end="url(#a)"/><text x="360" y="279">4 validate the argument, rank(facts, "WO-1101")</text>
+<path class="ln" d="M885 330 H354" marker-end="url(#a)"/><text x="400" y="312">1 Riverstone (high, high, heavy) · 2 AquaFlow (medium, low, light)</text><text x="400" y="326">bands only: no rates, counts or scores</text>
+<path class="ln" d="M350 385 H626" marker-end="url(#a)"/><text x="360" y="362">5 function_call_output call_1</text><text x="360" y="379">same conversation</text>
+<path class="ln" d="M630 435 H354" marker-end="url(#a)"/><text x="360" y="429">6 answer text from the tool output</text>
+<rect class="box" x="250" y="452" width="290" height="88" rx="6" fill="#fde7e9"/>
+<text class="b" x="262" y="476">7 Guard GD-1 … GD-5</text>
+<text x="262" y="498">no figures · no "dispatched" · only names</text>
+<text x="262" y="518">from the tool · rank 1 first · no-eligible</text>
+<path class="ln" d="M350 560 H109" marker-end="url(#a)"/><text x="125" y="582">pass: model answer · fail: rules-only summary</text>
+<rect class="box" x="20" y="604" width="960" height="44" rx="6" fill="#f3f2f1"/>
+<text x="34" y="631">Identities: Foundry sees the question and the tool output; the host reads Cedar facts with its own identity; Sami needs no Azure role.</text>
+</svg>

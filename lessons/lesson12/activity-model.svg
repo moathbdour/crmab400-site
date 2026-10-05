@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t">
+<title id="t">Ownership, activity and customer lookups around the Harbor View chiller call</title>
+<rect width="900" height="560" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="450" y="32" text-anchor="middle" font-size="20" font-weight="bold">One phone call: owner, regarding, parties and customer</text>
+<rect x="330" y="200" width="240" height="120" rx="8" fill="#fff4e0" stroke="#a15c00"/>
+<text x="450" y="228" text-anchor="middle" font-weight="bold">Phone call (activity)</text>
+<text x="450" y="252" text-anchor="middle">"Chiller down again"</text>
+<text x="450" y="274" text-anchor="middle">State: Open → Completed</text>
+<text x="450" y="296" text-anchor="middle">Also a row in Activity (pointer)</text>
+<rect x="40" y="70" width="230" height="80" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="155" y="102" text-anchor="middle" font-weight="bold">Owner: user or team</text>
+<text x="155" y="126" text-anchor="middle">Omar Saleh (systemuser)</text>
+<line x1="330" y1="220" x2="200" y2="152" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="210" y="195" text-anchor="middle">ownerid</text>
+<rect x="630" y="70" width="230" height="80" rx="8" fill="#e6f4ea" stroke="#1e7b34"/>
+<text x="745" y="102" text-anchor="middle" font-weight="bold">Regarding: one row</text>
+<text x="745" y="126" text-anchor="middle">Site HV-B (activities on)</text>
+<line x1="570" y1="220" x2="700" y2="152" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="700" y="195" text-anchor="middle">regardingobjectid</text>
+<rect x="40" y="400" width="250" height="110" rx="8" fill="#f3e8fb" stroke="#6b2fa0"/>
+<text x="165" y="428" text-anchor="middle" font-weight="bold">Activity parties</text>
+<text x="165" y="452" text-anchor="middle">From (1): contact Rana</text>
+<text x="165" y="474" text-anchor="middle">To (2): user Omar</text>
+<text x="165" y="496" text-anchor="middle">many per activity</text>
+<line x1="360" y1="320" x2="250" y2="398" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<rect x="620" y="400" width="250" height="110" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="745" y="428" text-anchor="middle" font-weight="bold">Customer lookup</text>
+<text x="745" y="452" text-anchor="middle">Site HV-B → Account</text>
+<text x="745" y="474" text-anchor="middle">Harbor View Medical Center</text>
+<text x="745" y="496" text-anchor="middle">(account OR contact)</text>
+<line x1="745" y1="150" x2="745" y2="398" stroke="#1b1b1b" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="760" y="280">cedar_account</text>
+<text x="450" y="545" text-anchor="middle">The Site HV-B timeline shows the call; Harbor View's timeline does not by default.</text>
+</g>
+</svg>

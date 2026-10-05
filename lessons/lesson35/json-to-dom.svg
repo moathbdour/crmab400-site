@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="t">
+<title id="t">Data flow in the site briefing script: JSON text is parsed into an object, mapped to a briefing view model and rendered with textContent; form input is read, validated and either shows errors or builds a dispatch message</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="430" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Path 1 – show data (page load)</text>
+<rect x="20" y="45" width="190" height="95" fill="#fdf3e7" stroke="#8a4b08"/>
+<text x="32" y="70" font-weight="600">JSON text</text>
+<text x="32" y="93" font-size="14">script#briefing-data</text>
+<text x="32" y="114" font-size="14">(lesson 36: Web API)</text>
+<rect x="260" y="45" width="190" height="95" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="272" y="70" font-weight="600">JavaScript object</text>
+<text x="272" y="93" font-size="14">record.cedar_sitecode</text>
+<text x="272" y="114" font-size="14">"HV-B"</text>
+<rect x="500" y="45" width="190" height="95" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="512" y="70" font-weight="600">Briefing model</text>
+<text x="512" y="93" font-size="14">{ siteCode, contact,</text>
+<text x="512" y="114" font-size="14">  afterHours, ... }</text>
+<rect x="740" y="45" width="200" height="95" fill="#e8f5ec" stroke="#1d6b34"/>
+<text x="752" y="70" font-weight="600">DOM (page)</text>
+<text x="752" y="93" font-size="14">td.textContent = value</text>
+<text x="752" y="114" font-size="14">never innerHTML</text>
+<line x1="210" y1="92" x2="256" y2="92" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="212" y="160" font-size="14">JSON.parse</text>
+<line x1="450" y1="92" x2="496" y2="92" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="452" y="160" font-size="14">toBriefing()</text>
+<line x1="690" y1="92" x2="736" y2="92" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="692" y="160" font-size="14">renderBriefing()</text>
+<text x="20" y="215" font-weight="700" font-size="17">Path 2 – report a problem (submit event)</text>
+<rect x="20" y="230" width="190" height="95" fill="#e8f5ec" stroke="#1d6b34"/>
+<text x="32" y="255" font-weight="600">Form controls</text>
+<text x="32" y="278" font-size="14">select, textarea,</text>
+<text x="32" y="299" font-size="14">radio buttons</text>
+<rect x="260" y="230" width="190" height="95" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="272" y="255" font-weight="600">Report object</text>
+<text x="272" y="278" font-size="14">readReport(form)</text>
+<text x="272" y="299" font-size="14">strings, trimmed</text>
+<rect x="500" y="230" width="190" height="95" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="512" y="255" font-weight="600">validateReport()</text>
+<text x="512" y="278" font-size="14">pure function:</text>
+<text x="512" y="299" font-size="14">returns errors array</text>
+<rect x="740" y="215" width="200" height="60" fill="#fbeaea" stroke="#a4262c"/>
+<text x="752" y="240" font-weight="600">errors.length &gt; 0</text>
+<text x="752" y="262" font-size="14">show inline error, focus</text>
+<rect x="740" y="290" width="200" height="60" fill="#e8f5ec" stroke="#1d6b34"/>
+<text x="752" y="315" font-weight="600">no errors</text>
+<text x="752" y="337" font-size="14">JSON.stringify message</text>
+<line x1="210" y1="277" x2="256" y2="277" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="450" y1="277" x2="496" y2="277" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="690" y1="265" x2="736" y2="248" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="690" y1="290" x2="736" y2="315" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="385" font-size="14">Pure functions (toBriefing, readReport values, validateReport, buildDispatchMessage) are tested in Node with node --test.</text>
+<text x="20" y="408" font-size="14">DOM functions run only in the browser. Client checks help users; Dataverse must still validate on the server.</text>
+</g>
+</svg>

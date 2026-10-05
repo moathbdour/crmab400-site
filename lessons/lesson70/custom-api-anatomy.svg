@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Anatomy of a custom API and its pipeline</title>
+<desc id="d">Left: the definition is data in three tables. One customapi row holds the unique name (the message name), binding type and bound table, Is Function, Is Private, allowed custom processing step type, execute privilege name and a lookup to the plug-in type that implements the main operation. It has request parameter rows and response property rows, each with a unique name and a type. Middle: the definition creates a new message, cedar_RequestDispatch. Right: the message has an event pipeline. Stage 30, the main operation, runs the plug-in type named on the custom API: it reads InputParameters and sets OutputParameters. Stages 10 and 20 and synchronous stage 40 accept other steps only when the allowed step type is Sync and Async; asynchronous stage 40 steps are allowed for Async Only and for Sync and Async; None allows no other steps.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">A custom API is a definition (data) that creates a message with its own pipeline</text>
+
+<rect class="box" x="20" y="48" width="400" height="250" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">1. Definition row</text>
+<text class="m" x="32" y="94">customapi</text>
+<text x="32" y="118">Unique Name: cedar_RequestDispatch  *</text>
+<text x="32" y="140">Binding Type: Entity  *   Bound table: cedar_workorder  *</text>
+<text x="32" y="162">Is Function: No (an action, called with POST)  *</text>
+<text x="32" y="184">Allowed Custom Processing Step Type: Async Only  *</text>
+<text x="32" y="206">Is Private: No      Execute Privilege Name: optional</text>
+<text x="32" y="228">Plugin Type: Cedar.Service.Plugins.RequestDispatchApi</text>
+<text x="32" y="256">* cannot be changed after it is saved</text>
+<text x="32" y="280">Solution component: travels in CedarServiceCore.</text>
+
+<rect class="box" x="20" y="312" width="192" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="336">Request parameters</text>
+<text class="m" x="32" y="358">customapirequest-</text>
+<text class="m" x="32" y="376">parameter</text>
+<text x="32" y="400">Target (automatic)</text>
+<text x="32" y="420">Note: String, optional</text>
+
+<rect class="box" x="228" y="312" width="192" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="240" y="336">Response properties</text>
+<text class="m" x="240" y="358">customapiresponse-</text>
+<text class="m" x="240" y="376">property</text>
+<text x="240" y="400">Result: String</text>
+<text x="240" y="420">RequestedOn: DateTime</text>
+
+<path class="a" d="M116,298 L116,312"/>
+<path class="a" d="M324,298 L324,312"/>
+
+<path class="a" d="M420,170 L470,170"/>
+<rect class="box" x="470" y="120" width="150" height="100" rx="8" fill="#e6e6e6"/>
+<text class="b" x="482" y="146">2. Message</text>
+<text class="m" x="482" y="170">cedar_Request-</text>
+<text class="m" x="482" y="188">Dispatch</text>
+<text x="482" y="210">Web API + SDK</text>
+<path class="a" d="M620,170 L670,170"/>
+
+<rect class="box" x="670" y="48" width="310" height="394" rx="8" fill="#f3f3f3"/>
+<text class="b" x="682" y="72">3. Event pipeline of the message</text>
+
+<rect class="box" x="686" y="86" width="278" height="70" rx="6" fill="#ffffff"/>
+<text class="b" x="696" y="108">10 PreValidation, 20 PreOperation</text>
+<text x="696" y="128">Other people's synchronous steps:</text>
+<text x="696" y="146">only if "Sync and Async".</text>
+
+<rect class="box" x="686" y="168" width="278" height="110" rx="6" fill="#dff6dd"/>
+<text class="b" x="696" y="190">30 MainOperation</text>
+<text x="696" y="210">YOUR plug-in type (set on the definition,</text>
+<text x="696" y="228">not a registered step). Reads</text>
+<text class="m" x="696" y="248">InputParameters["Note"]</text>
+<text class="m" x="696" y="266">OutputParameters["Result"] = ...</text>
+
+<rect class="box" x="686" y="290" width="278" height="136" rx="6" fill="#ffffff"/>
+<text class="b" x="696" y="312">40 PostOperation</text>
+<text x="696" y="332">Synchronous steps: only if</text>
+<text x="696" y="350">"Sync and Async".</text>
+<text x="696" y="374">Asynchronous steps: "Async Only" or</text>
+<text x="696" y="392">"Sync and Async". This is how flows and</text>
+<text x="696" y="410">other plug-ins subscribe (lesson 71).</text>
+
+<rect class="box" x="20" y="462" width="960" height="160" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="486">Allowed Custom Processing Step Type decides who else may join the pipeline</text>
+<text x="32" y="512"><tspan class="b">None (0)</tspan>  Your main operation is the only logic. Nobody can extend, observe or cancel. Use for operations that must not be customised.</text>
+<text x="32" y="536"><tspan class="b">Async Only (1)</tspan>  Others may react afterwards (asynchronous steps, flow triggers) but cannot change or cancel. The business events pattern.</text>
+<text x="32" y="560"><tspan class="b">Sync and Async (2)</tspan>  Others may add synchronous steps that change or cancel the operation, as with Create and Update.</text>
+<text x="32" y="590">A custom API with no plug-in type is still a valid message: it does nothing itself and exists so others can subscribe to it (a business event).</text>
+<text x="32" y="610">The main operation plug-in cannot receive unsecure or secure configuration, and its stage 30 cannot be selected in the Plug-in Registration Tool.</text>
+</svg>

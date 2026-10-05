@@ -1,0 +1,323 @@
+{
+  "domain": "ux",
+  "version": "1.0",
+  "lesson": 115,
+  "checkedOn": "2026-10-05",
+  "rules": [
+    {
+      "objective": "U-01",
+      "topic": "Client API object model",
+      "rule": "Get formContext from executionContext.getFormContext(). Attributes hold data (getValue, setValue, getText); controls hold UI (setVisible, setDisabled, notifications); one attribute can have several controls. Xrm.Utility.getGlobalContext for user and org.",
+      "signals": [
+        "header and body",
+        "label in the user’s language",
+        "create form"
+      ],
+      "trap": "Xrm.Page; DOM access; attribute and control methods swapped",
+      "lessons": [
+        49,
+        51
+      ]
+    },
+    {
+      "objective": "U-02",
+      "topic": "Event handler registration",
+      "rule": "Designer when makers must see or switch handlers off (Enabled, pass execution context). Code (addOnChange, addPreSearch, addOnSave, addOnPostSave) for PreSearch and conditional handlers; guard against double registration; setValue doesn’t fire OnChange.",
+      "signals": [
+        "filter a lookup",
+        "without a code release",
+        "after the save"
+      ],
+      "trap": "Arrow functions that drop the context; registering in both places",
+      "lessons": [
+        50
+      ]
+    },
+    {
+      "objective": "U-03",
+      "topic": "Client-side Web API",
+      "rule": "Xrm.WebApi with logical names; read lookups as _name_value, set them with NavProperty@odata.bind and the entity set; $select; follow nextLink; execute for custom APIs (operationType 0 action, 1 function). Runs as the user.",
+      "signals": [
+        "efficient",
+        "set the lookup",
+        "call a custom API"
+      ],
+      "trap": "Entity set name in Xrm.WebApi; secrets in web resources",
+      "lessons": [
+        52,
+        74
+      ]
+    },
+    {
+      "objective": "U-04",
+      "topic": "Commands with Power Fx and JavaScript",
+      "rule": "Modern commands live in one app. Power Fx actions and Visible formulas (Self.Selected.Item for one row, AllItems for several). JavaScript action: one library and function, parameters such as PrimaryControl and SelectedControlSelectedItemIds. Classic commands can’t be edited in the designer.",
+      "signals": [
+        "only when",
+        "selected rows",
+        "makers maintain it"
+      ],
+      "trap": "Hiding a button as security; Item for multi-select",
+      "lessons": [
+        54
+      ]
+    },
+    {
+      "objective": "U-05",
+      "topic": "Navigation, dialogs, notifications",
+      "rule": "navigateTo (target 2 = dialog, position 2 = side) returns savedEntityReference; openConfirmDialog resolves { confirmed }. Form notification informs; control notification blocks save; global notification survives navigation and can have an action.",
+      "signals": [
+        "without leaving",
+        "stay visible after",
+        "ask yes or no"
+      ],
+      "trap": "openForm losing unsaved work; window.alert or window.open",
+      "lessons": [
+        53,
+        56
+      ]
+    },
+    {
+      "objective": "U-06",
+      "topic": "PCF lifecycle events",
+      "rule": "init once (elements, listeners, callback); updateView on every change (render from context, honour isControlDisabled); getOutputs returns bound values after notifyOutputChanged; destroy removes listeners and timers.",
+      "signals": [
+        "flickers",
+        "listener leak",
+        "dataset rows"
+      ],
+      "trap": "notifyOutputChanged in updateView (render loop)",
+      "lessons": [
+        57
+      ]
+    },
+    {
+      "objective": "U-07",
+      "topic": "Component manifest",
+      "rule": "property (of-type, usage bound/input/output), type-group for several types, data-set and property-set for views, resources (code, css, resx, platform-library), feature-usage for WebAPI, Utility and Device, external-service-usage for domains (premium in canvas).",
+      "signals": [
+        "several column types",
+        "views and subgrids",
+        "external domain"
+      ],
+      "trap": "Renaming or retyping a property already on forms",
+      "lessons": [
+        58
+      ]
+    },
+    {
+      "objective": "U-08",
+      "topic": "Component interfaces",
+      "rule": "StandardControl<IInputs, IOutputs> or ReactControl; types generated from the manifest; IOutputs only for bound and output properties; datasets: sortedRecordIds, paging, setSelectedRecordIds, openDatasetItem.",
+      "signals": [
+        "send the value back",
+        "view order",
+        "select rows"
+      ],
+      "trap": "webAPI update of the record the form shows; editing generated types",
+      "lessons": [
+        57,
+        58
+      ]
+    },
+    {
+      "objective": "U-09",
+      "topic": "Package, deploy, consume",
+      "rule": "Solution project (pac solution init, add-reference), production build, a higher version for every change, forms and views shipped with the component; pac pcf push only in a dev environment; canvas makers accept updates; new versions can’t add required or remove properties.",
+      "signals": [
+        "still old behaviour",
+        "bundle too large",
+        "missing dependency"
+      ],
+      "trap": "Publish all; pac pcf push to Test",
+      "lessons": [
+        60
+      ]
+    },
+    {
+      "objective": "U-10",
+      "topic": "Device, Utility, Web API",
+      "rule": "Declare features in feature-usage (Device.* with required=\"false\" when optional); getEntityMetadata before hasEntityPrivilege; webAPI runs as the user; formatting and navigation need no declaration.",
+      "signals": [
+        "fails to load in the browser",
+        "can the user create",
+        "webAPI fails"
+      ],
+      "trap": "Typings mistaken for runtime availability; isControlDisabled as a privilege check",
+      "lessons": [
+        59
+      ]
+    },
+    {
+      "objective": "U-11",
+      "topic": "Code app connections",
+      "rule": "Add connector data sources with --connection-ref and --solution-id, never a personal --connection-id for shared use; each environment maps the reference; service principal connections for service-level access.",
+      "signals": [
+        "after import into Test",
+        "the maker’s own connection"
+      ],
+      "trap": "Sharing a personal connection; secrets in the app",
+      "lessons": [
+        61,
+        46
+      ]
+    },
+    {
+      "objective": "U-12",
+      "topic": "Code app Dataverse tables",
+      "rule": "pa app add data-source --connector dataverse --table <name>: no connection id, runs as the signed-in user. Not yet supported: polymorphic lookups, table-definition CRUD, FetchXML, alternate keys.",
+      "signals": [
+        "only rows they can see",
+        "link-entity",
+        "Owner or Regarding writes"
+      ],
+      "trap": "Service accounts; FetchXML",
+      "lessons": [
+        61
+      ]
+    },
+    {
+      "objective": "U-13",
+      "topic": "Table and metadata operations",
+      "rule": "Generated services for create, get, getAll, update, delete; update only changed columns; lookups with @odata.bind; getMetadata for localized display names (options aren’t returned); cache metadata.",
+      "signals": [
+        "user-language labels",
+        "audit shows false changes"
+      ],
+      "trap": "Sending every column; metadata per row",
+      "lessons": [
+        62
+      ]
+    },
+    {
+      "objective": "U-14",
+      "topic": "Dataverse actions and functions",
+      "rule": "pa app find-dataverse-api, then add dataverse-api --api-name; bound operations take the row id first; WhoAmI returns the systemuser id; runs as the user.",
+      "signals": [
+        "as Dataverse stores it",
+        "AddToQueue",
+        "custom API"
+      ],
+      "trap": "Entra object id used as systemuser id",
+      "lessons": [
+        62
+      ]
+    },
+    {
+      "objective": "U-15",
+      "topic": "Cloud flows in code apps",
+      "rule": "Only solution-aware instant flows with the Power Apps trigger (pa app list-flows, add flow); regenerate after changing inputs; the flow runs with its connection references’ identities.",
+      "signals": [
+        "button in the app",
+        "scheduled",
+        "not in a solution"
+      ],
+      "trap": "Scheduled or automated flows; stale generated signature",
+      "lessons": [
+        62,
+        81
+      ]
+    },
+    {
+      "objective": "U-16",
+      "topic": "Copilot Studio agents",
+      "rule": "Microsoft Copilot Studio connector, ExecuteCopilotAsyncV2 (Execute Agent and wait) with message and agent name; render the answer as text; agent name per environment from settings.",
+      "signals": [
+        "published agent",
+        "answer in the app"
+      ],
+      "trap": "Older operations; rendering the reply as HTML",
+      "lessons": [
+        63,
+        98
+      ]
+    },
+    {
+      "objective": "U-17",
+      "topic": "Environment variables",
+      "rule": "@envvar:<schema name> for data-source arguments (dataset, table) in power.config.json; other runtime settings read from Dataverse environment variable tables; secrets stay in Key Vault behind flows or connectors.",
+      "signals": [
+        "differs per environment",
+        "one build"
+      ],
+      "trap": "Secrets in the app; Learn pages disagree (re-check)",
+      "lessons": [
+        63,
+        46
+      ]
+    },
+    {
+      "objective": "U-18",
+      "topic": "Content Security Policy",
+      "rule": "Environment-wide, per directive. Custom values are appended to defaults, except where the default is 'none' (connect-src), which they replace. frame-ancestors controls embedding. Reports are sent regardless of enforcement. Setting directives replaces the whole collection.",
+      "signals": [
+        "violates the … directive",
+        "Refused to frame",
+        "embed"
+      ],
+      "trap": "Turning enforcement off; wildcards; the wrong directive",
+      "lessons": [
+        64
+      ]
+    },
+    {
+      "objective": "U-19",
+      "topic": "Application Insights",
+      "rule": "npm SDK served from 'self'; setConfig({ logger: { logMetric } }) once; forward sessionLoadSummary and networkRequest; connection string from Dataverse settings (or getContext with constants); no personal data; ingestion origin in connect-src.",
+      "signals": [
+        "load time per session",
+        "telemetry missing"
+      ],
+      "trap": "CDN snippet; @envvar for the connection string",
+      "lessons": [
+        64,
+        105
+      ]
+    },
+    {
+      "objective": "U-20",
+      "topic": "Package, deploy, share",
+      "rule": "pa app push (with --solution-id) to Dev; service principal publishing needs a one-time edit share; Test and Prod through the managed solution, pipeline and settings file; Premium-type licence; canvas sharing limits; no Power Platform Git integration.",
+      "signals": [
+        "licence insufficient",
+        "non-interactive",
+        "Prod"
+      ],
+      "trap": "pa app push to Prod; Git integration; group sharing against policy",
+      "lessons": [
+        63,
+        61
+      ]
+    },
+    {
+      "objective": "U-21",
+      "topic": "Troubleshoot with Monitor and DevTools",
+      "rule": "Monitor for app opens and error codes; DevTools Console for CSP, Network for request hosts (apihub.net connectors, dynamics.com Dataverse), Performance for rendering. Application Insights only sees loaded apps.",
+      "signals": [
+        "never opens",
+        "blank when embedded",
+        "which call is slow"
+      ],
+      "trap": "Querying Application Insights for launch failures",
+      "lessons": [
+        64,
+        106
+      ]
+    },
+    {
+      "objective": "U-22",
+      "topic": "Optimize performance",
+      "rule": "Measure first (TTI, request count); remove N+1 with batched filters and a session cache; run independent loads in parallel; $select only needed columns; keep the bundle small.",
+      "signals": [
+        "one request per row",
+        "slow for everyone",
+        "bundle size"
+      ],
+      "trap": "Bigger page size; FetchXML; persistent browser storage of customer data",
+      "lessons": [
+        64,
+        106
+      ]
+    }
+  ]
+}

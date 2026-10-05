@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Failure recovery runbook for server logic</title>
+<desc id="d">A six-step loop. One, detect: a user error dialog, a failed system job, an alert or missing data. Two, classify by asking whether users are blocked right now. If a synchronous step blocks saves, contain first: disable that one step, record who and when, and tell the service manager which rule is off. If an asynchronous subscriber fails, users are not blocked: leave it running or disable it, and note that events are waiting to be replayed. Three, diagnose with evidence: the error with the Prefer header for annotations, trace logs switched to All for a short time, the system job message, Application Insights, the registration compared with the manifest. Four, fix forward: reproduce with a failing test, correct, release a higher version through the pipeline; never edit Production with the Plug-in Registration Tool. Five, recover data: because the logic is idempotent, re-raise events or re-run operations for the affected rows. Six, restore and learn: enable the step, set trace logging back to Exception, add the test and update the runbook.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Runbook: contain first when users are blocked, then diagnose, fix forward, recover, restore</text>
+
+<rect class="box" x="20" y="48" width="290" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">1. Detect</text>
+<text x="32" y="96">Error dialog on save • failed system job •</text>
+<text x="32" y="116">alert • data that should exist does not.</text>
+<text x="32" y="140">Note time, user, record, exact message.</text>
+
+<path class="a" d="M310,103 L355,103"/>
+<rect class="box" x="355" y="48" width="290" height="110" rx="8" fill="#fff4ce"/>
+<text class="b" x="367" y="72">2. Classify</text>
+<text x="367" y="96">Are users blocked right now?</text>
+<text x="367" y="120">Synchronous step → yes.</text>
+<text x="367" y="140">Asynchronous subscriber → no.</text>
+
+<path class="a" d="M500,158 L250,200"/>
+<path class="a" d="M500,158 L750,200"/>
+<text x="290" y="184">blocked</text>
+<text x="650" y="184">not blocked</text>
+
+<rect class="box" x="20" y="200" width="470" height="130" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="224">Contain: disable ONE step (kill switch)</text>
+<text x="32" y="248">Maker portal Turn off, or statecode 1 on the step row.</text>
+<text x="32" y="268">Never unregister, never import an old solution.</text>
+<text x="32" y="292">Record who, when, which rule is now OFF.</text>
+<text x="32" y="312">Tell the service manager what is no longer checked.</text>
+
+<rect class="box" x="510" y="200" width="470" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="224">No containment needed</text>
+<text x="522" y="248">The user's operation is committed. Failed jobs stay in</text>
+<text x="522" y="268">System Jobs with their message.</text>
+<text x="522" y="292">Optionally disable the subscriber to stop new failures.</text>
+<text x="522" y="312">Note which events must be replayed later.</text>
+
+<path class="a" d="M255,330 L420,368"/>
+<path class="a" d="M745,330 L580,368"/>
+
+<rect class="box" x="20" y="368" width="960" height="92" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="392">3. Diagnose with evidence, not by guessing</text>
+<text x="32" y="416">Error with Prefer: odata.include-annotations="*" • trace log set to All for minutes, not days • system job message •</text>
+<text x="32" y="436">Application Insights • registration (lesson 68, request 2) compared with cedar-steps.json • what changed in the last release?</text>
+
+<path class="a" d="M500,460 L500,484"/>
+
+<rect class="box" x="20" y="484" width="306" height="138" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="508">4. Fix forward</text>
+<text x="32" y="532">Reproduce with a FAILING test.</text>
+<text x="32" y="552">Correct. Higher version.</text>
+<text x="32" y="572">Release through the pipeline.</text>
+<text x="32" y="596">No Plug-in Registration Tool</text>
+<text x="32" y="614">against Test or Production.</text>
+
+<path class="a" d="M326,553 L347,553"/>
+<rect class="box" x="347" y="484" width="306" height="138" rx="8" fill="#dff6dd"/>
+<text class="b" x="359" y="508">5. Recover data</text>
+<text x="359" y="532">Idempotent logic makes recovery</text>
+<text x="359" y="552">a re-run: re-raise the event,</text>
+<text x="359" y="572">repeat the request, re-save the</text>
+<text x="359" y="592">affected rows. Count before and</text>
+<text x="359" y="612">after.</text>
+
+<path class="a" d="M653,553 L674,553"/>
+<rect class="box" x="674" y="484" width="306" height="138" rx="8" fill="#eef3fb"/>
+<text class="b" x="686" y="508">6. Restore and learn</text>
+<text x="686" y="532">Enable the step again.</text>
+<text x="686" y="552">Trace logging back to Exception.</text>
+<text x="686" y="572">Keep the new test.</text>
+<text x="686" y="592">Add the case to the runbook and</text>
+<text x="686" y="612">the access ticket log.</text>
+</svg>

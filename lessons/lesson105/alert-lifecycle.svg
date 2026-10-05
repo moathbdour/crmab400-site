@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="t d">
+<title id="t">Life of an alert</title>
+<desc id="d">An event becomes telemetry after an ingestion delay, the alert rule evaluates on its frequency over a window, fires once, the action group notifies people, someone triages with the runbook, and the alert resolves when the condition clears.</desc>
+<style>
+text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1f2937}
+.h{font-size:16px;font-weight:700}
+.s{font-size:14px;fill:#374151}
+.b{fill:#f8fafc;stroke:#334155;stroke-width:1.5}
+.f{fill:#fff7ed;stroke:#c2410c;stroke-width:1.5}
+.a{stroke:#334155;stroke-width:1.6;fill:none;marker-end:url(#m)}
+</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs>
+<rect width="960" height="360" fill="#ffffff"/>
+<rect class="b" x="15" y="40" width="140" height="110" rx="8"/><text x="27" y="66" class="h">1 Event</text><text x="27" y="90" class="s">WO-1202 sent</text><text x="27" y="110" class="s">to FieldLink</text><text x="27" y="130" class="s">08:20</text>
+<rect class="b" x="175" y="40" width="140" height="110" rx="8"/><text x="187" y="66" class="h">2 Ingested</text><text x="187" y="90" class="s">customEvents</text><text x="187" y="110" class="s">queryable after</text><text x="187" y="130" class="s">a few minutes</text>
+<rect class="b" x="335" y="40" width="140" height="110" rx="8"/><text x="347" y="66" class="h">3 Evaluated</text><text x="347" y="90" class="s">every 5 min;</text><text x="347" y="110" class="s">no status found</text><text x="347" y="130" class="s">after 08:35</text>
+<rect class="f" x="495" y="40" width="140" height="110" rx="8"/><text x="507" y="66" class="h">4 Fired</text><text x="507" y="90" class="s">Sev 2, stateful:</text><text x="507" y="110" class="s">one notification,</text><text x="507" y="130" class="s">not one per run</text>
+<rect class="b" x="655" y="40" width="140" height="110" rx="8"/><text x="667" y="66" class="h">5 Notified</text><text x="667" y="90" class="s">ag-cedar-</text><text x="667" y="110" class="s">dispatch: mail</text><text x="667" y="130" class="s">+ duty phone</text>
+<rect class="b" x="815" y="40" width="135" height="110" rx="8"/><text x="827" y="66" class="h">6 Triage</text><text x="827" y="90" class="s">runbook AL-01;</text><text x="827" y="110" class="s">Sami calls</text><text x="827" y="130" class="s">FieldLink</text>
+<path class="a" d="M155 95 H175"/><path class="a" d="M315 95 H335"/><path class="a" d="M475 95 H495"/><path class="a" d="M635 95 H655"/><path class="a" d="M795 95 H815"/>
+<path class="a" d="M880 150 V215 H565 V155"/><text x="420" y="240" class="s">7 Resolved: a status arrives, or the send leaves the 2-hour lookback</text>
+<text x="15" y="290" class="h">Time to notify ≈ condition becomes true + ingestion delay + evaluation frequency</text>
+<text x="15" y="316">AL-01: true at 08:35, + a few min ingestion, + up to 5 min = inside the 20-min target. A 24-hour signal never could.</text>
+<text x="15" y="342" class="s">Times are illustrative; measure your own ingestion delay with the lab query.</text>
+</svg>

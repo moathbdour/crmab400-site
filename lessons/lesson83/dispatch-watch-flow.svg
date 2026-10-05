@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="t d">
+<title id="t">The flow Cedar – Dispatch watch</title>
+<desc id="d">Top to bottom. Trigger: a work order is added or modified with FieldLink status or Urgent in the request, and the saved row is Sent, urgent and active. Three preparation actions: Settings parses the JSON environment variable, Wait minutes takes acceptanceCheckMinutes or 10, Initialize Checks sets a counter to zero. Do until loop named Wait for acceptance, limits count 3 and timeout two hours: Delay for the configured minutes, Read the work order selecting status and state, Count the check; the loop ends when the status is no longer Sent or the row is inactive. After the loop: Read final state, then a Compose named Outcome with one of five words. A Switch on Outcome: case silent runs Stamp the reminder, then two parallel branches, Add a note and a Condition (due within four hours: mail dispatch and the service manager, otherwise mail dispatch), then Reminder done after both. Case rejected: one Compose saying plug-in step R1 handles it. Default for moved, reminded and closed: nothing. Side notes: the flow listens to status and urgent and writes only the reminder stamp, so it cannot start itself; a second run for the same work order finds the stamp and ends as reminded.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.s{font-size:14px;fill:#444}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="700" fill="#ffffff"/>
+<text class="h" x="20" y="28">Cedar – Dispatch watch (C-38): wait, look again, decide once</text>
+
+<rect class="box" x="20" y="44" width="620" height="66" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="68">Trigger: work order added or modified</text>
+<text x="32" y="90">Select columns: FieldLink status, Urgent · Filter rows: Sent, urgent, active</text>
+<path class="a" d="M330,110 L330,126"/>
+
+<rect class="box" x="20" y="126" width="620" height="40" rx="8" fill="#f3f2f1"/>
+<text x="32" y="151">Settings (json of the environment variable) → Wait minutes → Initialize Checks = 0</text>
+<path class="a" d="M330,166 L330,182"/>
+
+<rect class="box" x="20" y="182" width="620" height="118" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="206">Do until “Wait for acceptance”   (Count 3, Timeout PT2H)</text>
+<rect class="box" x="36" y="218" width="150" height="34" rx="6" fill="#ffffff"/><text x="48" y="240">Delay n minutes</text>
+<path class="a" d="M186,235 L212,235"/>
+<rect class="box" x="212" y="218" width="190" height="34" rx="6" fill="#ffffff"/><text x="224" y="240">Read the work order</text>
+<path class="a" d="M402,235 L428,235"/>
+<rect class="box" x="428" y="218" width="170" height="34" rx="6" fill="#ffffff"/><text x="440" y="240">Count the check</text>
+<text x="36" y="282">until: status is not Sent, or the row is inactive</text>
+<path class="a" d="M330,300 L330,316"/>
+
+<rect class="box" x="20" y="316" width="620" height="40" rx="8" fill="#f3f2f1"/>
+<text x="32" y="341">Read final state → Outcome = closed | silent | reminded | rejected | moved</text>
+<path class="a" d="M330,356 L330,372"/>
+
+<rect class="box" x="20" y="372" width="960" height="312" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="396">Switch “By outcome”</text>
+
+<rect class="box" x="36" y="408" width="570" height="262" rx="8" fill="#ffffff"/>
+<text class="b" x="48" y="430">Case 'silent'</text>
+<rect class="box" x="216" y="440" width="210" height="32" rx="6" fill="#dff6dd"/><text x="230" y="461">Stamp the reminder</text>
+<path class="a" d="M270,472 L160,494"/><path class="a" d="M372,472 L430,494"/>
+<rect class="box" x="52" y="494" width="180" height="32" rx="6" fill="#dff6dd"/><text x="66" y="515">Add a note (no retry)</text>
+<rect class="box" x="262" y="494" width="330" height="92" rx="6" fill="#fff4ce"/>
+<text class="b" x="274" y="514">Condition: due within 4 hours?</text>
+<text x="274" y="538">True: mail dispatch + service manager</text>
+<text x="274" y="560">False: mail dispatch</text>
+<path class="a" d="M142,526 L260,618"/><path class="a" d="M427,586 L360,618"/>
+<rect class="box" x="216" y="618" width="210" height="32" rx="6" fill="#f3f2f1"/><text x="230" y="639">Reminder done (after both)</text>
+
+<rect class="box" x="622" y="408" width="342" height="92" rx="8" fill="#ffffff"/>
+<text class="b" x="634" y="430">Case 'rejected'</text>
+<text x="634" y="454">One Compose: plug-in step R1 already</text>
+<text x="634" y="474">creates the reassignment task (lesson 68).</text>
+
+<rect class="box" x="622" y="512" width="342" height="92" rx="8" fill="#f3f2f1"/>
+<text class="b" x="634" y="534">Default: moved, reminded, closed</text>
+<text x="634" y="558">No action. The description on the default</text>
+<text x="634" y="578">says why.</text>
+
+<rect class="box" x="660" y="44" width="320" height="312" rx="8" fill="#dff6dd"/>
+<text class="b" x="672" y="68">Why it is built this way</text>
+<text x="672" y="94">Listens to status and Urgent, writes</text>
+<text x="672" y="114">only the reminder stamp: no self-start.</text>
+<text x="672" y="142">Body first, test after: even a work order</text>
+<text x="672" y="162">accepted at once gets one check.</text>
+<text x="672" y="190">Limit reached = loop Succeeded.</text>
+<text x="672" y="210">So the decision is taken on a fresh</text>
+<text x="672" y="230">read, not on how the loop ended.</text>
+<text x="672" y="258">Second run for the same work order:</text>
+<text x="672" y="278">finds the stamp, outcome 'reminded',</text>
+<text x="672" y="298">nothing is sent twice.</text>
+<text x="672" y="326">Depth 3. One counter, used by one loop.</text>
+</svg>

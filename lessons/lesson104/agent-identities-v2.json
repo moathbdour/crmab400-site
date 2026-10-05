@@ -1,0 +1,133 @@
+[
+  {
+    "id": "ID-01",
+    "hop": "Person -> Cedar Service Assistant (C-24)",
+    "kind": "user-delegated",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Chat (Authenticate with Microsoft)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": [
+      "Cedar Dispatch - Test",
+      "Cedar Service Managers - Test"
+    ]
+  },
+  {
+    "id": "ID-02",
+    "hop": "C-24 tool Work order status -> agent flow C-43 -> Dataverse (connection reference cedar_DataverseAutomation)",
+    "kind": "service-principal",
+    "credential": "certificate",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Cedar Automation security role (application user cedar-automation)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-03",
+    "hop": "C-24 tool Subcontractor service levels -> FieldLink Gateway",
+    "kind": "user-delegated",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Sla.Read (delegated)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-04",
+    "hop": "C-24 connected agent -> Cedar Dispatch Advisor A2A (C-57)",
+    "kind": "user-delegated",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Dispatch.Read (delegated)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-05",
+    "hop": "C-57 -> Foundry agent cedar-dispatch-advisor",
+    "kind": "managed-identity",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Foundry Agent Consumer (agent scope)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-06",
+    "hop": "Foundry advisor -> Cedar Dispatch MCP server (C-56)",
+    "kind": "agent-identity",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Dispatch.Read (app role)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-07",
+    "hop": "Advisor tool ask_service_data -> Dataverse Ask API (on behalf of the person)",
+    "kind": "user-delegated",
+    "credential": "federated",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Dynamics CRM user_impersonation (delegated, OBO)"
+    ],
+    "dataScope": "customer",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-08",
+    "hop": "Evaluation user profile -> C-24 and its tools",
+    "kind": "user-delegated",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "Member of Cedar Service Managers - Test",
+      "Sla.Read",
+      "Dispatch.Read"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  },
+  {
+    "id": "ID-09",
+    "hop": "C-59 smoke client -> C-24 (Copilot Studio client library)",
+    "kind": "user-delegated",
+    "credential": "none",
+    "environment": "Cedar-Test",
+    "permissions": [
+      "CopilotStudio.Copilots.Invoke (delegated)"
+    ],
+    "dataScope": "operational",
+    "canWrite": false,
+    "humanReview": null,
+    "sharedWith": []
+  }
+]

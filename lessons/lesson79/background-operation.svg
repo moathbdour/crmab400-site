@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">A Dataverse background operation from request to result</title>
+<desc id="d">Three lanes: client, Dataverse and an optional callback receiver. Step 1: the client sends POST cedar_RequestDispatch with the header Prefer: respond-async. Step 2: Dataverse answers 202 Accepted immediately, with a Location header for the status monitor resource under /api/backgroundoperation and the header x-ms-dyn-backgroundoperationid; a row exists in the backgroundoperations table with state Ready and status Waiting For Resources; nothing has run. The client may disconnect. Step 3: later the custom API's plug-in runs as the caller, within the two-minute limit; on an error the platform retries up to three times with exponential backoff; the row moves to Locked and In Progress and then to Completed with Succeeded, Failed or Canceled. Step 4: the client sends GET to the status monitor, at most once a minute, and after success reads the output parameters Result and RequestedOn; or Dataverse posts state and status without outputs to the callback URL; or a step registered on OnBackgroundOperationComplete reacts. DELETE on the status monitor cancels only before the operation starts. Rows expire after 90 days by default. The feature is in preview.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.d{stroke:#444;stroke-width:1.6;stroke-dasharray:6 4;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">Background operation (preview): accepted now, run later, read when ready</text>
+
+<rect class="box" x="20" y="46" width="230" height="40" rx="8" fill="#eef3fb"/><text class="b" x="32" y="72">Client (Sami's tool)</text>
+<rect class="box" x="385" y="46" width="330" height="40" rx="8" fill="#dff6dd"/><text class="b" x="397" y="72">Dataverse</text>
+<rect class="box" x="800" y="46" width="180" height="40" rx="8" fill="#fff4ce"/><text class="b" x="812" y="72">Callback receiver</text>
+<line x1="135" y1="86" x2="135" y2="470" stroke="#8a8886" stroke-dasharray="4 4"/>
+<line x1="550" y1="86" x2="550" y2="470" stroke="#8a8886" stroke-dasharray="4 4"/>
+<line x1="890" y1="86" x2="890" y2="470" stroke="#8a8886" stroke-dasharray="4 4"/>
+
+<path class="a" d="M135,122 L548,122"/>
+<text x="150" y="112">1. POST …/cedar_RequestDispatch     Prefer: respond-async</text>
+
+<path class="a" d="M550,168 L137,168"/>
+<text x="150" y="158">2. 202 Accepted   Location: &lt;org&gt;/api/backgroundoperation/&lt;id&gt;</text>
+<text x="150" y="188">     x-ms-dyn-backgroundoperationid: &lt;id&gt;     (nothing has run yet)</text>
+
+<rect class="box" x="565" y="140" width="225" height="62" rx="6" fill="#f3f2f1"/>
+<text x="575" y="162">backgroundoperations row:</text>
+<text x="575" y="184">Ready / Waiting For Resources</text>
+
+<rect class="box" x="385" y="222" width="405" height="96" rx="6" fill="#dff6dd"/>
+<text class="b" x="397" y="246">3. Later: the custom API's plug-in runs</text>
+<text x="397" y="268">as the caller, within the 2-minute limit</text>
+<text x="397" y="288">error → up to 3 retries, exponential backoff</text>
+<text x="397" y="308">Locked / In Progress → Completed / Succeeded | Failed</text>
+
+<path class="a" d="M135,356 L548,356"/>
+<text x="150" y="346">4a. GET the status monitor (at most once a minute)</text>
+<path class="a" d="M550,396 L137,396"/>
+<text x="150" y="386">       { state 3, status 30, Result: "queued", RequestedOn: … }</text>
+
+<path class="d" d="M550,436 L888,436"/>
+<text x="565" y="426">4b. POST callback: state + status, no outputs</text>
+<text x="565" y="458">4c. or a step on OnBackgroundOperationComplete</text>
+
+<rect class="box" x="20" y="484" width="960" height="60" rx="8" fill="#fde7e9"/>
+<text x="32" y="508">Cancel: DELETE the status monitor, only before the operation starts. Rows expire after 90 days by default.</text>
+<text x="32" y="530">Asynchronous does not mean longer: the plug-in limit stays two minutes. Callers need Read and Write on the Background Operation table.</text>
+</svg>

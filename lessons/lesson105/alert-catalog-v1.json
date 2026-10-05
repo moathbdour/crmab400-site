@@ -1,0 +1,152 @@
+{
+  "version": "1.0",
+  "individuals": [
+    "karim.aziz@cedarservice.example",
+    "dana.khoury@cedarservice.example",
+    "sami.nasser@cedarservice.example",
+    "lina.farah@cedarservice.example"
+  ],
+  "actionGroups": [
+    {
+      "id": "ag-cedar-dispatch",
+      "owner": "Sami Nasser",
+      "receivers": [
+        {
+          "type": "email",
+          "address": "karim.aziz@cedarservice.example"
+        }
+      ]
+    },
+    {
+      "id": "ag-cedar-integration",
+      "owner": "Karim Aziz",
+      "receivers": [
+        {
+          "type": "email",
+          "address": "integration-ops@cedarservice.example"
+        },
+        {
+          "type": "sms",
+          "address": "+1 555-0198 (shared integration duty phone)"
+        }
+      ]
+    },
+    {
+      "id": "pp-email-cedar-platform",
+      "owner": "Dana Khoury",
+      "receivers": [
+        {
+          "type": "email",
+          "address": "platform-ops@cedarservice.example"
+        }
+      ]
+    }
+  ],
+  "alerts": [
+    {
+      "id": "AL-01",
+      "name": "Cedar-Prod - Dispatch - No FieldLink status 15 min after Sent (C-20)",
+      "signal": "pp-export",
+      "rule": "Log search on Dataverse data exported to Application Insights",
+      "evaluationMinutes": 5,
+      "detectWithinMinutes": 20,
+      "severity": 2,
+      "actionGroup": "ag-cedar-dispatch",
+      "owner": "Sami Nasser",
+      "runbook": "docs/operations/runbooks/al-01-silent-dispatch.md",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-02",
+      "name": "Cedar-Prod - FieldLink status endpoint - failed requests > 5 in 15 min",
+      "signal": "app-insights",
+      "rule": "Log search on requests, frequency 5 min",
+      "evaluationMinutes": 5,
+      "detectWithinMinutes": 20,
+      "severity": 2,
+      "actionGroup": "ag-cedar-integration",
+      "owner": "Karim Aziz",
+      "runbook": "docs/operations/runbooks/al-02-status-endpoint.md",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-03",
+      "name": "Cedar-Prod - Work order events - dead-lettered messages > 0",
+      "signal": "azure-metric",
+      "rule": "Metric DeadletteredMessages, Maximum, 5 min, entity cedar-workorder-events",
+      "evaluationMinutes": 5,
+      "detectWithinMinutes": 15,
+      "severity": 2,
+      "actionGroup": "ag-cedar-integration",
+      "owner": "Karim Aziz",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-04",
+      "name": "Cedar-Prod - CedarServiceCore cloud flows - failed runs trend",
+      "signal": "pp-export",
+      "rule": "Log search on requests (Cloud flow runs), frequency 1 h; C-40 mail stays the fast path",
+      "evaluationMinutes": 60,
+      "detectWithinMinutes": 1560,
+      "severity": 3,
+      "actionGroup": "ag-cedar-integration",
+      "owner": "Karim Aziz",
+      "runbook": "docs/operations/runbooks/al-04-flow-failures.md",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-05",
+      "name": "Cedar-Prod - Dispatch Planner - time to interactive p75 > 3 s",
+      "signal": "app-insights",
+      "rule": "Log search on customMetrics timeToAppInteractive, window 1 h, frequency 1 h",
+      "evaluationMinutes": 60,
+      "detectWithinMinutes": 120,
+      "severity": 3,
+      "actionGroup": "ag-cedar-integration",
+      "owner": "Karim Aziz",
+      "runbook": "docs/operations/runbooks/al-05-planner-tti.md",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-06",
+      "name": "Cedar-Prod - Plug-ins - failed executions",
+      "signal": "pp-export",
+      "rule": "Log search on dependencies exported from Dataverse, frequency 1 h",
+      "evaluationMinutes": 60,
+      "detectWithinMinutes": 1560,
+      "severity": 3,
+      "actionGroup": "ag-cedar-integration",
+      "owner": "Karim Aziz",
+      "runbook": "docs/operations/runbooks/al-06-plugin-failures.md",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-07",
+      "name": "Dev - Model-driven apps - Cedar Operations availability < 95",
+      "signal": "pp-monitor",
+      "environmentManaged": false,
+      "rule": "Power Platform Monitor resource alert, Power Apps, Model-driven app, Cedar Operations",
+      "evaluationMinutes": 0,
+      "detectWithinMinutes": 2880,
+      "severity": 3,
+      "actionGroup": "pp-email-cedar-platform",
+      "owner": "Dana Khoury",
+      "runbook": "docs/operations/runbooks/al-07-app-availability.md",
+      "autoResolve": true
+    },
+    {
+      "id": "AL-08",
+      "name": "Prod - Agents - Cedar Service Assistant success rate < 90",
+      "signal": "pp-monitor",
+      "environmentManaged": true,
+      "rule": "Power Platform Monitor resource alert, Copilot Studio, Cedar Service Assistant",
+      "evaluationMinutes": 0,
+      "detectWithinMinutes": 2880,
+      "severity": 3,
+      "actionGroup": "pp-email-cedar-platform",
+      "owner": "Lina Farah",
+      "runbook": "docs/operations/runbooks/al-08-agent-success.md",
+      "autoResolve": true
+    }
+  ]
+}

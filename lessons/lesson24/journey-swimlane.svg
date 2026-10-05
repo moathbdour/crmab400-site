@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t">
+<title id="t">Summit Tower end-to-end journey across personas and environments</title>
+<rect width="1000" height="560" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1b1b1b">
+<text x="500" y="28" text-anchor="middle" font-size="19" font-weight="bold">Summit Tower journey: who acts, in which environment</text>
+<g font-weight="bold">
+<rect x="10" y="50" width="120" height="100" fill="#f2f2f2" stroke="#666"/><text x="20" y="95">Maya</text><text x="20" y="115">Sales</text>
+<rect x="10" y="150" width="120" height="100" fill="#f2f2f2" stroke="#666"/><text x="20" y="195">Omar</text><text x="20" y="215">Service</text>
+<rect x="10" y="250" width="120" height="100" fill="#f2f2f2" stroke="#666"/><text x="20" y="295">Sami</text><text x="20" y="315">Field</text>
+<rect x="10" y="350" width="120" height="100" fill="#f2f2f2" stroke="#666"/><text x="20" y="395">Lina</text><text x="20" y="415">Manager</text>
+</g>
+<line x1="130" y1="150" x2="990" y2="150" stroke="#bbb"/><line x1="130" y1="250" x2="990" y2="250" stroke="#bbb"/><line x1="130" y1="350" x2="990" y2="350" stroke="#bbb"/><line x1="130" y1="450" x2="990" y2="450" stroke="#bbb"/>
+<rect x="145" y="70" width="170" height="60" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="155" y="95">1 Win opportunity</text><text x="155" y="116">Cedar-Trial</text>
+<rect x="340" y="270" width="170" height="60" rx="8" fill="#e8f3e8" stroke="#2e6b30"/><text x="350" y="295">2 Site ST-A + project</text><text x="350" y="316">Karim-Dev</text>
+<rect x="340" y="170" width="170" height="60" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="350" y="195">3 Urgent case, queue</text><text x="350" y="216">Cedar-Trial, SLA starts</text>
+<rect x="535" y="170" width="170" height="60" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="545" y="195">4 First response call</text><text x="545" y="216">SLA succeeded</text>
+<rect x="535" y="270" width="170" height="60" rx="8" fill="#e8f3e8" stroke="#2e6b30"/><text x="545" y="295">5 Work order + BPF</text><text x="545" y="316">Karim-Dev, FieldLink manual</text>
+<rect x="730" y="170" width="170" height="60" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="740" y="195">6 Resolve case</text><text x="740" y="216">cites WO number</text>
+<rect x="730" y="370" width="170" height="60" rx="8" fill="#dbe9f7" stroke="#1f4e79"/><text x="740" y="395">7 Timeline, dashboard</text><text x="740" y="416">evidence of the journey</text>
+<line x1="315" y1="120" x2="340" y2="280" stroke="#1b1b1b" marker-end="url(#a)"/>
+<line x1="425" y1="270" x2="425" y2="232" stroke="#1b1b1b" marker-end="url(#a)"/>
+<line x1="510" y1="200" x2="533" y2="200" stroke="#1b1b1b" marker-end="url(#a)"/>
+<line x1="620" y1="230" x2="620" y2="268" stroke="#1b1b1b" marker-end="url(#a)"/>
+<line x1="705" y1="290" x2="740" y2="232" stroke="#1b1b1b" marker-end="url(#a)"/>
+<line x1="815" y1="230" x2="815" y2="368" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="145" y="470" width="845" height="75" rx="8" fill="#fff4e0" stroke="#a35b00" stroke-dasharray="6 4"/>
+<text x="160" y="495" font-weight="bold">Gaps the lab exposes (manual today, automated later)</text>
+<text x="160" y="518">G-01 case and work order in different environments (lesson 44)  ·  G-02 FieldLink status typed by hand (lessons 89–96)</text>
+<text x="160" y="538">G-03 won deal does not create the project (65/81)  ·  G-04 First Response Sent set by hand (81)  ·  G-05 everyone is admin (26–32)</text>
+</g></svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" role="img" aria-labelledby="title desc">
+  <title id="title">Cedar Service customer data before and after CRM</title>
+  <desc id="desc">Left: four separate sources (sales spreadsheet, shared service inbox, phone notebook, subcontractor emails) are retyped by hand into a monthly report workbook. Right: Maya, Omar, Sami and Lina all read and update one shared CRM built on Dynamics 365 and Dataverse.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5a6b82"/>
+    </marker>
+    <marker id="arrowBad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b5533c"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; fill: #1b2a3d; }
+    .h { font-size: 20px; font-weight: 700; }
+    .b { font-size: 15px; font-weight: 700; }
+    .s { font-size: 14px; fill: #4a5b72; }
+    .bad { font-size: 15px; fill: #8f3b27; }
+    .good { font-size: 15px; fill: #1f6b47; }
+  </style>
+  <rect width="960" height="480" fill="#ffffff"/>
+
+  <!-- Left panel: today -->
+  <rect x="16" y="16" width="444" height="448" rx="12" fill="#fff6f3" stroke="#e3a38f" stroke-width="1.5"/>
+  <text x="36" y="50" class="h">Today: data is scattered</text>
+
+  <rect x="36" y="76" width="200" height="56" rx="8" fill="#ffffff" stroke="#c98b78"/>
+  <text x="48" y="99" class="b">Sales spreadsheet</text>
+  <text x="48" y="121" class="s">Maya · leads and quotes</text>
+
+  <rect x="36" y="146" width="200" height="56" rx="8" fill="#ffffff" stroke="#c98b78"/>
+  <text x="48" y="169" class="b">Shared service inbox</text>
+  <text x="48" y="191" class="s">Omar · customer requests</text>
+
+  <rect x="36" y="216" width="200" height="56" rx="8" fill="#ffffff" stroke="#c98b78"/>
+  <text x="48" y="239" class="b">Phone notebook</text>
+  <text x="48" y="261" class="s">Service desk · call notes</text>
+
+  <rect x="36" y="286" width="200" height="56" rx="8" fill="#ffffff" stroke="#c98b78"/>
+  <text x="48" y="309" class="b">Subcontractor emails</text>
+  <text x="48" y="331" class="s">Sami · work order status</text>
+
+  <rect x="280" y="160" width="164" height="110" rx="8" fill="#ffffff" stroke="#c98b78"/>
+  <text x="292" y="190" class="b">Monthly report</text>
+  <text x="292" y="211" class="b">workbook</text>
+  <text x="292" y="240" class="s">Lina · rebuilt</text>
+  <text x="292" y="259" class="s">by hand each month</text>
+
+  <line x1="236" y1="104" x2="278" y2="196" stroke="#b5533c" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowBad)"/>
+  <line x1="236" y1="174" x2="278" y2="206" stroke="#b5533c" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowBad)"/>
+  <line x1="236" y1="244" x2="278" y2="224" stroke="#b5533c" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowBad)"/>
+  <line x1="236" y1="314" x2="278" y2="236" stroke="#b5533c" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowBad)"/>
+  <text x="292" y="296" class="s">dashed = retyped</text>
+  <text x="292" y="314" class="s">or forwarded</text>
+
+  <text x="36" y="384" class="bad">✗ One customer typed four different ways</text>
+  <text x="36" y="410" class="bad">✗ Nobody sees the full customer history</text>
+  <text x="36" y="436" class="bad">✗ Missed response times found too late</text>
+
+  <!-- Right panel: with CRM -->
+  <rect x="500" y="16" width="444" height="448" rx="12" fill="#f2f8fd" stroke="#8db3dc" stroke-width="1.5"/>
+  <text x="520" y="50" class="h">With CRM: one shared record</text>
+
+  <rect x="520" y="76" width="180" height="56" rx="8" fill="#ffffff" stroke="#7a9cc4"/>
+  <text x="532" y="99" class="b">Maya Haddad</text>
+  <text x="532" y="121" class="s">Sales</text>
+
+  <rect x="744" y="76" width="180" height="56" rx="8" fill="#ffffff" stroke="#7a9cc4"/>
+  <text x="756" y="99" class="b">Omar Saleh</text>
+  <text x="756" y="121" class="s">Service desk</text>
+
+  <rect x="520" y="316" width="180" height="56" rx="8" fill="#ffffff" stroke="#7a9cc4"/>
+  <text x="532" y="339" class="b">Sami Nasser</text>
+  <text x="532" y="361" class="s">Field coordination</text>
+
+  <rect x="744" y="316" width="180" height="56" rx="8" fill="#ffffff" stroke="#7a9cc4"/>
+  <text x="756" y="339" class="b">Lina Farah</text>
+  <text x="756" y="361" class="s">Live dashboards</text>
+
+  <rect x="602" y="176" width="240" height="100" rx="10" fill="#1f4f86" stroke="#173d69"/>
+  <text x="722" y="214" class="b" text-anchor="middle" style="fill:#ffffff;font-size:17px">Cedar Service CRM</text>
+  <text x="722" y="238" class="s" text-anchor="middle" style="fill:#dbe8f7">Dynamics 365 apps</text>
+  <text x="722" y="258" class="s" text-anchor="middle" style="fill:#dbe8f7">on Dataverse</text>
+
+  <line x1="620" y1="134" x2="660" y2="174" stroke="#5a6b82" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <line x1="824" y1="134" x2="784" y2="174" stroke="#5a6b82" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <line x1="620" y1="314" x2="660" y2="278" stroke="#5a6b82" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <line x1="824" y1="314" x2="784" y2="278" stroke="#5a6b82" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <text x="520" y="410" class="good">✓ One customer record, one shared history</text>
+  <text x="520" y="436" class="good">✓ Reports read live data, not copies</text>
+</svg>

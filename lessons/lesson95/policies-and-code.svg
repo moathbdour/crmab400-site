@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Where policy templates and custom code act on a connector call</title>
+<desc id="d">A request from a flow action passes through the connector runtime of FieldLink Jobs version 1.1 before it reaches FieldLink, and the response passes back. Left: three actions, Create a job, Get a job and the internal List subcontractors. Middle top: request policies. setheader adds X-Client cedar-power-platform to every request. routerequesttoendpoint applies only to CreateJob and changes the path from /v1/jobs to /v2/jobs, keeping body and method. Middle bottom: custom code in script.csx, which runs only for the operations listed in scriptOperations, GetJob and ListSubcontractors. The script changes /v1/ to /v2/ itself, sends the request with Context.SendAsync, and transforms the version 2 answer: upper-case states to version 1 words, unknown words to unknown, events sorted into a timeline, and the subcontractors object into a sorted list for the dynamic values. Errors pass through unchanged. Right: FieldLink API version 2. Bottom note: code takes precedence over the codeless definition for its operations; Learn does not document the order of policies and code in one call, so Cedar never puts a routing policy on an operation the script handles; preview templates are not used in Cedar-Prod.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,Menlo,monospace;font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">FieldLink Jobs v1.1: one connector, two ways to change a call at run time</text>
+
+<rect class="box" x="20" y="50" width="190" height="380" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="74">Actions (v1 contract)</text>
+<rect class="box" x="32" y="96" width="166" height="56" rx="6" fill="#ffffff"/><text x="44" y="120">Create a job</text><text class="m" x="44" y="140">POST /v1/jobs</text>
+<rect class="box" x="32" y="250" width="166" height="56" rx="6" fill="#ffffff"/><text x="44" y="274">Get a job</text><text class="m" x="44" y="294">GET /v1/jobs/{id}</text>
+<rect class="box" x="32" y="330" width="166" height="56" rx="6" fill="#ffffff"/><text x="44" y="354">List subcontractors</text><text class="m" x="44" y="374">internal</text>
+
+<rect class="box" x="250" y="50" width="470" height="160" rx="8" fill="#deecf9"/>
+<text class="b" x="262" y="74">Request policies (apiProperties: policyTemplateInstances)</text>
+<text class="m" x="262" y="102">setheader</text><text x="380" y="102">X-Client: cedar-power-platform, all operations</text>
+<text class="m" x="262" y="130">routerequesttoendpoint</text><text x="450" y="130">CreateJob only:</text>
+<text class="m" x="262" y="152">  /v1/jobs → /v2/jobs  (method POST, body unchanged)</text>
+<text x="262" y="186">Codeless, declarative, scoped by operation name</text>
+
+<rect class="box" x="250" y="230" width="470" height="200" rx="8" fill="#dff6dd"/>
+<text class="b" x="262" y="254">Custom code: script.csx (scriptOperations)</text>
+<text x="262" y="280">GetJob, ListSubcontractors only</text>
+<text x="262" y="304">1  /v1/… → /v2/… on the request</text>
+<text x="262" y="326">2  this.Context.SendAsync (keeps the connection's token)</text>
+<text x="262" y="348">3  transform the answer: IN_PROGRESS → in_progress,</text>
+<text x="262" y="368">   new words → unknown, events → sorted timeline,</text>
+<text x="262" y="388">   subcontractors object → sorted list</text>
+<text x="262" y="412">4  errors (4xx, 5xx) pass through unchanged</text>
+
+<line class="ln" x1="198" y1="124" x2="246" y2="124" marker-end="url(#a)"/>
+<line class="ln" x1="198" y1="278" x2="246" y2="300" marker-end="url(#a)"/>
+<line class="ln" x1="198" y1="358" x2="246" y2="340" marker-end="url(#a)"/>
+
+<rect class="box" x="770" y="50" width="210" height="380" rx="8" fill="#f3f2f1"/>
+<text class="b" x="782" y="74">FieldLink API v2</text>
+<text class="m" x="782" y="104">POST /v2/jobs</text>
+<text class="m" x="782" y="128">GET  /v2/jobs/{id}</text>
+<text class="m" x="782" y="152">GET  /v2/subcontractors</text>
+<text x="782" y="190">v1 retires 2027-03-31</text>
+<text x="782" y="214">(FieldLink change notice)</text>
+<text x="782" y="262">answers in the v2 shape:</text>
+<text class="m" x="782" y="286">{ job: {…},</text>
+<text class="m" x="782" y="306">  events: [ … ] }</text>
+<line class="ln" x1="720" y1="130" x2="766" y2="130" marker-end="url(#a)"/>
+<line class="ln" x1="766" y1="330" x2="724" y2="330" marker-end="url(#a)"/>
+<line class="ln" x1="720" y1="300" x2="766" y2="300" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="452" width="960" height="132" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="476">Rules</text>
+<text x="32" y="500">Code takes precedence over the codeless definition for the operations it handles. One script per connector, .NET Standard 2.0,</text>
+<text x="32" y="520">only the documented namespaces, at most 2 minutes and 1 MB; Context.SendAsync instead of your own HttpClient.</text>
+<text x="32" y="544">Learn does not document the order of policies and code within one call: Cedar never puts a routing policy on a scripted operation.</text>
+<text x="32" y="568">Templates marked (preview) on Learn (convert object to array, set property, …) stay out of connectors released to Cedar-Prod.</text>
+</svg>

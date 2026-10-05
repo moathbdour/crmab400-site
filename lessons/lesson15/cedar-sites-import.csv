@@ -1,0 +1,9 @@
+Site name,Site code,Customer,Site type,Floor area (m2),Commissioned on,After-hours access,Source note
+Harbor View – Building B,HV-B,Harbor View Medical Center,Hospital,18000,2011-05-03,Yes,Already in Dataverse (exact duplicate)
+Harbour View - Bldg B,hv-b ,Harbor View Medical Center,Hospital,18000,03/05/2011,Y,Spelling variant + trailing space + lowercase code
+Harbor View – Laboratory Wing,HV-LAB,Harbor View Medical Center,Hospital,6400,2016-09-12,Yes,New site
+Juniper Logistics – Warehouse 3,JL-W3,Juniper Logistics,Warehouse,11200,2019-02-01,No,New site
+Juniper Logistics – Office,,Juniper Logistics,Office,1300,2014-07-15,No,Missing required site code
+Olive Grove Schools – North Campus,OG-NORTH,Olive Grove Schools,School,8700,2008-08-20,No,New site
+Olive Grove Schools – Sports Hall,OG-HALL,Olive Grove Scools,Gym,2100,2020-01-10,No,Customer typo + choice value not in list
+Summit Tower Offices – Tower A,ST-A,Summit Tower Offices,Office,-50,2030-01-01,No,Prospect not an account + negative area + future date

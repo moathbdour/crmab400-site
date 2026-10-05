@@ -1,0 +1,384 @@
+{
+  "domain": "build",
+  "version": "1.0",
+  "lesson": 118,
+  "source": "Lesson 114, \"Build domain decision rules\" table",
+  "checkedOn": "2026-10-05",
+  "rules": [
+    {
+      "objective": "B-01",
+      "topic": "Analyze the architecture to identify components",
+      "rule": "Split the requirement into responsibilities (data, UI, server logic, integration, automation, AI, security, operations) and give each one a component before reading the options.",
+      "signals": [
+        "when … then",
+        "who sees",
+        "external system",
+        "report"
+      ],
+      "trap": "An option that solves one responsibility well and ignores another",
+      "lessons": [
+        41,
+        109
+      ]
+    },
+    {
+      "objective": "B-02",
+      "topic": "Design authentication and authorization",
+      "rule": "Name the identity at every hop (signed-in user, application user / service principal, managed identity, agent identity), then grant the least privilege to that identity.",
+      "signals": [
+        "as the signed-in user",
+        "unattended",
+        "no secrets",
+        "only rows they can see"
+      ],
+      "trap": "Fixing the wrong gate; secrets where a managed identity works; authorization written into a prompt",
+      "lessons": [
+        25,
+        29,
+        73,
+        85,
+        108
+      ]
+    },
+    {
+      "objective": "B-03",
+      "topic": "Out-of-the-box first",
+      "rule": "Check installed apps and platform features (SLAs, queues, duplicate detection, business process flows, timeline, dashboards) before designing anything; build only for a documented gap.",
+      "signals": [
+        "app X is installed",
+        "minimal development",
+        "standard feature"
+      ],
+      "trap": "Rebuilding an existing feature with flows or plug-ins",
+      "lessons": [
+        7,
+        41,
+        42
+      ]
+    },
+    {
+      "objective": "B-04",
+      "topic": "Where business logic runs",
+      "rule": "Block the save for every channel → Entity-scope business rule or synchronous plug-in. Form only → form business rule or client script. After the fact → asynchronous plug-in or flow. Long-running or external → flow or Azure Function.",
+      "signals": [
+        "regardless of how the record is created",
+        "prevent the save",
+        "calls an external system",
+        "takes minutes"
+      ],
+      "trap": "Client script used for enforcement; synchronous calls to external systems",
+      "lessons": [
+        19,
+        42,
+        65,
+        81
+      ]
+    },
+    {
+      "objective": "B-05",
+      "topic": "Standard, virtual, elastic or connector",
+      "rule": "Standard by default. Elastic for very high volume, time to live and partitioned reads without relational features. Virtual for an external system of record shown without copying. Connector when you only need actions against an API.",
+      "signals": [
+        "millions of rows per hour",
+        "expire automatically",
+        "system of record, no copies",
+        "only call"
+      ],
+      "trap": "Virtual table when the data must be stored; elastic table when charts, business rules or N:N relationships are needed",
+      "lessons": [
+        14,
+        94
+      ]
+    },
+    {
+      "objective": "B-06",
+      "topic": "Impact of security features",
+      "rule": "Data policies decide connector combinations (most restrictive wins; environment policies only add restrictions). Managed Environments add sharing limits, checker enforcement, Pipelines targets and Monitor alerts. Roles, business units, teams and sharing decide rows.",
+      "signals": [
+        "flow suspended",
+        "can’t share",
+        "only this record",
+        "another business unit"
+      ],
+      "trap": "A role to solve a policy problem; Organization access or a business-unit move for one record",
+      "lessons": [
+        26,
+        27,
+        28,
+        30,
+        32
+      ]
+    },
+    {
+      "objective": "B-07",
+      "topic": "Deterministic or non-deterministic",
+      "rule": "Exact, auditable, repeatable rules → deterministic (business rule, Power Fx, plug-in, flow). Free text, summaries, classification → AI with boundaries. Combine: AI proposes, a rule or a person decides.",
+      "signals": [
+        "same result every time",
+        "auditable",
+        "free text",
+        "summarise"
+      ],
+      "trap": "Letting a model set a value that a rule must determine",
+      "lessons": [
+        42,
+        97
+      ]
+    },
+    {
+      "objective": "B-08",
+      "topic": "Choose the user experience",
+      "rule": "Page inside a model-driven app → generative page. New visual for one field or grid → PCF. Behaviour on a form → client script. Standalone pro-code app → code app. UI inside an agent chat → MCP app widget. Conversation → interactive agent. External users → Power Pages.",
+      "signals": [
+        "inside the form",
+        "reused across forms",
+        "React developers",
+        "in Microsoft 365 Copilot",
+        "external customers"
+      ],
+      "trap": "HTML web resource for new UI; a preview generative-page feature where a GA option exists",
+      "lessons": [
+        23,
+        43,
+        100
+      ]
+    },
+    {
+      "objective": "B-09",
+      "topic": "Foundry or Copilot Studio",
+      "rule": "Makers, built-in channels, knowledge sources and Power Platform governance → Copilot Studio. Developers, own code or models, SDK evaluation, tracing and Azure governance → Foundry.",
+      "signals": [
+        "makers",
+        "Teams",
+        "SharePoint",
+        "Python",
+        "custom model",
+        "evaluation in CI"
+      ],
+      "trap": "Choosing by \"which is more powerful\" instead of by builders and governance",
+      "lessons": [
+        43,
+        98,
+        99
+      ]
+    },
+    {
+      "objective": "B-10",
+      "topic": "Reusable Power Apps components",
+      "rule": "Pick the reuse unit: PCF control (manifest, solution), client script library (namespaced web resource registered per form), generative page (page or section), canvas component library (canvas apps only).",
+      "signals": [
+        "one implementation",
+        "versioned in the solution",
+        "visual",
+        "behaviour"
+      ],
+      "trap": "PCF for behaviour, script for visuals, canvas components on model-driven forms",
+      "lessons": [
+        23,
+        43,
+        49,
+        57
+      ]
+    },
+    {
+      "objective": "B-11",
+      "topic": "Custom connectors and MCP servers",
+      "rule": "Flows and canvas apps call connector actions → custom connector (OpenAPI 2.0). Several agents and developer tools → MCP server. Copilot Studio under data policies and ALM → MCP connector in front of the server.",
+      "signals": [
+        "agents",
+        "flows",
+        "data policies"
+      ],
+      "trap": "One interface forced on every consumer; client credentials in a custom connector (not supported)",
+      "lessons": [
+        94,
+        95,
+        100
+      ]
+    },
+    {
+      "objective": "B-12",
+      "topic": "Plug-ins and custom APIs",
+      "rule": "Must hold for every change → plug-in step. Reusable named operation with inputs and a result → custom API (action if it changes data, function if read-only). Something others subscribe to → custom API without a plug-in (business event).",
+      "signals": [
+        "named operation",
+        "called from a flow",
+        "returns",
+        "others react"
+      ],
+      "trap": "A function that changes data; a step registered to implement a custom API (the main operation is stage 30)",
+      "lessons": [
+        65,
+        70,
+        71
+      ]
+    },
+    {
+      "objective": "B-13",
+      "topic": "Cloud flows and Copilot Studio workflows",
+      "rule": "Fixed automation with no agent → Power Automate cloud flow. Tool for a standard-harness Copilot Studio agent → agent flow (agent trigger, Respond to the agent, real-time limit). Automation on the GitHub Copilot harness with native AI actions and agent handoffs → workflow (deterministic path, Copilot Credits).",
+      "signals": [
+        "agent tool",
+        "no agent",
+        "harness",
+        "capacity",
+        "credits"
+      ],
+      "trap": "Agent capacity spent on non-agent automation; a prompt for fixed steps",
+      "lessons": [
+        81,
+        84,
+        86
+      ]
+    },
+    {
+      "objective": "B-14",
+      "topic": "Inbound and outbound integrations",
+      "rule": "Listener may be down or several consumers → Service Bus queue or topic. Telemetry stream → Event Hubs. Simple HTTP, low volume → webhook. Must block the save → synchronous plug-in. Inbound writes → alternate key + upsert, idempotent.",
+      "signals": [
+        "offline for hours",
+        "several systems",
+        "telemetry",
+        "no duplicates"
+      ],
+      "trap": "Transports that promise exactly once; synchronous calls to external systems inside the save",
+      "lessons": [
+        89,
+        90,
+        91,
+        92,
+        93
+      ]
+    },
+    {
+      "objective": "B-15",
+      "topic": "Code apps",
+      "rule": "A standalone pro-code web app on Power Platform hosting with connectors. Prerequisites: Enable code apps per environment, Power Apps Premium for users. Limits: no Power Platform Git integration; assets publicly hosted, so no secrets.",
+      "signals": [
+        "React",
+        "TypeScript",
+        "own design",
+        "many connectors"
+      ],
+      "trap": "Secrets in app configuration; expecting Git integration",
+      "lessons": [
+        61,
+        62,
+        63,
+        64
+      ]
+    },
+    {
+      "objective": "B-16",
+      "topic": "Custom agents with Power Platform",
+      "rule": "Decide platform, entry point, connection (MCP, A2A, connected agent), identity per hop (delegated / on behalf of the user versus application), where deterministic checks run, and ALM.",
+      "signals": [
+        "on behalf of",
+        "only rows they can see",
+        "another team owns it"
+      ],
+      "trap": "Authorization in prompts; a shared admin identity; preview connections in production",
+      "lessons": [
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ]
+    },
+    {
+      "objective": "B-17",
+      "topic": "Monitoring and alerting",
+      "rule": "Match source and latency: Power Platform Monitor alerts (daily, Managed Environment, 5 recipients, 50 rules per tenant); admin export to Application Insights (24-hour SLA); own telemetry (minutes); Azure metric alerts (about a minute) with action groups; per-item notifications in the flow or plug-in.",
+      "signals": [
+        "within N minutes",
+        "daily",
+        "which record failed"
+      ],
+      "trap": "A daily mechanism for a minutes requirement",
+      "lessons": [
+        64,
+        105,
+        111
+      ]
+    },
+    {
+      "objective": "B-18",
+      "topic": "Solution dependencies",
+      "rule": "Install base solutions first; read the missing-dependency list; remove references top-down after Show dependencies; managed solutions depend on managed components.",
+      "signals": [
+        "missing dependencies",
+        "can’t delete",
+        "import order"
+      ],
+      "trap": "Importing unmanaged or removing components to get past an error",
+      "lessons": [
+        44,
+        48
+      ]
+    },
+    {
+      "objective": "B-19",
+      "topic": "Environment variables",
+      "rule": "Settings that differ per environment → environment variables (Text, Decimal, Yes/No, JSON, Data source, Secret). Secrets → Secret type backed by Azure Key Vault. Values from the deployment settings file; remove current values before export. Connections → connection references.",
+      "signals": [
+        "differs per environment",
+        "no secret in Dataverse",
+        "set by the pipeline"
+      ],
+      "trap": "A secret in a default value; a connection reference for a URL",
+      "lessons": [
+        46,
+        62,
+        108
+      ]
+    },
+    {
+      "objective": "B-20",
+      "topic": "Solution layers",
+      "rule": "The unmanaged active layer wins over managed layers. Upgrade deletes removed components, Update does not; Stage for upgrade lets you migrate data before deletion.",
+      "signals": [
+        "change not visible",
+        "removed column still exists",
+        "keep the data"
+      ],
+      "trap": "Publishing or re-importing to fix an active layer; Update instead of Upgrade",
+      "lessons": [
+        45,
+        48
+      ]
+    },
+    {
+      "objective": "B-21",
+      "topic": "Power Platform Pipelines",
+      "rule": "Targets must be Managed Environments. Delegated deployment (service principal or stage owner) always needs approval. Pre-export step: first stage, before export. Pre-deployment step: after approval, just before import.",
+      "signals": [
+        "approve",
+        "no rights in production",
+        "only in a window",
+        "validate before export"
+      ],
+      "trap": "Notification triggers used as gates; makers given production rights",
+      "lessons": [
+        47,
+        111
+      ]
+    },
+    {
+      "objective": "B-22",
+      "topic": "Build Tools CI/CD",
+      "rule": "Tool Installer first in every job. Export → Unpack → commit; Pack → Checker → Import (holding) → Apply Solution Upgrade; deployment settings file for connections and variables.",
+      "signals": [
+        "from source",
+        "fail on issues",
+        "removed components deleted"
+      ],
+      "trap": "Checker after import or before pack; export from Dev used as the build",
+      "lessons": [
+        48,
+        111
+      ]
+    }
+  ]
+}

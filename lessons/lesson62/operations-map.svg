@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" role="img" aria-labelledby="t d">
+<title id="t">Four kinds of server work a code app can call</title>
+<desc id="d">C-23 Dispatch Planner calls four kinds of operations. Table operations through generated table services: create a follow-up work order, update the plan. Metadata through getMetadata: localized column labels and required flags, cached per session. Dataverse functions and actions through services added with pa app add dataverse-api: WhoAmI function for the systemuser id, AddToQueue bound action to return a case to Cedar Service Desk. Cloud flows through pa app add flow: the instant flow Cedar – Request FieldLink dispatch with a Power Apps trigger, which reads the environment variable cedar_FieldLinkSyncEnabled. Each box shows its CLI command and what runs as whom.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="540" fill="#ffffff"/>
+<rect class="box" x="330" y="20" width="240" height="70" rx="8" fill="#deecf9"/>
+<text class="h" x="344" y="48">C-23 data.ts / ops.ts</text>
+<text class="s" x="344" y="72">one adapter, typed results</text>
+<rect class="box" x="20" y="140" width="410" height="170" rx="8" fill="#dff6dd"/>
+<text class="h" x="34" y="166">Table operations</text>
+<text class="s" x="34" y="190">pa app add data-source --connector dataverse</text>
+<text class="s" x="34" y="212">create: follow-up work order (+ @odata.bind)</text>
+<text class="s" x="34" y="234">update: plan (only changed columns)</text>
+<text class="s" x="34" y="256">delete: not granted by Cedar roles</text>
+<text class="s" x="34" y="282">Runs as: the signed-in user</text>
+<rect class="box" x="470" y="140" width="410" height="170" rx="8" fill="#f3f2f1"/>
+<text class="h" x="484" y="166">Metadata</text>
+<text class="s" x="484" y="190">Service.getMetadata({ schema: { columns } })</text>
+<text class="s" x="484" y="212">DisplayName.UserLocalizedLabel → headers</text>
+<text class="s" x="484" y="234">IsRequiredForForm → form hints</text>
+<text class="s" x="484" y="256">no choice options (derived type)</text>
+<text class="s" x="484" y="282">Cache once per session</text>
+<rect class="box" x="20" y="350" width="410" height="170" rx="8" fill="#fff4ce"/>
+<text class="h" x="34" y="376">Dataverse functions and actions</text>
+<text class="s" x="34" y="400">pa app find-dataverse-api --search …</text>
+<text class="s" x="34" y="422">pa app add dataverse-api --api-name …</text>
+<text class="s" x="34" y="444">WhoAmI (function) → systemuser UserId</text>
+<text class="s" x="34" y="466">AddToQueue (bound to queue) → case</text>
+<text class="s" x="34" y="488">  back to Cedar Service Desk</text>
+<text class="s" x="34" y="510">Runs as: the signed-in user</text>
+<rect class="box" x="470" y="350" width="410" height="170" rx="8" fill="#fde7e9"/>
+<text class="h" x="484" y="376">Cloud flows</text>
+<text class="s" x="484" y="400">solution-aware, instant, Power Apps trigger</text>
+<text class="s" x="484" y="422">pa app list-flows / pa app add flow --flow-id</text>
+<text class="s" x="484" y="444">Cedar – Request FieldLink dispatch</text>
+<text class="s" x="484" y="466">  reads env var cedar_FieldLinkSyncEnabled</text>
+<text class="s" x="484" y="488">Service.Run({ text: id }) → result, message</text>
+<text class="s" x="484" y="510">Runs as: flow connections (reference)</text>
+<line class="a" x1="380" y1="90" x2="240" y2="138"/>
+<line class="a" x1="520" y1="90" x2="660" y2="138"/>
+<path class="a" d="M400,90 L400,120 L445,120 L445,330 L240,330 L240,348"/>
+<path class="a" d="M500,90 L500,120 L455,120 L455,330 L660,330 L660,348"/>
+</svg>

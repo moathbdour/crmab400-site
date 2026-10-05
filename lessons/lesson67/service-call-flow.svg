@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">How a plug-in obtains and uses the Organization service</title>
+<desc id="d">The plug-in asks the service provider for IOrganizationServiceFactory. CreateOrganizationService with context.UserId returns a service that acts as the step's user and is limited by that user's security roles. CreateOrganizationService with null returns a service that acts as the SYSTEM user and is not limited by the caller's roles. Each call on a service, such as Retrieve, RetrieveMultiple, Create, Update, Delete or Execute, is a new message that runs through its own event pipeline with depth increased by one. When the calling step is synchronous in stage 20 or 40, the nested operation is part of the same database transaction, so an error in it rolls back everything.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">From the service provider to a data operation: Omar resolves a case</text>
+
+<rect class="box" x="20" y="50" width="280" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="74">1. Plug-in step (Depth 1)</text>
+<text x="32" y="98">Close / incident / PreOperation</text>
+<text x="32" y="120">synchronous, inside the transaction</text>
+<text class="m" x="32" y="144">Execute(serviceProvider)</text>
+
+<path class="a" d="M300,105 L350,105"/>
+<rect class="box" x="350" y="50" width="300" height="110" rx="8" fill="#e6e6e6"/>
+<text class="b" x="362" y="74">2. IOrganizationServiceFactory</text>
+<text x="362" y="98">Requested by type from the provider.</text>
+<text x="362" y="120">Creates a service for one identity.</text>
+<text class="m" x="362" y="144">CreateOrganizationService(id)</text>
+
+<path class="a" d="M500,160 L260,210"/>
+<path class="a" d="M500,160 L740,210"/>
+
+<rect class="box" x="20" y="210" width="470" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="234">3a. Service as the user: context.UserId</text>
+<text x="32" y="258">Acts as Omar (or the step's "Run in User's Context" user).</text>
+<text x="32" y="280">Security roles, sharing and column security apply.</text>
+<text x="32" y="302">Use for: anything done on the user's behalf.</text>
+<text x="32" y="324">Cedar: read the case being resolved, default the service line.</text>
+
+<rect class="box" x="510" y="210" width="470" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="522" y="234">3b. Service as SYSTEM: null</text>
+<text x="522" y="258">Acts as the built-in SYSTEM user: sees and changes every row.</text>
+<text x="522" y="280">The caller's roles do not limit it. Created by = SYSTEM.</text>
+<text x="522" y="302">Use for: a rule that must hold whatever the caller may read.</text>
+<text x="522" y="324">Cedar: count open work orders. Disclose only the count.</text>
+
+<path class="a" d="M255,340 L400,392"/>
+<path class="a" d="M745,340 L600,392"/>
+
+<rect class="box" x="150" y="392" width="700" height="96" rx="8" fill="#e6e6e6"/>
+<text class="b" x="162" y="416">4. Every call is a new message with its own pipeline (Depth 2)</text>
+<text class="m" x="162" y="440">Retrieve  RetrieveMultiple  Create  Update  Delete  Associate  Execute</text>
+<text x="162" y="464">Other plug-ins registered on that message and table run too. No Web API, no sign-in:</text>
+<text x="162" y="482">the user is already authenticated.</text>
+
+<path class="a" d="M500,488 L500,520"/>
+<rect class="box" x="20" y="520" width="960" height="82" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="544">5. One transaction</text>
+<text x="32" y="566">Called from a synchronous step in stage 20 or 40, the nested operation joins the caller's transaction and sees its uncommitted changes.</text>
+<text x="32" y="588">If a nested operation fails, the whole transaction ends. Catching the error and continuing is not possible: report it or let it fail.</text>
+</svg>

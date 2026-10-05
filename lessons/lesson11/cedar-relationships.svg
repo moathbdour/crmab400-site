@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t">
+<title id="t">Cedar Site relationships and delete behavior</title>
+<rect width="900" height="520" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="450" y="32" text-anchor="middle" font-size="20" font-weight="bold">Site relationships in Karim-Dev and what Delete does</text>
+<rect x="40" y="70" width="220" height="80" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="150" y="102" text-anchor="middle" font-weight="bold">Account (parent)</text>
+<text x="150" y="126" text-anchor="middle">Harbor View Medical Center</text>
+<rect x="340" y="70" width="220" height="80" rx="8" fill="#e6f4ea" stroke="#1e7b34"/>
+<text x="450" y="102" text-anchor="middle" font-weight="bold">Site (child)</text>
+<text x="450" y="126" text-anchor="middle">lookup: Account</text>
+<line x1="260" y1="110" x2="336" y2="110" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="298" y="98" text-anchor="middle" font-size="14">1 : N</text>
+<rect x="640" y="70" width="220" height="80" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="750" y="102" text-anchor="middle" font-weight="bold">Contact</text>
+<text x="750" y="126" text-anchor="middle">Rana Mansour</text>
+<line x1="560" y1="110" x2="636" y2="110" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)" marker-start="url(#a)"/>
+<text x="598" y="98" text-anchor="middle" font-size="14">N : N</text>
+<rect x="560" y="170" width="300" height="56" rx="8" fill="#f3f3f3" stroke="#555555"/>
+<text x="710" y="194" text-anchor="middle">Hidden intersect table</text>
+<text x="710" y="215" text-anchor="middle" font-size="14">one row per Site–Contact pair</text>
+<rect x="340" y="250" width="220" height="80" rx="8" fill="#fff4e0" stroke="#a86500"/>
+<text x="450" y="282" text-anchor="middle" font-weight="bold">Case (lesson 16)</text>
+<text x="450" y="306" text-anchor="middle">lookup: Site (planned)</text>
+<line x1="450" y1="150" x2="450" y2="246" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="490" y="205" text-anchor="middle" font-size="14">1 : N</text>
+<text x="450" y="372" text-anchor="middle" font-size="17" font-weight="bold">Delete behavior chosen for each relationship</text>
+<rect x="40" y="390" width="260" height="110" rx="8" fill="#fdecea" stroke="#b3261e"/>
+<text x="170" y="418" text-anchor="middle" font-weight="bold">Account → Site: Restrict</text>
+<text x="170" y="442" text-anchor="middle">Deleting Harbor View fails</text>
+<text x="170" y="464" text-anchor="middle">while any Site points to it.</text>
+<text x="170" y="486" text-anchor="middle">Dana must move sites first.</text>
+<rect x="320" y="390" width="260" height="110" rx="8" fill="#fff4e0" stroke="#a86500"/>
+<text x="450" y="418" text-anchor="middle" font-weight="bold">Site → Case: Remove Link</text>
+<text x="450" y="442" text-anchor="middle">Deleting a Site keeps cases;</text>
+<text x="450" y="464" text-anchor="middle">their Site lookup becomes</text>
+<text x="450" y="486" text-anchor="middle">empty (history survives).</text>
+<rect x="600" y="390" width="260" height="110" rx="8" fill="#f3f3f3" stroke="#555555"/>
+<text x="730" y="418" text-anchor="middle" font-weight="bold">Site ↔ Contact (N:N)</text>
+<text x="730" y="442" text-anchor="middle">Deleting either side removes</text>
+<text x="730" y="464" text-anchor="middle">only the intersect rows; no</text>
+<text x="730" y="486" text-anchor="middle">cascade options exist.</text>
+</g>
+</svg>

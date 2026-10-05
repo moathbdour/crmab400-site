@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" role="img" aria-labelledby="t">
+<title id="t">Cedar experience ladder. Ask nine questions in order; the first yes decides. 1 standard model-driven form, view or dashboard is enough: model-driven app. 2 external users without Entra work accounts: Power Pages. 3 conversation in natural language: agent, then Copilot Studio or Foundry. 4 rich interactive UI inside an agent chat: MCP app widget. 5 change behaviour of a form: business rule or client script. 6 custom rendering of one field or grid, reused: PCF control. 7 whole page inside a model-driven app on Dataverse: generative page. 8 low-code task app, often mobile: canvas app. 9 full custom web app built by developers: code app. Static files and script libraries: web resource.</title>
+<rect width="980" height="620" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Experience ladder: ask from the top, first yes wins</text>
+<text x="20" y="62" font-weight="700">Question about the user experience</text><text x="560" y="62" font-weight="700">Experience (Cedar example)</text>
+<g stroke="#1f3b57" stroke-width="1.5">
+<rect x="20" y="75" width="500" height="44" fill="#eef4fa"/><rect x="560" y="75" width="400" height="44" fill="#e8f5e9"/>
+<rect x="20" y="129" width="500" height="44" fill="#eef4fa"/><rect x="560" y="129" width="400" height="44" fill="#e8f5e9"/>
+<rect x="20" y="183" width="500" height="44" fill="#eef4fa"/><rect x="560" y="183" width="400" height="44" fill="#f3eefa"/>
+<rect x="20" y="237" width="500" height="44" fill="#eef4fa"/><rect x="560" y="237" width="400" height="44" fill="#f3eefa"/>
+<rect x="20" y="291" width="500" height="44" fill="#eef4fa"/><rect x="560" y="291" width="400" height="44" fill="#fff4dc"/>
+<rect x="20" y="345" width="500" height="44" fill="#eef4fa"/><rect x="560" y="345" width="400" height="44" fill="#fff4dc"/>
+<rect x="20" y="399" width="500" height="44" fill="#eef4fa"/><rect x="560" y="399" width="400" height="44" fill="#fff4dc"/>
+<rect x="20" y="453" width="500" height="44" fill="#eef4fa"/><rect x="560" y="453" width="400" height="44" fill="#fff4dc"/>
+<rect x="20" y="507" width="500" height="44" fill="#eef4fa"/><rect x="560" y="507" width="400" height="44" fill="#fdecea"/>
+</g>
+<g stroke="#1f3b57" stroke-width="2">
+<line x1="520" y1="97" x2="558" y2="97"/><line x1="520" y1="151" x2="558" y2="151"/><line x1="520" y1="205" x2="558" y2="205"/><line x1="520" y1="259" x2="558" y2="259"/><line x1="520" y1="313" x2="558" y2="313"/><line x1="520" y1="367" x2="558" y2="367"/><line x1="520" y1="421" x2="558" y2="421"/><line x1="520" y1="475" x2="558" y2="475"/><line x1="520" y1="529" x2="558" y2="529"/>
+</g>
+<text x="32" y="102">1 Standard form, view or dashboard is enough?</text><text x="572" y="102">Model-driven app — XP-01 Case intake</text>
+<text x="32" y="156">2 Users outside Cedar (no work account)?</text><text x="572" y="156">Power Pages — XP-07 Customer portal</text>
+<text x="32" y="210">3 User asks in natural language?</text><text x="572" y="210">Agent: Copilot Studio (XP-08) / Foundry (XP-09)</text>
+<text x="32" y="264">4 Interactive UI inside the agent chat?</text><text x="572" y="264">MCP app widget — XP-10 Work order card</text>
+<text x="32" y="318">5 Change how an existing form behaves?</text><text x="572" y="318">Business rule / client script — XP-03</text>
+<text x="32" y="372">6 Custom rendering of one field or grid, reused?</text><text x="572" y="372">PCF control — XP-04 FieldLink timeline</text>
+<text x="32" y="426">7 Whole page in model-driven app, Dataverse data?</text><text x="572" y="426">Generative page — XP-02 Dispatch board</text>
+<text x="32" y="480">8 Low-code task app, often phone?</text><text x="572" y="480">Canvas app — XP-06 Site Check</text>
+<text x="32" y="534">9 Full custom web app built by developers?</text><text x="572" y="534">Code app — XP-05 Dispatch planner</text>
+<text x="20" y="590" fill="#4a4a4a">Supporting: web resources hold script libraries, icons and small static HTML (XP-11 help pane). Legend: green OOB/low-code, purple agents, amber in-app extensions, red pro-code app.</text>
+</g>
+</svg>

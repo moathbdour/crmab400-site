@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="t">
+<title id="t">Cedar CI/CD: export to Git, build, then hand off to Cedar Release Pipeline</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700}.b{fill:#eef4fb;stroke:#2b5d8c;stroke-width:2}.g{fill:#eef8ee;stroke:#2e7d32;stroke-width:2}.o{fill:#fff4e5;stroke:#b36b00;stroke-width:2}line{stroke:#333;stroke-width:2;marker-end:url(#a)}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect width="900" height="420" fill="#fff"/>
+<rect class="b" x="20" y="40" width="190" height="120" rx="8"/><text class="h" x="35" y="68">1 Export (Cedar-Dev)</text><text x="35" y="95">export-to-git.yml</text><text x="35" y="118">export unmanaged</text><text x="35" y="141">unpack → PR branch</text>
+<rect class="b" x="250" y="40" width="190" height="120" rx="8"/><text class="h" x="265" y="68">2 Pull request</text><text x="265" y="95">Karim reviews diff</text><text x="265" y="118">Dana approves</text><text x="265" y="141">merge to main</text>
+<rect class="g" x="480" y="40" width="190" height="120" rx="8"/><text class="h" x="495" y="68">3 Build (main)</text><text x="495" y="95">node tests, pack</text><text x="495" y="118">managed + unmanaged</text><text x="495" y="141">solution checker</text>
+<rect class="g" x="710" y="40" width="170" height="120" rx="8"/><text class="h" x="725" y="68">4 Build artifact</text><text x="725" y="95">CedarServiceCore</text><text x="725" y="118">_1_5_0_0_managed</text><text x="725" y="141">+ settings files</text>
+<line x1="210" y1="100" x2="248" y2="100"/><line x1="440" y1="100" x2="478" y2="100"/><line x1="670" y1="100" x2="708" y2="100"/>
+<rect class="o" x="480" y="230" width="400" height="120" rx="8"/><text class="h" x="495" y="258">5 Deploy</text><text x="495" y="285">Test: import artifact (Build Tools) or</text><text x="495" y="308">pac pipeline deploy → Cedar Release Pipeline</text><text x="495" y="331">Prod: Lina approval + change window (lesson 47)</text>
+<line x1="795" y1="160" x2="720" y2="228"/>
+<rect class="o" x="20" y="230" width="400" height="120" rx="8"/><text class="h" x="35" y="258">Rollback = roll forward</text><text x="35" y="285">git revert on main → version 1.5.1.0</text><text x="35" y="308">rebuild, redeploy through the same path</text><text x="35" y="331">restore backup only for data loss</text>
+<line x1="478" y1="290" x2="422" y2="290"/>
+<text x="20" y="395">Git main is the source of truth; every environment gets a build of a commit, never a hand export.</text>
+</svg>

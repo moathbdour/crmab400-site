@@ -1,0 +1,48 @@
+{
+  "person": "<your name>",
+  "exam": "AB-400",
+  "appointment": "<YYYY-MM-DDTHH:MM local>",
+  "delivery": "online | test-centre",
+  "durationMinutes": "<from your confirmation>",
+  "seatMinutes": "<from your confirmation>",
+  "questions": [
+    40,
+    50,
+    60
+  ],
+  "decideBy": "<YYYY-MM-DDTHH:MM, before the 24-hour deadline>",
+  "catalog": "docs/exam/ab400-objectives.json",
+  "features": [
+    "docs/exam/features-integrations.json",
+    "docs/exam/features-identity-karim.json",
+    "docs/exam/features-practice.json"
+  ],
+  "forms": {
+    "before": [
+      "docs/exam/practice-assessment-1.json",
+      "docs/exam/<you>-pa1-<date>.json"
+    ],
+    "beforeAssessment": "docs/exam/<you>-assessment-<date>.json",
+    "last": [
+      "docs/exam/practice-assessment-2.json",
+      "docs/exam/<you>-pa2-<date>.json"
+    ],
+    "lastAssessment": "docs/exam/<you>-assessment-<date>.json"
+  },
+  "deck": "docs/exam/<you>-cards-<date>.json",
+  "labs": {
+    "file": "docs/exam/remediation-labs-1.1.json",
+    "from": "<first revision day>",
+    "until": "<two days before the exam>",
+    "minutesPerDay": 90
+  },
+  "revision": {
+    "from": "<first revision day>",
+    "budget": {
+      "<day 1>": 150,
+      "<day 2>": 150,
+      "<day before the exam>": 45
+    },
+    "cardMinutes": 1.5
+  }
+}

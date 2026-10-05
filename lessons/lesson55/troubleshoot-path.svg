@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img" aria-labelledby="t d">
+<title id="t">Troubleshooting path for a failing form script</title>
+<desc id="d">Start with a symptom on the Cedar Case form. Step 1: reproduce and read the error dialog and console. Step 2: isolate with URL flags DisableFormHandlers=true and DisableFormLibraries=true; if the problem disappears, the cause is custom script, otherwise it is platform, data or configuration. Step 3: use Monitor with Form checker to see which handlers ran and how long. Step 4: debug with DevTools Sources breakpoints or Fiddler AutoResponder to serve a local file. Step 5: fix, add a failing unit test first, publish and verify the new token.</desc>
+<rect width="960" height="470" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="20" width="290" height="100" rx="8" fill="#fdecea" stroke="#b3261e"/>
+<text x="34" y="46" font-weight="bold">Symptom (Case form)</text>
+<text x="34" y="72">Script error, slow load,</text>
+<text x="34" y="96">wrong behaviour, old code</text>
+<line x1="310" y1="70" x2="355" y2="70" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="360" y="20" width="270" height="100" rx="8" fill="#eef4fb" stroke="#1f5fa8"/>
+<text x="374" y="46" font-weight="bold">1. Reproduce</text>
+<text x="374" y="72">Error dialog details,</text>
+<text x="374" y="96">F12 Console + Network</text>
+<line x1="630" y1="70" x2="675" y2="70" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="680" y="20" width="260" height="100" rx="8" fill="#fff7e6" stroke="#b36b00"/>
+<text x="694" y="46" font-weight="bold">2. Isolate (URL flags)</text>
+<text x="694" y="72">&amp;flags=DisableFormHandlers</text>
+<text x="694" y="96">=true (or ...Libraries)</text>
+<line x1="810" y1="120" x2="810" y2="165" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="560" y="170" width="380" height="110" rx="8" fill="#ffffff" stroke="#333"/>
+<text x="574" y="196" font-weight="bold">Problem gone?</text>
+<text x="574" y="222">Yes → custom script is the cause</text>
+<text x="574" y="246">No → platform, data, config, other</text>
+<text x="574" y="270">   customization (business rule, plug-in)</text>
+<line x1="560" y1="225" x2="505" y2="225" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="170" width="480" height="110" rx="8" fill="#eaf6ee" stroke="#2e7d32"/>
+<text x="34" y="196" font-weight="bold">3. Monitor + Form checker</text>
+<text x="34" y="222">Which handlers ran, in what order, how long;</text>
+<text x="34" y="246">unsupported calls; FullLoad timing</text>
+<text x="34" y="270">(app designer → Monitor, or &amp;monitor=true)</text>
+<line x1="260" y1="280" x2="260" y2="325" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="330" width="440" height="120" rx="8" fill="#f3eefb" stroke="#6a3fb5"/>
+<text x="34" y="356" font-weight="bold">4. Debug</text>
+<text x="34" y="382">DevTools Sources: breakpoint in triage.js</text>
+<text x="34" y="406">Fiddler AutoResponder: serve local file</text>
+<text x="34" y="430">without publishing</text>
+<line x1="460" y1="390" x2="505" y2="390" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="510" y="330" width="430" height="120" rx="8" fill="#eaf6ee" stroke="#2e7d32"/>
+<text x="524" y="356" font-weight="bold">5. Fix and prove</text>
+<text x="524" y="382">Failing unit test first, then fix</text>
+<text x="524" y="406">check-webresources + solution checker</text>
+<text x="524" y="430">Publish; confirm new token in Network</text>
+</g>
+</svg>

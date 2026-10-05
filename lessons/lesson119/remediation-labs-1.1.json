@@ -1,0 +1,291 @@
+{
+  "version": "1.1",
+  "lesson": 119,
+  "checkedOn": "2026-10-05",
+  "labs": [
+    {
+      "id": "R1",
+      "title": "Pace, Learn budget and answer changes",
+      "minutes": 30,
+      "lessons": [
+        118
+      ],
+      "targets": {
+        "findings": [
+          "pace",
+          "learn-budget",
+          "second-guessing"
+        ]
+      },
+      "steps": [
+        "Signal sprint: 15 stems from the four domain banks, 45 seconds each, write only the signal phrase.",
+        "Ten-item set at the PA2 first-pass rate (1.7 minutes) with a visible clock and no Learn.",
+        "Write the three rules on a card: Learn only for a fact once the item is solved (2 min, 6 per form); change an answer only for a new fact or a misread stem; flag and move on after twice the rate."
+      ],
+      "exit": "Ten items in at most 17 minutes, no Learn, no answer changed without a written reason."
+    },
+    {
+      "id": "R2",
+      "title": "Bulk writes that isolate bad rows",
+      "minutes": 35,
+      "lessons": [
+        14,
+        78,
+        93
+      ],
+      "targets": {
+        "objectives": [
+          "E-15"
+        ],
+        "habits": [
+          "wrong-detail"
+        ]
+      },
+      "steps": [
+        "Fill the write-pattern table for standard and elastic tables: CreateMultiple/UpdateMultiple/UpsertMultiple, ExecuteMultiple with ContinueOnError, ExecuteTransaction, $batch change sets.",
+        "Run lesson 78's bulk sample against the fake service with one invalid row in a batch of 1,000 and compare the two strategies' saved counts.",
+        "Rewrite PA-38's solution so it meets every part of the goal."
+      ],
+      "exit": "Explain closed-book what one bad row does to UpsertMultiple on a standard table, to ExecuteMultiple with ContinueOnError and to CreateMultiple on an elastic table."
+    },
+    {
+      "id": "R3",
+      "title": "Identity gates: token, user, role, resource",
+      "minutes": 30,
+      "lessons": [
+        25,
+        29,
+        73,
+        85
+      ],
+      "targets": {
+        "objectives": [
+          "E-26"
+        ],
+        "pairs": [
+          "api-permission~security-role"
+        ]
+      },
+      "steps": [
+        "Draw the four gates for an app-only call: Entra token, application user in the environment, security role privileges, Azure role on an Azure resource.",
+        "Sort eight Cedar error messages to the gate that produced them.",
+        "For each, write the one change that opens that gate and nothing else."
+      ],
+      "exit": "Name the gate and the least-privilege fix for \"missing prvWriteIncident\", \"not a user of the organization\", AADSTS700016 and a 403 from Key Vault."
+    },
+    {
+      "id": "R4",
+      "title": "Alert latency budget",
+      "minutes": 30,
+      "lessons": [
+        105,
+        111
+      ],
+      "targets": {
+        "objectives": [
+          "B-17"
+        ],
+        "pairs": [
+          "appinsights-export~log-search-alert"
+        ]
+      },
+      "steps": [
+        "Write the latency of each signal source: Monitor alert rules (24-hour evaluation), admin export to Application Insights (up to a day), own telemetry (minutes), per-item notification (immediate).",
+        "Write the KQL and alert settings for PA-42's requirement 4 and compare with the published solution.",
+        "Classify five Cedar monitoring requirements by the number in each."
+      ],
+      "exit": "For any requirement with a time limit, name the fastest suitable source and why each slower one fails."
+    },
+    {
+      "id": "R5",
+      "title": "Lookup filters and CSP directives",
+      "minutes": 35,
+      "lessons": [
+        50,
+        51,
+        64
+      ],
+      "targets": {
+        "objectives": [
+          "U-02",
+          "U-18"
+        ],
+        "pairs": [
+          "csp-frame-ancestors~csp-frame-src"
+        ],
+        "habits": [
+          "wrong-detail"
+        ]
+      },
+      "steps": [
+        "Write the OnLoad handler that adds one PreSearch filter reading the current service line (PA-13), and say why addPreSearch in OnChange stacks filters.",
+        "Draw the parent and child frames for the Dispatch Planner: who embeds whom, and which directive governs each arrow.",
+        "Answer four directive questions with the frame drawing only."
+      ],
+      "exit": "Say which directive allows the app to be embedded and which allows the app to embed, with one Cedar example of each, without notes."
+    },
+    {
+      "id": "R6",
+      "title": "Long-running custom API calls",
+      "minutes": 25,
+      "lessons": [
+        65,
+        70,
+        79
+      ],
+      "targets": {
+        "objectives": [
+          "E-17"
+        ],
+        "pairs": [
+          "async-plugin-step~background-operation"
+        ],
+        "habits": [
+          "wrong-place"
+        ]
+      },
+      "steps": [
+        "Send cedar_RecalculateContracts with Prefer: respond-async in Cedar-Test (or read the recorded responses in the lesson) and follow the Location URL.",
+        "Fill the table: asynchronous step versus background operation (who waits, what returns, time limit, preview status)."
+      ],
+      "exit": "Explain why an asynchronous step can't free a caller that needs a result, and what Prefer: respond-async changes and doesn't change."
+    },
+    {
+      "id": "R7",
+      "title": "Code app flows and connector metadata",
+      "minutes": 35,
+      "lessons": [
+        62,
+        94
+      ],
+      "targets": {
+        "objectives": [
+          "U-15",
+          "I-13"
+        ],
+        "pairs": [
+          "dynamic-values~openapi-enum"
+        ],
+        "habits": [
+          "wrong-detail"
+        ]
+      },
+      "steps": [
+        "List which flows a code app can call and add one with pa app list-flows and pa app add flow (or read the commands in the lesson).",
+        "Write the x-ms-dynamic-values block for PA-32 and an enum for a fixed list; mark which values change."
+      ],
+      "exit": "For a parameter list, decide enum or x-ms-dynamic-values from how often the values change, and name the four dynamic-values properties."
+    },
+    {
+      "id": "R8",
+      "title": "Choosing the automation host",
+      "minutes": 20,
+      "lessons": [
+        81,
+        86,
+        97
+      ],
+      "targets": {
+        "objectives": [
+          "B-13"
+        ],
+        "pairs": [
+          "agent-flow~cloud-flow"
+        ],
+        "habits": [
+          "wrong-place"
+        ]
+      },
+      "steps": [
+        "Fill the decision table: Power Automate cloud flow, agent flow, Copilot Studio workflow, classic workflow (who calls it, billing, when to use).",
+        "Classify six Cedar automation requests."
+      ],
+      "exit": "Say in one sentence each when an agent flow is right and when a cloud flow is right, with the capacity each consumes."
+    },
+    {
+      "id": "R9",
+      "title": "Calibration: re-rate Build closed-book",
+      "minutes": 35,
+      "lessons": [
+        113,
+        114,
+        118
+      ],
+      "targets": {
+        "findings": [
+          "calibration"
+        ]
+      },
+      "steps": [
+        "List Build ratings of 2 or 3 whose evidence is older than 1 December (remediation.mjs --stale).",
+        "For each, recall the rule card closed-book and explain it aloud in under two minutes.",
+        "Recalled: rating 2 with dated evidence (a recall proves 2, not 3). Not recalled: rating 1."
+      ],
+      "exit": "Every stale Build rating has evidence dated after 1 December, and C-73 Build readiness is recomputed from it."
+    },
+    {
+      "id": "R10",
+      "title": "Plug-in registration and performance",
+      "minutes": 30,
+      "lessons": [
+        68,
+        69,
+        71
+      ],
+      "targets": {
+        "objectives": [
+          "E-06",
+          "E-08"
+        ]
+      },
+      "steps": [
+        "Order the six optimisation moves (don't run, run later, read less, write less, hold locks briefly, measure) and match each to a registration setting or code change.",
+        "For a step that needs a region code and an API key, say where each value lives and which travels with the solution."
+      ],
+      "exit": "Say closed-book what filtering attributes, images, unsecure configuration, secure configuration and managed identity for plug-ins each do, and which are exported."
+    },
+    {
+      "id": "R11",
+      "title": "Connector functions and custom code",
+      "minutes": 35,
+      "lessons": [
+        94,
+        95
+      ],
+      "targets": {
+        "objectives": [
+          "I-12",
+          "I-14"
+        ],
+        "habits": [
+          "wrong-gate"
+        ]
+      },
+      "steps": [
+        "Draw the call from a flow through the connector and API Management to the function, and mark where the user's identity is checked.",
+        "List the custom code limits (time, size, one script, no gateway, no logging) and what a policy template can and can't do."
+      ],
+      "exit": "Explain why a function key can't tell the function who the user is, and what App Service authentication adds, without notes."
+    },
+    {
+      "id": "R12",
+      "title": "Solution layers and code app data",
+      "minutes": 25,
+      "lessons": [
+        45,
+        62
+      ],
+      "targets": {
+        "objectives": [
+          "B-20",
+          "U-13"
+        ]
+      },
+      "steps": [
+        "Draw the layer stack of a form with an active unmanaged layer and say what publishing, update, upgrade and removing the active layer each change.",
+        "Write the update call for one changed column and the getMetadata call for a display name, with caching."
+      ],
+      "exit": "Say which layer wins and how to remove it, and why an update sends only changed columns, without notes."
+    }
+  ]
+}

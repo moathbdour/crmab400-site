@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img" aria-labelledby="t">
+<title id="t">Lifecycle of the site briefing dispatch request: the submit handler awaits sendDispatch, fetch sends an HTTP POST to the mock dispatch server, the call stack stays free while waiting, and the response is classified into success, retryable failure or permanent failure</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="470" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Browser (site-briefing.js)</text>
+<text x="640" y="30" font-weight="700" font-size="17">Mock dispatch server (Node, port 3036)</text>
+<rect x="20" y="45" width="260" height="80" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="32" y="72" font-weight="600">1. submit handler</text>
+<text x="32" y="96" font-size="14">validateReport → no errors</text>
+<text x="32" y="116" font-size="14">await sendDispatch(message)</text>
+<rect x="330" y="45" width="260" height="80" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="342" y="72" font-weight="600">2. fetch() returns a Promise</text>
+<text x="342" y="96" font-size="14">POST /api/dispatch-reports</text>
+<text x="342" y="116" font-size="14">JSON body + Idempotency-Key</text>
+<path d="M280 85H325" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="640" y="45" width="300" height="80" fill="#fdf3e7" stroke="#8a4b08"/>
+<text x="652" y="72" font-weight="600">3. server checks request</text>
+<text x="652" y="96" font-size="14">Content-Type, JSON, siteCode</text>
+<text x="652" y="116" font-size="14">201 Created / 400 / 503 + Retry-After</text>
+<path d="M590 85H635" stroke="#8a4b08" stroke-width="2" marker-end="url(#a)"/>
+<text x="600" y="68" font-size="14" fill="#8a4b08">HTTP</text>
+<rect x="20" y="150" width="570" height="60" fill="#f4f4f4" stroke="#666" stroke-dasharray="6 4"/>
+<text x="32" y="176" font-weight="600">While waiting: call stack is empty, page stays responsive</text>
+<text x="32" y="198" font-size="14">button disabled, role="status" says “Sending report…”, AbortController timer runs (10 s)</text>
+<path d="M790 125V250H600" stroke="#8a4b08" stroke-width="2" marker-end="url(#a)"/>
+<text x="700" y="243" font-size="14" fill="#8a4b08">Response</text>
+<rect x="330" y="230" width="260" height="70" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="342" y="257" font-weight="600">4. check response.ok</text>
+<text x="342" y="280" font-size="14">then await response.json()</text>
+<path d="M460 300V330" stroke="#1f3b57" stroke-width="2"/>
+<path d="M130 330H800" stroke="#1f3b57" stroke-width="2"/>
+<path d="M150 330V355" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M460 330V355" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<path d="M780 330V355" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="360" width="270" height="95" fill="#e8f5e9" stroke="#2e6b31"/>
+<text x="32" y="386" font-weight="600">2xx: sent</text>
+<text x="32" y="410" font-size="14">Show “Report DR-0001 sent to</text>
+<text x="32" y="430" font-size="14">dispatch.” Keep form reset.</text>
+<rect x="320" y="360" width="290" height="95" fill="#fff8e1" stroke="#8a6d00"/>
+<text x="332" y="386" font-weight="600">Retryable: network, timeout,</text>
+<text x="332" y="408" font-weight="600">408, 429, 5xx</text>
+<text x="332" y="432" font-size="14">Wait (Retry-After or 1 s, 2 s), same</text>
+<text x="332" y="450" font-size="14">Idempotency-Key, max 3 attempts</text>
+<rect x="640" y="360" width="300" height="95" fill="#fdecea" stroke="#a4262c"/>
+<text x="652" y="386" font-weight="600">Permanent: other 4xx</text>
+<text x="652" y="410" font-size="14">No retry. Show server message,</text>
+<text x="652" y="430" font-size="14">keep Sami's text, “Call dispatch”.</text>
+</g>
+</svg>

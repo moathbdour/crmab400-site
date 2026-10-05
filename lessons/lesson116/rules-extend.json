@@ -1,0 +1,440 @@
+{
+  "domain": "extend",
+  "version": "1.0",
+  "lesson": 116,
+  "checkedOn": "2026-10-05",
+  "rules": [
+    {
+      "objective": "E-01",
+      "topic": "Pipeline stages",
+      "rule": "PreValidation (10) cancels on submitted values before the transaction; PreOperation (20) changes the Target inside it; PostOperation (40) acts on the saved row. Asynchronous steps exist only in PostOperation, run after commit and can't cancel. MainOperation (30) is for custom APIs and virtual table providers.",
+      "signals": [
+        "reject before anything is written",
+        "change the incoming value",
+        "must not block the save"
+      ],
+      "trap": "Cancelling in PreOperation or in an asynchronous step; external calls in a synchronous step",
+      "lessons": [
+        65
+      ]
+    },
+    {
+      "objective": "E-02",
+      "topic": "Execution context",
+      "rule": "Read message, stage, mode, Target, images, SharedVariables, UserId and InitiatingUserId per request. UserId is the step's run-as identity, InitiatingUserId the real caller. Values shared in PreValidation are read from ParentContext.SharedVariables later. Never keep the context in a field.",
+      "signals": [
+        "who actually made the change",
+        "pass a value to a later stage",
+        "runs as another user"
+      ],
+      "trap": "UserId under impersonation; static fields; logic that depends on Depth or ParentContext order",
+      "lessons": [
+        66,
+        68
+      ]
+    },
+    {
+      "objective": "E-03",
+      "topic": "Plug-in business logic",
+      "rule": "Rules that must hold for every caller go in a step on the real message (Close, not Update of statecode), with the rule itself in a pure class. Refuse with InvalidPluginExecutionException and a safe message; never catch a failed data operation and continue inside the transaction.",
+      "signals": [
+        "every channel",
+        "imports and integrations too",
+        "show the user why"
+      ],
+      "trap": "A client script or flow for a rule that must always hold; swallowing a failed service call",
+      "lessons": [
+        67,
+        72
+      ]
+    },
+    {
+      "objective": "E-04",
+      "topic": "Images",
+      "rule": "A pre-image holds stored values before the operation (none on Create); a post-image holds them after it (PostOperation only, none on Delete). Register them on the step with an alias and only the needed columns. A Delete Target is an EntityReference.",
+      "signals": [
+        "compare old and new",
+        "value not submitted",
+        "row being deleted"
+      ],
+      "trap": "Reading unsubmitted columns from the Target; all-column images; post-images before PostOperation",
+      "lessons": [
+        66
+      ]
+    },
+    {
+      "objective": "E-05",
+      "topic": "Organization service in plug-ins",
+      "rule": "Get IOrganizationService from the factory: CreateOrganizationService(context.UserId) for caller-scoped work, null (SYSTEM) when a rule must see all rows, disclosing only what is safe. Name columns, cap queries, update a new Entity with only changed columns, Execute for messages without a method.",
+      "signals": [
+        "the user may not see all rows",
+        "a value from a related row",
+        "only the changed column"
+      ],
+      "trap": "HttpClient or ServiceClient inside a plug-in; ColumnSet(true); Update on the row being created",
+      "lessons": [
+        67
+      ]
+    },
+    {
+      "objective": "E-06",
+      "topic": "Optimize plug-ins",
+      "rule": "In this order: don't run (filtering attributes, right message), run later (asynchronous above about 2 seconds), read less (images, named columns), write less (only differences), hold locks briefly, measure (trace durations, admin analytics). The 2-minute limit is fixed and Depth is not a guard.",
+      "signals": [
+        "runs on every save",
+        "takes 5 seconds",
+        "times out intermittently"
+      ],
+      "trap": "Depth checks; raising time-outs; the primary key in filtering attributes; threads or ExecuteMultiple in a plug-in",
+      "lessons": [
+        69,
+        106
+      ]
+    },
+    {
+      "objective": "E-07",
+      "topic": "Custom API message",
+      "rule": "Design the contract before saving: unique name, binding (global, entity, entity collection), function (GET, read-only, needs a response property) or action (POST, the only kind flows call), step type None / Async Only / Sync and Async, and an execute privilege for access. Immutable properties mean a new API for breaking changes.",
+      "signals": [
+        "called from a flow",
+        "nobody may change the outcome",
+        "on one record"
+      ],
+      "trap": "A function for a flow; Is Private as security; custom process actions; editing immutable properties",
+      "lessons": [
+        70
+      ]
+    },
+    {
+      "objective": "E-08",
+      "topic": "Plug-in Registration Tool",
+      "rule": "Register the assembly or package (types come from reflection), then steps (message, table, stage, mode, filtering attributes, run-as, order), then images, and add them to your unmanaged solution. Unsecure configuration travels with the step; secure configuration is admin-only and not exported. A major or minor version change creates a new assembly.",
+      "signals": [
+        "after import the setting is empty",
+        "the old behaviour continues",
+        "missing in Test"
+      ],
+      "trap": "Secrets in unsecure configuration; ILMerge; registration tools against Test or Prod",
+      "lessons": [
+        68
+      ]
+    },
+    {
+      "objective": "E-09",
+      "topic": "Plug-in that implements a custom API",
+      "rule": "Register the assembly without a step and set the API's Plugin Type. Read InputParameters by unique name (Target for bound APIs), set OutputParameters with exact types, check MessageName and Stage 30, throw only for refusals, and make actions idempotent because callers retry.",
+      "signals": [
+        "return a result",
+        "implement the operation",
+        "clients retry"
+      ],
+      "trap": "A PreOperation step as the implementation; answers returned as exceptions; disclosing SYSTEM reads",
+      "lessons": [
+        70
+      ]
+    },
+    {
+      "objective": "E-10",
+      "topic": "Business events",
+      "rule": "An event is a custom API with no plug-in type, Async Only, request parameters only and a name starting with On, placed in a catalog category by a catalog assignment (custom API, table or custom process action). Subscribers: \"When an action is performed\", asynchronous steps, service endpoints; raised only after success. Makers need Environment Maker or Read on Custom API, Process and SDK Message.",
+      "signals": [
+        "notify subscribers",
+        "event from an external system",
+        "can’t see the catalog in the trigger"
+      ],
+      "trap": "A main operation plug-in that updates data; Sync and Async; assignments to the root catalog",
+      "lessons": [
+        71
+      ]
+    },
+    {
+      "objective": "E-11",
+      "topic": "Managed identity for plug-ins",
+      "rule": "Sign the assembly; create a user-assigned managed identity or app registration; add a federated credential (issuer …/v2.0, version 2 subject with tenant, environment and certificate hash, audience api://AzureADTokenExchange); create the managedidentities record bound to the assembly; grant one Azure role; acquire tokens with IManagedIdentityService. One identity per environment.",
+      "signals": [
+        "no stored secret",
+        "AADSTS700213",
+        "read Key Vault from a plug-in"
+      ],
+      "trap": "Secrets in secure configuration; an application user (the other direction); unsigned or re-signed builds",
+      "lessons": [
+        71
+      ]
+    },
+    {
+      "objective": "E-12",
+      "topic": "Dataverse Web API",
+      "rule": "Entity set URLs and OData 4.0 headers; POST returns 204 with OData-EntityId; PATCH upserts unless If-Match: *; lookups via Navigation@odata.bind; If-Match with the etag returns 412 on conflict; nextLink paging, $select, FormattedValue annotations; functions use GET, actions POST, bound ones with the Microsoft.Dynamics.CRM namespace.",
+      "signals": [
+        "only if it exists",
+        "set the lookup",
+        "changed since it was read"
+      ],
+      "trap": "Logical names as lookup properties; PATCH without If-Match; $skip; mixing up function and action verbs",
+      "lessons": [
+        74,
+        52
+      ]
+    },
+    {
+      "objective": "E-13",
+      "topic": "Organization service",
+      "rule": "Create, Retrieve, RetrieveMultiple, Update, Delete, Associate, Disassociate, Execute. Messages without a method (custom APIs, Upsert, WhoAmI, bulk) go through Execute with OrganizationRequest. RetrieveMultiple takes QueryExpression, FetchExpression or QueryByAttribute; page with cookies beyond 5,000; linked columns arrive as AliasedValue.",
+      "signals": [
+        "call a custom API from .NET",
+        "more than 5,000 rows",
+        "value from a linked table"
+      ],
+      "trap": "Retrieve for a message; simple paging for exports; reading AliasedValue as the plain type",
+      "lessons": [
+        75,
+        76
+      ]
+    },
+    {
+      "objective": "E-14",
+      "topic": "API limit retries",
+      "rule": "Service protection limits: 6,000 requests, 20 minutes of execution time and 52 concurrent requests per user per web server in a 5-minute window. A 429 carries Retry-After (SDK: ErrorDetails). Wait exactly that long, bound the attempts, end with a specific outcome; ServiceClient retries itself; never retry business errors.",
+      "signals": [
+        "429",
+        "Retry-After",
+        "shared identity budget"
+      ],
+      "trap": "Own retry loops around ServiceClient; immediate retries; extra users to dodge limits",
+      "lessons": [
+        79,
+        80
+      ]
+    },
+    {
+      "objective": "E-15",
+      "topic": "Performance, concurrency, transactions, bulk",
+      "rule": "CreateMultiple and UpdateMultiple are fastest but all-or-nothing on standard tables; ExecuteMultiple (up to 1,000, a transaction per request, ContinueOnError) gives per-row verdicts; ExecuteTransaction or $batch change sets only for work that must commit together; RowVersion or If-Match for concurrency; parallelism from x-ms-dop-hint with the affinity cookie off.",
+      "signals": [
+        "some rows may be refused",
+        "all or nothing",
+        "fastest"
+      ],
+      "trap": "One huge transaction; UpdateMultiple when rows must succeed independently; unbounded threads",
+      "lessons": [
+        78,
+        80
+      ]
+    },
+    {
+      "objective": "E-16",
+      "topic": "OAuth",
+      "rule": "Entra ID tokens sent as Bearer. Delegated: public client, user_impersonation. Application: confidential client with a certificate (or a managed identity), scope <environment>/.default, an application user with a role. 401 means audience or expiry; 403 a Dataverse role; AADSTS Entra configuration; \"not a member of the organization\" no application user.",
+      "signals": [
+        "401",
+        "403",
+        "without a signed-in user"
+      ],
+      "trap": "Entra API permissions treated as Dataverse authorization; acquiring a token once",
+      "lessons": [
+        73
+      ]
+    },
+    {
+      "objective": "E-17",
+      "topic": "Background operations",
+      "rule": "Preview: send a custom API request with Prefer: respond-async to get 202 with a Location status monitor and an operation ID; learn the outcome by polling, the backgroundoperations table, a callback URL or OnBackgroundOperationComplete. It frees the caller and adds platform retries but doesn't extend the plug-in's 2-minute limit.",
+      "signals": [
+        "the caller must not wait",
+        "notify when done",
+        "custom API that takes long"
+      ],
+      "trap": "Expecting more execution time; raising client time-outs; asynchronous steps for request-response work",
+      "lessons": [
+        79
+      ]
+    },
+    {
+      "objective": "E-18",
+      "topic": "SDKs for .NET and Python",
+      "rule": ".NET clients: ServiceClient from Microsoft.PowerPlatform.Dataverse.Client, check IsReady, connection strings with ClientSecret or Certificate, or a token provider. Python: PowerPlatform-Dataverse-Client with DataverseClient(url, azure-identity credential); a list passed to create or update uses bulk messages. Both keep the Web API's security and limits.",
+      "signals": [
+        "new client application",
+        "unattended job",
+        "bulk from Python"
+      ],
+      "trap": "CrmServiceClient or the Office365 AuthType; one request per row; interactive credentials for jobs",
+      "lessons": [
+        76,
+        77
+      ]
+    },
+    {
+      "objective": "E-19",
+      "topic": "Long-running Azure Functions",
+      "rule": "HTTP-triggered functions must answer within 230 seconds: accept, return 202 with a status URL, and do the work in Durable Functions or queue workers. Orchestrators stay deterministic (no I/O, clock or sleep; activities and durable timers instead); activities are idempotent and take small inputs.",
+      "signals": [
+        "takes minutes",
+        "the caller times out",
+        "wait without paying"
+      ],
+      "trap": "Raising functionTimeout; work after the response; Thread.Sleep or I/O in an orchestrator",
+      "lessons": [
+        88,
+        87
+      ]
+    },
+    {
+      "objective": "E-20",
+      "topic": "Scheduled and event-driven triggers",
+      "rule": "Timer: six-field NCRONTAB in UTC (WEBSITE_TIME_ZONE only where supported), one instance per occurrence, no retry on failure, IsPastDue for late runs. Queue: retried until maxDequeueCount (5) and then moved to <queue>-poison. Delivery is at least once, so handlers are idempotent.",
+      "signals": [
+        "runs at the wrong hour",
+        "nothing ran again after a failure",
+        "processed twice"
+      ],
+      "trap": "Five-field cron; expecting timer retries; non-idempotent handlers",
+      "lessons": [
+        87
+      ]
+    },
+    {
+      "objective": "E-21",
+      "topic": "Managed identities to Power Platform",
+      "rule": "Assign a system- or user-assigned identity; create an application user in each environment for its application (client) ID with a security role; request <environment>/.default with Azure Identity (ManagedIdentityCredential, DefaultAzureCredential locally) and pass a token provider to the client. No secret; test with the deployed identity.",
+      "signals": [
+        "works locally, fails in Azure",
+        "not a member of the organization",
+        "no secrets"
+      ],
+      "trap": "Entra API permissions or Azure roles instead of an application user; client secrets in app settings",
+      "lessons": [
+        87,
+        71
+      ]
+    },
+    {
+      "objective": "E-22",
+      "topic": "Complex expressions",
+      "rule": "Use ? and coalesce for missing values, empty for null, if/equals/and/or with matching types, convertFromUtc with a time zone name and format, Select and Filter array instead of loops, body('Action_name') with underscores, and @{…} when the result must be text.",
+      "signals": [
+        "may be empty",
+        "local time",
+        "count matching rows"
+      ],
+      "trap": "Comparing with the wrong type or with an empty string; hard-coded offsets; loops for transformations",
+      "lessons": [
+        82
+      ]
+    },
+    {
+      "objective": "E-23",
+      "topic": "Flow control and error handling",
+      "rule": "Try/Catch/Finally with scopes and run after (has failed and has timed out); result('Try') for details; Terminate Failed to mark a handled run; retry policies only for transient errors; Do until ends without error at Count or Timeout; Terminate can't be used inside loops.",
+      "signals": [
+        "alert on any failure",
+        "show the run as failed",
+        "the loop ended without an error"
+      ],
+      "trap": "A retry policy as error handling; handlers that miss TimedOut; Terminate inside a loop",
+      "lessons": [
+        84,
+        83
+      ]
+    },
+    {
+      "objective": "E-24",
+      "topic": "Trigger filters and retry policies",
+      "rule": "Dataverse trigger: Select columns (a column included in the request, changed or not; no lookups or primary key), Filter rows (OData on the saved row), trigger conditions (@ expressions, no run created); no previous values. Retry policies Default, None, Exponential, Fixed (ISO 8601) repeat 408, 429 and 5xx only.",
+      "signals": [
+        "runs on every update",
+        "only when it becomes",
+        "transient failures"
+      ],
+      "trap": "A Condition as the first action; expecting old values; retrying 400 or 403",
+      "lessons": [
+        81,
+        84
+      ]
+    },
+    {
+      "objective": "E-25",
+      "topic": "Child flows",
+      "rule": "The child is in a solution with \"Manually trigger a flow\" and \"Respond to a Power App or flow\"; the parent uses Run a Child Flow. Connections aren't passed, so the child's non-Dataverse connections are embedded through Run only users; use retry policy None on the call when the child isn't idempotent.",
+      "signals": [
+        "reuse the same steps",
+        "only supports embedded connections",
+        "the child ran twice"
+      ],
+      "trap": "HTTP calls between flows; flows outside solutions; passing connections as inputs",
+      "lessons": [
+        84
+      ]
+    },
+    {
+      "objective": "E-26",
+      "topic": "Service principal for the Dataverse connector",
+      "rule": "An app registration with a certificate (or secret), an application user in the environment with a least-privilege role, and a \"Connect with service principal\" connection bound to a connection reference through the deployment settings file. Actions run as the application user, the flow owner is unchanged, and credentials are rotated by overlap.",
+      "signals": [
+        "not tied to a person",
+        "Modified By shows",
+        "after import into Test"
+      ],
+      "trap": "API permissions instead of a role; sharing a personal connection; System Administrator for the application user",
+      "lessons": [
+        85
+      ]
+    },
+    {
+      "objective": "E-27",
+      "topic": "Power Platform MCP servers",
+      "rule": "The Dataverse MCP server is at /api/mcp (preview tools at /api/mcp_preview); Copilot Studio is allowed by default and other clients are enabled per environment; the caller's security roles apply. Foundry's mcp tool takes allowed_tools and require_approval (default always, answered with approval responses). Streamable HTTP, not SSE; Copilot Credits apply outside Copilot Studio.",
+      "signals": [
+        "agent outside Copilot Studio",
+        "approval request",
+        "fails to connect"
+      ],
+      "trap": "require_approval never for every tool; SSE endpoints; instructions as enforcement",
+      "lessons": [
+        100
+      ]
+    },
+    {
+      "objective": "E-28",
+      "topic": "Connect custom agents and Copilot Studio agents",
+      "rule": "A Copilot Studio main agent uses a child agent (same team and release) or a connected agent with its own lifecycle: Copilot Studio, A2A, Foundry (preview; Activity protocol enabled programmatically with the full protocol list; 400, 404, 401/403 errors), Agents SDK, Fabric. A custom agent calls Copilot Studio through the client library, the connector or the early-release A2A/MCP client channels.",
+      "signals": [
+        "another team owns it",
+        "endpoint does not support activity",
+        "reuse in two agents"
+      ],
+      "trap": "A protocol PATCH that drops responses; classic-portal agents; child agents for separately owned work",
+      "lessons": [
+        101
+      ]
+    },
+    {
+      "objective": "E-29",
+      "topic": "Dataverse data through Work IQ",
+      "rule": "Work IQ and the Dataverse Ask API answer with the caller's permissions. Work IQ is delegated only (on-behalf-of supported); the Ask API takes delegated tokens or an application user. Admins control the tenant, environment and app switches and App Access; the semantic model regenerates every 12 hours. All preview on 2026-10-05.",
+      "signals": [
+        "only what the user may see",
+        "application identity",
+        "can’t find the data"
+      ],
+      "trap": "App-only tokens for Work IQ; prompt rules as security; calls with the agent identity",
+      "lessons": [
+        102
+      ]
+    },
+    {
+      "objective": "E-30",
+      "topic": "Copilot Studio client library",
+      "rule": "The Microsoft 365 Agents SDK client talks to a published agent with the delegated CopilotStudio.Copilots.Invoke permission, environment ID and schema name (or the connection string), a user token, the full activity stream and one conversation per person. Service principal tokens aren't supported, so unattended callers use Direct Line or the connector.",
+      "signals": [
+        "signed-in user",
+        "background service",
+        "only the first message"
+      ],
+      "trap": "Application permissions or managed identity; the display name instead of the schema name; stopping after the first activity",
+      "lessons": [
+        103
+      ]
+    }
+  ]
+}

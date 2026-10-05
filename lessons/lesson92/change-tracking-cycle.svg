@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">The change tracking cycle: initial load, token, changes since the token</title>
+<desc id="d">On the left is Dataverse with a table for which Track changes is enabled; the option cannot be switched off again. On the right is the consumer with its copy and its stored token. Step one, the initial request: GET cedar_workorders with a select of named columns and the header Prefer odata.track-changes; filter, orderby, expand and top are not supported. Dataverse returns every row in pages and, on the last page, a delta link, an opaque URL that contains a delta token. The consumer stores the rows and the link. Step two, some time later: the consumer sends a GET to the stored delta link. Dataverse returns only what changed since: rows that were created or updated, with the selected columns and their current values, and for each deleted row an entry with the context deletedEntity, the id and the reason deleted, followed by a new delta link. The consumer upserts the rows by id, deletes the ids, and replaces the stored link. The cycle repeats on the consumer's schedule. Notes: a row changed five times appears once with its latest values; a row created and deleted between two requests appears as a deletion of an id the consumer never had; the same link asked twice returns the same changes; a token older than the tracking window, seven days by default from the organization setting ExpireChangeTrackingInDays, is refused and the consumer must load everything again; the calling user needs organization-level read access to the table. The SDK equivalent is the RetrieveEntityChanges message with EntityName, Columns, PageInfo and DataVersion, returning NewOrUpdatedItem and RemovedOrDeletedItem entries, MoreRecords, a paging cookie and a DataToken.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Change tracking: the consumer asks "what changed since my token?"</text>
+
+<rect class="box" x="20" y="48" width="240" height="420" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">Dataverse</text>
+<text x="32" y="96">table cedar_workorder</text>
+<text x="32" y="116">Track changes: on</text>
+<text x="32" y="136">(cannot be switched off)</text>
+<text x="32" y="172">keeps, per table, what was</text>
+<text x="32" y="192">created, updated and deleted,</text>
+<text x="32" y="212">for the tracking window:</text>
+<text x="32" y="232">7 days by default</text>
+<text x="32" y="268">caller: organization-level</text>
+<text x="32" y="288">Read on the table</text>
+<text x="32" y="324">SDK: RetrieveEntityChanges</text>
+<text x="32" y="344">EntityName, Columns,</text>
+<text x="32" y="364">PageInfo, DataVersion →</text>
+<text x="32" y="384">NewOrUpdatedItem,</text>
+<text x="32" y="404">RemovedOrDeletedItem,</text>
+<text x="32" y="424">MoreRecords, DataToken</text>
+
+<rect class="box" x="740" y="48" width="240" height="420" rx="8" fill="#f3f2f1"/>
+<text class="b" x="752" y="72">Consumer</text>
+<text x="752" y="96">Rafi's reporting database</text>
+<text x="752" y="132">table work_orders</text>
+<text x="752" y="152">(a copy, by id)</text>
+<text x="752" y="188">table sync_state</text>
+<text x="752" y="208">(table, delta link, time)</text>
+<text x="752" y="244">rows and link are written</text>
+<text x="752" y="264">in ONE transaction</text>
+<text x="752" y="300">its own schedule:</text>
+<text x="752" y="320">hourly, nightly, on demand</text>
+<text x="752" y="356">down for a day?</text>
+<text x="752" y="376">it asks later: nothing lost</text>
+<text x="752" y="412">down for more than the</text>
+<text x="752" y="432">window? load everything again</text>
+
+<rect class="box" x="290" y="60" width="420" height="88" rx="6" fill="#fff4ce"/>
+<text class="b" x="302" y="84">1. Initial request</text>
+<text class="m" x="302" y="106">GET cedar_workorders?$select=…</text>
+<text class="m" x="302" y="126">Prefer: odata.track-changes</text>
+<path class="a" d="M290,104 L262,104"/>
+<rect class="box" x="290" y="160" width="420" height="88" rx="6" fill="#ffffff"/>
+<text class="b" x="302" y="184">every row, in pages; on the last page:</text>
+<text class="m" x="302" y="206">"@odata.deltaLink": "…?$select=…</text>
+<text class="m" x="302" y="226">   &amp;$deltatoken=919042%21…"</text>
+<path class="a" d="M710,204 L738,204"/>
+
+<rect class="box" x="290" y="272" width="420" height="60" rx="6" fill="#fff4ce"/>
+<text class="b" x="302" y="296">2. Later: GET the stored delta link</text>
+<text x="302" y="318">no other option; the link is opaque</text>
+<path class="a" d="M290,302 L262,302"/>
+<rect class="box" x="290" y="344" width="420" height="124" rx="6" fill="#ffffff"/>
+<text class="b" x="302" y="368">only what changed since:</text>
+<text x="302" y="390">created or updated rows, current values</text>
+<text class="m" x="302" y="412">{ "@odata.context": "…/$deletedEntity",</text>
+<text class="m" x="302" y="432">  "id": "…", "reason": "deleted" }</text>
+<text x="302" y="456">and a NEW delta link → upsert, delete, store</text>
+<path class="a" d="M710,406 L738,406"/>
+
+<rect class="box" x="20" y="488" width="960" height="156" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="512">What to expect</text>
+<text x="32" y="538">• A row changed five times arrives once, with its latest values: you get states, not a history of events.</text>
+<text x="32" y="560">• A row created and deleted between two requests arrives as a deletion of an id you never had.</text>
+<text x="32" y="582">• Asking the same link twice returns the same changes: a link is a position, and applying must be repeatable.</text>
+<text x="32" y="604">• Only $select: no $filter, $orderby, $expand or $top. One table per request.</text>
+<text x="32" y="626">• A token older than the window is refused: then the initial request again, replacing the copy.</text>
+</svg>

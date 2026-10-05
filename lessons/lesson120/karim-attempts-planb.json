@@ -1,0 +1,11 @@
+{
+  "person": "Karim Aziz",
+  "exam": "AB-400",
+  "note": "Plan B for the challenge: what if the first attempt fails?",
+  "attempts": [
+    {
+      "at": "2026-12-15T09:00",
+      "passed": false
+    }
+  ]
+}

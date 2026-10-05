@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600" role="img" aria-labelledby="t d">
+  <title id="t">PA1 time plan: 100 minutes in three sections, with Karim's actual pace</title>
+  <desc id="d">A 100-minute timeline. Section 1 (35 items) has 68 minutes for the first pass and 6 for review, ending at 74. Section 2, the goal set, has 6 minutes and no review, ending at 80. Section 3, the case study, has 16 minutes for reading and five items and 2 for review, ending at 98, leaving 2 minutes of buffer. Planned checkpoints: PA-10 at 19.4, PA-20 at 38.9, PA-30 at 58.3, PA-35 at 68, PA-38 at 80, PA-43 at 96. Karim's actual times: 18, 44, 63, 71, 84 and 99 minutes, that is -1.4, +5.1, +4.7, +3, +4 and +3 minutes against the plan.</desc>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #1f2937; }
+    .h { font-size: 16px; font-weight: 700; }
+    .c { font-size: 14px; }
+    .s { font-size: 14px; fill: #374151; }
+    .w { font-size: 14px; fill: #ffffff; font-weight: 700; }
+  </style>
+  <rect width="1000" height="600" fill="#ffffff"/>
+  <text x="500" y="30" text-anchor="middle" class="h" style="font-size:20px">PA1: 100 minutes, three sections, one clock</text>
+
+  <!-- plan bar: x = 60 + 8.8 * minute -->
+  <text x="60" y="66" class="h">Plan (section budgets)</text>
+  <rect x="60" y="78" width="598.4" height="46" fill="#1d4ed8"/>
+  <text x="359" y="106" text-anchor="middle" class="w">Section 1: 35 items, first pass 68 min</text>
+  <rect x="658.4" y="78" width="52.8" height="46" fill="#93c5fd"/>
+  <text x="684.8" y="106" text-anchor="middle" class="c">review</text>
+  <rect x="711.2" y="78" width="52.8" height="46" fill="#b45309"/>
+  <text x="737.6" y="100" text-anchor="middle" class="w">goal</text>
+  <text x="737.6" y="117" text-anchor="middle" class="w">set</text>
+  <rect x="764" y="78" width="140.8" height="46" fill="#15803d"/>
+  <text x="834.4" y="100" text-anchor="middle" class="w">case study</text>
+  <text x="834.4" y="117" text-anchor="middle" class="w">read + 5 items</text>
+  <rect x="904.8" y="78" width="17.6" height="46" fill="#86efac"/>
+  <rect x="922.4" y="78" width="17.6" height="46" fill="#d1d5db"/>
+  <text x="931" y="146" text-anchor="middle" class="s">buffer</text>
+
+  <!-- axis -->
+  <line x1="60" y1="160" x2="940" y2="160" stroke="#374151" stroke-width="2"/>
+  <g class="s" text-anchor="middle">
+    <line x1="60" y1="155" x2="60" y2="165" stroke="#374151"/><text x="60" y="182">0</text>
+    <line x1="236" y1="155" x2="236" y2="165" stroke="#374151"/><text x="236" y="182">20</text>
+    <line x1="412" y1="155" x2="412" y2="165" stroke="#374151"/><text x="412" y="182">40</text>
+    <line x1="588" y1="155" x2="588" y2="165" stroke="#374151"/><text x="588" y="182">60</text>
+    <line x1="764" y1="155" x2="764" y2="165" stroke="#374151"/><text x="764" y="182">80</text>
+    <line x1="940" y1="155" x2="940" y2="165" stroke="#374151"/><text x="940" y="182">100 min</text>
+  </g>
+
+  <!-- planned checkpoints -->
+  <text x="20" y="224" class="h">Planned</text>
+  <line x1="60" y1="230" x2="940" y2="230" stroke="#9ca3af" stroke-dasharray="4 4"/>
+  <g fill="#1d4ed8">
+    <path d="M230.7,222 l8,8 l-8,8 l-8,-8 z"/><path d="M402.3,222 l8,8 l-8,8 l-8,-8 z"/><path d="M573,222 l8,8 l-8,8 l-8,-8 z"/>
+    <path d="M658.4,222 l8,8 l-8,8 l-8,-8 z"/><path d="M764,222 l8,8 l-8,8 l-8,-8 z"/><path d="M904.8,222 l8,8 l-8,8 l-8,-8 z"/>
+  </g>
+  <g class="s" text-anchor="middle">
+    <text x="230.7" y="212">PA-10 19.4</text><text x="402.3" y="212">PA-20 38.9</text><text x="573" y="212">PA-30 58.3</text>
+    <text x="650" y="212">PA-35 68</text><text x="764" y="212">PA-38 80</text><text x="900" y="212">PA-43 96</text>
+  </g>
+
+  <!-- Karim actual -->
+  <text x="20" y="284" class="h">Karim</text>
+  <line x1="60" y1="290" x2="940" y2="290" stroke="#9ca3af" stroke-dasharray="4 4"/>
+  <g fill="#b91c1c">
+    <circle cx="218.4" cy="290" r="8"/><circle cx="447.2" cy="290" r="8"/><circle cx="614.4" cy="290" r="8"/>
+    <circle cx="684.8" cy="290" r="8"/><circle cx="799.2" cy="290" r="8"/><circle cx="931.2" cy="290" r="8"/>
+  </g>
+  <g class="c" text-anchor="middle">
+    <text x="218.4" y="318">18 (−1.4)</text><text x="447.2" y="318">44 (+5.1)</text><text x="614.4" y="318">63 (+4.7)</text>
+    <text x="684.8" y="338">71 (+3)</text><text x="799.2" y="318">84 (+4)</text><text x="920" y="338">99 (+3)</text>
+  </g>
+  <line x1="300" y1="300" x2="430" y2="300" stroke="#b91c1c" stroke-width="2"/>
+  <text x="365" y="350" text-anchor="middle" class="s">Learn lookups PA-14 (4 min), PA-19 (5 min)</text>
+
+  <!-- rules -->
+  <rect x="20" y="372" width="470" height="100" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="34" y="396" class="h">A section closes when you leave it</text>
+  <text x="34" y="420" class="c">Flag and review section 1 at item 35, not at the end:</text>
+  <text x="34" y="442" class="c">its 6 review minutes are spent before the goal set starts.</text>
+  <text x="34" y="464" class="c">The case study gets its own 2 minutes of review.</text>
+
+  <rect x="510" y="372" width="470" height="100" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="524" y="396" class="h">Goal set: answer once, no flags</text>
+  <text x="524" y="420" class="c">Same problem, a different solution per item: does it meet</text>
+  <text x="524" y="442" class="c">every part of the goal? One unmet part means No.</text>
+  <text x="524" y="464" class="c">Karim answered Yes to PA-38 (one bad row stops 1,000).</text>
+
+  <rect x="20" y="486" width="470" height="100" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="34" y="510" class="h">Learn on the exam costs clock time</text>
+  <text x="34" y="534" class="c">Look up a fact (a limit, a parameter name), not a decision.</text>
+  <text x="34" y="556" class="c">Karim's two lookups cost 9 minutes; one item was still</text>
+  <text x="34" y="578" class="c">wrong. He never recovered the time.</text>
+
+  <rect x="510" y="486" width="470" height="100" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="524" y="510" class="h">No penalty for a wrong answer</text>
+  <text x="524" y="534" class="c">Never leave a blank: answer, flag, move on. Karim had</text>
+  <text x="524" y="556" class="c">1 minute of case review instead of 2 and finished at 100,</text>
+  <text x="524" y="578" class="c">so the ready check failed on pace, not on knowledge.</text>
+</svg>

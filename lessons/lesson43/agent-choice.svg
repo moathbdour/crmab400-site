@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" role="img" aria-labelledby="t">
+<title id="t">Copilot Studio compared with Microsoft Foundry for Cedar agents. Copilot Studio: low-code SaaS, makers such as Dana, channels Teams and Microsoft 365 Copilot, Power Platform connectors and Dataverse knowledge, governed by environments and data policies; Cedar Service Assistant XP-08. Microsoft Foundry: code-first on Azure, developers such as Karim, model choice, custom orchestration and multi-agent, evaluations and tracing, Azure identity and networking; Cedar Dispatch Advisor XP-09. Bridge: a Copilot Studio agent can call a Foundry agent, taught in lesson 101.</title>
+<rect width="980" height="440" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Where to build a Cedar agent</text>
+<rect x="20" y="50" width="400" height="330" fill="#f3eefa" stroke="#4a2a7a" stroke-width="2"/>
+<text x="36" y="78" font-weight="700" font-size="16">Microsoft Copilot Studio</text>
+<text x="36" y="108">Low-code, SaaS; built by makers (Dana)</text>
+<text x="36" y="134">Channels: Teams, Microsoft 365 Copilot, web</text>
+<text x="36" y="160">Tools: connectors, flows, MCP servers</text>
+<text x="36" y="186">Knowledge: Dataverse, SharePoint, files</text>
+<text x="36" y="212">Governed: environments, data policies,</text>
+<text x="36" y="232">solutions and pipelines</text>
+<text x="36" y="262">Best when speed + M365 reach matter</text>
+<text x="36" y="310" font-weight="700" fill="#4a2a7a">XP-08 Cedar Service Assistant</text>
+<text x="36" y="334">Omar asks about a site's case history</text>
+<rect x="560" y="50" width="400" height="330" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="576" y="78" font-weight="700" font-size="16">Microsoft Foundry</text>
+<text x="576" y="108">Code-first on Azure; built by developers (Karim)</text>
+<text x="576" y="134">Model choice, fine control of prompts</text>
+<text x="576" y="160">Custom orchestration, multi-agent</text>
+<text x="576" y="186">Evaluations, tracing, content safety</text>
+<text x="576" y="212">Azure identity, networking, quotas</text>
+<text x="576" y="262">Best when control + custom AI matter</text>
+<text x="576" y="310" font-weight="700" fill="#1f3b57">XP-09 Cedar Dispatch Advisor</text>
+<text x="576" y="334">Ranks subcontractors from contracts</text>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1a1a1a"/></marker></defs>
+<line x1="420" y1="215" x2="556" y2="215" stroke="#1a1a1a" stroke-width="2" marker-end="url(#a)"/>
+<text x="432" y="200">calls (L101)</text>
+<text x="20" y="415" fill="#4a4a4a">Both can be governed agents; the choice is who builds, where it runs, and how much control is needed.</text>
+</g>
+</svg>

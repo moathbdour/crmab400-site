@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">How an OAuth 2.0 connection to FieldLink is created and used</title>
+<desc id="d">Four columns: Dana in the browser, the Power Platform connector service, FieldLink's sign-in server login.fieldlink.example, and the FieldLink API. Step 1: Dana selects New connection for FieldLink Jobs. Step 2: the browser is sent to the authorization URL https://login.fieldlink.example/oauth/authorize with the client ID from cedar_FieldLinkClientId, the scopes jobs.write jobs.read subcontractors.read and the per-connector redirect URI. Step 3: Dana signs in as the integration account cedar-dispatch and consents. Step 4: FieldLink redirects to the redirect URI on global.consent.azure-apim.net with an authorization code. Step 5: the connector service sends the code with the client secret from cedar_FieldLinkClientSecret to the token URL /oauth/token. Step 6: it receives an access token and a refresh token and stores them in the connection. At run time, step 7: every action sends the access token as Authorization Bearer to the FieldLink API; step 8: when the access token has expired the service uses the refresh URL with the refresh token. If the refresh token is revoked or expired, the connection shows an error and someone must sign in again. A box at the bottom states that the client credentials grant, an app signing in without a user, is not supported by custom connectors, so Cedar uses the authorization code flow with a partner integration account, and server-to-server calls go through an Azure Function in lesson 95. The redirect URI must be registered at FieldLink for each environment.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,Menlo,monospace;font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.dash{stroke:#1b1b1b;stroke-width:1;stroke-dasharray:5 4}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">Creating the connection: OAuth 2.0 authorization code</text>
+
+<rect class="box" x="20" y="44" width="200" height="44" rx="6" fill="#dff6dd"/><text class="b" x="34" y="72">Dana (browser)</text>
+<rect class="box" x="270" y="44" width="220" height="44" rx="6" fill="#deecf9"/><text class="b" x="284" y="72">Connector service</text>
+<rect class="box" x="540" y="44" width="220" height="44" rx="6" fill="#f3f2f1"/><text class="b" x="554" y="72">login.fieldlink.example</text>
+<rect class="box" x="810" y="44" width="170" height="44" rx="6" fill="#f3f2f1"/><text class="b" x="824" y="72">FieldLink API</text>
+<line class="dash" x1="120" y1="88" x2="120" y2="470"/><line class="dash" x1="380" y1="88" x2="380" y2="470"/>
+<line class="dash" x1="650" y1="88" x2="650" y2="470"/><line class="dash" x1="895" y1="88" x2="895" y2="470"/>
+
+<line class="ln" x1="120" y1="118" x2="376" y2="118" marker-end="url(#a)"/>
+<text x="130" y="110">1  New connection: FieldLink Jobs</text>
+<line class="ln" x1="380" y1="154" x2="646" y2="154" marker-end="url(#a)"/>
+<text x="390" y="146">2  /oauth/authorize?client_id=…&amp;scope=jobs.write …</text>
+<text x="390" y="172" class="m">   &amp;redirect_uri=(per-connector URI)</text>
+<line class="ln" x1="120" y1="204" x2="646" y2="204" marker-end="url(#a)"/>
+<text x="130" y="196">3  sign in as cedar-dispatch, consent to the scopes</text>
+<line class="ln" x1="650" y1="240" x2="384" y2="240" marker-end="url(#a)"/>
+<text x="400" y="232">4  redirect with ?code=… (one-time)</text>
+<line class="ln" x1="380" y1="280" x2="646" y2="280" marker-end="url(#a)"/>
+<text x="390" y="272">5  /oauth/token: code + client ID + client secret</text>
+<line class="ln" x1="650" y1="316" x2="384" y2="316" marker-end="url(#a)"/>
+<text x="400" y="308">6  access token + refresh token → stored in the connection</text>
+
+<text class="h" x="20" y="360">Using the connection</text>
+<line class="ln" x1="380" y1="392" x2="891" y2="392" marker-end="url(#a)"/>
+<text x="390" y="384">7  every action: Authorization: Bearer &lt;access token&gt;</text>
+<line class="ln" x1="380" y1="440" x2="646" y2="440" marker-end="url(#a)"/>
+<text x="390" y="432">8  expired? refresh URL + refresh token → new access token</text>
+<text x="390" y="462">   refresh token revoked or expired → connection error, sign in again</text>
+
+<rect class="box" x="20" y="490" width="960" height="114" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="514">Not available: client credentials</text>
+<text x="32" y="540">Custom connectors do not support the client credentials grant (an application signing in without a user), and the connector</text>
+<text x="32" y="560">picks only the first security definition. Cedar therefore signs in with a FieldLink partner integration account, not a person.</text>
+<text x="32" y="582">Server-to-server calls with client credentials go through an Azure Function that Cedar owns (lesson 95). FieldLink must register</text>
+<text x="32" y="600">the per-connector redirect URI of every environment's connector; the client secret lives in Key Vault behind cedar_FieldLinkClientSecret.</text>
+</svg>

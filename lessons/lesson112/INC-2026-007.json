@@ -1,0 +1,32 @@
+{
+  "id": "INC-2026-007",
+  "title": "Agents could not save cases for 34 minutes after REL-031",
+  "severity": 1,
+  "summary": "A hotfix release registered an extra RepeatFaultPlugin step on Update of incident. The plug-in's registration guard threw on every case update, so saving any existing case failed in Cedar-Prod until the step was deactivated.",
+  "impact": { "users": 14, "failedOperations": 212, "customerFacing": "Case updates and resolutions delayed; no data lost; new cases could still be created" },
+  "events": [
+    { "at": "2026-10-27T07:35:00Z", "source": "pipeline", "kind": "change", "text": "REL-031 (CedarServiceCore 1.10.1) deployed by Cedar Release Pipeline" },
+    { "at": "2026-10-27T07:36:00Z", "source": "telemetry", "kind": "start", "text": "First InvalidPluginExecutionException 'registered on Update/20/incident'" },
+    { "at": "2026-10-27T07:44:00Z", "source": "phone: Omar Saleh", "kind": "detect", "text": "Omar reports 'Business process error' when saving CAS-01311" },
+    { "at": "2026-10-27T07:47:00Z", "source": "Karim Aziz", "kind": "acknowledge", "text": "Karim takes the incident, opens Application Insights Failures" },
+    { "at": "2026-10-27T07:58:00Z", "source": "Karim Aziz", "kind": "diagnose", "text": "Two steps on RepeatFaultPlugin found in the solution: Create (correct) and Update (new)" },
+    { "at": "2026-10-27T08:10:00Z", "source": "Dana Khoury", "kind": "mitigate", "text": "Dana deactivates the Update step (runbook AL-12); saves succeed" },
+    { "at": "2026-10-27T09:20:00Z", "source": "alert AL-12", "kind": "alert", "text": "AL-12 fires from the data export, 104 minutes after the start" },
+    { "at": "2026-10-28T07:05:00Z", "source": "pipeline", "kind": "resolve", "text": "REL-032 (1.10.2) removes the Update step and the unmanaged deactivation layer" }
+  ],
+  "rootCauses": [
+    "The REL-031 solution contained a second SDK message processing step for RepeatFaultPlugin on Update, added while testing a fix in Cedar-Dev and exported with the solution.",
+    "The plug-in guard treats any unexpected registration as fatal, which turns a configuration mistake into a blocking error for every case save."
+  ],
+  "contributingFactors": [
+    "The pull request diff showed the step only inside the unpacked customizations XML, which reviewers did not read.",
+    "The Cedar-Test UAT for REL-031 covered case creation only; no test updated an existing case.",
+    "AL-12 is based on the admin-center data export, whose delivery can lag; synchronous plug-in failures need minutes, not hours."
+  ],
+  "actions": [
+    { "id": "A1", "type": "prevent", "text": "Registration manifest check: build fails if plug-in steps differ from docs/plugins/registration.json (lesson 68 manifest)", "owner": "Karim Aziz", "due": "2026-11-06" },
+    { "id": "A2", "type": "mitigate", "text": "ADR-024: guard logs and skips on unexpected message/stage in enrichment plug-ins; only validation plug-ins may block", "owner": "Karim Aziz", "due": "2026-11-06" },
+    { "id": "A3", "type": "detect", "text": "Synthetic check: timer function in func-cedar-ops creates and updates a (test) case on site TST-A every 5 minutes as an application user; failure raises AL-12b within 10 minutes", "owner": "Dana Khoury", "due": "2026-11-13" },
+    { "id": "A4", "type": "process", "text": "UAT template always includes create, update and resolve of an existing case (E2E test added to C-62 suite)", "owner": "Lina Farah", "due": "2026-11-13" }
+  ]
+}

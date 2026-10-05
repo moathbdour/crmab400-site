@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img" aria-labelledby="t">
+<title id="t">Sequence between DataverseClient.get_all and the Dataverse Web API: first GET cedar_sites with select and Prefer odata.maxpagesize returns 429 with Retry-After 3; the client sleeps 3 seconds and repeats; the API returns 200 with 500 rows and an odata.nextLink; the client yields the rows and requests the nextLink URL; the last page returns 200 with rows and no nextLink, so the loop ends. A 403 or other non-retryable error raises DataverseError with the status and error code.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="500" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="32" font-weight="700" font-size="17">get_all(): paging and service-protection retries</text>
+<rect x="60" y="50" width="240" height="44" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="80" y="78" font-weight="600">DataverseClient (Python)</text>
+<rect x="640" y="50" width="260" height="44" fill="#f3eefa" stroke="#5a3a8a"/>
+<text x="660" y="78" font-weight="600">Dataverse Web API v9.2</text>
+<path d="M180 94V480M770 94V480" stroke="#888" stroke-dasharray="6 5"/>
+<path d="M180 130H768" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="200" y="124" font-size="14">1  GET cedar_sites?$select=cedar_sitecode  (Prefer: odata.maxpagesize=500)</text>
+<path d="M770 170H182" stroke="#9b1c1c" stroke-width="2" marker-end="url(#a)"/>
+<text x="420" y="164" font-size="14" fill="#9b1c1c">2  429 Too Many Requests, Retry-After: 3</text>
+<text x="200" y="200" font-size="14">3  sleep(3) — injected, so tests don’t wait</text>
+<path d="M180 235H768" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="200" y="229" font-size="14">4  same GET again (attempt 2 of max 4)</text>
+<path d="M770 275H182" stroke="#1d6b3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="330" y="269" font-size="14" fill="#1d6b3a">5  200 { value: [500 rows], @odata.nextLink: …$skiptoken… }</text>
+<text x="200" y="305" font-size="14">6  yield rows; url = @odata.nextLink (use it exactly as returned)</text>
+<path d="M180 340H768" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="200" y="334" font-size="14">7  GET nextLink URL</text>
+<path d="M770 380H182" stroke="#1d6b3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="400" y="374" font-size="14" fill="#1d6b3a">8  200 { value: [last rows] } — no nextLink</text>
+<text x="200" y="410" font-size="14">9  loop ends; generator is exhausted</text>
+<rect x="200" y="430" width="700" height="44" fill="#fdecea" stroke="#9b1c1c"/>
+<text x="214" y="458" font-size="14">Any 4xx (for example 403 missing privilege) or retries exhausted → raise DataverseError(status, code, message)</text>
+</g>
+</svg>

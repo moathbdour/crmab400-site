@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480" role="img" aria-labelledby="t d">
+  <title id="t">C-76 rule cards: seeding, five Leitner boxes, daily sessions and the forecast</title>
+  <desc id="d">Rules files, drill results, ratings and trap habits seed cards into five boxes. A right answer moves a card up one box with a longer interval; a wrong answer returns it to box 1. Daily sessions show due cards and the forecast checks readiness before the exam.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
+  </defs>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #1f2937; }
+    .h { font-size: 17px; font-weight: 700; }
+    .c { font-size: 14px; }
+    .l { font-size: 14px; fill: #374151; font-style: italic; }
+  </style>
+  <rect width="1000" height="480" fill="#ffffff"/>
+  <text x="500" y="30" text-anchor="middle" class="h" style="font-size:20px">C-76: decision rules as cards, reviewed until the exam</text>
+
+  <!-- inputs -->
+  <rect x="20" y="52" width="270" height="62" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="32" y="76" class="h">Rules files</text>
+  <text x="32" y="100" class="c">rules-extend (30), rules-ux (22)</text>
+  <rect x="20" y="124" width="270" height="62" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="32" y="148" class="h">C-74 drill results</text>
+  <text x="32" y="172" class="c">missed or guessed → box 1</text>
+  <rect x="20" y="196" width="270" height="62" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="32" y="220" class="h">C-73 ratings</text>
+  <text x="32" y="244" class="c">0–1 → box 1, 2 → box 2, 3 → box 3</text>
+  <rect x="20" y="268" width="270" height="62" rx="8" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+  <text x="32" y="292" class="h">C-75 habits</text>
+  <text x="32" y="316" class="c">one question card each → box 1</text>
+
+  <!-- seed -->
+  <rect x="330" y="136" width="170" height="110" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="415" y="164" text-anchor="middle" class="h">Seed</text>
+  <text x="415" y="190" text-anchor="middle" class="c">Karim, 2026-12-03:</text>
+  <text x="415" y="212" text-anchor="middle" class="c">54 cards</text>
+  <text x="415" y="234" text-anchor="middle" class="c">box n due day n − 1</text>
+  <line x1="290" y1="83" x2="328" y2="160" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="290" y1="155" x2="328" y2="180" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="290" y1="227" x2="328" y2="205" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="290" y1="299" x2="328" y2="225" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="500" y1="191" x2="528" y2="191" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- boxes -->
+  <g>
+    <rect x="530" y="136" width="80" height="110" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+    <text x="570" y="162" text-anchor="middle" class="h">Box 1</text><text x="570" y="188" text-anchor="middle" class="c">+1 day</text><text x="570" y="226" text-anchor="middle" class="c">15</text>
+    <rect x="622" y="136" width="80" height="110" rx="6" fill="#ffedd5" stroke="#c2410c" stroke-width="2"/>
+    <text x="662" y="162" text-anchor="middle" class="h">Box 2</text><text x="662" y="188" text-anchor="middle" class="c">+2 days</text><text x="662" y="226" text-anchor="middle" class="c">30</text>
+    <rect x="714" y="136" width="80" height="110" rx="6" fill="#fef9c3" stroke="#a16207" stroke-width="2"/>
+    <text x="754" y="162" text-anchor="middle" class="h">Box 3</text><text x="754" y="188" text-anchor="middle" class="c">+4 days</text><text x="754" y="226" text-anchor="middle" class="c">9</text>
+    <rect x="806" y="136" width="80" height="110" rx="6" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+    <text x="846" y="162" text-anchor="middle" class="h">Box 4</text><text x="846" y="188" text-anchor="middle" class="c">+8 days</text><text x="846" y="226" text-anchor="middle" class="c">0</text>
+    <rect x="898" y="136" width="80" height="110" rx="6" fill="#bbf7d0" stroke="#166534" stroke-width="2"/>
+    <text x="938" y="162" text-anchor="middle" class="h">Box 5</text><text x="938" y="188" text-anchor="middle" class="c">+16 days</text><text x="938" y="226" text-anchor="middle" class="c">0</text>
+  </g>
+  <text x="754" y="80" text-anchor="middle" class="l">right: up one box, longer wait</text>
+  <path d="M570,134 C590,100 642,100 660,132" fill="none" stroke="#15803d" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M662,134 C682,100 734,100 752,132" fill="none" stroke="#15803d" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M754,134 C774,100 826,100 844,132" fill="none" stroke="#15803d" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M846,134 C866,100 918,100 936,132" fill="none" stroke="#15803d" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M938,248 L938,290 L570,290 L570,250" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#a)"/>
+  <text x="754" y="282" text-anchor="middle" class="l">wrong: back to box 1, due the next day</text>
+  <text x="754" y="266" text-anchor="middle" class="c">numbers: Karim's cards per box after seeding</text>
+
+  <!-- session and forecast -->
+  <rect x="330" y="330" width="310" height="120" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="346" y="356" class="h">Daily session (--due)</text>
+  <text x="346" y="382" class="c">due cards, lowest box first;</text>
+  <text x="346" y="404" class="c">all questions, then all answers;</text>
+  <text x="346" y="426" class="c">record right / wrong with --review</text>
+  <line x1="415" y1="248" x2="415" y2="328" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <text x="425" y="300" class="l">each day</text>
+  <rect x="660" y="330" width="320" height="120" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="676" y="356" class="h">Forecast (--forecast 2026-12-15)</text>
+  <text x="676" y="382" class="c">best case, every answer right:</text>
+  <text x="676" y="404" class="c">Karim 123 reviews, peak 30 cards;</text>
+  <text x="676" y="426" class="c">ready = box 4 or 5 before the exam</text>
+  <line x1="640" y1="390" x2="658" y2="390" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <text x="20" y="470" class="l">Habit cards hold the C-75 question; rule cards show objective and signals, never the rule.</text>
+</svg>

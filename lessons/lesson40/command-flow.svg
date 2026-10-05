@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img" aria-labelledby="t">
+<title id="t">How the Mark sent to FieldLink Power Fx command runs: the host passes Self.Selected to the command; the Visible formula hides the button unless status is Not sent, FieldLink ID and subcontractor are filled and the user has edit permission; on select, AutoSave saves the form, Confirm asks Sami, Patch updates Dataverse where security and entity-scope business rules run, then Notify shows the result or the error.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="500" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="32" font-weight="700" font-size="17">Power Fx command “Mark sent to FieldLink” on the Work order form</text>
+<rect x="20" y="60" width="200" height="110" fill="#fff4dc" stroke="#8a5a00"/>
+<text x="32" y="86" font-weight="600">Host (form or grid)</text>
+<text x="32" y="110" font-size="14">provides Self.Selected</text>
+<text x="32" y="130" font-size="14">.Item (one row) or</text>
+<text x="32" y="150" font-size="14">.AllItems (grid)</text>
+<rect x="270" y="60" width="300" height="110" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="282" y="86" font-weight="600">Visible formula (data flow)</text>
+<text x="282" y="110" font-size="14">status = Not sent AND FieldLink ID</text>
+<text x="282" y="130" font-size="14">AND Subcontractor filled AND</text>
+<text x="282" y="150" font-size="14">RecordInfo(…EditPermission)</text>
+<rect x="620" y="60" width="320" height="110" fill="#f3f3f3" stroke="#555555"/>
+<text x="632" y="86" font-weight="600">false → button hidden</text>
+<text x="632" y="110" font-size="14">Re-evaluated when the record or</text>
+<text x="632" y="130" font-size="14">selection changes. Hiding is UX,</text>
+<text x="632" y="150" font-size="14">not security.</text>
+<path d="M220 115H268M570 115H618" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="440" y="205" font-size="14">true → Sami selects the button → OnSelect (behavior)</text>
+<path d="M420 170V230" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="240" width="200" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="32" y="266" font-weight="600">1. AutoSave</text>
+<text x="32" y="290" font-size="14">form saved first;</text>
+<text x="32" y="310" font-size="14">errors shown by form</text>
+<rect x="260" y="240" width="200" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="272" y="266" font-weight="600">2. Confirm()</text>
+<text x="272" y="290" font-size="14">“Mark WO-1001 as</text>
+<text x="272" y="310" font-size="14">sent?” Cancel → stop</text>
+<rect x="500" y="240" width="200" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="512" y="266" font-weight="600">3. Patch()</text>
+<text x="512" y="290" font-size="14">FieldLink status = Sent</text>
+<text x="512" y="310" font-size="14">wrapped in IfError()</text>
+<rect x="740" y="240" width="200" height="90" fill="#e8f5ec" stroke="#1d6b3a"/>
+<text x="752" y="266" font-weight="600">4. Notify()</text>
+<text x="752" y="290" font-size="14">success message, or</text>
+<text x="752" y="310" font-size="14">error text from Dataverse</text>
+<path d="M220 285H258M460 285H498M700 285H738" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="400" y="380" width="420" height="100" fill="#fde8e8" stroke="#a11d1d"/>
+<text x="412" y="406" font-weight="600">Dataverse (server) — the real gate</text>
+<text x="412" y="430" font-size="14">Security role Write on Work order (lesson 26)</text>
+<text x="412" y="450" font-size="14">Entity-scope rules run; form-scope WO-BR2 does NOT</text>
+<text x="412" y="470" font-size="14">Plug-ins later enforce server rules (lesson 65)</text>
+<path d="M600 330V378" stroke="#a11d1d" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="410" font-size="14">Publishing Power Fx commands</text>
+<text x="20" y="430" font-size="14">can take a few minutes: wait,</text>
+<text x="20" y="450" font-size="14">then refresh the app.</text>
+</g>
+</svg>

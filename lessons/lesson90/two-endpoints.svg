@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Two webhook endpoints in one function app: Dataverse calls Cedar, and FieldLink calls Cedar</title>
+<desc id="d">The function app func-cedar-fieldlink-dev has two HTTP endpoints with the same shape: authenticate, bound the size, validate, put a small message on a queue, answer at once. Top row, outbound, decision IN-02 first increment: Dataverse posts the execution context of an asynchronous step on Update of a work order to the function WorkOrderChanged; the caller is authenticated by the function key that Dataverse appends as the code query parameter, and by the organization header; the pure class ChangeNotices turns the context into a contract message, cedar.workorder.rescheduled.v1 or cedar.workorder.cancelled.v1, or into nothing; the message goes to the storage queue fieldlink-outbound and the answer is 202, or 204 when nothing needs to be sent, 400 for a body that is not a context, 403 for another organization. Delivery to FieldLink from that queue is built in lessons 91 and 95. Bottom row, inbound, decision IN-03, component C-13: FieldLink posts a status or arrival event to the function FieldLinkEvents; the caller is authenticated by an HMAC SHA-256 signature over timestamp and body with a shared secret from Key Vault, and requests older than five minutes are refused; the message is validated against the contract; the answer is 202 accepted, 401 for a bad signature, 422 for a message outside the contract, 400 for malformed JSON, 413 or 415 for size or content type. The accepted event goes to the queue fieldlink-inbound, and the queue-triggered worker ApplyFieldLinkEvent applies it to Dataverse as the application user FieldLink Sync Functions: a status through the forward-only bulk writer of lesson 78, an arrival through the business event cedar_OnSubcontractorArrived of lesson 71. Failures are retried five times, a minute apart, then rest in the poison queue.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Same shape twice: authenticate → bound → validate → queue → answer. Nobody waits for the work.</text>
+
+<text class="b" x="20" y="62">Outbound (IN-02, first increment): Dataverse tells Cedar's function that a sent work order changed</text>
+<rect class="box" x="20" y="76" width="190" height="130" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="100">Dataverse</text>
+<text x="32" y="122">async step, Update of</text>
+<text x="32" y="142">cedar_workorder</text>
+<text x="32" y="162">(schedule, state)</text>
+<text x="32" y="186">POST context ?code=key</text>
+<path class="a" d="M210,140 L240,140"/>
+<rect class="box" x="240" y="76" width="270" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="252" y="100">WorkOrderChanged (HTTP)</text>
+<text x="252" y="122">function key + organization header</text>
+<text x="252" y="142">≤ 300 KB; parse the context</text>
+<text x="252" y="162">ChangeNotices → contract message</text>
+<text x="252" y="186">202 · 204 nothing · 400 · 403</text>
+<path class="a" d="M510,140 L540,140"/>
+<rect class="box" x="540" y="76" width="200" height="130" rx="8" fill="#ffffff"/>
+<text class="b" x="552" y="100">Queue</text>
+<text x="552" y="122">fieldlink-outbound</text>
+<text x="552" y="146">cedar.workorder.</text>
+<text x="552" y="166">rescheduled.v1 /</text>
+<text x="552" y="186">cancelled.v1</text>
+<path class="a" d="M740,140 L770,140"/>
+<rect class="box" x="770" y="76" width="210" height="130" rx="8" fill="#f3f2f1"/>
+<text class="b" x="782" y="100">To FieldLink</text>
+<text x="782" y="122">delivery from here:</text>
+<text x="782" y="142">lessons 91 and 95</text>
+<text x="782" y="166">if this app is down,</text>
+<text x="782" y="186">the event is lost (→ 91)</text>
+
+<text class="b" x="20" y="250">Inbound (IN-03, C-13): FieldLink tells Cedar that a job moved</text>
+<rect class="box" x="20" y="264" width="190" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="288">FieldLink</text>
+<text x="32" y="310">status-changed,</text>
+<text x="32" y="330">arrived</text>
+<text x="32" y="354">X-FieldLink-Timestamp</text>
+<text x="32" y="374">X-FieldLink-Signature</text>
+<text x="32" y="398">retries 429 and 5xx</text>
+<path class="a" d="M210,338 L240,338"/>
+<rect class="box" x="240" y="264" width="270" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="252" y="288">FieldLinkEvents (HTTP)</text>
+<text x="252" y="310">HMAC-SHA256 over time.body</text>
+<text x="252" y="330">max age 5 minutes; ≤ 16 KB</text>
+<text x="252" y="350">validate against the contract</text>
+<text x="252" y="374">202 accepted · 401 signature</text>
+<text x="252" y="394">422 contract · 400 · 413 · 415</text>
+<path class="a" d="M510,338 L540,338"/>
+<rect class="box" x="540" y="264" width="200" height="150" rx="8" fill="#ffffff"/>
+<text class="b" x="552" y="288">Queue</text>
+<text x="552" y="310">fieldlink-inbound</text>
+<text x="552" y="334">{id, type, fieldLinkId,</text>
+<text x="552" y="354">status, occurredOn}</text>
+<text x="552" y="378">5 attempts, 1 min apart,</text>
+<text x="552" y="398">then poison queue</text>
+<path class="a" d="M740,338 L770,338"/>
+<rect class="box" x="770" y="264" width="210" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="782" y="288">ApplyFieldLinkEvent</text>
+<text x="782" y="310">queue trigger</text>
+<text x="782" y="334">status: forward-only</text>
+<text x="782" y="354">bulk writer (lesson 78)</text>
+<text x="782" y="378">arrived: business event</text>
+<text x="782" y="398">(lesson 71)</text>
+<path class="a" d="M875,414 L875,452"/>
+<rect class="box" x="770" y="452" width="210" height="76" rx="8" fill="#eef3fb"/>
+<text class="b" x="782" y="476">Dataverse</text>
+<text x="782" y="498">as FieldLink Sync Functions</text>
+<text x="782" y="518">(managed identity)</text>
+
+<rect class="box" x="20" y="452" width="720" height="172" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="476">Who proves what</text>
+<text x="32" y="500">Dataverse → Cedar: a key that Dataverse stores and appends (WebhookKey). Cedar also checks which</text>
+<text x="32" y="520">environment is calling. The key is a secret of the function app; rotate it by re-registering the endpoint.</text>
+<text x="32" y="548">FieldLink → Cedar: a signature made with a shared secret. It proves the sender AND that the body was not</text>
+<text x="32" y="568">changed, and the signed timestamp limits replay. The secret lives in Key Vault on Cedar's side.</text>
+<text x="32" y="596">Both: accepted (202) is not processed. Duplicates are harmless: the id is stable, the write is idempotent.</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 730" role="img" aria-labelledby="t d">
+<title id="t">One grounded question in Dispatch Advisor version 4: the host runs ask_service_data as the person</title>
+<desc id="d">Sequence with five participants: Sami in Teams through C-24, the C-57 host running advisor version 4, the Foundry agent version 4, Microsoft Entra ID and the Dataverse Ask API. 1: Sami's question reaches C-57 with Sami's token. 2: C-57 sends a Responses API request to the Foundry agent. 3: the agent returns a function call to ask_service_data. 4: C-57 checks GR-1, that the token is delegated, and GR-3, that the question has 3 to 500 characters. 5: C-57 exchanges Sami's token on behalf of Sami for a Dataverse token with the scope environment URL slash user_impersonation. 6: C-57 posts to /api/iq/v1.0/ask with the model "Cedar service desk" and count 25. 7: the Ask API returns only rows Sami may read, record links and a summary, possibly with a paging token. 8: C-57 applies GR-4 to GR-9: at most 50 rows, rows marked as data, links checked against the environment and the model's tables, the fixed no-rows wording and one audit line. 9: C-57 sends the function call output back to Foundry. 10: Foundry returns the answer text. 11: C-57 applies GC-1, links only from the tool output, GC-2, the fixed text when there are no rows, and GC-3, no claims of changes, and keeps the answer or replaces it with the rows-only text. 12: Sami receives the checked answer.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.8;fill:none}.lane{stroke:#8a8886;stroke-width:1.2;stroke-dasharray:5 5}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect x="0" y="0" width="1020" height="730" fill="#ffffff"/>
+
+<rect class="box" x="15" y="20" width="170" height="52" rx="8" fill="#f3f2f1"/>
+<text class="b" x="100" y="43" text-anchor="middle">Sami</text>
+<text x="100" y="62" text-anchor="middle">Teams via C-24</text>
+<rect class="box" x="245" y="20" width="170" height="52" rx="8" fill="#e8f1fb"/>
+<text class="b" x="330" y="43" text-anchor="middle">C-57 host</text>
+<text x="330" y="62" text-anchor="middle">advisor v4 loop</text>
+<rect class="box" x="475" y="20" width="170" height="52" rx="8" fill="#fff4e0"/>
+<text class="b" x="560" y="43" text-anchor="middle">Foundry agent</text>
+<text x="560" y="62" text-anchor="middle">version 4</text>
+<rect class="box" x="675" y="20" width="150" height="52" rx="8" fill="#f3f2f1"/>
+<text class="b" x="750" y="43" text-anchor="middle">Microsoft</text>
+<text x="750" y="62" text-anchor="middle">Entra ID</text>
+<rect class="box" x="845" y="20" width="160" height="52" rx="8" fill="#eef7ee"/>
+<text class="b" x="925" y="43" text-anchor="middle">Dataverse</text>
+<text x="925" y="62" text-anchor="middle">Ask API</text>
+
+<path class="lane" d="M100,72 V670"/>
+<path class="lane" d="M330,72 V670"/>
+<path class="lane" d="M560,72 V670"/>
+<path class="lane" d="M750,72 V670"/>
+<path class="lane" d="M925,72 V670"/>
+
+<text x="110" y="122">1 Question, Sami's token</text>
+<path class="ln" d="M100,130 H328" marker-end="url(#a)"/>
+<text x="340" y="168">2 Responses API request</text>
+<path class="ln" d="M330,176 H558" marker-end="url(#a)"/>
+<text x="362" y="214">3 call ask_service_data</text>
+<path class="ln" d="M560,222 H332" marker-end="url(#a)"/>
+
+<rect class="box" x="250" y="238" width="520" height="32" rx="6" fill="#e8f1fb"/>
+<text x="262" y="259">4 GR-1 delegated token?  GR-3 question of 3 to 500 characters</text>
+
+<text x="340" y="306">5 On-behalf-of: Sami's token → &lt;env&gt;/user_impersonation</text>
+<path class="ln" d="M330,314 H748" marker-end="url(#a)"/>
+<text x="340" y="352">6 POST /api/iq/v1.0/ask  model "Cedar service desk", count 25</text>
+<path class="ln" d="M330,360 H923" marker-end="url(#a)"/>
+<text x="340" y="398">7 only rows Sami may read + record links + summary (+ pagingToken)</text>
+<path class="ln" d="M925,406 H332" marker-end="url(#a)"/>
+
+<rect class="box" x="250" y="422" width="740" height="32" rx="6" fill="#e8f1fb"/>
+<text x="262" y="443">8 GR-4…GR-9: ≤ 50 rows, rows are data, links checked, no-rows wording, one audit line</text>
+
+<text x="340" y="490">9 function_call_output</text>
+<path class="ln" d="M330,498 H558" marker-end="url(#a)"/>
+<text x="362" y="536">10 answer text</text>
+<path class="ln" d="M560,544 H332" marker-end="url(#a)"/>
+
+<rect class="box" x="250" y="560" width="740" height="32" rx="6" fill="#e8f1fb"/>
+<text x="262" y="581">11 GC-1 links · GC-2 no-rows text · GC-3 no change claims → answer or rows-only text</text>
+
+<text x="110" y="628">12 Checked answer</text>
+<path class="ln" d="M330,636 H102" marker-end="url(#a)"/>
+
+<text x="15" y="704">Foundry never holds a Dataverse token: the host that received Sami's token runs the tool, so Dataverse trims rows to Sami.</text>
+</svg>

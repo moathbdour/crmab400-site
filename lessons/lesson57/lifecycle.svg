@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+<title id="t">PCF standard control lifecycle</title>
+<desc id="d">Host calls init once, then updateView for first render and every property bag change. User change calls notifyOutputChanged, host calls getOutputs, then updateView with the saved value. destroy runs once on removal.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:16px;fill:#1b2733}.b{fill:#e8f1fb;stroke:#2b6cb0;stroke-width:2}.u{fill:#fff4e5;stroke:#c05621;stroke-width:2}.h{font-weight:700}.s{font-size:14px}.a{stroke:#1b2733;stroke-width:2;fill:none;marker-end:url(#m)}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1b2733"/></marker></defs>
+<rect x="0" y="0" width="900" height="520" fill="#ffffff"/>
+<text x="20" y="32" class="h">Host (model-driven form: Work order – Dispatch)</text>
+<text x="560" y="32" class="h">Component: Cedar.FieldLinkTimeline</text>
+<rect x="540" y="55" width="330" height="70" rx="8" class="b"/><text x="555" y="82" class="h">1. init(context, notify, state, container)</text><text x="555" y="106" class="s">once: build &lt;ol&gt;, attach click listener</text>
+<rect x="540" y="160" width="330" height="70" rx="8" class="b"/><text x="555" y="187" class="h">2. updateView(context)</text><text x="555" y="211" class="s">first render + every property bag change</text>
+<rect x="540" y="265" width="330" height="70" rx="8" class="u"/><text x="555" y="292" class="h">3. user clicks next step</text><text x="555" y="316" class="s">store value, call notifyOutputChanged()</text>
+<rect x="540" y="370" width="330" height="60" rx="8" class="b"/><text x="555" y="397" class="h">4. getOutputs() → { status: 2 }</text><text x="555" y="419" class="s">host pulls the new value</text>
+<rect x="540" y="450" width="330" height="55" rx="8" class="b"/><text x="555" y="483" class="h">5. destroy(): remove listeners</text>
+<rect x="20" y="60" width="330" height="60" rx="8" class="b"/><text x="35" y="95">Form loads the control</text>
+<rect x="20" y="165" width="330" height="60" rx="8" class="b"/><text x="35" y="190">Value, disabled state, size</text><text x="35" y="212" class="s">or metadata changed (updatedProperties)</text>
+<rect x="20" y="370" width="330" height="60" rx="8" class="b"/><text x="35" y="397">Host writes the column value,</text><text x="35" y="419" class="s">form dirty; runs OnChange, then updateView</text>
+<rect x="20" y="450" width="330" height="55" rx="8" class="b"/><text x="35" y="483">Form closed / control removed</text>
+<path d="M350 90H535" class="a"/><path d="M350 195H535" class="a"/><path d="M705 125V155" class="a"/><path d="M705 230V260" class="a"/><path d="M705 335V365" class="a"/><path d="M540 400H355" class="a"/><path d="M185 370V230" class="a"/><text x="195" y="300" class="s">then calls updateView (2)</text><path d="M350 478H535" class="a"/>
+</svg>

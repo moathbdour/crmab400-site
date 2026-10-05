@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Three shapes for work that takes longer than one function call should</title>
+<desc id="d">Top row: the problem. One invocation that processes a whole file runs into three limits: an HTTP caller is cut off after 230 seconds, the function time-out stops the invocation, and a restart or scale-in loses everything that was in memory, so the work starts again from the beginning. Middle row, shape 1, accept then work: an HTTP or timer function accepts the request, puts a message on a queue and answers at once; a queue-triggered worker processes one bounded page and puts a continuation message on the queue for the next page until none is left; progress lives in the messages and in the data. Bottom row, shape 2, a durable orchestration: a client function starts an orchestration and returns 202 Accepted with a status URL; the orchestrator function calls activity functions one after the other, waits with durable timers and records every step in a history; after a restart the orchestrator is replayed from the history and continues with the next step; the caller polls the status URL and receives 202 while the run is in progress and 200 with the output when it is complete. A side note lists what each shape gives: the queue shape needs your own progress and status, the orchestration gives status, history, timers, retries and waiting for events.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.d{stroke:#444;stroke-width:1.6;stroke-dasharray:6 4;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Long-running work: do not make one invocation longer, make the work resumable</text>
+
+<rect class="box" x="20" y="44" width="960" height="150" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="68">The problem: one invocation does everything</text>
+<rect class="box" x="32" y="82" width="560" height="44" rx="6" fill="#ffffff"/>
+<text x="44" y="109">read file → validate → 40 batches to Dataverse → report → move file</text>
+<text x="610" y="96">✗ HTTP caller is cut off after 230 seconds</text>
+<text x="610" y="118">✗ functionTimeout stops the invocation</text>
+<text x="610" y="140">✗ restart or scale-in: memory is gone</text>
+<text x="32" y="152">A throttled request means waiting inside a running (and billed) function.</text>
+<text x="32" y="176">After any interruption the work starts again from line 1, and nobody can ask "how far is it?".</text>
+
+<rect class="box" x="20" y="208" width="960" height="170" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="232">Shape 1: accept, then work in bounded pieces (queue with continuation)</text>
+<rect class="box" x="32" y="248" width="170" height="70" rx="6" fill="#fff4ce"/>
+<text class="b" x="44" y="272">HTTP / timer</text>
+<text x="44" y="294">accept, enqueue,</text>
+<text x="44" y="312">answer at once</text>
+<path class="a" d="M202,283 L246,283"/>
+<rect class="box" x="246" y="248" width="170" height="70" rx="6" fill="#ffffff"/>
+<text class="b" x="258" y="272">Queue</text>
+<text x="258" y="294">{file, page 3}</text>
+<path class="a" d="M416,283 L460,283"/>
+<rect class="box" x="460" y="248" width="210" height="70" rx="6" fill="#dff6dd"/>
+<text class="b" x="472" y="272">Worker (queue trigger)</text>
+<text x="472" y="294">one page, idempotent,</text>
+<text x="472" y="312">seconds not minutes</text>
+<path class="d" d="M565,318 C565,356 331,356 331,320"/>
+<text x="350" y="366">continuation: {file, page 4}</text>
+<text x="690" y="262">+ simple, only a queue</text>
+<text x="690" y="284">+ retried, poison queue</text>
+<text x="690" y="306">− progress, status, waiting and</text>
+<text x="690" y="326">   "all pages done" are yours to build</text>
+
+<rect class="box" x="20" y="392" width="960" height="252" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="416">Shape 2: a durable orchestration (Durable Functions)</text>
+<rect class="box" x="32" y="432" width="170" height="86" rx="6" fill="#fff4ce"/>
+<text class="b" x="44" y="456">Client function</text>
+<text x="44" y="478">start instance,</text>
+<text x="44" y="496">202 + status URL</text>
+<path class="a" d="M202,475 L246,475"/>
+<rect class="box" x="246" y="432" width="230" height="86" rx="6" fill="#ffffff"/>
+<text class="b" x="258" y="456">Orchestrator function</text>
+<text x="258" y="478">decides order, waits;</text>
+<text x="258" y="496">deterministic, no I/O</text>
+<path class="a" d="M476,455 L520,455"/>
+<path class="a" d="M520,495 L478,495"/>
+<rect class="box" x="520" y="432" width="200" height="86" rx="6" fill="#dff6dd"/>
+<text class="b" x="532" y="456">Activity functions</text>
+<text x="532" y="478">do the I/O, short,</text>
+<text x="532" y="496">retried, idempotent</text>
+<rect class="box" x="246" y="540" width="474" height="88" rx="6" fill="#ffffff"/>
+<text class="b" x="258" y="564">History (task hub)</text>
+<text x="258" y="586">started · PrepareFeed done · chunk 0 done · chunk 1 done · timer 95 s …</text>
+<text x="258" y="608">after a restart the orchestrator is REPLAYED from here and continues</text>
+<path class="a" d="M361,518 L361,540"/>
+<rect class="box" x="32" y="540" width="170" height="88" rx="6" fill="#f3f2f1"/>
+<text class="b" x="44" y="564">Caller polls</text>
+<text x="44" y="586">202 Running …</text>
+<text x="44" y="608">200 Completed + output</text>
+<path class="d" d="M202,584 L246,584"/>
+<text x="740" y="452">+ status and history built in</text>
+<text x="740" y="474">+ durable timers: waiting</text>
+<text x="740" y="494">   costs nothing</text>
+<text x="740" y="516">+ retries, events, fan-out</text>
+<text x="740" y="538">− orchestrator code has</text>
+<text x="740" y="558">   rules (replay)</text>
+<text x="740" y="580">− a task hub to own</text>
+</svg>

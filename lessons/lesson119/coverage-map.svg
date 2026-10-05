@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" width="1000" height="450" role="img" aria-labelledby="t d">
+  <title id="t">Which practice form tests each AB-400 objective</title>
+  <desc id="d">Grid of the 88 AB-400 objectives in four rows by domain, each cell labelled with its number. Build Microsoft Power Platform solutions: both forms B-13, B-17; PA2 only B-01, B-03, B-06, B-07, B-09, B-10, B-11, B-12, B-14, B-15, B-16, B-19, B-20, B-22. Extend the user experience: both forms U-02, U-15, U-18; PA2 only U-08, U-09, U-11, U-13, U-14, U-16, U-17, U-19, U-20, U-21. Extend Microsoft Power Platform: both forms E-15, E-17, E-26; PA2 only E-02, E-03, E-05, E-06, E-08, E-09, E-13, E-18, E-20, E-21, E-23, E-25, E-27, E-29. Develop integrations: both forms I-13; PA2 only I-01, I-02, I-08, I-10, I-11, I-12, I-14. All other objectives are tested by PA1 only. Together the two forms test all 88.</desc>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #0b0b0b; }
+    .h { font-size: 16px; font-weight: 700; }
+    .s { font-size: 14px; fill: #52514e; }
+    .n { font-size: 14px; font-weight: 700; }
+  </style>
+  <rect width="1000" height="450" fill="#fcfcfb"/>
+  <text x="50" y="34" class="h" style="font-size:20px">PA1 + PA2: 88 of 88 objectives sampled</text>
+  <text x="50" y="58" class="s">PA2 samples the 45 objectives PA1 left out and re-tests the 9 that Karim missed (some as an item's second objective).</text>
+  <rect x="50" y="72" width="20" height="20" rx="4" fill="#2a78d6"/><text x="78" y="88" class="s">PA1 only (34)</text>
+  <rect x="212" y="72" width="20" height="20" rx="4" fill="#eb6834"/><text x="240" y="88" class="s">PA2 only (45)</text>
+  <rect x="374" y="72" width="20" height="20" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/><text x="402" y="88" class="s">Both: missed in PA1, re-tested in PA2 (9)</text>
+  <text x="50" y="132" class="h">Build Microsoft Power Platform solutions (22)</text>
+  <text x="950" y="132" text-anchor="end" class="s">PA1 only 6 · PA2 only 14 · both 2</text>
+  <rect x="50" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="64" y="161" text-anchor="middle" class="n">01</text>
+  <rect x="80" y="142" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="94" y="161" text-anchor="middle" class="n">02</text>
+  <rect x="110" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="124" y="161" text-anchor="middle" class="n">03</text>
+  <rect x="140" y="142" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="154" y="161" text-anchor="middle" class="n">04</text>
+  <rect x="170" y="142" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="184" y="161" text-anchor="middle" class="n">05</text>
+  <rect x="200" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="214" y="161" text-anchor="middle" class="n">06</text>
+  <rect x="230" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="244" y="161" text-anchor="middle" class="n">07</text>
+  <rect x="260" y="142" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="274" y="161" text-anchor="middle" class="n">08</text>
+  <rect x="290" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="304" y="161" text-anchor="middle" class="n">09</text>
+  <rect x="320" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="334" y="161" text-anchor="middle" class="n">10</text>
+  <rect x="350" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="364" y="161" text-anchor="middle" class="n">11</text>
+  <rect x="380" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="394" y="161" text-anchor="middle" class="n">12</text>
+  <rect x="410" y="142" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="424" y="161" text-anchor="middle" class="n">13</text>
+  <rect x="440" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="454" y="161" text-anchor="middle" class="n">14</text>
+  <rect x="470" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="484" y="161" text-anchor="middle" class="n">15</text>
+  <rect x="500" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="514" y="161" text-anchor="middle" class="n">16</text>
+  <rect x="530" y="142" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="544" y="161" text-anchor="middle" class="n">17</text>
+  <rect x="560" y="142" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="574" y="161" text-anchor="middle" class="n">18</text>
+  <rect x="590" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="604" y="161" text-anchor="middle" class="n">19</text>
+  <rect x="620" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="634" y="161" text-anchor="middle" class="n">20</text>
+  <rect x="650" y="142" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="664" y="161" text-anchor="middle" class="n">21</text>
+  <rect x="680" y="142" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="694" y="161" text-anchor="middle" class="n">22</text>
+  <text x="50" y="214" class="h">Extend the user experience (22)</text>
+  <text x="950" y="214" text-anchor="end" class="s">PA1 only 9 · PA2 only 10 · both 3</text>
+  <rect x="50" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="64" y="243" text-anchor="middle" class="n">01</text>
+  <rect x="80" y="224" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="94" y="243" text-anchor="middle" class="n">02</text>
+  <rect x="110" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="124" y="243" text-anchor="middle" class="n">03</text>
+  <rect x="140" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="154" y="243" text-anchor="middle" class="n">04</text>
+  <rect x="170" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="184" y="243" text-anchor="middle" class="n">05</text>
+  <rect x="200" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="214" y="243" text-anchor="middle" class="n">06</text>
+  <rect x="230" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="244" y="243" text-anchor="middle" class="n">07</text>
+  <rect x="260" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="274" y="243" text-anchor="middle" class="n">08</text>
+  <rect x="290" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="304" y="243" text-anchor="middle" class="n">09</text>
+  <rect x="320" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="334" y="243" text-anchor="middle" class="n">10</text>
+  <rect x="350" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="364" y="243" text-anchor="middle" class="n">11</text>
+  <rect x="380" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="394" y="243" text-anchor="middle" class="n">12</text>
+  <rect x="410" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="424" y="243" text-anchor="middle" class="n">13</text>
+  <rect x="440" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="454" y="243" text-anchor="middle" class="n">14</text>
+  <rect x="470" y="224" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="484" y="243" text-anchor="middle" class="n">15</text>
+  <rect x="500" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="514" y="243" text-anchor="middle" class="n">16</text>
+  <rect x="530" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="544" y="243" text-anchor="middle" class="n">17</text>
+  <rect x="560" y="224" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="574" y="243" text-anchor="middle" class="n">18</text>
+  <rect x="590" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="604" y="243" text-anchor="middle" class="n">19</text>
+  <rect x="620" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="634" y="243" text-anchor="middle" class="n">20</text>
+  <rect x="650" y="224" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="664" y="243" text-anchor="middle" class="n">21</text>
+  <rect x="680" y="224" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="694" y="243" text-anchor="middle" class="n">22</text>
+  <text x="50" y="296" class="h">Extend Microsoft Power Platform (30)</text>
+  <text x="950" y="296" text-anchor="end" class="s">PA1 only 13 · PA2 only 14 · both 3</text>
+  <rect x="50" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="64" y="325" text-anchor="middle" class="n">01</text>
+  <rect x="80" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="94" y="325" text-anchor="middle" class="n">02</text>
+  <rect x="110" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="124" y="325" text-anchor="middle" class="n">03</text>
+  <rect x="140" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="154" y="325" text-anchor="middle" class="n">04</text>
+  <rect x="170" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="184" y="325" text-anchor="middle" class="n">05</text>
+  <rect x="200" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="214" y="325" text-anchor="middle" class="n">06</text>
+  <rect x="230" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="244" y="325" text-anchor="middle" class="n">07</text>
+  <rect x="260" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="274" y="325" text-anchor="middle" class="n">08</text>
+  <rect x="290" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="304" y="325" text-anchor="middle" class="n">09</text>
+  <rect x="320" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="334" y="325" text-anchor="middle" class="n">10</text>
+  <rect x="350" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="364" y="325" text-anchor="middle" class="n">11</text>
+  <rect x="380" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="394" y="325" text-anchor="middle" class="n">12</text>
+  <rect x="410" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="424" y="325" text-anchor="middle" class="n">13</text>
+  <rect x="440" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="454" y="325" text-anchor="middle" class="n">14</text>
+  <rect x="470" y="306" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="484" y="325" text-anchor="middle" class="n">15</text>
+  <rect x="500" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="514" y="325" text-anchor="middle" class="n">16</text>
+  <rect x="530" y="306" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="544" y="325" text-anchor="middle" class="n">17</text>
+  <rect x="560" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="574" y="325" text-anchor="middle" class="n">18</text>
+  <rect x="590" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="604" y="325" text-anchor="middle" class="n">19</text>
+  <rect x="620" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="634" y="325" text-anchor="middle" class="n">20</text>
+  <rect x="650" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="664" y="325" text-anchor="middle" class="n">21</text>
+  <rect x="680" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="694" y="325" text-anchor="middle" class="n">22</text>
+  <rect x="710" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="724" y="325" text-anchor="middle" class="n">23</text>
+  <rect x="740" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="754" y="325" text-anchor="middle" class="n">24</text>
+  <rect x="770" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="784" y="325" text-anchor="middle" class="n">25</text>
+  <rect x="800" y="306" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="814" y="325" text-anchor="middle" class="n">26</text>
+  <rect x="830" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="844" y="325" text-anchor="middle" class="n">27</text>
+  <rect x="860" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="874" y="325" text-anchor="middle" class="n">28</text>
+  <rect x="890" y="306" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="904" y="325" text-anchor="middle" class="n">29</text>
+  <rect x="920" y="306" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="934" y="325" text-anchor="middle" class="n">30</text>
+  <text x="50" y="378" class="h">Develop integrations (14)</text>
+  <text x="950" y="378" text-anchor="end" class="s">PA1 only 6 · PA2 only 7 · both 1</text>
+  <rect x="50" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="64" y="407" text-anchor="middle" class="n">01</text>
+  <rect x="80" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="94" y="407" text-anchor="middle" class="n">02</text>
+  <rect x="110" y="388" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="124" y="407" text-anchor="middle" class="n">03</text>
+  <rect x="140" y="388" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="154" y="407" text-anchor="middle" class="n">04</text>
+  <rect x="170" y="388" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="184" y="407" text-anchor="middle" class="n">05</text>
+  <rect x="200" y="388" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="214" y="407" text-anchor="middle" class="n">06</text>
+  <rect x="230" y="388" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="244" y="407" text-anchor="middle" class="n">07</text>
+  <rect x="260" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="274" y="407" text-anchor="middle" class="n">08</text>
+  <rect x="290" y="388" width="28" height="28" rx="4" fill="#2a78d6"/>
+  <text x="304" y="407" text-anchor="middle" class="n">09</text>
+  <rect x="320" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="334" y="407" text-anchor="middle" class="n">10</text>
+  <rect x="350" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="364" y="407" text-anchor="middle" class="n">11</text>
+  <rect x="380" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="394" y="407" text-anchor="middle" class="n">12</text>
+  <rect x="410" y="388" width="28" height="28" rx="4" fill="#1baf7a" stroke="#0b0b0b" stroke-width="3"/>
+  <text x="424" y="407" text-anchor="middle" class="n">13</text>
+  <rect x="440" y="388" width="28" height="28" rx="4" fill="#eb6834"/>
+  <text x="454" y="407" text-anchor="middle" class="n">14</text>
+</svg>

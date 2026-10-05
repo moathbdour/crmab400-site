@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">Cedar – First response sent (phone call): trigger, actions and retry policy</title>
+<desc id="d">The flow drawn as boxes from top to bottom. Trigger: Microsoft Dataverse, When a row is added, modified or deleted; change type Added or Modified; table Phone Calls; scope Organization; Select columns statecode; Filter rows statecode eq 1 and directioncode eq true and the regarding value not null; trigger condition: the regarding type equals incidents. Action 1: Get a row by ID from Cases using the regarding ID, selecting title, firstresponsesent and statecode, with the default retry policy. Condition: the case is active and First Response Sent is not yet true. If yes: Update a row on Cases that sets only First Response Sent to Yes, with the retry policy exponential interval, count 4, interval ten seconds, maximum five minutes. If no: the run ends as succeeded without an update. Notes on the right: the flow listens to the activity table and writes to the case table, so it cannot start itself; running twice is harmless; a permanent failure such as 403 is not retried and shows as a failed run; the SLA item of lesson 21 sees the flag and its timer succeeds.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.l{font-weight:700;fill:#333}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">Cedar – First response sent (phone call)</text>
+
+<rect class="box" x="20" y="44" width="600" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="68">Trigger · Dataverse: When a row is added, modified or deleted</text>
+<text x="32" y="92">Change type: Added or Modified     Table: Phone Calls     Scope: Organization</text>
+<text x="32" y="114">Select columns: statecode</text>
+<text x="32" y="136">Filter rows: statecode eq 1 and directioncode eq true and _regardingobjectid_value ne null</text>
+<text x="32" y="158">Trigger condition: @equals(triggerOutputs()?['body/_regardingobjectid_type'], 'incidents')</text>
+<text x="32" y="180">Connection reference: cedar_DataverseAutomation     Concurrency control: off</text>
+
+<path class="a" d="M320,194 L320,216"/>
+<rect class="box" x="20" y="216" width="600" height="74" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="240">Get the case · Get a row by ID (Cases)</text>
+<text x="32" y="262">Row ID: the trigger's Regarding (Value)     Select columns: title, firstresponsesent, statecode</text>
+<text x="32" y="282">Retry policy: default</text>
+
+<path class="a" d="M320,290 L320,312"/>
+<rect class="box" x="20" y="312" width="600" height="56" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="336">Condition</text>
+<text x="32" y="358">statecode is equal to 0   AND   firstresponsesent is not equal to true</text>
+
+<path class="a" d="M170,368 L170,402"/><text class="l" x="182" y="392">yes</text>
+<path class="a" d="M480,368 L480,402"/><text class="l" x="492" y="392">no</text>
+
+<rect class="box" x="20" y="402" width="330" height="140" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="426">Mark first response sent</text>
+<text x="32" y="448">Update a row (Cases)</text>
+<text x="32" y="470">First Response Sent = Yes   (only this column)</text>
+<text x="32" y="496">Retry policy: Exponential interval</text>
+<text x="32" y="516">Count 4 · Interval PT10S · Maximum PT5M</text>
+
+<rect class="box" x="370" y="402" width="250" height="140" rx="8" fill="#f3f2f1"/>
+<text class="b" x="382" y="426">Nothing to do</text>
+<text x="382" y="450">The run ends as Succeeded</text>
+<text x="382" y="472">without an update: already</text>
+<text x="382" y="494">marked, or the case is</text>
+<text x="382" y="516">inactive</text>
+
+<rect class="box" x="644" y="44" width="336" height="498" rx="8" fill="#f3f2f1"/>
+<text class="b" x="656" y="70">What to notice</text>
+<text x="656" y="100">Listens to the ACTIVITY table,</text>
+<text x="656" y="120">writes the CASE table:</text>
+<text x="656" y="140">it cannot start itself.</text>
+<text x="656" y="174">Runs after the agent's save has</text>
+<text x="656" y="194">committed: it never blocks or</text>
+<text x="656" y="214">slows the agent.</text>
+<text x="656" y="248">Starting twice is harmless: the</text>
+<text x="656" y="268">second run finds the flag set.</text>
+<text x="656" y="302">Transient failure (429, 5xx):</text>
+<text x="656" y="322">four more attempts within minutes.</text>
+<text x="656" y="356">Permanent failure (403, 400):</text>
+<text x="656" y="376">no retry; a failed run to resubmit</text>
+<text x="656" y="396">after the cause is fixed.</text>
+<text x="656" y="430">The SLA item "Urgent – first</text>
+<text x="656" y="450">response" (lesson 21) sees</text>
+<text x="656" y="470">First Response Sent = Yes and</text>
+<text x="656" y="490">its timer shows Succeeded.</text>
+<text x="656" y="524">Email flow: same shape, table and filter differ.</text>
+</svg>

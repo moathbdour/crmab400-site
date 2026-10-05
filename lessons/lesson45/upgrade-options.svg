@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" role="img" aria-labelledby="t d">
+<title id="t">Upgrade, Stage for upgrade and Update compared</title>
+<desc id="d">Three lanes. Upgrade: import 1.2 and immediately delete components missing from 1.2. Stage for upgrade: import 1.2 as a holding _Upgrade layer, run data migration, then Apply upgrade deletes missing components. Update: replace 1.1 with 1.2 but never delete missing components.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-size:17px;font-weight:600}</style>
+<rect width="760" height="400" fill="#fff"/>
+<g stroke="#1b1b1b" stroke-width="2">
+<rect x="20" y="30" width="150" height="80" rx="6" fill="#dbeafe"/><rect x="220" y="30" width="520" height="80" rx="6" fill="#e0f2e9"/>
+<rect x="20" y="150" width="150" height="80" rx="6" fill="#dbeafe"/><rect x="220" y="150" width="160" height="80" rx="6" fill="#fff4d6"/><rect x="400" y="150" width="160" height="80" rx="6" fill="#f3e8ff"/><rect x="580" y="150" width="160" height="80" rx="6" fill="#e0f2e9"/>
+<rect x="20" y="270" width="150" height="80" rx="6" fill="#dbeafe"/><rect x="220" y="270" width="520" height="80" rx="6" fill="#fde2e1"/>
+</g>
+<text x="32" y="65" class="h">Upgrade</text><text x="32" y="90">(default)</text>
+<text x="235" y="65">Import 1.2 → replace 1.1 in one step.</text><text x="235" y="90">Components absent from 1.2 deleted now (with data).</text>
+<text x="32" y="185" class="h">Stage for</text><text x="32" y="210" class="h">upgrade</text>
+<text x="232" y="185">1. Import 1.2 as</text><text x="232" y="210">_Upgrade layer</text>
+<text x="412" y="185">2. Migrate data</text><text x="412" y="210">old → new column</text>
+<text x="592" y="185">3. Apply upgrade:</text><text x="592" y="210">delete old parts</text>
+<text x="32" y="305" class="h">Update</text><text x="32" y="330">(avoid)</text>
+<text x="235" y="305">Replace 1.1 with 1.2, but nothing is deleted.</text><text x="235" y="330">Removed components linger, still owned by the solution.</text>
+<g stroke="#1b1b1b" stroke-width="2" fill="none"><path d="M170 70H214"/><path d="M170 190H214"/><path d="M380 190H394"/><path d="M560 190H574"/><path d="M170 310H214"/></g>
+<text x="20" y="385">Removing a component from Cedar-Test requires Upgrade or Stage for upgrade.</text>
+</svg>

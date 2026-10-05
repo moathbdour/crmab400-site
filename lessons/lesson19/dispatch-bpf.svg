@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" role="img" aria-labelledby="t">
+<title id="t">Work order dispatch business process flow: four stages Prepare, Dispatch, Track and Close with their data steps; required steps block Next stage</title>
+<rect width="980" height="400" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Work order dispatch process (table: Work order)</text>
+<rect x="20" y="60" width="220" height="220" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="35" y="88" font-weight="bold">1 Prepare</text>
+<text x="35" y="118">Site *</text>
+<text x="35" y="144">Service line *</text>
+<text x="35" y="170">Case</text>
+<text x="35" y="196">Project</text>
+<rect x="260" y="60" width="220" height="220" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="275" y="88" font-weight="bold">2 Dispatch</text>
+<text x="275" y="118">Subcontractor *</text>
+<text x="275" y="144">Scheduled for *</text>
+<text x="275" y="170">FieldLink status</text>
+<rect x="500" y="60" width="220" height="220" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="515" y="88" font-weight="bold">3 Track</text>
+<text x="515" y="118">FieldLink ID *</text>
+<text x="515" y="144">FieldLink status</text>
+<rect x="740" y="60" width="220" height="220" rx="8" fill="#e3f2e1" stroke="#2e6b2e"/>
+<text x="755" y="88" font-weight="bold">4 Close</text>
+<text x="755" y="118">FieldLink status</text>
+<text x="755" y="144">(Completed)</text>
+<text x="755" y="170">Then Finish</text>
+<line x1="240" y1="170" x2="258" y2="170" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="480" y1="170" x2="498" y2="170" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="720" y1="170" x2="738" y2="170" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="315">* = required step: Next stage stays blocked until the column has a value.</text>
+<text x="20" y="342">Stage state is stored in the BPF instance table, not on the work order row.</text>
+<text x="20" y="369">Required steps do not stop a flow or API from saving the work order.</text>
+</g>
+</svg>

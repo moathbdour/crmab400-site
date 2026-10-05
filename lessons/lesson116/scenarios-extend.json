@@ -1,0 +1,1171 @@
+{
+  "bank": "Cedar AB-400 scenario review: Extend Microsoft Power Platform",
+  "domain": "extend",
+  "version": "1.0",
+  "lesson": 116,
+  "checkedOn": "2026-10-05",
+  "minutesPerItem": 2,
+  "cases": {
+    "CASE-3": {
+      "title": "FieldLink month-end catch-up",
+      "text": "Before the December release, Dana Khoury rehearses month-end in Cedar-Test on Tuesday 1 December 2026. Two function apps are involved: the operations health check (C-44, timer-triggered, schedule 0 30 2 * * *, meant to run at 02:30 Amman time) and the FieldLink sync (C-45). Dana reports four problems. (1) The health check runs at 05:30 Amman time, and on the night Dataverse was briefly unavailable it failed and nothing ran again until the next night. (2) A catch-up run of 40,000 work order updates by FieldLink Sync starts receiving HTTP 429 responses with Retry-After values of 20 to 90 seconds after about four minutes. (3) In the same run, Cedar's work order guard refuses 12 updates because those work orders are Completed and locked; Lina Farah wants all other rows applied and a list of the 12 with reasons. (4) A Power Automate flow starts the catch-up through an HTTP-triggered function and must tell Sami Nasser the outcome, but the run takes about 25 minutes. Constraints: only FieldLink Sync may write work orders; no secrets in app settings; FieldLink Sync's service protection budget is shared with its other jobs; Amman is UTC+3 all year."
+    }
+  },
+  "items": [
+    {
+      "id": "EX-01",
+      "objectives": [
+        "E-01"
+      ],
+      "lessons": [
+        65
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Lina Farah wants every attempt to save a work order with Scheduled for in the past refused, whether it comes from the form, FieldLink Sync or an import. The rule needs only the value the caller submits. Where should Karim register the synchronous plug-in step so that a refusal costs the least?",
+      "options": {
+        "A": "PreOperation, because the rule must run inside the database transaction.",
+        "B": "PreValidation, so the operation is cancelled before the transaction starts.",
+        "C": "PostOperation in asynchronous mode, so the save stays fast.",
+        "D": "A cloud flow on \"When a row is added or modified\" that deletes the row when the date is in the past."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"refused\", \"only the value the caller submits\", \"costs the least\": cancel before anything is written.",
+      "why": "PreValidation runs before the main transaction for the initial operation, so throwing InvalidPluginExecutionException there cancels without a rollback. The rule needs only the submitted value, so no stored data is required.",
+      "distractors": {
+        "A": "PreOperation can also cancel, but inside the transaction; Learn advises against cancelling there because the rollback costs performance.",
+        "C": "An asynchronous step runs after the commit as a system job and can't cancel the save.",
+        "D": "The flow runs after the row is saved; FieldLink and the agent would already see a wrong work order, and a delete is not a refusal."
+      },
+      "traps": {
+        "A": "late",
+        "C": "wrong-place",
+        "D": "late"
+      }
+    },
+    {
+      "id": "EX-02",
+      "objectives": [
+        "E-01"
+      ],
+      "lessons": [
+        65,
+        69
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "When a work order becomes Completed, FieldLink must be told through its REST API. The call takes 1–4 seconds, and FieldLink is sometimes unavailable for an hour. Sami Nasser's save must never fail or wait because of FieldLink. What should Karim do?",
+      "options": {
+        "A": "Call FieldLink from a synchronous PostOperation step and catch every exception so the save always succeeds.",
+        "B": "Call FieldLink from an asynchronous PostOperation step filtered on the status column, with an idempotent request and the failure visible in system jobs.",
+        "C": "Call FieldLink from a synchronous PreOperation step with an HttpClient timeout of 2 seconds.",
+        "D": "Keep the synchronous step and ask Dana Khoury to raise the plug-in time-out for Cedar-Prod."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"must never fail or wait because of FieldLink\": the call must leave the save's transaction.",
+      "why": "An asynchronous PostOperation step runs after the commit as a system job: the save doesn't wait for FieldLink, a failure can't roll it back, and failed jobs stay visible for recovery. Idempotency makes a repeated job harmless.",
+      "distractors": {
+        "A": "A synchronous step keeps the transaction and its locks open while waiting, and a non-repeatable call can't be rolled back if a later step fails.",
+        "C": "Still inside the transaction, and a short time-out turns every FieldLink outage into failed saves.",
+        "D": "The 2-minute limit is fixed and isn't the problem; waiting on FieldLink inside the save is."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-place",
+        "D": "wrong-gate"
+      }
+    },
+    {
+      "id": "EX-03",
+      "objectives": [
+        "E-02"
+      ],
+      "lessons": [
+        66,
+        68
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Step R1 runs as Cedar Automation (\"Run in User's Context\"). When FieldLink Sync rejects a work order, R1 creates a follow-up task. Lina wants the task description to name the identity that actually made the update. Which value should the plug-in use?",
+      "options": {
+        "A": "context.UserId",
+        "B": "context.InitiatingUserId",
+        "C": "The UserId returned by a WhoAmIRequest sent through CreateOrganizationService(context.UserId).",
+        "D": "context.ParentContext.UserId, read from the outermost parent."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"Run in User's Context\", \"the identity that actually made the update\": impersonation separates the two IDs.",
+      "why": "With step impersonation, UserId is the run-as user (Cedar Automation) and InitiatingUserId is the caller who started the request (FieldLink Sync). Audit-style information uses InitiatingUserId.",
+      "distractors": {
+        "A": "UserId is the step's run-as identity, so every task would name Cedar Automation.",
+        "C": "WhoAmI answers for the identity the service runs as, which is again Cedar Automation.",
+        "D": "Learn advises against depending on ParentContext for business logic, and the parent doesn't define the initiating user more reliably than the property made for it."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "EX-04",
+      "objectives": [
+        "E-04"
+      ],
+      "lessons": [
+        66
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A synchronous PreValidation step on Update of cedar_workorder must refuse a change to Site once the FieldLink status is Sent. Most callers send only the Site, not the status. How should the plug-in get the status?",
+      "options": {
+        "A": "Read cedar_fieldlinkstatus from the Target entity.",
+        "B": "Register a pre-image with alias pre that contains only cedar_fieldlinkstatus, and read it from PreEntityImages.",
+        "C": "Register a post-image with cedar_fieldlinkstatus and read it from PostEntityImages.",
+        "D": "Register a pre-image with all columns so later rules can use it too."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"most callers send only the Site\": the stored value isn't in the request.",
+      "why": "The Target holds only submitted columns. A pre-image gives the stored values at the start of the operation without an extra Retrieve, and is available in PreValidation. List only the column the rule needs.",
+      "distractors": {
+        "A": "The status is absent from the Target when it wasn't submitted, so the check would throw or miss.",
+        "C": "Post-images exist only in PostOperation; this step must refuse in PreValidation.",
+        "D": "Learn warns against all-column images: every matching update would load the whole row, including secured columns the rule doesn't need."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "EX-05",
+      "objectives": [
+        "E-03",
+        "E-04"
+      ],
+      "lessons": [
+        66,
+        67
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A work order that was already sent to FieldLink must not be deleted, even by an administrator's mistake. Karim registers a synchronous PreValidation step on Delete of cedar_workorder. How does the plug-in read the work order's FieldLink status?",
+      "options": {
+        "A": "Cast InputParameters[\"Target\"] to Entity and read cedar_fieldlinkstatus.",
+        "B": "Register a pre-image on the Delete step with cedar_fieldlinkstatus and read it; the Target is only an EntityReference.",
+        "C": "Register a post-image on the Delete step and read the status from it.",
+        "D": "Use an asynchronous PostOperation step that retrieves the row and re-creates it if it had been sent."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"must not be deleted\", \"Delete\": a Delete Target has no column values.",
+      "why": "For Delete the Target is an EntityReference (name and ID). Column values come from a pre-image registered on the step. Refusing in PreValidation stops the delete before the transaction.",
+      "distractors": {
+        "A": "The cast fails: a Delete Target is an EntityReference, not an Entity.",
+        "C": "There is no post-image on Delete: the row no longer exists after the operation.",
+        "D": "After the delete the row is gone, Retrieve finds nothing, and a re-created row would have a new history; the requirement is to prevent the delete."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "late"
+      }
+    },
+    {
+      "id": "EX-06",
+      "objectives": [
+        "E-05",
+        "E-03"
+      ],
+      "lessons": [
+        67
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "When a work order is created without a Service line, it should take the Service line of its Site. Karim's synchronous PreOperation step on Create has the Site's ID from the Target. What should the code do?",
+      "options": {
+        "A": "Retrieve the Site with a ColumnSet containing only cedar_servicesrequired, then set target[\"cedar_serviceline\"].",
+        "B": "In a PostOperation step, call service.Update on the new work order with the Service line.",
+        "C": "Call the Dataverse Web API with HttpClient to read the Site, then set the Target value.",
+        "D": "Create a ServiceClient from a connection string kept in the step's secure configuration and read the Site with it."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"PreOperation on Create\", \"from the Target\": change the row before it is written.",
+      "why": "In PreOperation the Target becomes part of the main write, so setting the value there needs no second operation. The Site is read through the platform's IOrganizationService with only the column needed.",
+      "distractors": {
+        "B": "A second Update raises a new Update event and runs the whole pipeline again for a value that could have been written once.",
+        "C": "Calling the Web API over HTTP from a plug-in isn't supported; use the IOrganizationService the platform provides.",
+        "D": "ServiceClient and connection strings are for client applications; a plug-in is already authenticated and must not hold credentials."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "unsupported",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "EX-07",
+      "objectives": [
+        "E-05"
+      ],
+      "lessons": [
+        67
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The case close guard (C-10) must block resolving a case while open work orders exist. Omar Saleh can't read every work order of his cases. How should the plug-in count them?",
+      "options": {
+        "A": "Query with CreateOrganizationService(context.UserId) so Omar's security is respected.",
+        "B": "Query with CreateOrganizationService(null), ColumnSet(false) and TopCount 51, and show only the number in the error.",
+        "C": "Give the Service Agent – Cedar role Organization-level Read on work orders so the count is complete.",
+        "D": "Retrieve the work orders with ColumnSet(true) as SYSTEM and list their names and subcontractors in the error."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"can't read every work order\": a user-scoped query silently returns fewer rows.",
+      "why": "Security filters query results without an error, so a user-scoped count can be zero and let the case close. SYSTEM sees all rows; ColumnSet(false) and a cap keep the query cheap; the error discloses only a count.",
+      "distractors": {
+        "A": "Omar's query returns only the rows he can read, so the guard can be bypassed without any error.",
+        "C": "It widens access for every agent to fix one rule.",
+        "D": "It reads every column and discloses data Omar may not see in the error message."
+      },
+      "traps": {
+        "A": "wrong-gate",
+        "C": "too-broad",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "EX-08",
+      "objectives": [
+        "E-06"
+      ],
+      "lessons": [
+        68,
+        69
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A synchronous plug-in on Update of account checks the credit limit. Omar's account form has become slow, and the trace log shows the step running on every save. The logic reads only creditlimit. What should Karim change first?",
+      "options": {
+        "A": "Set the step's filtering attributes to creditlimit.",
+        "B": "Change the step to asynchronous mode.",
+        "C": "Return at the top of Execute when context.Depth > 1.",
+        "D": "Set the filtering attributes to accountid and creditlimit."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"running on every save\", \"reads only creditlimit\": the step starts for columns it doesn't care about.",
+      "why": "Filtering attributes stop the step from starting unless creditlimit is in the request: the cheapest optimisation is not running at all. Learn's performance guidance lists it first.",
+      "distractors": {
+        "B": "It still runs on every save, and an asynchronous check can no longer refuse anything.",
+        "C": "Learn says not to depend on Depth in business logic; Omar's saves are at depth 1 anyway.",
+        "D": "The primary key is in every update, so the step would still run every time."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "unsupported",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-09",
+      "objectives": [
+        "E-07"
+      ],
+      "lessons": [
+        70,
+        71
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim designs cedar_CheckSiteAccess: a read-only check on one Site that the Dispatch Planner and a cloud flow both call. Nobody else should be able to register logic that changes its result. Which definition fits?",
+      "options": {
+        "A": "A function, bound to cedar_site, Allowed Custom Processing Step Type None.",
+        "B": "An action, bound to cedar_site, Allowed Custom Processing Step Type None.",
+        "C": "A custom process action built in the classic workflow designer.",
+        "D": "An action, bound to cedar_site, Allowed Custom Processing Step Type Sync and Async."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"a cloud flow calls it\", \"nobody else can change its result\".",
+      "why": "Learn notes that the Dataverse connector performs only actions, so a flow caller decides Is Function = No even for read-only logic. Step type None stops anyone registering other steps. Binding to cedar_site gives the automatic Target.",
+      "distractors": {
+        "A": "A function is the natural shape for read-only logic, but the flow can't call it, and Is Function can't be changed later.",
+        "C": "Custom process actions are the older, low-code way to create messages; custom APIs are the developer option with functions, privileges and step-type control.",
+        "D": "Sync and Async lets other publishers register synchronous steps that modify or cancel the operation."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "legacy-preview",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "EX-10",
+      "objectives": [
+        "E-09"
+      ],
+      "lessons": [
+        70
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim writes the plug-in for cedar_RequestDispatch, an action bound to cedar_workorder that returns Result (\"queued\" or \"already-requested\"). How is the plug-in connected and how does it return Result?",
+      "options": {
+        "A": "Register a synchronous PreOperation step on cedar_RequestDispatch and put Result into the Target.",
+        "B": "Register the assembly without a step, set the custom API's Plugin Type, check MessageName and Stage 30, and set context.OutputParameters[\"Result\"].",
+        "C": "Throw InvalidPluginExecutionException with the Result text, so the caller always sees it.",
+        "D": "Register an asynchronous PostOperation step that writes Result to a work order column for the caller to read later."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"the plug-in for\" a custom API, \"returns Result\": the main operation, not a step.",
+      "why": "A custom API's plug-in runs in the main operation (stage 30), connected through the Plugin Type lookup on the API, with no step. Request parameters come from InputParameters and response properties are set in OutputParameters.",
+      "distractors": {
+        "A": "A step is for other logic around the message; the Target is the bound row, not a place for response properties.",
+        "C": "An exception is a refusal that fails the call (and rolls back); \"queued\" is a normal answer.",
+        "D": "The caller needs Result in the response, not a column that changes later."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-detail",
+        "D": "late"
+      }
+    },
+    {
+      "id": "EX-11",
+      "objectives": [
+        "E-08"
+      ],
+      "lessons": [
+        68
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Step G1 reads its grace period (in minutes) from the step's secure configuration in Cedar-Dev. After the managed solution is imported into Cedar-Test, G1 traces \"grace period missing, using default\". What should Karim do?",
+      "options": {
+        "A": "Move the grace period to the unsecure configuration (or an environment variable): secure configuration isn't included in solution exports, and the value isn't secret.",
+        "B": "Export the solution again with the \"Include secure configuration\" option.",
+        "C": "Give Karim the System Administrator role in Cedar-Test so he can read the secure configuration.",
+        "D": "Run pac plugin push against Cedar-Test to register the step again with the value."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"secure configuration\", \"after import … missing\", \"grace period\": a non-secret setting in the one place that doesn't travel.",
+      "why": "Secure configuration is readable only by system administrators and is not exported with the solution. A grace period isn't secret, so it belongs in the unsecure configuration (exported with the step) or an environment variable.",
+      "distractors": {
+        "B": "Solution export has no option that includes secure configuration.",
+        "C": "Reading the value doesn't put it into the step, and an administrator role for a developer in Test is far too much access.",
+        "D": "Registration tools are for development; Test receives plug-ins only through the managed solution."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "too-broad",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "EX-12",
+      "objectives": [
+        "E-10"
+      ],
+      "lessons": [
+        71
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink reports \"subcontractor arrived\" for a work order. Cedar wants flows, asynchronous plug-ins and endpoints to subscribe to this fact, and nothing in Dataverse should be able to make FieldLink's call fail. How should Karim define cedar_OnSubcontractorArrived?",
+      "options": {
+        "A": "A custom API with a main operation plug-in that updates the work order, so subscribers react to the change.",
+        "B": "A custom API with no plug-in type, Allowed Custom Processing Step Type Async Only, request parameters only, and a catalog assignment in a category.",
+        "C": "A custom API with Sync and Async and a response property Accepted, so FieldLink knows the event arrived.",
+        "D": "A custom API with no plug-in type, assigned directly to the root catalog Cedar Service."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"subscribe\", \"nothing … should be able to make the call fail\": a pure event.",
+      "why": "Learn's pattern for an event from an external system: no main operation plug-in, Async Only so no synchronous logic can fail or change it, only request parameters, a name starting with On, and a catalog assignment so subscribers find it.",
+      "distractors": {
+        "A": "Learn warns against synchronous logic for an event that already happened: guards on the work order could make FieldLink's call fail.",
+        "C": "Sync and Async lets synchronous steps cancel the event, and an event needs no response property.",
+        "D": "Catalog assignments must use a second-level catalog (a category), not the root."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-13",
+      "objectives": [
+        "E-11"
+      ],
+      "lessons": [
+        71
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Cedar.Service.Plugins must read a secret from kv-cedar-test with Power Platform managed identity. Which TWO are part of the setup?",
+      "options": {
+        "A": "Sign the plug-in assembly with a certificate and add a federated identity credential to the managed identity, with the documented issuer and the version 2 subject identifier.",
+        "B": "Create a managedidentities record (version 2) bound to the plug-in assembly, and give the identity the Key Vault Secrets User role on kv-cedar-test.",
+        "C": "Store the managed identity's client secret in the step's secure configuration.",
+        "D": "Create an application user in Cedar-Test for the managed identity's client ID.",
+        "E": "Give the managed identity the Key Vault Administrator role so it can read any secret it needs later."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"plug-in\", \"read a secret from Key Vault\", \"managed identity\": Dataverse → Azure, no stored credential.",
+      "why": "The platform vouches for the signed assembly: Entra matches the federated credential (issuer, version 2 subject with tenant, environment and certificate hash), the managedidentities record links the identity to the assembly, and an Azure role grants exactly the vault access needed.",
+      "distractors": {
+        "C": "Managed identity exists so no secret is stored; a user-assigned managed identity has no client secret.",
+        "D": "An application user is for the opposite direction (an Azure service calling Dataverse).",
+        "E": "Key Vault Administrator manages the vault; reading secrets needs only Key Vault Secrets User."
+      },
+      "traps": {
+        "C": "unsafe",
+        "D": "wrong-place",
+        "E": "too-broad"
+      }
+    },
+    {
+      "id": "EX-14",
+      "objectives": [
+        "E-12"
+      ],
+      "lessons": [
+        74,
+        93
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The FieldLink Gateway updates the Site of an existing work order through the Web API. It must never create a work order by accident. Which request is right?",
+      "options": {
+        "A": "PATCH /api/data/v9.2/cedar_workorders(<id>) with If-Match: * and body { \"cedar_Site@odata.bind\": \"/cedar_sites(<site id>)\" }",
+        "B": "PATCH /api/data/v9.2/cedar_workorders(<id>) with body { \"cedar_Site@odata.bind\": \"/cedar_sites(<site id>)\" } and no If-Match header",
+        "C": "PATCH /api/data/v9.2/cedar_workorders(<id>) with If-Match: * and body { \"cedar_site\": \"<site id>\" }",
+        "D": "POST /api/data/v9.2/cedar_workorders(<id>) with If-Match: * and body { \"cedar_Site@odata.bind\": \"/cedar_sites(<site id>)\" }"
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"never create … by accident\": PATCH is an upsert unless told otherwise; \"Site\": a lookup.",
+      "why": "PATCH creates the row when the ID doesn't exist; If-Match: * makes it update-only (404 for a missing row). A lookup is written through the navigation property with @odata.bind and a path to the target row.",
+      "distractors": {
+        "B": "Without If-Match, a PATCH to an unknown ID creates a new work order.",
+        "C": "cedar_site is the column's logical name, not a property of the entity type; lookups are set with Navigation@odata.bind.",
+        "D": "Updates use PATCH; POST to a row URL isn't an update."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-15",
+      "objectives": [
+        "E-13"
+      ],
+      "lessons": [
+        75,
+        76
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A .NET console tool must call the bound function cedar_CheckDispatch for one work order through IOrganizationService. Which call is right?",
+      "options": {
+        "A": "service.Execute(new OrganizationRequest(\"cedar_CheckDispatch\") { [\"Target\"] = new EntityReference(\"cedar_workorder\", id) })",
+        "B": "service.Retrieve(\"cedar_CheckDispatch\", id, new ColumnSet(\"CanDispatch\"))",
+        "C": "service.RetrieveMultiple(new FetchExpression(\"cedar_CheckDispatch\"))",
+        "D": "An ExecuteMultipleRequest containing one cedar_CheckDispatch request for the work order."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"call the bound function\", \"IOrganizationService\": a message without its own method.",
+      "why": "Every message without a dedicated method, including custom APIs, is sent with Execute. A bound API receives the row as the Target parameter; the response properties are read from the response by name.",
+      "distractors": {
+        "B": "Retrieve reads a row of a table; cedar_CheckDispatch is a message, not a table.",
+        "C": "FetchExpression takes a FetchXML query, not a message name.",
+        "D": "It works, but wraps a single request in a batch for no benefit."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "too-custom"
+      }
+    },
+    {
+      "id": "EX-16",
+      "objectives": [
+        "E-15"
+      ],
+      "lessons": [
+        78,
+        80
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Each night FieldLink Sync updates about 900 work orders. The rows are independent, plug-ins may refuse individual rows, and the report needs a verdict per row. Which approach fits best?",
+      "options": {
+        "A": "ExecuteMultiple batches of up to 1,000 UpdateRequest items with ContinueOnError = true and ReturnResponses = true.",
+        "B": "One UpdateMultiple request with all 900 rows, because it is the fastest message.",
+        "C": "One ExecuteTransaction request with all 900 updates, so the night's work is consistent.",
+        "D": "900 single Update requests on 100 threads with the affinity cookie left on."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"independent\", \"may refuse individual rows\", \"a verdict per row\".",
+      "why": "Each request in an ExecuteMultiple runs in its own transaction, so one refusal doesn't affect the others, and ContinueOnError with responses gives a fault or success per row (RequestIndex). Batches hold up to 1,000 requests.",
+      "distractors": {
+        "B": "On a standard table a bulk message is all-or-nothing: one refused row rolls back all 900.",
+        "C": "One transaction for the whole night holds locks on every row, and one refusal rolls everything back, although the rows don't belong together.",
+        "D": "Parallelism should follow the server's hint (x-ms-dop-hint), and the affinity cookie should be off so requests spread across servers."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "too-broad",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-17",
+      "objectives": [
+        "E-16"
+      ],
+      "lessons": [
+        73
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "The FieldLink Gateway acquires a token with the client credentials flow, but every Dataverse request returns 401 Unauthorized. Which TWO are likely causes?",
+      "options": {
+        "A": "The token was requested for a different audience, for example another environment's URL.",
+        "B": "The token was acquired once at start-up and has expired.",
+        "C": "The FieldLink Sync application user lacks a privilege in its security role.",
+        "D": "The app registration has no delegated user_impersonation permission.",
+        "E": "FieldLink Sync has exceeded the service protection limits."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"acquires a token\", \"every request returns 401\".",
+      "why": "401 means the token isn't accepted: wrong audience (aud doesn't match the environment URL) or expired (exp in the past). Decode the token to tell them apart. Ask the library for a token before each request so the cache renews it.",
+      "distractors": {
+        "C": "A missing privilege is a 403 with \"principal user is missing prv…\", after authentication succeeded.",
+        "D": "Client credentials use .default and the application user's roles; delegated permissions don't apply to app-only tokens.",
+        "E": "Service protection answers 429 with Retry-After, not 401."
+      },
+      "traps": {
+        "C": "wrong-gate",
+        "D": "wrong-gate",
+        "E": "wrong-gate"
+      }
+    },
+    {
+      "id": "EX-18",
+      "objectives": [
+        "E-17"
+      ],
+      "lessons": [
+        79
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The Dispatch Planner starts cedar_RequestDispatch for up to 300 work orders when Sami confirms a weekly plan. Sami must not wait for the work, and Dana wants Cedar notified when each request finishes. Which approach fits?",
+      "options": {
+        "A": "Send each request with Prefer: respond-async; keep the Location status monitor URL, and use a callback URL or the OnBackgroundOperationComplete event for completion.",
+        "B": "Register an asynchronous PostOperation step on Update of the work order to do the dispatch work.",
+        "C": "Call the API synchronously and raise the planner's HTTP time-out to 10 minutes.",
+        "D": "Call the API synchronously and set the client's retry count to 10 so failed calls are repeated."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"must not wait\", \"notified when each request finishes\", a custom API.",
+      "why": "Background operations (preview on 2026-10-05) run a custom API request asynchronously: the response is 202 Accepted with a status monitor Location, and completion arrives by polling, a callback or OnBackgroundOperationComplete. They free the caller but don't extend the plug-in's 2-minute limit.",
+      "distractors": {
+        "B": "It moves the work to a different message and loses the custom API's request and response contract.",
+        "C": "Sami would still wait, and a longer client time-out changes nothing on the server.",
+        "D": "Retries don't address waiting; they repeat the waits and can repeat work."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "wrong-gate",
+        "D": "wrong-gate"
+      }
+    },
+    {
+      "id": "EX-19",
+      "objectives": [
+        "E-18"
+      ],
+      "lessons": [
+        77,
+        78
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim's Python tool must create 2,000 Site rows in Cedar-Test each night as an application identity, with as few requests as possible. Which code fits the Dataverse SDK for Python?",
+      "options": {
+        "A": "DataverseClient(url, CertificateCredential(tenant_id, client_id, cert_path)) and client.records.create(\"cedar_site\", rows) with rows as lists of up to 1,000 dictionaries.",
+        "B": "The same client, calling client.records.create(\"cedar_site\", row) once per dictionary in a loop.",
+        "C": "The same client, sending all 2,000 creates in one batch changeset.",
+        "D": "DataverseClient(url, DeviceCodeCredential()) so Dana signs in when the job starts."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"as an application identity\", \"as few requests as possible\", \"Python SDK\".",
+      "why": "A list passed to records.create uses the CreateMultiple bulk message: one request per list. An azure-identity credential for the app registration (certificate preferred) plus an application user with a role makes it unattended.",
+      "distractors": {
+        "B": "It works, but sends 2,000 requests instead of a few bulk requests.",
+        "C": "A batch holds at most 1,000 operations, and an all-or-nothing changeset of 2,000 rows isn't needed.",
+        "D": "A nightly job can't depend on a person signing in, and it would run with Dana's permissions."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "EX-20",
+      "objectives": [
+        "E-19"
+      ],
+      "lessons": [
+        88,
+        87
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A cloud flow calls an HTTP-triggered function that applies a FieldLink file. The work takes 4–6 minutes. functionTimeout is 10 minutes, but the flow's call fails after about 4 minutes. What should Karim change?",
+      "options": {
+        "A": "Start a Durable Functions orchestration from the HTTP function, return 202 Accepted with the status URL, and let the flow follow the status until it completes.",
+        "B": "Raise functionTimeout to 30 minutes.",
+        "C": "Move the function app to a plan with a longer HTTP limit.",
+        "D": "Return 200 immediately and continue the work on a background thread in the same invocation."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"HTTP-triggered\", \"4–6 minutes\", \"fails after about 4 minutes\": the 230-second HTTP limit.",
+      "why": "An HTTP-triggered function must answer within 230 seconds whatever the time-out, because of the load balancer in front of the app. The asynchronous HTTP pattern accepts the work, returns 202 with a status URL, and lets an orchestration do it.",
+      "distractors": {
+        "B": "functionTimeout isn't what ends the request; the 230-second HTTP limit applies regardless.",
+        "C": "The 230-second limit applies to HTTP-triggered functions on every plan.",
+        "D": "Work after the response isn't tracked by the host; it can be stopped at any time and nobody learns the outcome."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-gate",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "EX-21",
+      "objectives": [
+        "E-21"
+      ],
+      "lessons": [
+        87,
+        73
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "func-cedar-ops-dev uses the user-assigned identity id-cedar-ops-dev and requests a token for https://cedar-dev.crm.dynamics.com/.default. Locally it works with Karim's sign-in; in Azure every Dataverse call fails with \"The user is not a member of the organization\". What fixes it?",
+      "options": {
+        "A": "Create an application user in Cedar-Dev for the identity's application (client) ID and give it a least-privilege security role.",
+        "B": "Grant the identity the Dynamics CRM user_impersonation API permission in Microsoft Entra ID with admin consent.",
+        "C": "Switch to a client secret stored in the function app's settings.",
+        "D": "Give the identity the Contributor role on rg-cedar-dev."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"not a member of the organization\": the token is valid, Dataverse doesn't know the identity.",
+      "why": "Dataverse authorizes applications through an application user per environment, created for the identity's client ID, with a security role. Locally the code ran as Karim, who is a user in Cedar-Dev.",
+      "distractors": {
+        "B": "Entra API permissions don't grant anything in Dataverse for application access; only the application user's roles do.",
+        "C": "A stored secret removes the benefit of managed identity and still needs an application user.",
+        "D": "Azure RBAC on the resource group has no effect on Dataverse authorization and grants broad Azure rights."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "unsafe",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "EX-22",
+      "objectives": [
+        "E-22"
+      ],
+      "lessons": [
+        82
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A flow's email subject must show a work order's Scheduled for in Amman local time, or the word \"unscheduled\" when the column is empty (it is then missing from the trigger output). Which expression is right?",
+      "options": {
+        "A": "if(empty(triggerBody()?['cedar_scheduledfor']), 'unscheduled', convertFromUtc(triggerBody()?['cedar_scheduledfor'], 'Jordan Standard Time', 'ddd dd MMM HH:mm'))",
+        "B": "convertFromUtc(triggerBody()['cedar_scheduledfor'], 'Jordan Standard Time', 'ddd dd MMM HH:mm')",
+        "C": "if(equals(triggerBody()?['cedar_scheduledfor'], ''), 'unscheduled', convertFromUtc(triggerBody()?['cedar_scheduledfor'], 'Jordan Standard Time', 'ddd dd MMM HH:mm'))",
+        "D": "if(empty(triggerBody()?['cedar_scheduledfor']), 'unscheduled', formatDateTime(addHours(triggerBody()?['cedar_scheduledfor'], 3), 'ddd dd MMM HH:mm'))"
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"missing from the trigger output\", \"local time\".",
+      "why": "The ? operator returns null for a missing property instead of failing, empty() is true for null, and convertFromUtc converts with a named time zone and a .NET format string.",
+      "distractors": {
+        "B": "Without the ? the expression fails when the property is missing, and there's no \"unscheduled\" text.",
+        "C": "A missing value is null, not an empty string, so equals is false and convertFromUtc then fails on null.",
+        "D": "A hard-coded offset breaks whenever the zone's rules differ from the constant; use the time zone name."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-23",
+      "objectives": [
+        "E-23"
+      ],
+      "lessons": [
+        84,
+        83
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "The flow \"Cedar – Dispatch ready work orders\" must send Dana an alert when any of its update actions fails or times out, and the run history must then show the run as Failed. Which TWO elements are needed?",
+      "options": {
+        "A": "A scope Try with the update actions, and a scope Catch whose run after is \"has failed\" and \"has timed out\" on Try.",
+        "B": "A Terminate action with status Failed at the end of Catch, after the alert.",
+        "C": "An Exponential interval retry policy on every update action.",
+        "D": "A Terminate action inside the Apply to each, right after the failed update.",
+        "E": "A scope Catch whose run after is \"has failed\" only."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"fails or times out\" (two statuses), \"show the run as Failed\" (a handled run succeeds).",
+      "why": "Try/Catch is built from scopes and run after; Catch must accept TimedOut as well as Failed. A run whose handler succeeds ends as Succeeded, so Terminate with status Failed marks it after the alert.",
+      "distractors": {
+        "C": "Retries repeat transient failures; when they give up, run after still decides what happens. A retry policy isn't error handling.",
+        "D": "Terminate can't be placed inside Apply to each or Do until loops.",
+        "E": "A timed-out action has the status TimedOut, so this Catch would be skipped."
+      },
+      "traps": {
+        "C": "wrong-gate",
+        "D": "wrong-detail",
+        "E": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-24",
+      "objectives": [
+        "E-24"
+      ],
+      "lessons": [
+        81,
+        84
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A flow on \"When a row is added, modified or deleted\" (Modified, cedar_workorder) must run only when the FieldLink status becomes Rejected (104570005). Today it runs on every work order update. What should Karim configure?",
+      "options": {
+        "A": "Select columns cedar_fieldlinkstatus and Filter rows cedar_fieldlinkstatus eq 104570005.",
+        "B": "Keep the trigger and add a Condition as the first action that ends the run unless the status is Rejected.",
+        "C": "A trigger condition that compares the previous status with the new status.",
+        "D": "Select columns cedar_workorderid, cedar_fieldlinkstatus."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"only when … becomes Rejected\", \"runs on every update\": filter in the trigger.",
+      "why": "Select columns starts the trigger only when the status is included in the update; Filter rows evaluates the saved row in Dataverse, so no run is created otherwise. (Including the status unchanged still triggers; the filter keeps it to Rejected rows.)",
+      "distractors": {
+        "B": "Every update still creates a run that consumes requests and fills the history.",
+        "C": "The trigger has no previous values; comparing old and new needs a pre-image in a plug-in.",
+        "D": "The primary key is part of every update, so every update would trigger again."
+      },
+      "traps": {
+        "B": "late",
+        "C": "unsupported",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-25",
+      "objectives": [
+        "E-25"
+      ],
+      "lessons": [
+        84
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The child flow \"Cedar – Report flow failure\" posts to Teams and sends email. The parent flow can't be saved: the child \"only supports embedded connections\". What should Karim do?",
+      "options": {
+        "A": "On the child's details page, edit Run only users and choose \"Use this connection\" for the Teams and Office 365 Outlook connections.",
+        "B": "Pass the parent's Teams connection to the child as an input parameter.",
+        "C": "Move both flows out of the solution so the child can use the caller's connections.",
+        "D": "Replace Run a Child Flow with an HTTP action that calls the child's trigger URL."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"child flow\", \"only supports embedded connections\".",
+      "why": "Connections aren't passed from parent to child. Non-Dataverse connections in a child must be embedded through the Run only users setting.",
+      "distractors": {
+        "B": "Connections can't be passed as inputs.",
+        "C": "Child flows require both flows to be in a solution.",
+        "D": "It rebuilds what Run a Child Flow provides and needs its own authentication."
+      },
+      "traps": {
+        "B": "unsupported",
+        "C": "wrong-place",
+        "D": "too-custom"
+      }
+    },
+    {
+      "id": "EX-26",
+      "objectives": [
+        "E-26"
+      ],
+      "lessons": [
+        85,
+        46
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "The connection reference cedar_DataverseAutomation must use a service principal in Cedar-Test, so Cedar's flows no longer depend on Karim's account. What must exist in Cedar-Test?",
+      "options": {
+        "A": "An app registration with a certificate, an application user for it with the Flow Automation – Cedar role, and a \"Connect with service principal\" connection mapped to the reference in the deployment settings file.",
+        "B": "An app registration with the Dynamics CRM user_impersonation permission and admin consent, used by a \"Connect with service principal\" connection.",
+        "C": "Karim's OAuth connection shared with Dana, so the flows keep running when he is away.",
+        "D": "An application user with the System Administrator role, so no flow ever fails on privileges."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"service principal\", \"no longer depend on Karim's account\", \"in Cedar-Test\".",
+      "why": "The Dataverse connector's service principal option needs an app registration with a credential, an application user in the environment with a least-privilege role, and a connection bound to the reference per environment. Actions then run as the application user.",
+      "distractors": {
+        "B": "Entra API permissions don't authorize anything in Dataverse; without an application user the connection fails.",
+        "C": "The flows would still run as Karim, and sharing a personal connection hands his rights to others.",
+        "D": "System Administrator is far more than the flows need; a compromised flow or editor would have full control."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "too-broad",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "EX-27",
+      "objectives": [
+        "E-27"
+      ],
+      "lessons": [
+        100
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's Foundry agent cedar-dispatch-advisor reads work orders through the Dataverse MCP server. Every response now stops with an mcp_approval_request item. Lina wants read-only tools to run without approval and every other tool to stay unavailable. What should Karim change in the agent's MCP tool?",
+      "options": {
+        "A": "List only the read-only tools in allowed_tools and set require_approval to never for them.",
+        "B": "Set require_approval to never for all tools on the server.",
+        "C": "Add \"never ask for approval\" to the agent's instructions.",
+        "D": "Point the tool at the server's /sse endpoint instead."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"mcp_approval_request\", \"read-only … without approval\", \"every other tool … unavailable\".",
+      "why": "require_approval defaults to always in Foundry's MCP tool. allowed_tools limits which tools the agent can call at all, and never applies only to that read-only list.",
+      "distractors": {
+        "B": "It would let the agent call write tools without anyone approving.",
+        "C": "Instructions don't change the tool's approval setting; enforcement is in the tool definition.",
+        "D": "SSE is the deprecated transport; it doesn't change approval, and Copilot Studio no longer supports it."
+      },
+      "traps": {
+        "B": "too-broad",
+        "C": "wrong-gate",
+        "D": "legacy-preview"
+      }
+    },
+    {
+      "id": "EX-28",
+      "objectives": [
+        "E-28"
+      ],
+      "lessons": [
+        101
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "In Cedar-Dev, the Copilot Studio agent C-24 is connected to the Foundry agent cedar-dispatch-advisor (preview connection). The first test fails with \"HTTP error with code 400 … endpoint does not support activity\". What should Karim do?",
+      "options": {
+        "A": "Enable the Activity protocol on the agent endpoint with the REST API or an SDK, sending the full protocol list that keeps responses.",
+        "B": "Give the maker the Foundry User role on the project.",
+        "C": "Re-create the agent in the classic Foundry portal.",
+        "D": "PATCH the endpoint's protocol configuration with activity only."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"400 … endpoint does not support activity\".",
+      "why": "The Foundry connection needs the Activity protocol, which is enabled programmatically. The PATCH replaces the protocol list, so it must include responses as well, or every Responses API caller stops working.",
+      "distractors": {
+        "B": "A missing role produces 401/403 from the endpoint, not this 400.",
+        "C": "Classic-portal agents fail with \"404 - Version not found\"; only new-portal agents work.",
+        "D": "It enables Activity but removes responses, breaking the advisor app and C-57."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "legacy-preview",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "EX-29",
+      "objectives": [
+        "E-29"
+      ],
+      "lessons": [
+        102
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami asks Cedar's advisor about WO-1001 in Teams. The answer must use only work order data Sami is allowed to read. The advisor's host (C-57) calls the Dataverse Ask API through C-58. How should the call be authenticated?",
+      "options": {
+        "A": "The host exchanges Sami's token on behalf of him and calls the Ask API with that delegated token.",
+        "B": "The MCP server C-56 calls the Ask API with the agent's own identity.",
+        "C": "An application user with the System Administrator role calls the Ask API, and the model is told what Sami may see.",
+        "D": "A service identity calls the Ask API, and the instructions tell the model to leave out rows Sami can't read."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"only … data Sami is allowed to read\": the caller's permissions must reach Dataverse.",
+      "why": "The Ask API answers with the caller's permissions, including column security. Calling it with Sami's delegated token (on-behalf-of) lets Dataverse trim the data; the host holds that token, which is why C-58 runs in the host.",
+      "distractors": {
+        "B": "Rows would follow the agent's identity, not Sami's.",
+        "C": "It reads everything and relies on the model to hide data.",
+        "D": "Instructions aren't access control; the data would already be in the model's context."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "too-broad",
+        "D": "wrong-gate"
+      }
+    },
+    {
+      "id": "EX-30",
+      "objectives": [
+        "E-30"
+      ],
+      "lessons": [
+        103
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A nightly Azure Function with a managed identity should ask the Copilot Studio agent C-24 for a summary of open complaints and email it to Lina. Karim planned to use the Copilot Studio client library. What should he do?",
+      "options": {
+        "A": "Use Direct Line (or a flow with the Microsoft Copilot Studio connector): the client library doesn't support service principal tokens.",
+        "B": "Grant the managed identity an application permission for CopilotStudio.Copilots.Invoke.",
+        "C": "Store Dana's refresh token in the function and call the client library as her.",
+        "D": "Configure the client with the agent's display name instead of its schema name."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"nightly\", \"managed identity\", \"client library\".",
+      "why": "The client library needs a signed-in user with the delegated CopilotStudio.Copilots.Invoke permission; Learn states the Agents SDK doesn't support service principal tokens and names Direct Line as the alternative.",
+      "distractors": {
+        "B": "There is no app-only path: the permission is delegated and service principal tokens aren't supported.",
+        "C": "It stores a person's credential on a server and runs the job as her.",
+        "D": "The client needs the schema name (or the connection string); the display name doesn't identify the agent, and it doesn't solve the identity problem."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "unsafe",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "CE-1",
+      "case": "CASE-3",
+      "objectives": [
+        "E-20"
+      ],
+      "lessons": [
+        87
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Case study CASE-3, problem 1. Which TWO changes fix the health check's schedule and its missed runs?",
+      "options": {
+        "A": "Change the schedule to 0 30 23 * * * (UTC), which is 02:30 in Amman.",
+        "B": "Let the timer function only put a message on a queue, and do the checks in a queue-triggered function with retries and a poison queue.",
+        "C": "Set RunOnStartup to true so a missed check runs whenever the app restarts.",
+        "D": "Throw an exception when IsPastDue is true so the timer retries the run.",
+        "E": "Change the schedule to the five-field expression 30 2 * * *."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"02:30 Amman time but runs at 05:30\" (UTC default), \"nothing ran again until the next night\" (timer doesn't retry).",
+      "why": "Timer schedules are evaluated in UTC by default, and Amman is UTC+3, so 02:30 Amman is 23:30 UTC. A timer execution that fails isn't retried; handing the work to a queue gives retries up to maxDequeueCount and a poison queue for what still fails.",
+      "distractors": {
+        "C": "It runs the check on every restart and scale event, not when one was missed.",
+        "D": "Timer functions aren't retried after an exception; IsPastDue only says a run is late.",
+        "E": "Azure Functions use six-field NCRONTAB with seconds first, and the hour would still be UTC."
+      },
+      "traps": {
+        "C": "wrong-detail",
+        "D": "wrong-gate",
+        "E": "wrong-detail"
+      }
+    },
+    {
+      "id": "CE-2",
+      "case": "CASE-3",
+      "objectives": [
+        "E-14"
+      ],
+      "lessons": [
+        79,
+        80
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Case study CASE-3, problem 2. Which TWO changes handle the 429 responses correctly?",
+      "options": {
+        "A": "Rely on ServiceClient's built-in handling: it waits for Retry-After and resends; set MaxRetryCount and RetryPauseTime, and end the run with a specific outcome when retries are used up.",
+        "B": "Limit parallel requests to RecommendedDegreesOfParallelism and let Retry-After pace the run instead of starting at full speed.",
+        "C": "Wrap every ServiceClient call in Cedar's own loop that retries five times immediately.",
+        "D": "Create a second application user for the catch-up run to double the limits.",
+        "E": "Ask Microsoft support to raise the service protection limits for Cedar-Test."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"429\", \"Retry-After of 20–90 seconds\", \"budget shared with other jobs of FieldLink Sync\".",
+      "why": "Service protection limits are per user and per web server in a five-minute window. The client must wait the Retry-After time (ServiceClient does this itself) and keep its concurrency at the server's recommendation, so the shared budget recovers.",
+      "distractors": {
+        "C": "A second loop multiplies attempts, and immediate retries ignore Retry-After and extend the throttling.",
+        "D": "The case allows only FieldLink Sync to write work orders, and splitting identities to dodge limits is exactly what the limits protect against.",
+        "E": "Service protection limits aren't raised on request; the client must adapt."
+      },
+      "traps": {
+        "C": "too-custom",
+        "D": "too-broad",
+        "E": "wrong-gate"
+      }
+    },
+    {
+      "id": "CE-3",
+      "case": "CASE-3",
+      "objectives": [
+        "E-15"
+      ],
+      "lessons": [
+        78,
+        80
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-3, problem 3. How should the catch-up run apply the updates?",
+      "options": {
+        "A": "ExecuteMultiple with ContinueOnError = true, recording each fault with its RequestIndex, and listing the refused rows without retrying them.",
+        "B": "UpdateMultiple in chunks of 1,000 rows.",
+        "C": "ExecuteTransaction requests of 1,000 updates each.",
+        "D": "Send the requests with the BypassBusinessLogicExecution header so the lock plug-in can't refuse them."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"refuses 12 updates\", \"the other rows applied\", \"a list … with reasons\".",
+      "why": "Per-request transactions let the other rows commit; each fault carries the plug-in's message. A business refusal isn't transient, so it is reported, not retried.",
+      "distractors": {
+        "B": "On a standard table one refused row rolls back its whole chunk of 1,000.",
+        "C": "A transaction makes each chunk all-or-nothing, which is the opposite of what Lina asked for.",
+        "D": "It switches off the rule that protects Completed work orders, needs a privilege FieldLink Sync must never have, and Cedar forbids it for integrations."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "wrong-place",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "CE-4",
+      "case": "CASE-3",
+      "objectives": [
+        "E-19"
+      ],
+      "lessons": [
+        88,
+        84
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-3, problem 4. How should the flow start the catch-up and report its outcome to Sami?",
+      "options": {
+        "A": "The HTTP function starts an orchestration and returns 202 with a status URL; the flow checks the status in a Do until loop with a Delay and a Timeout longer than the run, then reports the final status.",
+        "B": "Set the flow's HTTP action time-out to 30 minutes so it waits for the function's answer.",
+        "C": "Add a 30-minute Delay after the call and then tell Sami the catch-up finished.",
+        "D": "Do the whole catch-up inside the orchestrator function so it can run as long as it needs."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"must report the outcome\", \"takes 25 minutes\", \"HTTP-triggered function\".",
+      "why": "The asynchronous HTTP pattern accepts the work, returns 202 with a status URL, and lets the caller poll. The Do until needs a Timeout longer than Count × Delay, and the flow reports the status it read, not an assumption.",
+      "distractors": {
+        "B": "The function can't hold an HTTP request open for 25 minutes; the 230-second limit ends it first.",
+        "C": "It reports success without knowing the outcome.",
+        "D": "Orchestrators must not do I/O; Dataverse calls belong in activities."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "notify-not-control",
+        "D": "unsupported"
+      }
+    }
+  ]
+}

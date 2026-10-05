@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t">
+<title id="t">Anatomy of a model-driven app record page (simplified mock-up)</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700}.s{font-size:14px}.n{font-size:14px;font-weight:700;fill:#ffffff}</style>
+<rect width="900" height="520" fill="#ffffff"/>
+<rect x="10" y="10" width="880" height="44" fill="#2f5d8a"/>
+<text x="24" y="38" fill="#ffffff" style="fill:#fff" class="h">Customer Service app</text>
+<rect x="300" y="18" width="300" height="28" rx="4" fill="#ffffff"/>
+<text x="312" y="37" class="s">Search Harbor View…</text>
+<text x="690" y="38" style="fill:#fff" class="s">Settings · Help · Profile</text>
+<rect x="10" y="54" width="170" height="456" fill="#eef1f5" stroke="#9aa7b5"/>
+<text x="22" y="82" class="h">Site map</text>
+<text x="22" y="110" class="s">My Work</text>
+<text x="34" y="134" class="s">Dashboards</text>
+<text x="34" y="158" class="s">Activities</text>
+<text x="22" y="186" class="s">Customers</text>
+<text x="34" y="210" class="s">Accounts</text>
+<text x="34" y="234" class="s">Contacts</text>
+<text x="22" y="262" class="s">Service</text>
+<rect x="28" y="270" width="140" height="26" fill="#d6e2f0"/>
+<text x="34" y="288" class="s h">Cases</text>
+<text x="34" y="314" class="s">Queues</text>
+<rect x="180" y="54" width="710" height="40" fill="#f7f7f7" stroke="#9aa7b5"/>
+<text x="192" y="79" class="s">Command bar: Save · Save &amp; Close · + New · Resolve Case · Assign · …</text>
+<rect x="180" y="94" width="710" height="62" fill="#ffffff" stroke="#9aa7b5"/>
+<text x="192" y="118" class="h">Chiller not cooling in Building B</text>
+<text x="192" y="142" class="s">Header: Priority High · Status Active · Owner Omar Saleh</text>
+<rect x="180" y="156" width="710" height="44" fill="#fff6e0" stroke="#b07d10"/>
+<text x="192" y="184" class="s">Business process flow:  Identify ▸ Research ▸ Resolve</text>
+<rect x="180" y="200" width="710" height="30" fill="#f7f7f7" stroke="#9aa7b5"/>
+<text x="192" y="221" class="s">Tabs:  Summary | Details | Related</text>
+<rect x="190" y="240" width="330" height="260" fill="#ffffff" stroke="#9aa7b5"/>
+<text x="202" y="264" class="h">Section: Case details</text>
+<text x="202" y="292" class="s">Case title (column)</text>
+<text x="202" y="318" class="s">Customer: Harbor View Medical…</text>
+<text x="202" y="344" class="s">Contact: Rana Mansour</text>
+<text x="202" y="370" class="s">Origin: Phone</text>
+<text x="202" y="400" class="h">Lookup = link to another row</text>
+<rect x="540" y="240" width="340" height="260" fill="#ffffff" stroke="#9aa7b5"/>
+<text x="552" y="264" class="h">Timeline</text>
+<text x="552" y="292" class="s">Phone call · Rana Mansour</text>
+<text x="552" y="318" class="s">Note · chiller model number</text>
+<text x="552" y="344" class="s">Email · acknowledgement sent</text>
+<text x="552" y="400" class="h">Activities and notes for this row</text>
+<circle cx="160" cy="82" r="13" fill="#b3261e"/><text x="160" y="87" text-anchor="middle" class="n">1</text>
+<circle cx="870" cy="74" r="13" fill="#b3261e"/><text x="870" y="79" text-anchor="middle" class="n">2</text>
+<circle cx="870" cy="125" r="13" fill="#b3261e"/><text x="870" y="130" text-anchor="middle" class="n">3</text>
+<circle cx="870" cy="178" r="13" fill="#b3261e"/><text x="870" y="183" text-anchor="middle" class="n">4</text>
+<circle cx="500" cy="264" r="13" fill="#b3261e"/><text x="500" y="269" text-anchor="middle" class="n">5</text>
+<circle cx="862" cy="264" r="13" fill="#b3261e"/><text x="862" y="269" text-anchor="middle" class="n">6</text>
+<circle cx="620" cy="32" r="13" fill="#b3261e"/><text x="620" y="37" text-anchor="middle" class="n">7</text>
+</svg>

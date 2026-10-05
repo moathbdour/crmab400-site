@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="t d">
+<title id="t">Manager hierarchy access in the Cedar Service lab</title>
+<desc id="d">Operations director is manager of Lina Test, who is manager of Omar Test and Sami. With manager hierarchy and depth 2, Lina Test gets Read, Write, Append and Append To on rows owned by or shared with her direct reports Omar and Sami, including rows owned by teams they belong to. The operations director gets Write on Lina's rows and read only on Omar's and Sami's rows two levels down. Both managers still need at least User-level Read on the table in their own role.</desc>
+<rect width="900" height="500" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="330" y="20" width="240" height="70" rx="10" fill="#f1f3f4" stroke="#555" stroke-width="2"/>
+<text x="450" y="50" text-anchor="middle" font-weight="bold">Operations director</text>
+<text x="450" y="72" text-anchor="middle">(unnamed, root BU)</text>
+<rect x="330" y="170" width="240" height="70" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="450" y="200" text-anchor="middle" font-weight="bold">Lina Test</text>
+<text x="450" y="222" text-anchor="middle">Cedar Service BU</text>
+<rect x="120" y="330" width="240" height="70" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="240" y="360" text-anchor="middle" font-weight="bold">Omar Test</text>
+<text x="240" y="382" text-anchor="middle">owns WO-1001 test row</text>
+<rect x="540" y="330" width="240" height="70" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="660" y="360" text-anchor="middle" font-weight="bold">Sami (member)</text>
+<text x="660" y="382" text-anchor="middle">Cedar Field Coordination</text>
+<g stroke="#444" stroke-width="2" fill="none" marker-end="url(#a)">
+<path d="M450,90 L450,168"/><path d="M400,240 L260,328"/><path d="M500,240 L640,328"/>
+</g>
+<text x="460" y="125" font-size="14">direct: Read, Write, Append, Append To</text>
+<text x="100" y="285" font-size="14">direct report: Read, Write,</text>
+<text x="100" y="303" font-size="14">Append, Append To</text>
+<text x="590" y="285" font-size="14">team-owned rows count too</text>
+<path d="M330,55 C120,90 90,250 150,328" stroke="#a15c00" stroke-width="2" stroke-dasharray="6 5" fill="none" marker-end="url(#a)"/>
+<text x="30" y="150" font-size="14" fill="#8a4b00">depth 2: director reads</text>
+<text x="30" y="168" font-size="14" fill="#8a4b00">Omar's rows (read only)</text>
+<rect x="20" y="430" width="860" height="52" rx="8" fill="#fff4e5" stroke="#a15c00" stroke-width="2"/>
+<text x="450" y="452" text-anchor="middle">Hierarchy only adds access. Each manager still needs User-level Read on the table,</text>
+<text x="450" y="472" text-anchor="middle">and reaches only rows the report owns or has shared — not everything the report can see through BU depth.</text>
+</g>
+</svg>

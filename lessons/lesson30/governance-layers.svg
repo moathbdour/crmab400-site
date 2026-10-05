@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="t d">
+<title id="t">Cedar Service governance layers</title>
+<desc id="d">Four nested layers decide whether a Cedar flow can run and what data it sees. Tenant layer: tenant-level data policies set by a Power Platform administrator. Environment group layer: the Cedar CRM group of managed environments with published rules such as sharing limits and solution checker. Environment layer: Cedar-Prod with a security group, managed environment settings and environment-level data policies. Inside the environment: the connector check (can these connectors be combined?) happens first, then Dataverse security (roles, business units, teams, sharing, column security) decides which rows and columns the connection's identity can touch.</desc>
+<rect width="960" height="600" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="20" width="920" height="560" rx="14" fill="#f3f3f3" stroke="#555" stroke-width="2"/>
+<text x="40" y="50" font-weight="bold" font-size="17">Tenant cedarservice.example — Power Platform admin (Dana)</text>
+<text x="40" y="74">Tenant-level data policies: "Cedar – Default environment guardrail", "Cedar – CRM environments"</text>
+<rect x="45" y="92" width="870" height="468" rx="12" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="65" y="120" font-weight="bold" font-size="16">Environment group "Cedar CRM" (managed environments only)</text>
+<text x="65" y="144">Published rules lock settings: sharing limits, solution checker = Block, usage insights, backup retention</text>
+<rect x="70" y="162" width="820" height="380" rx="10" fill="#ffffff" stroke="#1a56b0" stroke-width="2"/>
+<text x="90" y="190" font-weight="bold" font-size="16">Environment Cedar-Prod (managed)</text>
+<text x="90" y="214">Security group "Cedar CRM users" gates who can be added · environment-level data policy (optional, can only tighten)</text>
+<rect x="95" y="236" width="370" height="280" rx="10" fill="#fff4e5" stroke="#b36b00" stroke-width="2"/>
+<text x="280" y="264" text-anchor="middle" font-weight="bold">1. Connector gate (data policies)</text>
+<text x="115" y="294">Question: may this app/flow/agent</text>
+<text x="115" y="316">combine these connectors?</text>
+<text x="115" y="346">Business + Business → allowed</text>
+<text x="115" y="370">Business + Non-business → blocked</text>
+<text x="115" y="394">Any Blocked connector → blocked</text>
+<text x="115" y="418">Endpoint filter: HTTP only to</text>
+<text x="115" y="440">https://api.fieldlink.example/*</text>
+<text x="115" y="474" font-style="italic">Applies to canvas apps, cloud flows,</text>
+<text x="115" y="496" font-style="italic">agents — not to model-driven forms</text>
+<path d="M465,376 L515,376" stroke="#444" stroke-width="2.5"/>
+<path d="M505,368 L519,376 L505,384 z" fill="#444"/>
+<text x="490" y="364" text-anchor="middle" font-size="13">passes</text>
+<rect x="520" y="236" width="350" height="280" rx="10" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="695" y="264" text-anchor="middle" font-weight="bold">2. Data gate (Dataverse security)</text>
+<text x="540" y="294">Question: which rows and columns</text>
+<text x="540" y="316">may the connection's identity use?</text>
+<text x="540" y="346">Security roles + access levels (26)</text>
+<text x="540" y="370">Business units, teams, sharing (26–27)</text>
+<text x="540" y="394">Column security, hierarchy (28)</text>
+<text x="540" y="418">App user FieldLink Sync (29)</text>
+<text x="540" y="474" font-style="italic">Data policies never grant access;</text>
+<text x="540" y="496" font-style="italic">roles never allow a blocked connector</text>
+</g>
+</svg>

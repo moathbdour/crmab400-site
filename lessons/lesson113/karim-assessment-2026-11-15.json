@@ -1,0 +1,331 @@
+{
+  "person": "Karim Aziz",
+  "assessedOn": "2026-11-15",
+  "target": 2,
+  "plan": {
+    "start": "2026-11-16",
+    "examDate": "2026-12-15",
+    "hoursPerWeek": 6,
+    "minutesPerGap": 30
+  },
+  "ratings": {
+    "B-01": {
+      "rating": 3,
+      "evidence": "Lesson 41 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-02"
+    },
+    "B-02": {
+      "rating": 2,
+      "evidence": "Lesson 25 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "B-03": {
+      "rating": 2,
+      "evidence": "Lesson 42 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "B-04": {
+      "rating": 3,
+      "evidence": "Lesson 42 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-05"
+    },
+    "B-05": {
+      "rating": 2,
+      "evidence": "Lesson 14 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "B-06": {
+      "rating": 1
+    },
+    "B-07": {
+      "rating": 2,
+      "evidence": "Lesson 97 knowledge check at least 4 of 5 without notes, 2026-11-02"
+    },
+    "B-08": {
+      "rating": 1
+    },
+    "B-09": {
+      "rating": 1
+    },
+    "B-10": {
+      "rating": 2
+    },
+    "B-11": {
+      "rating": 2,
+      "evidence": "Lesson 100 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "B-12": {
+      "rating": 3,
+      "evidence": "Lesson 70 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-07"
+    },
+    "B-13": {
+      "rating": 1
+    },
+    "B-14": {
+      "rating": 3,
+      "evidence": "Lesson 89 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-03"
+    },
+    "B-15": {
+      "rating": 1
+    },
+    "B-16": {
+      "rating": 1
+    },
+    "B-17": {
+      "rating": 3,
+      "evidence": "Lesson 105 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-06"
+    },
+    "B-18": {
+      "rating": 2,
+      "evidence": "Lesson 44 knowledge check at least 4 of 5 without notes, 2026-11-07"
+    },
+    "B-19": {
+      "rating": 3,
+      "evidence": "Lesson 46 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-02"
+    },
+    "B-20": {
+      "rating": 2,
+      "evidence": "Lesson 45 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "B-21": {
+      "rating": 2,
+      "evidence": "Lesson 47 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "B-22": {
+      "rating": 3,
+      "evidence": "Lesson 48 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-05"
+    },
+    "U-01": {
+      "rating": 3,
+      "evidence": "Lesson 49 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-06"
+    },
+    "U-02": {
+      "rating": 2,
+      "evidence": "Lesson 50 knowledge check at least 4 of 5 without notes, 2026-11-07"
+    },
+    "U-03": {
+      "rating": 3,
+      "evidence": "Lesson 52 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-02"
+    },
+    "U-04": {
+      "rating": 1
+    },
+    "U-05": {
+      "rating": 2,
+      "evidence": "Lesson 53 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "U-06": {
+      "rating": 1
+    },
+    "U-07": {
+      "rating": 1
+    },
+    "U-08": {
+      "rating": 1
+    },
+    "U-09": {
+      "rating": 2
+    },
+    "U-10": {
+      "rating": 2,
+      "evidence": "Lesson 59 check 4/5 without notes; recalled Device, Utility and WebAPI members, 2026-11-14"
+    },
+    "U-11": {
+      "rating": 1
+    },
+    "U-12": {
+      "rating": 1
+    },
+    "U-13": {
+      "rating": 1
+    },
+    "U-14": {
+      "rating": 1
+    },
+    "U-15": {
+      "rating": 0
+    },
+    "U-16": {
+      "rating": 0
+    },
+    "U-17": {
+      "rating": 2,
+      "evidence": "Lesson 63 check 5/5 without notes; wrote the @envvar: data source command from memory, 2026-11-13"
+    },
+    "U-18": {
+      "rating": 1
+    },
+    "U-19": {
+      "rating": 2,
+      "evidence": "Lesson 64 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "U-20": {
+      "rating": 1
+    },
+    "U-21": {
+      "rating": 1
+    },
+    "U-22": {
+      "rating": 1
+    },
+    "E-01": {
+      "rating": 3,
+      "evidence": "Lesson 65 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-04"
+    },
+    "E-02": {
+      "rating": 3,
+      "evidence": "Lesson 66 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-05"
+    },
+    "E-03": {
+      "rating": 3,
+      "evidence": "Lesson 67 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-06"
+    },
+    "E-04": {
+      "rating": 3,
+      "evidence": "Lesson 66 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-07"
+    },
+    "E-05": {
+      "rating": 3,
+      "evidence": "Lesson 67 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-02"
+    },
+    "E-06": {
+      "rating": 2,
+      "evidence": "Lesson 69 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "E-07": {
+      "rating": 2,
+      "evidence": "Lesson 70 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "E-08": {
+      "rating": 2,
+      "evidence": "Lesson 68 knowledge check at least 4 of 5 without notes, 2026-11-05"
+    },
+    "E-09": {
+      "rating": 2,
+      "evidence": "Lesson 70 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "E-10": {
+      "rating": 1
+    },
+    "E-11": {
+      "rating": 2,
+      "evidence": "Lesson 71 check 5/5 without notes; explained version 2 subject identifier to Dana, 2026-11-11"
+    },
+    "E-12": {
+      "rating": 3,
+      "evidence": "Lesson 74 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-03"
+    },
+    "E-13": {
+      "rating": 3,
+      "evidence": "Lesson 75 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-04"
+    },
+    "E-14": {
+      "rating": 3,
+      "evidence": "Lesson 79 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-05"
+    },
+    "E-15": {
+      "rating": 2,
+      "evidence": "Lesson 78 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "E-16": {
+      "rating": 2,
+      "evidence": "Lesson 73 knowledge check at least 4 of 5 without notes, 2026-11-07"
+    },
+    "E-17": {
+      "rating": 1
+    },
+    "E-18": {
+      "rating": 2,
+      "evidence": "Lesson 76 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "E-19": {
+      "rating": 2,
+      "evidence": "Lesson 88 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "E-20": {
+      "rating": 2,
+      "evidence": "Lesson 87 knowledge check at least 4 of 5 without notes, 2026-11-05"
+    },
+    "E-21": {
+      "rating": 1
+    },
+    "E-22": {
+      "rating": 1
+    },
+    "E-23": {
+      "rating": 2,
+      "evidence": "Lesson 84 knowledge check at least 4 of 5 without notes, 2026-11-02"
+    },
+    "E-24": {
+      "rating": 2,
+      "evidence": "Lesson 81 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "E-25": {
+      "rating": 2,
+      "evidence": "Lesson 84 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "E-26": {
+      "rating": 1
+    },
+    "E-27": {
+      "rating": 2,
+      "evidence": "Lesson 100 check 5/5 without notes; drew the Dataverse MCP client chain from memory, 2026-11-12"
+    },
+    "E-28": {
+      "rating": 1
+    },
+    "E-29": {
+      "rating": 2,
+      "evidence": "Lesson 102 check 4/5 without notes; listed the three Work IQ routes and their identities, 2026-11-13"
+    },
+    "E-30": {
+      "rating": 1
+    },
+    "I-01": {
+      "rating": 2,
+      "evidence": "Lesson 91 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "I-02": {
+      "rating": 3,
+      "evidence": "Lesson 90 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-05"
+    },
+    "I-03": {
+      "rating": 2,
+      "evidence": "Lesson 90 knowledge check at least 4 of 5 without notes, 2026-11-06"
+    },
+    "I-04": {
+      "rating": 3,
+      "evidence": "Lesson 89 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-07"
+    },
+    "I-05": {
+      "rating": 3,
+      "evidence": "Lesson 92 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-02"
+    },
+    "I-06": {
+      "rating": 3,
+      "evidence": "Lesson 93 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-03"
+    },
+    "I-07": {
+      "rating": 3,
+      "evidence": "Lesson 93 knowledge check all correct without notes and lab rebuilt from memory, 2026-11-04"
+    },
+    "I-08": {
+      "rating": 1
+    },
+    "I-09": {
+      "rating": 1
+    },
+    "I-10": {
+      "rating": 1
+    },
+    "I-11": {
+      "rating": 1
+    },
+    "I-12": {
+      "rating": 2,
+      "evidence": "Lesson 95 knowledge check at least 4 of 5 without notes, 2026-11-03"
+    },
+    "I-13": {
+      "rating": 2,
+      "evidence": "Lesson 94 knowledge check at least 4 of 5 without notes, 2026-11-04"
+    },
+    "I-14": {
+      "rating": 1
+    }
+  }
+}

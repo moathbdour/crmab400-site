@@ -1,0 +1,26 @@
+{
+  "bank": "Cedar AB-400 scenario review: Extend Microsoft Power Platform",
+  "version": "1.0",
+  "author": "Karim Aziz",
+  "names": {
+    "EX-17": {
+      "A": "entra-token",
+      "B": "entra-token",
+      "C": "security-role",
+      "D": "api-permission"
+    },
+    "EX-21": {
+      "A": "application-user",
+      "B": "api-permission",
+      "D": "azure-rbac"
+    },
+    "EX-26": {
+      "A": "application-user",
+      "B": "api-permission"
+    },
+    "EX-30": {
+      "A": "service-channel",
+      "B": "api-permission"
+    }
+  }
+}

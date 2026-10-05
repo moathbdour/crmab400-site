@@ -1,0 +1,1035 @@
+{
+  "bank": "Cedar AB-400 scenario review: Extend the user experience",
+  "domain": "ux",
+  "version": "1.0",
+  "lesson": 115,
+  "checkedOn": "2026-10-05",
+  "minutesPerItem": 2,
+  "cases": {
+    "CASE-2": {
+      "title": "Cedar Dispatch Planner 2.0 go-live",
+      "text": "Version 2.0 of C-23 Cedar Dispatch Planner is in Cedar-Test before its move to Cedar-Prod. Lina Farah wants the planner embedded in the Cedar Operations model-driven app, so dispatchers stop switching apps. During user acceptance testing on Friday 27 November 2026, Sami Nasser reports four problems. (1) The planner opens on its own URL, but inside Cedar Operations it is blank and the browser console shows a \"Refused to frame\" message. (2) Two dispatchers say the app never opens for them, and Application Insights has no sessions from them. (3) With 120 open work orders, the board takes 9 seconds to become usable and DevTools shows 121 Dataverse requests: one for the work orders and one per work order to resolve its site name. (4) The release to Cedar-Prod must follow Cedar's ALM rules: managed solutions through the Cedar Release Pipeline with approvals; Karim has no maker rights in Prod; connection references and settings differ per environment. Dana Khoury owns the environment settings, and every change to an environment-wide security setting needs a change record."
+    }
+  },
+  "items": [
+    {
+      "id": "UX-01",
+      "objectives": [
+        "U-01"
+      ],
+      "lessons": [
+        49
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Lina Farah wants Priority hidden on the Case form whenever Category is Inquiry. Priority appears twice on the form: in the header and in the General tab. Karim's OnChange handler calls formContext.getControl(\"prioritycode\").setVisible(false), but the header copy stays visible. What should he change?",
+      "options": {
+        "A": "Loop over formContext.getAttribute(\"prioritycode\").controls and call setVisible(false) on each control.",
+        "B": "Use Xrm.Page.getControl(\"prioritycode\") so the call applies to the whole page.",
+        "C": "Call formContext.getAttribute(\"prioritycode\").setVisible(false).",
+        "D": "Find the header element with document.querySelector and set style.display to \"none\"."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"appears twice\", \"header copy stays visible\": one column, several controls.",
+      "why": "A column on a form is one attribute with one control per placement (prioritycode and header_prioritycode). getControl returns a single control; attribute.controls returns all of them, and visibility is a control method.",
+      "distractors": {
+        "B": "Xrm.Page is deprecated, and Xrm.Page.getControl still returns one control, so the header copy would stay visible.",
+        "C": "setVisible belongs to controls, not attributes; the attribute object has no visibility.",
+        "D": "Direct DOM access is unsupported: the markup changes between releases and the script breaks without warning."
+      },
+      "traps": {
+        "B": "legacy-preview",
+        "C": "wrong-detail",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "UX-02",
+      "objectives": [
+        "U-01"
+      ],
+      "lessons": [
+        49,
+        51
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A Case form handler must show a warning when Priority is High. Cedar's agents use the app in English and Arabic, and a maker may rename the option labels next year. Which condition should Karim write?",
+      "options": {
+        "A": "formContext.getAttribute(\"prioritycode\").getText() === \"High\"",
+        "B": "formContext.getAttribute(\"prioritycode\").getValue() === 1",
+        "C": "formContext.getControl(\"prioritycode\").getValue() === \"High\"",
+        "D": "Xrm.Page.data.entity.attributes.get(\"prioritycode\").getValue() === \"1\""
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"English and Arabic\", \"may rename the option labels\": compare the stored value, not the label.",
+      "why": "getValue() on a Choice column returns the integer option value (1 is High in the standard Priority choice), which doesn't change with the user's language or a label rename. getText() returns the localized label.",
+      "distractors": {
+        "A": "getText() returns the label in the user's language, so the check fails for Arabic users and after a rename.",
+        "C": "Value methods belong to the attribute, not the control, and a Choice value is a number, not a label.",
+        "D": "Xrm.Page is deprecated, and the value is the number 1, so a strict comparison with the string \"1\" is always false."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "legacy-preview"
+      }
+    },
+    {
+      "id": "UX-03",
+      "objectives": [
+        "U-02"
+      ],
+      "lessons": [
+        50
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "When Omar Saleh picks a Customer on a case, the Site lookup must show only sites that belong to that customer. How should Karim implement the filter?",
+      "options": {
+        "A": "In the form designer, add an OnChange handler on Site that removes sites of other customers from the results.",
+        "B": "In the OnLoad handler, call formContext.getControl(\"cedar_site\").addPreSearch(filterSites); inside filterSites, call addCustomFilter with a filter on the customer's account id.",
+        "C": "In the OnLoad handler, call addCustomFilter once on the Site control, outside any PreSearch handler.",
+        "D": "Add a business rule that clears Site whenever Customer changes."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"must show only sites\": filter the lookup results before they are displayed.",
+      "why": "PreSearch fires before the lookup shows results, and addCustomFilter only works inside that handler. PreSearch can't be registered in the form designer, so it is registered in code from OnLoad (guarded so it is added once).",
+      "distractors": {
+        "A": "OnChange fires after a value is chosen; it can't change the list the lookup shows.",
+        "C": "addCustomFilter must be called inside the PreSearch handler; called once at load it has no effect on later searches.",
+        "D": "Clearing the value after the fact doesn't stop Omar choosing a wrong site; it only reacts once the customer changes."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-detail",
+        "D": "late"
+      }
+    },
+    {
+      "id": "UX-04",
+      "objectives": [
+        "U-02"
+      ],
+      "lessons": [
+        50
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Lina wants Dana Khoury's makers to be able to switch off the urgent-case banner handler on the Case form without a code release. The handler reads formContext from the execution context. How should Karim register it?",
+      "options": {
+        "A": "In the form designer: Events → On Load → add cedar.caseTriage.onLoad from the library, with \"Pass execution context as first parameter\" selected.",
+        "B": "In the app designer, enable the async OnLoad handlers setting for Cedar Operations.",
+        "C": "From another OnLoad handler in code: formContext.ui.addOnLoad(() => cedar.caseTriage.onLoad()).",
+        "D": "In the form designer without passing the execution context, and read the form with Xrm.Page inside the handler."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"switch off without a code release\" (designer registration has an Enabled checkbox), \"reads formContext from the execution context\" (pass the context).",
+      "why": "Designer registration is configuration: a maker can disable the handler on the Events tab and publish, no new library version needed. The \"Pass execution context as first parameter\" option gives the handler the context it reads formContext from.",
+      "distractors": {
+        "B": "The async setting changes how async OnLoad handlers are awaited; it doesn't register the handler or let makers turn it off.",
+        "C": "Code registration can only be changed by a code release, and the arrow function drops the execution context the handler needs.",
+        "D": "Xrm.Page is deprecated; the supported way is formContext from the execution context."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-place",
+        "D": "legacy-preview"
+      }
+    },
+    {
+      "id": "UX-05",
+      "objectives": [
+        "U-03"
+      ],
+      "lessons": [
+        52,
+        74
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "When Omar picks a Site, the Case form must check that the site belongs to the case's customer. The script has the site's GUID in siteId. Which request is correct and efficient?",
+      "options": {
+        "A": "Xrm.WebApi.retrieveRecord(\"cedar_sites\", siteId)",
+        "B": "Xrm.WebApi.retrieveRecord(\"cedar_site\", siteId, \"?$select=_cedar_account_value\")",
+        "C": "Xrm.WebApi.retrieveRecord(\"cedar_site\", siteId, \"?$select=cedar_account\")",
+        "D": "fetch(clientUrl + \"/api/data/v9.2/cedar_sites\") and search the result for siteId"
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"correct and efficient\": logical name, one row, only the column needed.",
+      "why": "Xrm.WebApi methods take the table's logical name. A lookup is read through its _<name>_value property, and $select keeps the response to that one column.",
+      "distractors": {
+        "A": "Xrm.WebApi expects the logical name (cedar_site), not the entity set name, and without $select every column is returned.",
+        "C": "The Web API doesn't expose the lookup's logical name as a property; read _cedar_account_value instead.",
+        "D": "It downloads every site the user can read to find one row, and a raw fetch bypasses Xrm.WebApi's handling."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "UX-06",
+      "objectives": [
+        "U-03"
+      ],
+      "lessons": [
+        52,
+        70
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A Case form command must call Cedar's custom API cedar_AssessCase (an unbound action that returns RiskLevel) and show the result. How should the script call it?",
+      "options": {
+        "A": "Xrm.WebApi.online.execute with a request whose getMetadata returns operationName \"cedar_AssessCase\" and operationType 0; read RiskLevel from the JSON body of the response.",
+        "B": "Xrm.WebApi.retrieveMultipleRecords(\"cedar_assesscase\", \"?$select=risklevel\")",
+        "C": "Xrm.WebApi.online.execute with operationType 1, because the API returns a value.",
+        "D": "A fetch to the Web API with a token for Cedar's application user, whose client secret is stored in the web resource, so the call runs with elevated rights."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"custom API\", \"unbound action\": execute with operation metadata.",
+      "why": "Custom APIs are called with execute. getMetadata names the operation and its type: 0 for an action, 1 for a function, 2 for CRUD. The promise resolves with a fetch-style Response, so call .json() to read the output.",
+      "distractors": {
+        "B": "A custom API is an operation, not a table, so there is nothing to retrieve rows from.",
+        "C": "Returning a value doesn't make it a function; cedar_AssessCase is an action, and the operation type must match its definition.",
+        "D": "Every signed-in user can read a web resource, so the secret would leak; if elevated rights are needed, the custom API's plug-in provides them on the server."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-detail",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "UX-07",
+      "objectives": [
+        "U-04"
+      ],
+      "lessons": [
+        54
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Lina's team wants an \"Escalate selected\" button on the Cases main grid. It must appear only when 1 to 10 cases are selected, ask for confirmation showing the count, and report failures per case. Which TWO should Karim configure in the command designer?",
+      "options": {
+        "A": "Action: Run JavaScript, calling cedar.caseCommands.escalateSelected from its library, with the parameter SelectedControlSelectedItemIds.",
+        "B": "Visibility: Show on condition from formula, CountRows(Self.Selected.AllItems) >= 1 && CountRows(Self.Selected.AllItems) <= 10.",
+        "C": "Visibility formula Not(IsBlank(Self.Selected.Item)).",
+        "D": "A classic RibbonDiffXml display rule, edited later in the command designer.",
+        "E": "An OnLoad script that finds the button in the page and hides it with CSS when too many rows are selected."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"1 to 10 cases are selected\" (Visible formula over AllItems), \"confirmation\" and \"failures per case\" (JavaScript with the selected ids).",
+      "why": "The two parts work together: a Power Fx Visible formula that counts the selection, and a JavaScript action that receives the selected row ids (an array of \"{GUID}\" strings), confirms, processes each case and reports failures. The code should re-check the count, because Visible is a convenience.",
+      "distractors": {
+        "C": "Self.Selected.Item is filled only when exactly one row is selected, so it can't express \"1 to 10\".",
+        "D": "Classic commands can't be edited in the command designer, and a new classic rule would affect every app that shows Case.",
+        "E": "Changing command bar markup is unsupported and breaks when the UI changes."
+      },
+      "traps": {
+        "C": "wrong-detail",
+        "D": "legacy-preview",
+        "E": "unsupported"
+      }
+    },
+    {
+      "id": "UX-08",
+      "objectives": [
+        "U-05"
+      ],
+      "lessons": [
+        53
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "While Omar edits an unsaved case, he must be able to open the other open case at the same site, read it, and come back with one click without losing his unsaved changes. Which call should the form use?",
+      "options": {
+        "A": "Xrm.Navigation.openForm({ entityName: \"incident\", entityId: otherId })",
+        "B": "Xrm.Navigation.navigateTo({ pageType: \"entityrecord\", entityName: \"incident\", entityId: otherId }, { target: 2, position: 2, width: { value: 40, unit: \"%\" } })",
+        "C": "window.open(clientUrl + \"/main.aspx?etn=incident&id=\" + otherId)",
+        "D": "Xrm.Navigation.openAlertDialog with the other case's title and description."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"without losing his unsaved changes\", \"come back with one click\": a dialog over the current form.",
+      "why": "navigateTo with target 2 opens the record in a dialog; position 2 makes it a side pane. The unsaved case stays behind it, and closing the pane returns Omar to his work.",
+      "distractors": {
+        "A": "openForm navigates away from the current form, so Omar must deal with his unsaved changes first.",
+        "C": "window.open is unsupported in model-driven apps, may be blocked and loses the app context.",
+        "D": "An alert shows text, not the record; Omar can't read the full case or act on it."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "unsupported",
+        "D": "notify-not-control"
+      }
+    },
+    {
+      "id": "UX-09",
+      "objectives": [
+        "U-05"
+      ],
+      "lessons": [
+        53,
+        56
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "After Omar saves a Critical fault case, the reminder \"Call the on-call technician\" must stay visible while he moves on to the queue list, with a button that opens the on-call schedule. Which API fits?",
+      "options": {
+        "A": "formContext.ui.setFormNotification(\"Call the on-call technician\", \"WARNING\", \"oncall\")",
+        "B": "Xrm.App.addGlobalNotification with type 2, a level and an action, keeping the returned id to clear it later.",
+        "C": "formContext.getControl(\"prioritycode\").setNotification(\"Call the on-call technician\", \"oncall\")",
+        "D": "Xrm.Navigation.openAlertDialog in an OnPostSave handler."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"stay visible while he moves on\", \"with a button\": a notification that survives navigation and has an action.",
+      "why": "Global notifications are app-level: they survive navigation between pages and can carry an action. The returned id lets the script clear the notification when the call is made.",
+      "distractors": {
+        "A": "A form notification disappears when the form closes, which is exactly when Omar moves to the queue.",
+        "C": "A control notification is an error on that field: it blocks the next save and also disappears with the form.",
+        "D": "An alert interrupts Omar once and is gone; it doesn't stay visible on the queue list."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "wrong-detail",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "UX-10",
+      "objectives": [
+        "U-06"
+      ],
+      "lessons": [
+        57
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "After a change to C-22 (the FieldLink status timeline), the Work order form flickers, CPU stays high and the record is marked as unsaved as soon as it opens. The new code calls notifyOutputChanged() at the end of updateView \"so the form always has the latest value\". What should Karim change?",
+      "options": {
+        "A": "Call notifyOutputChanged only in response to a user action or a real internal change (for example in the click handler), never unconditionally in updateView.",
+        "B": "Move the notifyOutputChanged call into getOutputs.",
+        "C": "Assign the new value to context.parameters.status.raw inside updateView instead.",
+        "D": "Increase the manifest version so the host reloads the bundle."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"flickers\", \"CPU stays high\", \"unsaved as soon as it opens\", notify at the end of updateView: a render loop.",
+      "why": "notifyOutputChanged makes the host call getOutputs and update the bound value, which calls updateView again. Calling it from updateView restarts the cycle endlessly. The component should only signal when the user (or a genuine internal event) changes the value.",
+      "distractors": {
+        "B": "getOutputs is called because of the notification; notifying from it keeps the loop going, and it must stay side-effect free.",
+        "C": "The property bag is read-only input; the only supported way to send a value back is getOutputs after a notification.",
+        "D": "The version controls whether a new bundle is loaded; it doesn't change the loop in the code."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "unsupported",
+        "D": "wrong-gate"
+      }
+    },
+    {
+      "id": "UX-11",
+      "objectives": [
+        "U-07"
+      ],
+      "lessons": [
+        58
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim adds a property to the C-25 dispatch cards component that makers bind to an order value column. Makers must be able to choose a Whole number, Decimal or Currency column. What should the manifest contain?",
+      "options": {
+        "A": "Three optional properties, orderWhole, orderDecimal and orderCurrency, one per column type.",
+        "B": "A type-group listing Whole.None, Decimal and Currency, and a property with of-type-group pointing to it.",
+        "C": "One property with of-type=\"Decimal\"; the platform converts the other column types.",
+        "D": "A feature-usage element that declares Utility, so the component can read any column type."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"Whole number, Decimal or Currency\": several column types for one property.",
+      "why": "A type-group names the allowed types once, and the property refers to it with of-type-group. Makers see one property and can bind any of the listed column types.",
+      "distractors": {
+        "A": "Three properties force makers to know which one to fill and complicate the code; the manifest has a construct for exactly this.",
+        "C": "of-type accepts only that type; a Whole number or Currency column can't be bound.",
+        "D": "feature-usage enables platform services such as Utility or WebAPI; it doesn't control which columns a property accepts."
+      },
+      "traps": {
+        "A": "too-custom",
+        "C": "wrong-detail",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "UX-12",
+      "objectives": [
+        "U-08"
+      ],
+      "lessons": [
+        57,
+        58,
+        59
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami Nasser clicks \"Mark as In progress\" in C-22. The new status must go through the Work order form, so that business rules run and the normal save applies. How should the component implement this?",
+      "options": {
+        "A": "In the click handler, store the new value and call notifyOutputChanged(); getOutputs returns { status: this.value } for the bound property.",
+        "B": "In the click handler, call context.webAPI.updateRecord on the work order with the new status.",
+        "C": "Declare status with usage=\"input\" and return it from getOutputs.",
+        "D": "In updateView, set the value through formContext.getAttribute(\"cedar_fieldlinkstatus\")."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"must go through the form\", \"normal save\": the host owns the bound value.",
+      "why": "A bound property appears in IInputs and IOutputs. The component signals with notifyOutputChanged, the host calls getOutputs, updates the column on the form and calls updateView. The form then saves the value like any user edit.",
+      "distractors": {
+        "B": "Updating the record the form shows bypasses the form: it goes stale and can overwrite the change on the next save.",
+        "C": "Only bound properties are generated in IOutputs; an input property can't send a value back.",
+        "D": "Code components don't get formContext; reaching for it is unsupported."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "wrong-detail",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "UX-13",
+      "objectives": [
+        "U-09"
+      ],
+      "lessons": [
+        60
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim changed C-22's TypeScript, rebuilt it, packed CedarServiceCore and imported it into Cedar-Test. The import succeeded, but users still see the old behaviour, even after clearing their browser cache. What is the most likely cause, and the fix?",
+      "options": {
+        "A": "The customizations weren't published; run Publish all customizations in Cedar-Test.",
+        "B": "The manifest version wasn't increased; increase it (for example with pac pcf version --strategy manifest), rebuild and deploy again.",
+        "C": "pac pcf push should be used against Cedar-Test so the bundle is replaced directly.",
+        "D": "The bundle was built in production mode; switch PcfBuildMode to development."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"import succeeded\", \"still see the old behaviour\", \"even after clearing cache\": the host kept the old component version.",
+      "why": "The platform decides whether a component changed by its version. Without a higher version, the import keeps the existing bundle. Increase at least the patch version and redeploy.",
+      "distractors": {
+        "A": "Publishing doesn't help: the component version tells the platform whether to load the new bundle.",
+        "C": "pac pcf push is a Karim-Dev shortcut that creates a temporary solution; Cedar-Test only receives pipeline imports.",
+        "D": "Build mode affects bundle size and debugging, not whether the new version is used; production mode is right for releases."
+      },
+      "traps": {
+        "A": "wrong-gate",
+        "C": "wrong-place",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "UX-14",
+      "objectives": [
+        "U-10"
+      ],
+      "lessons": [
+        59
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "C-22 offers \"Take site photo\" with context.device.captureImage. Since the last release, the component works in the mobile app but fails to load at all in the browser. What should Karim change?",
+      "options": {
+        "A": "Declare <uses-feature name=\"Device.captureImage\" required=\"false\" /> and show the button only when the host provides the method.",
+        "B": "Remove the feature-usage element; the typings already include device.",
+        "C": "Enable external-service-usage so the browser can reach the camera.",
+        "D": "Build a separate canvas app for site photos."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"works in the mobile app\", \"fails to load at all in the browser\": a required feature the web host doesn't support.",
+      "why": "A feature declared required=\"true\" that the host can't provide stops the component loading. Declared as optional, the component loads everywhere and checks at runtime whether the camera is available.",
+      "distractors": {
+        "B": "The typings describe the whole API, but at runtime only declared features are enabled, so the call would fail.",
+        "C": "external-service-usage declares external web domains (and makes a canvas app premium); it has nothing to do with the camera.",
+        "D": "A second app adds a context switch for Sami and a lot of work, when one manifest attribute fixes the load."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-place",
+        "D": "too-custom"
+      }
+    },
+    {
+      "id": "UX-15",
+      "objectives": [
+        "U-10"
+      ],
+      "lessons": [
+        59
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Before showing the photo button, C-22 must find out whether the user can create notes (annotation) at all. Which approach is reliable?",
+      "options": {
+        "A": "Call context.utils.hasEntityPrivilege(\"annotation\", 1, 0) as the first statement in init.",
+        "B": "Await context.utils.getEntityMetadata(\"annotation\"), then call context.utils.hasEntityPrivilege(\"annotation\", 1, 0), and still handle a failed createRecord.",
+        "C": "Check context.mode.isControlDisabled.",
+        "D": "Retrieve the user's security roles with context.webAPI and compare role names with a list in the code."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"reliable\", \"create notes at all\": a privilege check that has the metadata it needs, plus a fallback.",
+      "why": "hasEntityPrivilege can return false until the table's metadata is cached, so load it with getEntityMetadata first. The check answers the general question; the createRecord call is the final word, so its failure is handled too.",
+      "distractors": {
+        "A": "Without the metadata loaded first, hasEntityPrivilege can return false for a user who has the privilege.",
+        "C": "isControlDisabled describes this control on this form (for example a read-only field), not privileges on notes.",
+        "D": "Role names are configuration that changes; privileges come from roles, teams and depth, which the platform already evaluates."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "wrong-gate",
+        "D": "too-custom"
+      }
+    },
+    {
+      "id": "UX-16",
+      "objectives": [
+        "U-11"
+      ],
+      "lessons": [
+        61,
+        46
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "C-23 Cedar Dispatch Planner shows job titles from Office 365 Users. Karim added the data source with --connection-id, using his own connection in Cedar-Dev. After the managed solution is imported into Cedar-Test, the calls fail. What should he have done?",
+      "options": {
+        "A": "pa app add data-source --connector shared_office365users --connection-ref cedar_Office365Users --solution-id <CedarServiceCore id>, so each environment maps the reference to its own connection.",
+        "B": "Share his Cedar-Dev connection with all planner users in Cedar-Test.",
+        "C": "Put the connection id in an environment variable and read it at runtime.",
+        "D": "Call Microsoft Graph directly from the app with a client secret in the app configuration."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"--connection-id\", \"his own connection\", \"fails in Cedar-Test\": a binding that can't move between environments.",
+      "why": "A connection id identifies one person's connection in one environment. A connection reference is a solution component; each environment maps it to its own connection (through the deployment settings file in the pipeline).",
+      "distractors": {
+        "B": "A connection exists in one environment; sharing it doesn't make it exist in Cedar-Test, and it would still be Karim's personal identity.",
+        "C": "The app binding is stored in power.config.json at add time; an environment variable can't replace the connection binding.",
+        "D": "Code app assets are served publicly, so a secret in the app is readable by anyone who finds the files."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-detail",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "UX-17",
+      "objectives": [
+        "U-12"
+      ],
+      "lessons": [
+        61
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami's dispatchers must see in C-23 exactly the work orders they can see in Cedar Operations, no more. How should Karim add the work order data?",
+      "options": {
+        "A": "pa app add data-source --connector dataverse --table cedar_workorder; requests run as the signed-in user, so Dataverse security roles and business units apply.",
+        "B": "Create a Dataverse connection with a service account, add it with --connection-id, and filter rows in React by the user's team.",
+        "C": "Query with FetchXML through the generated service so the Open dispatch view's filter is reused.",
+        "D": "Build a custom connector that calls the Dataverse Web API with an application user."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"exactly the work orders they can see, no more\": the user's own Dataverse security.",
+      "why": "Dataverse data sources in code apps need no connection id: requests go to the app's environment as the signed-in user, so the same roles, business units and sharing apply as in Cedar Operations.",
+      "distractors": {
+        "B": "A service account can read far more than each dispatcher, and filtering in the browser is not security.",
+        "C": "FetchXML is listed as not yet supported for Dataverse in code apps.",
+        "D": "It replaces the user's identity with an application user and adds a component the platform already provides."
+      },
+      "traps": {
+        "B": "too-broad",
+        "C": "unsupported",
+        "D": "too-custom"
+      }
+    },
+    {
+      "id": "UX-18",
+      "objectives": [
+        "U-13"
+      ],
+      "lessons": [
+        62
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "C-23's grid header must show the user-language display names of three Work order columns. Which approach should Karim use?",
+      "options": {
+        "A": "Call the generated service's getMetadata with the three columns in schema.columns, read Attributes[].DisplayName.UserLocalizedLabel.Label, and cache the result.",
+        "B": "Keep an English label constant per column in the code.",
+        "C": "Use getMetadata to read the option list of cedar_fieldlinkstatus and derive the column labels from it.",
+        "D": "Call getMetadata for every row as it renders."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"user-language display names\": table metadata, read once.",
+      "why": "getMetadata on the generated table service returns AttributeMetadata for the requested columns, including the localized display name. Metadata changes rarely, so it is read once and cached.",
+      "distractors": {
+        "B": "Arabic users would see English, and renamed columns would drift from Dataverse.",
+        "C": "Options are defined on a derived metadata type and aren't returned by getMetadata, and option labels are not column names anyway.",
+        "D": "The labels are the same for every row; calling per row multiplies requests for no benefit."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "wrong-detail",
+        "D": "wrong-detail"
+      }
+    },
+    {
+      "id": "UX-19",
+      "objectives": [
+        "U-14"
+      ],
+      "lessons": [
+        62
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "C-23's \"My work orders\" filter must compare ownerid with the current user's id as Dataverse stores it. Which approach is correct?",
+      "options": {
+        "A": "Use getContext().user.objectId.",
+        "B": "Add the WhoAmI function with pa app add dataverse-api --api-name WhoAmI and use UserId from its response.",
+        "C": "Read the user's email from Office 365 Users and filter work orders on the owner's email address.",
+        "D": "Call the bound action AddToQueue with the user's id."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"as Dataverse stores it\": the systemuser id, not the Entra id.",
+      "why": "Ownership uses the systemuser id. WhoAmI is a Dataverse function that returns it (UserId); pa app add dataverse-api generates a typed method for it, called as the signed-in user.",
+      "distractors": {
+        "A": "getContext gives the Microsoft Entra object id, which is a different GUID from the systemuser id in ownerid.",
+        "C": "It adds a connector and a join on a non-key column when a Dataverse function returns the id directly.",
+        "D": "AddToQueue adds a row to a queue; it changes data and returns no user id."
+      },
+      "traps": {
+        "A": "wrong-detail",
+        "C": "too-custom",
+        "D": "wrong-place"
+      }
+    },
+    {
+      "id": "UX-20",
+      "objectives": [
+        "U-15"
+      ],
+      "lessons": [
+        62,
+        81
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami wants a \"Request dispatch\" button in C-23 that sends a work order to FieldLink. Today the logic is in a nightly scheduled flow that isn't in a solution, and pa app list-flows doesn't show it. What should Karim do?",
+      "options": {
+        "A": "Create a solution-aware instant cloud flow with the Power Apps trigger (it can call a child flow shared with the nightly flow), then add it with pa app add flow.",
+        "B": "Add the nightly flow to CedarServiceCore; once it is solution-aware, pa app add flow accepts it.",
+        "C": "Change the nightly flow to an automated flow triggered when a work order is modified, and set a column from the app.",
+        "D": "Call FieldLink from the app with fetch, using the FieldLink API key from the app settings."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"button in C-23\", \"nightly scheduled\", \"not in a solution\": code apps call only solution-aware instant flows with the Power Apps trigger.",
+      "why": "Code apps support only solution-aware instant flows that use the Power Apps trigger. A new instant flow gives the button a direct call with inputs and a response, and the shared logic can live in a child flow.",
+      "distractors": {
+        "B": "Being solution-aware is necessary but not enough: a scheduled trigger is still not supported.",
+        "C": "It turns a button press into a side effect of a data change: the app gets no response, and any unrelated edit could trigger a dispatch.",
+        "D": "The app's files are publicly hosted, so the API key would leak; secrets stay behind a flow or connector."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-place",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "UX-21",
+      "objectives": [
+        "U-16"
+      ],
+      "lessons": [
+        63,
+        98
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "C-23 must send a dispatcher's question to the published Copilot Studio agent Cedar Service Assistant and show the answer in the planner. Which approach should Karim use?",
+      "options": {
+        "A": "Add the Microsoft Copilot Studio connector as a data source and call ExecuteCopilotAsyncV2 (Execute Agent and wait) with the message and agent name; render the reply as plain text.",
+        "B": "Call ExecuteCopilot, the original operation, because it is simpler.",
+        "C": "Embed the agent's demo website in an iframe inside the planner.",
+        "D": "Render the agent's reply with dangerouslySetInnerHTML so its formatting is kept."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"published Copilot Studio agent\", \"show the answer in the planner\": the connector operation that returns the answer synchronously.",
+      "why": "Learn documents ExecuteCopilotAsyncV2 for code apps: it returns the agent's response synchronously. The answer is untrusted text, so it is rendered as text, never as HTML.",
+      "distractors": {
+        "B": "Learn notes known limitations for the other endpoints and directs code apps to ExecuteCopilotAsyncV2.",
+        "C": "The demo website is for testing; it doesn't integrate with the planner's data or UI and needs a frame-ancestors change.",
+        "D": "The reply is untrusted text; rendering it as HTML lets injected markup or script run in the app."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-place",
+        "D": "unsafe"
+      }
+    },
+    {
+      "id": "UX-22",
+      "objectives": [
+        "U-17"
+      ],
+      "lessons": [
+        63,
+        46
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "C-23 reads approved invoices from a SharePoint list. The site and the list are different in Cedar-Dev, Cedar-Test and Cedar-Prod, and Lina wants one build for all three. How should Karim add the data source?",
+      "options": {
+        "A": "With pa app add data-source for the SharePoint connector, passing --dataset \"@envvar:cedar_InvoiceSite\" and --table \"@envvar:cedar_InvoiceList\".",
+        "B": "Detect the environment with getContext() and pick the site URL from a constant map in the code.",
+        "C": "Store the site URL in a Secret environment variable.",
+        "D": "Ask each environment admin to edit power.config.json after the solution is imported."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"site and list are different\" per environment, \"one build\": environment variable references in the data source.",
+      "why": "@envvar: references for dataset and table are stored in power.config.json; each environment resolves them from its own environment variable values, which the pipeline sets from the deployment settings file.",
+      "distractors": {
+        "B": "Every new environment or site change would need a new build, which Lina wants to avoid.",
+        "C": "A site URL isn't a secret, and Secret variables are Key Vault references for credentials.",
+        "D": "power.config.json is part of the app build, not something admins edit in a target environment."
+      },
+      "traps": {
+        "B": "too-custom",
+        "C": "wrong-detail",
+        "D": "unsupported"
+      }
+    },
+    {
+      "id": "UX-23",
+      "objectives": [
+        "U-18"
+      ],
+      "lessons": [
+        64
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "After adding Application Insights to C-23, the planner works in Cedar-Test but no telemetry arrives. The browser console shows a Content Security Policy violation for the connect-src directive when the SDK sends data to the Application Insights ingestion endpoint. What should Dana change?",
+      "options": {
+        "A": "Add the ingestion origin to script-src in the environment's code app CSP.",
+        "B": "Add the ingestion origin from the violation message to connect-src in the environment's code app CSP; because connect-src defaults to 'none', the value replaces the default.",
+        "C": "Turn off Enforce content security policy for code apps in Cedar-Test.",
+        "D": "Add https://*.azure.com to connect-src so future Azure services work too."
+      },
+      "answer": [
+        "B"
+      ],
+      "signal": "\"connect-src\" in the violation: the blocked action is a connection, not a script load.",
+      "why": "connect-src controls where the app can send requests. Its default is 'none', so custom values replace it rather than being appended. Adding the exact ingestion origin allows telemetry and nothing else.",
+      "distractors": {
+        "A": "script-src controls where scripts load from; the SDK is bundled and the blocked action is a connection.",
+        "C": "It removes the protection for every code app in the environment to fix one origin.",
+        "D": "A wildcard lets injected code send data to any Azure-hosted endpoint; add exact origins only."
+      },
+      "traps": {
+        "A": "wrong-place",
+        "C": "unsafe",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "UX-24",
+      "objectives": [
+        "U-19"
+      ],
+      "lessons": [
+        64,
+        105
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Lina wants C-23's load time per session and its slow data requests in Application Insights, with one build for all environments. Which TWO are part of the solution?",
+      "options": {
+        "A": "Call setConfig({ logger: { logMetric } }) once from the app and forward the sessionLoadSummary and networkRequest metrics to Application Insights, for example with trackEvent.",
+        "B": "Read the Application Insights connection string for the current environment from cedar_DispatchSettings in Dataverse after sign-in.",
+        "C": "Reference the connection string with @envvar: in power.config.json.",
+        "D": "Enable the Power Platform admin center data export to Application Insights to see each session within minutes.",
+        "E": "Load the Application Insights SDK from a CDN script tag in index.html."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"load time per session\", \"slow data requests\" (platform metrics), \"one build\" (connection string read at runtime).",
+      "why": "The Power Apps client library delivers sessionLoadSummary and networkRequest to the logger registered with setConfig; the app forwards them to Application Insights. The connection string differs per environment, so it is read from Dataverse at runtime (Learn also allows choosing from constants with getContext).",
+      "distractors": {
+        "C": "@envvar: references are for data source arguments such as dataset and table; the Application Insights page says environment variables aren't supported for this.",
+        "D": "The admin export is tenant-level data with a 24-hour service level, not per-session telemetry within minutes.",
+        "E": "A CDN script needs a script-src change and adds an external dependency; the npm package is bundled and served from 'self'."
+      },
+      "traps": {
+        "C": "wrong-detail",
+        "D": "late",
+        "E": "too-broad"
+      }
+    },
+    {
+      "id": "UX-25",
+      "objectives": [
+        "U-20"
+      ],
+      "lessons": [
+        63,
+        61
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Rafi Hanna needs to use C-23 in Cedar-Prod. He has a Microsoft 365 E3 licence and the Basic User role. Cedar's governance rule GOV-05 excludes security groups from app sharing and caps sharing at 20 users. Which TWO steps are required?",
+      "options": {
+        "A": "Give Rafi a Power Apps Premium licence (or enable pay-as-you-go for Cedar-Prod).",
+        "B": "Share the app with Rafi as an individual user and add him to the Dispatch Team – Cedar team, which holds the planner's Dataverse role.",
+        "C": "Share the app with the Cedar Dispatch security group.",
+        "D": "Run pa app push from Karim's laptop into Cedar-Prod with Rafi as co-owner.",
+        "E": "Give Rafi the System Customizer role so the app can read environment variables."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"E3 licence\" (not enough for code apps), \"excludes security groups\", \"Basic User role\" (no access to dispatch data).",
+      "why": "Code app users need a Premium-type licence (Power Apps Premium, pay-as-you-go, App Pass or auto-claim). Code apps follow canvas sharing; under GOV-05 Rafi is shared individually, and his Dataverse access comes from the team that carries the dispatch role.",
+      "distractors": {
+        "C": "GOV-05 excludes security-group sharing, so the environment group rule blocks it.",
+        "D": "Prod only receives managed solutions through the pipeline, and co-owner rights are far more than Rafi needs.",
+        "E": "System Customizer can change the solution; reading environment variable values needs only Read on two tables."
+      },
+      "traps": {
+        "C": "wrong-gate",
+        "D": "wrong-place",
+        "E": "too-broad"
+      }
+    },
+    {
+      "id": "UX-26",
+      "objectives": [
+        "U-21"
+      ],
+      "lessons": [
+        64,
+        106
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "A planner screen is slow on Karim's machine. In the browser developer tools he wants to separate connector calls from Dataverse calls. Which Network filter strings should he use?",
+      "options": {
+        "A": "apihub.net for connector calls and dynamics.com for Dataverse calls.",
+        "B": "api/data for both kinds of calls.",
+        "C": "None: connector calls appear only in the plug-in trace log.",
+        "D": "None: he should wait for the next daily Power Platform Monitor report."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"on Karim's machine\", \"separate connector calls from Dataverse calls\": browser-side request inspection.",
+      "why": "Connector calls from a code app go through the API hub (apihub.net), and Dataverse calls go to the environment's dynamics.com host. Filtering on each shows timing, size and status per kind of request.",
+      "distractors": {
+        "B": "api/data matches only Dataverse Web API paths; connector traffic uses a different host.",
+        "C": "The plug-in trace log records server-side plug-in execution, not browser requests from an app.",
+        "D": "Monitor shows trends per app; a request-by-request diagnosis on one machine needs DevTools now."
+      },
+      "traps": {
+        "B": "wrong-detail",
+        "C": "wrong-place",
+        "D": "late"
+      }
+    },
+    {
+      "id": "CU-1",
+      "case": "CASE-2",
+      "objectives": [
+        "U-18"
+      ],
+      "lessons": [
+        64
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-2, problem 1. What should Dana change so the planner shows inside Cedar Operations?",
+      "options": {
+        "A": "Add Cedar-Test's organization URL (https://<cedar-test>.crm.dynamics.com) to frame-ancestors in the code app CSP, after reading the current directives so no other directive is reset.",
+        "B": "Add the organization URL to connect-src.",
+        "C": "Turn off CSP enforcement for code apps in Cedar-Test.",
+        "D": "Add https://*.dynamics.com to frame-ancestors so one value works for every environment."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"Refused to frame\", \"inside Cedar Operations\": frame-ancestors decides who may embed the app.",
+      "why": "frame-ancestors defaults to 'self' https://*.powerapps.com, so the model-driven app's host must be added (per environment). Setting directives replaces the whole collection, so read the current settings first.",
+      "distractors": {
+        "B": "connect-src controls where the app sends requests, not who may frame it.",
+        "C": "It removes protection for every code app in Cedar-Test, and the change record would never be approved.",
+        "D": "It allows any Dynamics 365 organization, including other tenants, to frame Cedar's app."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "unsafe",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "CU-2",
+      "case": "CASE-2",
+      "objectives": [
+        "U-21"
+      ],
+      "lessons": [
+        64,
+        106
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-2, problem 2. Where should Karim start?",
+      "options": {
+        "A": "Power Platform admin center Monitor for Power Apps: the planner's app open success rate and error codes, then sharing, licence and data policy for those two users.",
+        "B": "Query Application Insights customEvents for the two users' sessions.",
+        "C": "Ask the two users to record a DevTools performance profile of the board.",
+        "D": "Turn on the plug-in trace log in Cedar-Test."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"never opens\", \"no sessions in Application Insights\": the failure happens before the app's own telemetry starts.",
+      "why": "Application Insights only receives data after the app has loaded. Monitor records app open attempts and their error codes, which point to sharing, licensing or data policy problems for specific users.",
+      "distractors": {
+        "B": "There is nothing to query: the SDK never started for those users.",
+        "C": "The board never loads for them, so there is no board to profile.",
+        "D": "No plug-in is involved in opening the app; the trace log can't show a launch failure."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "wrong-place",
+        "D": "wrong-gate"
+      }
+    },
+    {
+      "id": "CU-3",
+      "case": "CASE-2",
+      "objectives": [
+        "U-22"
+      ],
+      "lessons": [
+        64,
+        106
+      ],
+      "type": "multi",
+      "select": 2,
+      "stem": "Case study CASE-2, problem 3. Which TWO changes address the cause?",
+      "options": {
+        "A": "Resolve site names in batches with an OR filter on the validated site ids, and cache the results for the session.",
+        "B": "Start the independent loads (work orders, subcontractors, settings) in parallel, each catching its own errors.",
+        "C": "Increase the page size to 5,000 so all work orders arrive in one request.",
+        "D": "Rewrite the query in FetchXML with a link-entity so site names come in the same call.",
+        "E": "Store resolved site names and site contacts in localStorage permanently."
+      },
+      "answer": [
+        "A",
+        "B"
+      ],
+      "signal": "\"121 requests, one per work order to resolve site names\": an N+1 pattern, plus sequential loading.",
+      "why": "Batching turns 120 lookups into a few requests, and the session cache avoids repeating them. Running independent loads in parallel shortens the waterfall. Both are measured against the baseline in DevTools and Application Insights.",
+      "distractors": {
+        "C": "The 120 extra requests are site lookups, not paging; 120 rows already fit in one page.",
+        "D": "FetchXML isn't yet supported for Dataverse in code apps.",
+        "E": "It stores customer data in the browser indefinitely and goes stale; a session cache is enough."
+      },
+      "traps": {
+        "C": "wrong-gate",
+        "D": "unsupported",
+        "E": "unsafe"
+      }
+    },
+    {
+      "id": "CU-4",
+      "case": "CASE-2",
+      "objectives": [
+        "U-20"
+      ],
+      "lessons": [
+        63,
+        47,
+        111
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-2, problem 4. How should planner 2.0 reach Cedar-Prod?",
+      "options": {
+        "A": "The Cedar Release Pipeline deploys managed CedarServiceCore (which contains the code app) to Cedar-Prod after approval, with a deployment settings file for connection references and environment variable values.",
+        "B": "The CI job runs pa app push --solution-id <CedarServiceCore id> against Cedar-Prod with the cedar-ci-dev service principal.",
+        "C": "Connect Cedar-Prod to Power Platform Git integration and sync the app from the repository.",
+        "D": "Export CedarServiceCore as unmanaged from Cedar-Test and import it into Cedar-Prod."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"managed solutions through the Cedar Release Pipeline with approvals\", \"settings differ per environment\".",
+      "why": "pa app push is the inner-loop publish for Dev. Test and Prod receive the code app inside the managed solution through the pipeline, with approvals and a settings file that maps connection references and environment variables.",
+      "distractors": {
+        "B": "pa app push into Prod bypasses the pipeline and approvals, and the Dev service principal must never be used for Prod.",
+        "C": "Code apps don't support Power Platform Git integration.",
+        "D": "Unmanaged solutions in production create an unmanaged layer and skip the pipeline's checks and approvals."
+      },
+      "traps": {
+        "B": "wrong-place",
+        "C": "unsupported",
+        "D": "wrong-place"
+      }
+    }
+  ]
+}

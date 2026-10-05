@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Where configuration and secrets of a flow live</title>
+<desc id="d">Four places from left to right. The solution in Git holds only definitions: the flow, connection references by logical name, and environment variable definitions with harmless defaults; no connection, no value of Test or Prod, no secret. The deployment settings file per environment holds connection IDs and environment variable values; for a secret variable the value is the path of a Key Vault secret, not the secret. The target environment holds the connections, created once per environment by an administrator, with the credential stored inside the connection. Azure Key Vault, one per environment, holds the secret itself; the Dataverse service principal and the people who create the variable have the role Key Vault Secrets User. At run time the flow calls the unbound action RetrieveEnvironmentVariableSecretValue with Secure outputs on; the next action that uses the value has Secure inputs on; the run history shows that content is not shown because of the security configuration. A bottom row lists five rules: nothing secret in the definition; values per environment in the settings file; secure inputs and outputs wherever a secret or personal data passes; whoever can edit a flow can use its connections; rotate credentials from the register before they expire.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">Definitions travel; values, connections and secrets stay where they belong</text>
+
+<rect class="box" x="20" y="46" width="225" height="230" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="70">Solution (Git)</text>
+<text x="32" y="96">Flow definitions</text>
+<text x="32" y="118">Connection references</text>
+<text x="32" y="138">(logical names only)</text>
+<text x="32" y="162">Environment variable</text>
+<text x="32" y="182">definitions + safe defaults</text>
+<text class="b" x="32" y="214">Never:</text>
+<text x="32" y="236">a connection, a Test or Prod</text>
+<text x="32" y="256">value, a secret</text>
+
+<path class="a" d="M245,160 L265,160"/>
+<rect class="box" x="265" y="46" width="225" height="230" rx="8" fill="#fff4ce"/>
+<text class="b" x="277" y="70">Settings file per environment</text>
+<text x="277" y="96">ConnectionReferences:</text>
+<text x="277" y="116">logical name → connection ID</text>
+<text x="277" y="144">EnvironmentVariables:</text>
+<text x="277" y="164">schema name → value</text>
+<text x="277" y="192">Secret variable: the value is</text>
+<text x="277" y="212">the PATH of the Key Vault</text>
+<text x="277" y="232">secret, not the secret</text>
+<text x="277" y="260">IDs and paths are not secrets</text>
+
+<path class="a" d="M490,160 L510,160"/>
+<rect class="box" x="510" y="46" width="225" height="230" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="70">Target environment</text>
+<text x="522" y="96">Connections, created once</text>
+<text x="522" y="116">per environment by an</text>
+<text x="522" y="136">administrator</text>
+<text x="522" y="164">The credential (client secret</text>
+<text x="522" y="184">or PFX) is stored inside the</text>
+<text x="522" y="204">connection; nobody can read</text>
+<text x="522" y="224">it back</text>
+<text x="522" y="252">Application user + role</text>
+
+<path class="a" d="M735,160 L755,160"/>
+<rect class="box" x="755" y="46" width="225" height="230" rx="8" fill="#fde7e9"/>
+<text class="b" x="767" y="70">Azure Key Vault</text>
+<text x="767" y="96">One vault per environment:</text>
+<text x="767" y="116">kv-cedar-dev / -test / -prod</text>
+<text x="767" y="144">Holds the secret itself and</text>
+<text x="767" y="164">its expiry date</text>
+<text x="767" y="192">Role “Key Vault Secrets User”</text>
+<text x="767" y="212">for the Dataverse service</text>
+<text x="767" y="232">principal and for whoever</text>
+<text x="767" y="252">creates the variable</text>
+
+<rect class="box" x="20" y="296" width="960" height="130" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="320">At run time</text>
+<rect class="box" x="36" y="334" width="300" height="76" rx="6" fill="#ffffff"/>
+<text x="46" y="356">Perform an unbound action</text>
+<text x="46" y="376">RetrieveEnvironmentVariableSecretValue</text>
+<text class="b" x="46" y="398">Secure outputs: On</text>
+<path class="a" d="M336,372 L362,372"/>
+<rect class="box" x="362" y="334" width="270" height="76" rx="6" fill="#ffffff"/>
+<text x="372" y="356">The action that uses the value</text>
+<text x="372" y="376">(HTTP, custom connector)</text>
+<text class="b" x="372" y="398">Secure inputs: On</text>
+<path class="a" d="M632,372 L658,372"/>
+<rect class="box" x="658" y="334" width="306" height="76" rx="6" fill="#ffffff"/>
+<text x="668" y="356">Run history, 30 days:</text>
+<text x="668" y="378">“Content not shown due to</text>
+<text x="668" y="398">security configuration.”</text>
+
+<rect class="box" x="20" y="446" width="960" height="138" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="470">Five rules</text>
+<text x="32" y="494">1  Nothing secret in a definition: no key in an expression, a header, a URL or a parameter default.</text>
+<text x="32" y="516">2  What differs per environment is an environment variable or a connection reference, with its value in the settings file.</text>
+<text x="32" y="538">3  Secure inputs and outputs wherever a secret or personal data passes. They hide; they do not encrypt or restrict use.</text>
+<text x="32" y="560">4  Whoever can edit a flow can use its connections for anything. Edit rights on flows are access to data.</text>
+<text x="32" y="578">5  Credentials have an owner and an expiry date in the register, and are rotated before, not after.</text>
+</svg>

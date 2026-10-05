@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t">
+<title id="t">Cedar Service tenant containing default, developer, sandbox and production environments</title>
+<rect width="900" height="520" fill="#ffffff"/>
+<rect x="10" y="10" width="880" height="500" rx="12" fill="#eef4fb" stroke="#1f4e79" stroke-width="2"/>
+<text x="30" y="40" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1f4e79">Microsoft Entra tenant: cedarservice.example (users, groups, licences)</text>
+<text x="30" y="64" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#333">Licences are assigned to users here; capacity is pooled at tenant level</text>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#222">
+<rect x="30" y="85" width="195" height="300" rx="8" fill="#fff" stroke="#888" stroke-width="2"/>
+<text x="42" y="110" font-weight="bold">Default environment</text>
+<text x="42" y="134">Type: Default</text>
+<text x="42" y="156">All licensed users</text>
+<text x="42" y="176">are makers</text>
+<text x="42" y="200">Personal productivity</text>
+<text x="42" y="224" fill="#a00000">Not for Cedar CRM</text>
+<rect x="245" y="85" width="195" height="300" rx="8" fill="#fff" stroke="#6a4c93" stroke-width="2"/>
+<text x="257" y="110" font-weight="bold">Karim-Dev</text>
+<text x="257" y="134">Type: Developer</text>
+<text x="257" y="156">Owner-only use</text>
+<text x="257" y="178">Dataverse: yes</text>
+<text x="257" y="200">No Dynamics 365 apps</text>
+<rect x="460" y="85" width="195" height="300" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+<text x="472" y="110" font-weight="bold">Cedar-Dev / Cedar-Test</text>
+<text x="472" y="134">Type: Sandbox</text>
+<text x="472" y="156">Copy and reset</text>
+<text x="472" y="178">Dataverse + D365 apps</text>
+<text x="472" y="200">Build and test</text>
+<rect x="675" y="85" width="195" height="300" rx="8" fill="#fff" stroke="#c75b00" stroke-width="3"/>
+<text x="687" y="110" font-weight="bold">Cedar-Prod</text>
+<text x="687" y="134">Type: Production</text>
+<text x="687" y="156">Managed environment</text>
+<text x="687" y="178">Dataverse + D365 apps</text>
+<text x="687" y="200">Real customer data</text>
+<rect x="472" y="300" width="170" height="60" rx="6" fill="#e3f2e5" stroke="#2e7d32"/>
+<text x="484" y="326">Dataverse DB</text>
+<text x="484" y="348">(zero or one each)</text>
+<rect x="687" y="300" width="170" height="60" rx="6" fill="#fdebd9" stroke="#c75b00"/>
+<text x="699" y="326">Dataverse DB</text>
+<text x="699" y="348">Sales, CS, FS apps</text>
+<rect x="257" y="300" width="170" height="60" rx="6" fill="#efe8f6" stroke="#6a4c93"/>
+<text x="269" y="326">Dataverse DB</text>
+<text x="269" y="348">max 2 GB</text>
+</g>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e79"/></marker></defs>
+<line x1="440" y1="430" x2="670" y2="430" stroke="#1f4e79" stroke-width="3" marker-end="url(#a)"/>
+<text x="300" y="460" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1f4e79">Solutions move forward: Dev → Test → Prod (lessons 44–48). Data does not.</text>
+<text x="30" y="495" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#333">Each environment is bound to one region; an app connects only to data in its own environment.</text>
+</svg>

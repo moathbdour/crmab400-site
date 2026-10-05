@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Three safety nets: retry, replay and reconcile across the Cedar and FieldLink integration</title>
+<desc id="d">Three horizontal paths between Cedar's Dataverse on the left and FieldLink on the right. Path 1, dispatch: Request dispatch raises the business event, the cloud flow C-12 calls CreateJob through the FieldLink Jobs connector with the same Request ID on every retry; when retries are exhausted the run fails, C-40 reports it and the work order keeps its request stamp. Path 2, outbound events: a work order change runs plug-in P1, which posts with IServiceEndpointNotificationService to the Service Bus topic; a failed post fails the asynchronous system job, which the platform retries by running the whole plug-in again; the topic subscription fieldlink has a dead-letter queue after 10 deliveries; ForwardWorkOrderEvent writes the contract message to the queue fieldlink-outbound, and DeliverOutbound sends it to FieldLink, with fieldlink-outbound-rejected for refused messages and fieldlink-outbound-poison after 5 attempts. Path 3, inbound events: FieldLink posts events to the signed endpoint, which queues them on fieldlink-inbound; the worker applies them by FieldLink ID key, with fieldlink-inbound-poison after 5 attempts. Below, the three nets. Net 1, retry: seconds to minutes, automatic, same id, inside each component. Net 2, replay: hours, an operator runs cedar_service.replay on the poison and dead-letter queues after fixing the cause, sending the same message with the same id. Net 3, reconcile: daily, cedar_service.dispatch_reconcile compares Cedar's mirror, kept current by change tracking, with FieldLink's nightly jobs snapshot, repairs R1, R2, R3, R8 and R9 with repeatable requests and parks R4 to R7 as Integration issue rows upserted by alternate key. Each net catches what the one before missed, and none of them can apply a fact twice because every receiver is idempotent by id or key.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.red{fill:#fde7e9}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Where each path can fail, and which net catches it</text>
+
+<rect class="box" x="20" y="44" width="110" height="330" rx="8" fill="#deecf9"/><text class="b" x="34" y="70">Cedar</text><text x="34" y="92">Dataverse</text>
+<rect class="box" x="870" y="44" width="110" height="330" rx="8" fill="#f3f2f1"/><text class="b" x="884" y="70">FieldLink</text>
+
+<text class="b" x="150" y="72">1 Dispatch</text>
+<rect class="box" x="150" y="82" width="220" height="44" rx="6" fill="#fff4ce"/><text class="s" x="160" y="100">business event cedar_RequestDispatch</text><text class="s" x="160" y="118">→ flow C-12</text>
+<rect class="box" x="400" y="82" width="250" height="44" rx="6" fill="#fff4ce"/><text class="s" x="410" y="100">CreateJob, retry ×4, same Request ID</text><text class="s" x="410" y="118">connector FieldLink Jobs</text>
+<rect class="box red" x="680" y="82" width="170" height="44" rx="6"/><text class="s" x="690" y="100">run Failed + C-40;</text><text class="s" x="690" y="118">stamp kept</text>
+<line class="ln" x1="130" y1="104" x2="146" y2="104" marker-end="url(#a)"/><line class="ln" x1="370" y1="104" x2="396" y2="104" marker-end="url(#a)"/>
+<path class="ln" d="M650,96 L866,96" marker-end="url(#a)"/>
+
+<text class="b" x="150" y="160">2 Outbound events</text>
+<rect class="box" x="150" y="170" width="160" height="58" rx="6" fill="#fff4ce"/><text class="s" x="160" y="188">plug-in P1 posts with</text><text class="s" x="160" y="204">IServiceEndpoint-</text><text class="s" x="160" y="220">NotificationService</text>
+<rect class="box" x="330" y="170" width="150" height="58" rx="6" fill="#fff4ce"/><text class="s" x="340" y="188">topic, subscription</text><text class="s" x="340" y="204">fieldlink</text><text class="s" x="340" y="220">→ fieldlink-outbound</text>
+<rect class="box" x="500" y="170" width="150" height="58" rx="6" fill="#fff4ce"/><text class="s" x="510" y="188">DeliverOutbound</text><text class="s" x="510" y="204">POST /v2/events</text><text class="s" x="510" y="220">Idempotency-Key = id</text>
+<rect class="box red" x="150" y="236" width="160" height="40" rx="6"/><text class="s" x="160" y="252">system job Failed</text><text class="s" x="160" y="268">(whole plug-in re-ran)</text>
+<rect class="box red" x="330" y="236" width="150" height="40" rx="6"/><text class="s" x="340" y="252">dead-letter queue</text><text class="s" x="340" y="268">after 10 deliveries</text>
+<rect class="box red" x="500" y="236" width="170" height="40" rx="6"/><text class="s" x="510" y="252">…-poison after 5; …-</text><text class="s" x="510" y="268">rejected if refused</text>
+<line class="ln" x1="130" y1="198" x2="146" y2="198" marker-end="url(#a)"/><line class="ln" x1="310" y1="198" x2="326" y2="198" marker-end="url(#a)"/>
+<line class="ln" x1="480" y1="198" x2="496" y2="198" marker-end="url(#a)"/><line class="ln" x1="650" y1="198" x2="866" y2="198" marker-end="url(#a)"/>
+
+<text class="b" x="150" y="306">3 Inbound events</text>
+<rect class="box" x="560" y="316" width="290" height="44" rx="6" fill="#fff4ce"/><text class="s" x="570" y="334">signed endpoint → fieldlink-inbound</text><text class="s" x="570" y="352">(HMAC, lesson 90)</text>
+<rect class="box" x="300" y="316" width="230" height="44" rx="6" fill="#fff4ce"/><text class="s" x="310" y="334">worker: update by FieldLink ID key</text><text class="s" x="310" y="352">forward-only, row version</text>
+<rect class="box red" x="150" y="316" width="130" height="44" rx="6"/><text class="s" x="160" y="334">…-inbound-poison</text><text class="s" x="160" y="352">after 5</text>
+<line class="ln" x1="866" y1="338" x2="854" y2="338" marker-end="url(#a)"/><line class="ln" x1="560" y1="338" x2="534" y2="338" marker-end="url(#a)"/>
+<line class="ln" x1="300" y1="338" x2="134" y2="338" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="396" width="300" height="250" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="420">Net 1: retry</text>
+<text x="32" y="446">seconds to minutes, automatic</text>
+<text x="32" y="470">inside each component: action</text>
+<text x="32" y="490">retry policy, queue dequeues,</text>
+<text x="32" y="510">Service Bus deliveries, the</text>
+<text x="32" y="530">asynchronous service</text>
+<text x="32" y="560">same id on every attempt</text>
+<text x="32" y="584">cures: short outages, 429,</text>
+<text x="32" y="604">lost answers</text>
+
+<rect class="box" x="350" y="396" width="300" height="250" rx="8" fill="#dff6dd"/>
+<text class="b" x="362" y="420">Net 2: replay</text>
+<text x="362" y="446">hours, an operator decides</text>
+<text x="362" y="470">cedar_service.replay on the</text>
+<text x="362" y="490">poison queues and the</text>
+<text x="362" y="510">dead-letter queue, after the</text>
+<text x="362" y="530">cause is fixed</text>
+<text x="362" y="560">same message, same id; send</text>
+<text x="362" y="580">first, then delete</text>
+<text x="362" y="604">cures: long outages, config</text>
+<text x="362" y="624">errors, expired credentials</text>
+
+<rect class="box" x="680" y="396" width="300" height="250" rx="8" fill="#dff6dd"/>
+<text class="b" x="692" y="420">Net 3: reconcile</text>
+<text x="692" y="446">daily, compares STATES</text>
+<text x="692" y="470">Cedar mirror (change tracking)</text>
+<text x="692" y="490">vs FieldLink nightly snapshot</text>
+<text x="692" y="514">repairs R1 R2 R3 R8 R9 with</text>
+<text x="692" y="534">repeatable requests; parks</text>
+<text x="692" y="554">R4–R7 as Integration issues</text>
+<text x="692" y="574">upserted by alternate key</text>
+<text x="692" y="604">cures: anything the nets</text>
+<text x="692" y="624">before it missed, any age</text>
+</svg>

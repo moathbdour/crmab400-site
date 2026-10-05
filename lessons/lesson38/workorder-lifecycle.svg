@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="t">
+<title id="t">WorkOrder lifecycle: NotSent to Sent by MarkSent; Sent to Accepted by Accept; Accepted to InProgress by Start; InProgress to Completed by Complete. Sent, Accepted and InProgress can move to Blocked by Block; Blocked returns to Accepted by Accept. Any other move throws WorkOrderStateException.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="330" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">WorkOrder.Status — only these moves are allowed; the method name is on each arrow</text>
+<rect x="20" y="80" width="130" height="50" rx="8" fill="#eef4fa" stroke="#1f3b57"/><text x="45" y="110">NotSent</text>
+<rect x="215" y="80" width="130" height="50" rx="8" fill="#eef4fa" stroke="#1f3b57"/><text x="255" y="110">Sent</text>
+<rect x="410" y="80" width="130" height="50" rx="8" fill="#eef4fa" stroke="#1f3b57"/><text x="435" y="110">Accepted</text>
+<rect x="605" y="80" width="130" height="50" rx="8" fill="#eef4fa" stroke="#1f3b57"/><text x="627" y="110">InProgress</text>
+<rect x="800" y="80" width="140" height="50" rx="8" fill="#f1f7ee" stroke="#2f6b2f"/><text x="820" y="110">Completed</text>
+<rect x="410" y="230" width="130" height="50" rx="8" fill="#fdecea" stroke="#9b1c1c"/><text x="445" y="260">Blocked</text>
+<line x1="150" y1="105" x2="213" y2="105" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/><text x="148" y="72" font-size="14">MarkSent(id)</text>
+<line x1="345" y1="105" x2="408" y2="105" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/><text x="350" y="72" font-size="14">Accept()</text>
+<line x1="540" y1="105" x2="603" y2="105" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/><text x="548" y="72" font-size="14">Start()</text>
+<line x1="735" y1="105" x2="798" y2="105" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/><text x="728" y="72" font-size="14">Complete(t)</text>
+<line x1="290" y1="130" x2="420" y2="232" stroke="#9b1c1c" stroke-width="2" marker-end="url(#a)"/>
+<line x1="455" y1="130" x2="455" y2="228" stroke="#9b1c1c" stroke-width="2" marker-end="url(#a)"/>
+<line x1="660" y1="130" x2="535" y2="232" stroke="#9b1c1c" stroke-width="2" marker-end="url(#a)"/>
+<text x="210" y="190" font-size="14" fill="#9b1c1c">Block(reason)</text>
+<text x="640" y="190" font-size="14" fill="#9b1c1c">Block(reason)</text>
+<path d="M500 228 C 520 180, 520 170, 505 133" fill="none" stroke="#2f6b2f" stroke-width="2" marker-end="url(#a)"/>
+<text x="518" y="210" font-size="14" fill="#2f6b2f">Accept()</text>
+<text x="20" y="315" font-size="14">Anything else (for example Start() on NotSent) throws WorkOrderStateException and leaves Status unchanged.</text>
+</g>
+</svg>

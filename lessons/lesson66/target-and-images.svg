@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Target, pre-image and post-image for one update of work order WO-1002</title>
+<desc id="d">Before the update the stored row has Scheduled for 2026-10-02 08:00, FieldLink status In progress, Site JL-W2 and FieldLink ID FL-77310. The caller sends a Target containing only Scheduled for 2026-10-03 09:30. The pre-image is a snapshot of the registered columns taken before the main operation, so it holds the old Scheduled for and the status. The main operation writes the row. The post-image is a snapshot taken after the main operation, so it holds the new Scheduled for and the unchanged status. The Target never contains columns the caller did not send. A table shows availability: Create has no pre-image, Delete has no post-image, post-images exist only in PostOperation steps, and Update in PostOperation can have both.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}.g{stroke:#1b1b1b;stroke-width:1}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">Three different views of the same row: Sami moves WO-1002 by one day</text>
+
+<rect class="box" x="20" y="50" width="300" height="150" rx="8" fill="#e6e6e6"/>
+<text class="b" x="32" y="74">Stored row before the update</text>
+<text class="m" x="32" y="100">cedar_scheduledfor  10-02 08:00</text>
+<text class="m" x="32" y="122">cedar_fieldlinkstatus  In progress</text>
+<text class="m" x="32" y="144">cedar_site  JL-W2</text>
+<text class="m" x="32" y="166">cedar_fieldlinkid  FL-77310</text>
+<text x="32" y="188">plus every other column</text>
+
+<rect class="box" x="350" y="50" width="300" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="362" y="74">Target (InputParameters)</text>
+<text class="m" x="362" y="100">cedar_scheduledfor  10-03 09:30</text>
+<text x="362" y="130">Only what the caller sent.</text>
+<text x="362" y="152">No status, no site, no old value.</text>
+<text x="362" y="174">A column sent as null is present</text>
+<text x="362" y="192">with value null (it is being cleared).</text>
+
+<rect class="box" x="680" y="50" width="300" height="150" rx="8" fill="#e6e6e6"/>
+<text class="b" x="692" y="74">Stored row after the main operation</text>
+<text class="m" x="692" y="100">cedar_scheduledfor  10-03 09:30</text>
+<text class="m" x="692" y="122">cedar_fieldlinkstatus  In progress</text>
+<text class="m" x="692" y="144">cedar_site  JL-W2</text>
+<text class="m" x="692" y="166">cedar_fieldlinkid  FL-77310</text>
+<text x="692" y="188">written, not yet committed</text>
+
+<path class="a" d="M320,125 L350,125"/>
+<path class="a" d="M650,125 L680,125"/>
+<text x="330" y="224">Stage 30 MainOperation applies the Target to the stored row.</text>
+
+<path class="a" d="M170,200 L170,262"/>
+<path class="a" d="M830,200 L830,262"/>
+
+<rect class="box" x="20" y="262" width="460" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="286">Pre-image, alias "pre"</text>
+<text x="32" y="308">Snapshot of the columns you registered, before stage 30.</text>
+<text class="m" x="32" y="334">cedar_scheduledfor  10-02 08:00   (old value)</text>
+<text class="m" x="32" y="356">cedar_fieldlinkstatus  In progress</text>
+<text x="32" y="380">Stages 10, 20 and 40. A column that is empty is missing.</text>
+
+<rect class="box" x="520" y="262" width="460" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="532" y="286">Post-image, alias "post"</text>
+<text x="532" y="308">Snapshot of the columns you registered, after stage 30.</text>
+<text class="m" x="532" y="334">cedar_scheduledfor  10-03 09:30   (new value)</text>
+<text class="m" x="532" y="356">cedar_fieldlinkstatus  In progress</text>
+<text x="532" y="380">Stage 40 only. Includes values the platform calculated.</text>
+
+<text class="h" x="20" y="432">Which image exists for which message and stage</text>
+<rect class="g" x="20" y="444" width="960" height="34" fill="#e6e6e6"/>
+<text class="b" x="32" y="466">Message</text>
+<text class="b" x="200" y="466">Target type</text>
+<text class="b" x="420" y="466">Pre-image</text>
+<text class="b" x="700" y="466">Post-image</text>
+<rect class="g" x="20" y="478" width="960" height="34" fill="#ffffff"/>
+<text x="32" y="500">Create</text>
+<text x="200" y="500">Entity (submitted columns)</text>
+<text x="420" y="500">Never: the row does not exist yet</text>
+<text x="700" y="500">PostOperation steps</text>
+<rect class="g" x="20" y="512" width="960" height="34" fill="#ffffff"/>
+<text x="32" y="534">Update</text>
+<text x="200" y="534">Entity (submitted columns)</text>
+<text x="420" y="534">Stages 10, 20 and 40</text>
+<text x="700" y="534">PostOperation steps</text>
+<rect class="g" x="20" y="546" width="960" height="34" fill="#ffffff"/>
+<text x="32" y="568">Delete</text>
+<text x="200" y="568">EntityReference (no columns)</text>
+<text x="420" y="568">Stages 10, 20 and 40</text>
+<text x="700" y="568">Never: the row is gone</text>
+<text class="b" x="20" y="612">Rule: the Target tells you what was submitted. Only an image tells you what was stored.</text>
+<text x="20" y="636">Register the few columns your logic reads. The default of all columns slows every matching request.</text>
+</svg>

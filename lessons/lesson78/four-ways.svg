@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" role="img" aria-labelledby="t d">
+<title id="t">Four ways to send 300 status changes to Dataverse</title>
+<desc id="d">Four columns. Single requests: 300 HTTP requests and 300 transactions; each row succeeds or fails alone; slow in sequence, fast in parallel. Batch, meaning ExecuteMultiple or $batch: 3 requests of 100, but still 300 transactions executed one after the other on the server; a result per operation with ContinueOnError; any mix of tables and operations; at most 1,000 per request. Bulk message such as UpdateMultiple: 3 requests of 100 rows and 3 transactions; one table and one operation; the fastest; one bad row rolls back its whole request on a standard table. Explicit transaction, meaning ExecuteTransaction or a change set: one request and one transaction for a few related operations across tables; all or nothing; locks are held until the end; a tool for correctness, not speed. A bar underneath states that a batch is not a transaction and that a bulk message is a transaction whether you wanted one or not.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.s{font-size:14px;fill:#333}</style>
+<rect width="1000" height="520" fill="#ffffff"/>
+<text class="h" x="20" y="28">300 status changes, four ways: requests, transactions and what a failure does</text>
+
+<rect class="box" x="20" y="48" width="230" height="370" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="74">1. Single requests</text>
+<text x="32" y="102">Update, Update, Update …</text>
+<text class="b" x="32" y="136">300 HTTP requests</text>
+<text class="b" x="32" y="158">300 transactions</text>
+<text x="32" y="192">One fails:</text>
+<text x="32" y="212">only that row</text>
+<text x="32" y="246">Any table, any operation</text>
+<text x="32" y="280">Slow one after the other;</text>
+<text x="32" y="300">fast in parallel, within</text>
+<text x="32" y="320">the recommended degree</text>
+<text class="s" x="32" y="356">Limit you meet first:</text>
+<text class="s" x="32" y="376">number of requests</text>
+
+<rect class="box" x="262" y="48" width="230" height="370" rx="8" fill="#fff4ce"/>
+<text class="b" x="274" y="74">2. Batch</text>
+<text x="274" y="102">ExecuteMultiple / $batch</text>
+<text class="b" x="274" y="136">3 requests of 100</text>
+<text class="b" x="274" y="158">300 transactions</text>
+<text x="274" y="192">One fails: only that one</text>
+<text x="274" y="212">(ContinueOnError), or stop</text>
+<text x="274" y="246">Any mix; up to 1,000;</text>
+<text x="274" y="266">result per operation</text>
+<text x="274" y="300">Saves round trips, not</text>
+<text x="274" y="320">server work</text>
+<text class="s" x="274" y="356">Limit you meet first:</text>
+<text class="s" x="274" y="376">execution time</text>
+
+<rect class="box" x="504" y="48" width="230" height="370" rx="8" fill="#dff6dd"/>
+<text class="b" x="516" y="74">3. Bulk message</text>
+<text x="516" y="102">UpdateMultiple(Targets)</text>
+<text class="b" x="516" y="136">3 requests of 100 rows</text>
+<text class="b" x="516" y="158">3 transactions</text>
+<text x="516" y="192">One row fails: all rows of</text>
+<text x="516" y="212">that request roll back</text>
+<text x="516" y="246">One table, one operation;</text>
+<text x="516" y="266">check table support</text>
+<text x="516" y="300">Highest throughput;</text>
+<text x="516" y="320">100 to 1,000 rows to start</text>
+<text class="s" x="516" y="356">Use for rows you trust</text>
+<text class="s" x="516" y="376">to be valid</text>
+
+<rect class="box" x="746" y="48" width="234" height="370" rx="8" fill="#fde7e9"/>
+<text class="b" x="758" y="74">4. Explicit transaction</text>
+<text x="758" y="102">ExecuteTransaction /</text>
+<text x="758" y="122">change set in $batch</text>
+<text class="b" x="758" y="150">1 request, 1 transaction</text>
+<text x="758" y="192">One fails: everything</text>
+<text x="758" y="212">rolls back</text>
+<text x="758" y="246">A few related operations,</text>
+<text x="758" y="266">across tables</text>
+<text x="758" y="300">Locks held until the end:</text>
+<text x="758" y="320">keep it small</text>
+<text class="s" x="758" y="356">For correctness,</text>
+<text class="s" x="758" y="376">not for speed</text>
+
+<rect class="box" x="20" y="436" width="960" height="66" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="462">Two questions decide: if operation 37 fails, what happened to 1–36? How many transactions did the server open?</text>
+<text x="32" y="486">A batch is not a transaction. A bulk message is one, whether you wanted it or not.</text>
+</svg>

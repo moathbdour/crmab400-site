@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="t d">
+<title id="t">Three test layers for C-19</title>
+<desc id="d">Many fast unit tests, a few integration tests that load all libraries into one fake form, and a short manual UAT run in Cedar-Test.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1f2933}.h{font-size:18px;font-weight:700}.s{font-size:14px;fill:#3e4c59}</style>
+<text x="20" y="30" class="h">C-19 test layers after lesson 56</text>
+<polygon points="300,60 380,60 440,160 240,160" fill="#fde2e1" stroke="#a61b1b" stroke-width="2"/>
+<text x="275" y="120">Manual UAT</text>
+<polygon points="240,170 440,170 500,270 180,270" fill="#fff4e5" stroke="#b86e00" stroke-width="2"/>
+<text x="235" y="225">Integration (e2e, 5)</text>
+<polygon points="180,280 500,280 560,390 120,390" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="215" y="340">Unit tests (51 + guide 6)</text>
+<text x="590" y="95" class="s">Cedar-Test, real form, Omar and Lina test users,</text><text x="590" y="117" class="s">UAT-01..UAT-08, minutes per release</text>
+<text x="590" y="205" class="s">tests/webresources/case-triage-e2e.test.js</text><text x="590" y="227" class="s">all six libraries in load order + fake form,</text><text x="590" y="249" class="s">catches wiring and order bugs</text>
+<text x="590" y="320" class="s">one module each, pure functions,</text><text x="590" y="342" class="s">milliseconds, run on every commit</text>
+<text x="20" y="420" class="s">Total automated: 62 tests. Faster layers run first in the build; UAT runs after the pipeline imports 1.6 into Cedar-Test.</text>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">A flow as a tool of an agent: the contract</title>
+<desc id="d">From left to right. Sami asks the agent Cedar Dispatch Helper: what is the status of WO-1002? The agent's orchestrator, a language model, reads the names and descriptions of its tools, chooses the tool Work order status and fills the input WorkOrderNumber with text it extracted. The flow starts with the trigger When an agent calls the flow, normalises and validates the text, queries Dataverse with a fixed identity (Cedar Automation) and a fixed list of columns, and answers with Respond to the agent: a result word, named fields and a message. The agent turns the fields into a sentence. Four requirements from the documentation are listed under the arrow: the trigger and the response action, a real-time response with the asynchronous toggle off, the flow published, and an answer within 100 seconds. Below, two columns. What the model decides: whether to call the tool, what text to pass, how to phrase the answer. What the flow decides: what counts as a valid number, which identity reads, which columns exist in the answer, what each result word means, what happens on failure. A bottom line: treat the input as text from outside, and the output as text that a model will repeat to a person.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">The model chooses and phrases; the flow decides what is true and what is allowed</text>
+
+<rect class="box" x="20" y="48" width="170" height="120" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">Sami</text>
+<text x="32" y="98">“What is the</text>
+<text x="32" y="118">status of</text>
+<text x="32" y="138">WO-1002?”</text>
+<path class="a" d="M190,96 L214,96"/>
+<path class="a" d="M214,132 L190,132"/>
+
+<rect class="box" x="214" y="48" width="270" height="120" rx="8" fill="#fff4ce"/>
+<text class="b" x="226" y="72">Agent: Cedar Dispatch Helper</text>
+<text x="226" y="96">Orchestrator (a language model)</text>
+<text x="226" y="118">reads tool names and descriptions,</text>
+<text x="226" y="138">picks a tool, fills its inputs,</text>
+<text x="226" y="158">phrases the answer</text>
+<path class="a" d="M484,84 L520,84"/>
+<text x="488" y="74">call</text>
+<path class="a" d="M520,138 L484,138"/>
+<text x="484" y="158">fields</text>
+
+<rect class="box" x="520" y="48" width="290" height="200" rx="8" fill="#dff6dd"/>
+<text class="b" x="532" y="72">Agent flow: Work order status</text>
+<text x="532" y="96">When an agent calls the flow</text>
+<text x="532" y="116">input: WorkOrderNumber (text)</text>
+<text x="532" y="140">Normalise → validate → query</text>
+<text x="532" y="160">with fixed columns, Row count 2</text>
+<text x="532" y="184">Respond to the agent:</text>
+<text x="532" y="204">result, number, status, site,</text>
+<text x="532" y="224">subcontractor, scheduled, message</text>
+<path class="a" d="M810,120 L836,120"/>
+
+<rect class="box" x="836" y="48" width="144" height="200" rx="8" fill="#f3f2f1"/>
+<text class="b" x="848" y="72">Dataverse</text>
+<text x="848" y="98">as Cedar</text>
+<text x="848" y="118">Automation</text>
+<text x="848" y="148">Work orders:</text>
+<text x="848" y="168">seven columns,</text>
+<text x="848" y="188">never the cost</text>
+
+<rect class="box" x="20" y="268" width="960" height="76" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="292">Required for a flow to be a tool (Copilot Studio documentation, June 2026)</text>
+<text x="32" y="316">Trigger “When an agent calls the flow” and action “Respond to the agent” · real-time response (Asynchronous response Off)</text>
+<text x="32" y="334">· published · answers within the 100-second action limit</text>
+
+<rect class="box" x="20" y="362" width="470" height="170" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="386">The model decides (non-deterministic)</text>
+<text x="32" y="412">Whether this tool fits the question</text>
+<text x="32" y="434">What text to put into WorkOrderNumber</text>
+<text x="32" y="456">How to phrase the fields as an answer</text>
+<text x="32" y="484">So: descriptions matter as much as code, and the</text>
+<text x="32" y="504">same question may be handled differently twice.</text>
+
+<rect class="box" x="510" y="362" width="470" height="170" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="386">The flow decides (deterministic)</text>
+<text x="522" y="412">What a valid work order number is</text>
+<text x="522" y="434">Which identity reads, and which columns exist</text>
+<text x="522" y="456">What “found”, “not-found”, “ambiguous”, “failed” mean</text>
+<text x="522" y="484">So: the same input always gives the same output,</text>
+<text x="522" y="504">and it can be tested without any model.</text>
+
+<rect class="box" x="20" y="548" width="960" height="38" rx="8" fill="#eef3fb"/>
+<text x="32" y="572">Input = text from outside (validate it). Output = text a model will repeat to a person (shape it; no whole rows, no denied columns).</text>
+</svg>

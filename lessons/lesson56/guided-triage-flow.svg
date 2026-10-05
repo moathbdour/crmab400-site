@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t d">
+<title id="t">Guided case triage: six ordered steps</title>
+<desc id="d">Omar works a new case top to bottom. Each step is checked by an earlier C-19 library; the guide shows only the first incomplete step.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1f2933}.h{font-size:18px;font-weight:700}.s{font-size:14px;fill:#3e4c59}rect.b{fill:#eef4fb;stroke:#2f5d8a;stroke-width:2}rect.n{fill:#fff4e5;stroke:#b86e00;stroke-width:2}line,path{stroke:#2f5d8a;stroke-width:2;fill:none}</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#2f5d8a"/></marker></defs>
+<text x="20" y="30" class="h">US-02i guided triage — the guide shows the FIRST incomplete step only</text>
+<g>
+<rect class="b" x="20" y="55" width="270" height="70" rx="8"/><text x="35" y="82">1 Case category set</text><text x="35" y="106" class="s">checked by triage.js (v1)</text>
+<rect class="b" x="20" y="145" width="270" height="70" rx="8"/><text x="35" y="172">2 Priority set</text><text x="35" y="196" class="s">urgent rule: triage.js (v1–v2)</text>
+<rect class="b" x="20" y="235" width="270" height="70" rx="8"/><text x="35" y="262">3 Customer is an account</text><text x="35" y="286" class="s">validation.js (v3)</text>
+<rect class="b" x="20" y="325" width="270" height="70" rx="8"/><text x="35" y="352">4 Site chosen (Critical fault)</text><text x="35" y="376" class="s">validation.js required level (v3)</text>
+<rect class="b" x="320" y="325" width="270" height="70" rx="8"/><text x="335" y="352">5 Site checks clear</text><text x="335" y="376" class="s">data.js Web API reads (v4, v7)</text>
+<rect class="b" x="320" y="235" width="270" height="70" rx="8"/><text x="335" y="262">6 First response sent</text><text x="335" y="286" class="s">command Mark first response (v6)</text>
+<line x1="155" y1="125" x2="155" y2="143" marker-end="url(#a)"/><line x1="155" y1="215" x2="155" y2="233" marker-end="url(#a)"/><line x1="155" y1="305" x2="155" y2="323" marker-end="url(#a)"/>
+<line x1="290" y1="360" x2="318" y2="360" marker-end="url(#a)"/><line x1="455" y1="325" x2="455" y2="307" marker-end="url(#a)"/>
+</g>
+<rect class="n" x="620" y="55" width="260" height="150" rx="8"/><text x="635" y="82" class="h">guide.js (v8)</text>
+<text x="635" y="108" class="s">nextStep(state) → first step</text><text x="635" y="130" class="s">whose done() is false</text>
+<text x="635" y="156" class="s">setFormNotification INFO</text><text x="635" y="178" class="s">id cedar-guide-next</text>
+<rect class="n" x="620" y="235" width="260" height="160" rx="8"/><text x="635" y="262" class="h">Example banner</text>
+<text x="635" y="288" class="s">“Step 4 of 6: choose the Site</text><text x="635" y="310" class="s">– required for a Critical fault.”</text>
+<text x="635" y="340" class="s">All six done → notification</text><text x="635" y="362" class="s">cleared; nothing is shown.</text>
+<path d="M590 270 L618 270" marker-end="url(#a)"/><path d="M750 205 L750 233" marker-end="url(#a)"/>
+<text x="20" y="440" class="s">Server rules (CASE-BR1, plug-in in lesson 65) still enforce data; the guide only helps Omar work in the right order.</text>
+</svg>

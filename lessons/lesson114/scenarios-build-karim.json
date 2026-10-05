@@ -1,0 +1,54 @@
+{
+  "bank": "Karim's own Build items (challenge, lesson 114)",
+  "domain": "build",
+  "version": "0.1",
+  "lesson": 114,
+  "checkedOn": "2026-11-21",
+  "minutesPerItem": 2,
+  "items": [
+    {
+      "id": "KA-01",
+      "objectives": ["B-06"],
+      "lessons": [30],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar-Prod is a Managed Environment in the environment group Cedar CRM, whose rule limits canvas app sharing to 20 people and excludes security groups. Sami tries to share the new canvas app Site Walk with the security group Cedar Field Staff (60 people) and can't. What should Karim recommend?",
+      "options": {
+        "A": "Ask the Cedar-Prod environment admin to raise the limit in the environment's own settings.",
+        "B": "Treat the limit as intended: give field staff the app through a model-driven app and security roles, or ask the tenant admin to review the group rule.",
+        "C": "Share the app with 20 people at a time until everyone has it.",
+        "D": "Move the app to the default environment, which has no sharing limits."
+      },
+      "answer": ["B"],
+      "signal": "\"Managed Environment\", \"environment group rule\", \"limits sharing\".",
+      "why": "Sharing limits are a deliberate Managed Environment control, and an environment group rule locks the setting for every environment in the group. The design must work within it (roles and a model-driven app) or the owner of the rule must change it.",
+      "distractors": {
+        "A": "A setting managed by an environment group rule is read-only in the environment; only a change to the group rule alters it.",
+        "C": "The limit counts people the app is shared with, so batches still stop at 20, and working around a control defeats its purpose.",
+        "D": "Moving production apps to the default environment escapes governance and breaks ALM; it is the opposite of the intended design."
+      }
+    },
+    {
+      "id": "KA-02",
+      "objectives": ["B-13"],
+      "lessons": [86, 81],
+      "type": "single",
+      "select": 1,
+      "stem": "Every night at 02:00 Cedar must compare open work orders with FieldLink, write differences to an issues table and email Sami a summary. No agent is involved; the solution's other automations are Power Automate cloud flows licensed through Power Apps and Power Automate plans. What should Karim build?",
+      "options": {
+        "A": "A scheduled Power Automate cloud flow in the solution.",
+        "B": "An agent flow in Copilot Studio with a recurrence trigger.",
+        "C": "A Copilot Studio workflow on the GitHub Copilot harness.",
+        "D": "A Copilot Studio agent with an instruction to run every night."
+      },
+      "answer": ["A"],
+      "signal": "\"no agent is involved\", \"every night\", existing Power Automate licensing.",
+      "why": "A fixed, scheduled automation with no agent belongs in a cloud flow: it uses the licences Cedar already has, sits in the solution next to the other flows and has run history for support.",
+      "distractors": {
+        "B": "Agent flows consume Copilot Studio capacity per action; with no agent in the picture there is no reason to move billing and tooling there.",
+        "C": "Workflows run on the GitHub Copilot harness and bill Copilot Credits; nothing here needs an agent harness.",
+        "D": "Agents respond to conversations and events through tools; instructions don't schedule work, and the steps are fixed anyway."
+      }
+    }
+  ]
+}

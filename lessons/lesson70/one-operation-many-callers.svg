@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">One domain operation, many callers</title>
+<desc id="d">Before: four clients each contain their own copy of the rule "can this work order be dispatched": the Cedar Dispatch Planner code app, the cloud flow Cedar – Request FieldLink dispatch, a client script on the Work order form, and the FieldLink integration. The copies differ. After: the rules live once, on the server, behind two custom APIs. cedar_CheckDispatch is a function bound to a work order, read-only, called with GET, and returns CanDispatch, Blocking and Warnings. cedar_RequestDispatch is an action bound to a work order, called with POST, which runs the same check, stamps Dispatch requested on, writes a note and returns Result and RequestedOn. The planner, the flow, the form script, SDK clients and later agents call the same two messages, and security, tracing and transactions are handled in one place.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">Before: every client carries its own copy of "can this work order be dispatched?"</text>
+
+<rect class="box" x="20" y="44" width="225" height="84" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="68">Dispatch Planner (C-23)</text>
+<text x="32" y="90">TypeScript: past = block,</text>
+<text x="32" y="110">under 2 h = warn</text>
+<rect class="box" x="265" y="44" width="225" height="84" rx="8" fill="#fde7e9"/>
+<text class="b" x="277" y="68">Flow: Request dispatch</text>
+<text x="277" y="90">Conditions: Not sent,</text>
+<text x="277" y="110">subcontractor, time set</text>
+<rect class="box" x="510" y="44" width="225" height="84" rx="8" fill="#fde7e9"/>
+<text class="b" x="522" y="68">Form script</text>
+<text x="522" y="90">JavaScript: after-hours</text>
+<text x="522" y="110">warning only</text>
+<rect class="box" x="755" y="44" width="225" height="84" rx="8" fill="#fde7e9"/>
+<text class="b" x="767" y="68">Integration</text>
+<text x="767" y="90">No check at all: sends</text>
+<text x="767" y="110">whatever is marked</text>
+
+<text class="h" x="20" y="172">After: the rule lives once, behind two messages</text>
+
+<rect class="box" x="20" y="190" width="180" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="214">Dispatch Planner</text>
+<text x="32" y="234">generated service</text>
+<rect class="box" x="20" y="258" width="180" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="282">Cloud flow</text>
+<text x="32" y="302">Perform a bound action</text>
+<rect class="box" x="20" y="326" width="180" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="350">Form script / command</text>
+<text x="32" y="370">Xrm.WebApi execute</text>
+<rect class="box" x="20" y="394" width="180" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="418">SDK and Web API clients</text>
+<text x="32" y="438">Execute / GET / POST</text>
+<rect class="box" x="20" y="462" width="180" height="56" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="486">Agents (lessons 98–100)</text>
+<text x="32" y="506">tool = the same action</text>
+
+<path class="a" d="M200,218 L300,268"/>
+<path class="a" d="M200,286 L300,300"/>
+<path class="a" d="M200,354 L300,340"/>
+<path class="a" d="M200,422 L300,372"/>
+<path class="a" d="M200,490 L300,404"/>
+
+<rect class="box" x="300" y="200" width="330" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="312" y="224">cedar_CheckDispatch</text>
+<text x="312" y="246">Function, bound to cedar_workorder, GET</text>
+<text x="312" y="266">Changes nothing. Step type: None.</text>
+<text class="m" x="312" y="290">CanDispatch: Boolean</text>
+<text class="m" x="312" y="310">Blocking, Warnings: StringArray</text>
+
+<rect class="box" x="300" y="344" width="330" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="312" y="368">cedar_RequestDispatch</text>
+<text x="312" y="390">Action, bound to cedar_workorder, POST</text>
+<text x="312" y="410">Same check, then stamp + note, in one</text>
+<text x="312" y="430">transaction. Step type: Async Only.</text>
+<text class="m" x="312" y="454">Note: String (optional)</text>
+<text class="m" x="312" y="474">Result: String, RequestedOn: DateTime</text>
+
+<path class="a" d="M630,265 L690,300"/>
+<path class="a" d="M630,420 L690,360"/>
+
+<rect class="box" x="690" y="200" width="290" height="294" rx="8" fill="#fff4ce"/>
+<text class="b" x="702" y="224">One implementation on the server</text>
+<text x="702" y="250">DispatchData: reads work order + site</text>
+<text x="702" y="270">(cost as SYSTEM, never disclosed)</text>
+<text x="702" y="296">DispatchReadiness: pure rules</text>
+<text x="702" y="316">DR-00 state, DR-01 after hours,</text>
+<text x="702" y="336">DR-02 cost approval, DR-03 lead time</text>
+<text x="702" y="362">One place for:</text>
+<text x="702" y="382">• security (roles + execute privilege)</text>
+<text x="702" y="402">• transaction and idempotency</text>
+<text x="702" y="422">• tracing and unit tests</text>
+<text x="702" y="442">• a stable contract: names and types</text>
+<text x="702" y="462">  that callers can rely on</text>
+<text x="702" y="484">Clients keep only presentation.</text>
+</svg>

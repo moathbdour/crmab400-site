@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" width="1000" height="430" role="img" aria-labelledby="t d">
+  <title id="t">C-75 trap profile data flow</title>
+  <desc id="d">Tagged banks and scored attempts feed the trap profile, which counts falls per trap and names habits that go into the study plan.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
+  </defs>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #1f2937; }
+    .h { font-size: 17px; font-weight: 700; }
+    .c { font-size: 14px; }
+    .l { font-size: 14px; fill: #374151; font-style: italic; }
+  </style>
+  <rect width="1000" height="430" fill="#ffffff"/>
+  <text x="500" y="30" text-anchor="middle" class="h" style="font-size:20px">C-75: from wrong answers to reasoning habits</text>
+
+  <rect x="20" y="60" width="230" height="130" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="135" y="86" text-anchor="middle" class="h">1 Tagged bank</text>
+  <text x="32" y="112" class="c">scenarios-ux.json: every</text>
+  <text x="32" y="132" class="c">wrong option has a trap</text>
+  <text x="32" y="152" class="c">(10 patterns); older banks</text>
+  <text x="32" y="172" class="c">get an overlay file</text>
+
+  <rect x="20" y="230" width="230" height="130" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="135" y="256" text-anchor="middle" class="h">2 Scored attempt</text>
+  <text x="32" y="282" class="c">C-74 scoreDrill: chosen</text>
+  <text x="32" y="302" class="c">letters + confidence;</text>
+  <text x="32" y="322" class="c">Karim UX 25/30,</text>
+  <text x="32" y="342" class="c">Build 23/27</text>
+
+  <rect x="340" y="130" width="280" height="160" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="480" y="156" text-anchor="middle" class="h">3 Profile per trap</text>
+  <text x="352" y="182" class="c">seen = wrong options shown</text>
+  <text x="352" y="202" class="c">fall = wrong option chosen</text>
+  <text x="352" y="222" class="c">sure = fall while confident</text>
+  <text x="352" y="242" class="c">blanks are not falls; untagged</text>
+  <text x="352" y="262" class="c">items listed, never counted</text>
+
+  <rect x="710" y="60" width="270" height="130" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="845" y="86" text-anchor="middle" class="h">4 Habits (≥ 2 falls)</text>
+  <text x="722" y="112" class="c">Right tool, wrong place: 5</text>
+  <text x="722" y="132" class="c">(UX-04, UX-20, UX-23,</text>
+  <text x="722" y="152" class="c">BS-14, CS-2); wrong gate: 2</text>
+  <text x="722" y="172" class="c">+ the question to ask</text>
+
+  <rect x="710" y="230" width="270" height="130" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="845" y="256" text-anchor="middle" class="h">5 Study plan</text>
+  <text x="722" y="282" class="c">C-73 still ranks objectives;</text>
+  <text x="722" y="302" class="c">the habit becomes a rule for</text>
+  <text x="722" y="322" class="c">every item: ask "where does</text>
+  <text x="722" y="342" class="c">this run?" before options</text>
+
+  <path d="M250,125 L338,180" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M250,295 L338,240" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M620,180 L708,125" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M845,190 L845,228" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M710,330 C560,400 300,400 140,362" stroke="#374151" stroke-width="2" fill="none" stroke-dasharray="6 4" marker-end="url(#a)"/>
+  <text x="430" y="410" text-anchor="middle" class="l">next drill (lessons 116–118) tests whether the habit changed</text>
+  <text x="300" y="118" class="l">traps</text>
+  <text x="300" y="300" class="l">choices</text>
+</svg>

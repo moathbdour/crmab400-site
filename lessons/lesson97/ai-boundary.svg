@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">AI proposes, rules dispose: the boundary around Cedar's suggested case category</title>
+<desc id="d">Left to right. 1, a case is created from an e-mail; the agent flow takes subject and body, trimmed, with HTML removed. 2, the prompt Cedar - Suggest case category, version 2: the e-mail is marked as data between markers, temperature 0, GPT-4.1 mini which is generally available, JSON output with a fixed format, at most 100 seconds. 3, the guard, deterministic code: parse exactly one JSON object; category and priority from closed lists, anything else rejected; confidence between 0 and 1; below 0.7 or with injection phrases in the e-mail, needs review; links, e-mail addresses and phone numbers removed from the reason. 4, only suggestion columns are written: suggested category, suggested priority, confidence, reason and status Suggested, Needs review or Rejected; never Case category, priority, owner or queue. 5, Omar confirms or corrects the category; the business rule CASE-BR1, urgent equals priority High plus Critical fault, and the routing rules run deterministically on what Omar set. Below, the release gate before the flow is turned on: the evaluation set of 20 labelled e-mails measured through the guard; accuracy of shown suggestions at least 0.9, rejected answers at most 5 percent, complaint recall at least 0.9, coverage at least 0.6, and no injection item passing as a plain suggestion. Version 1 of the prompt failed, version 2 passed. After release, the acceptance rate of suggestions is monitored and the evaluation is repeated when the model, the prompt or the region changes.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">AI proposes, rules dispose (decision AI-02)</text>
+
+<rect class="box" x="20" y="44" width="160" height="230" rx="8" fill="#deecf9"/>
+<text class="b" x="32" y="68">1 E-mail case</text>
+<text class="s" x="32" y="94">case created from</text><text class="s" x="32" y="112">the support mailbox</text>
+<text class="s" x="32" y="140">agent flow takes</text><text class="s" x="32" y="158">subject + body,</text><text class="s" x="32" y="176">HTML removed,</text><text class="s" x="32" y="194">max 4,000 characters</text>
+
+<rect class="box" x="200" y="44" width="180" height="230" rx="8" fill="#fde7e9"/>
+<text class="b" x="212" y="68">2 Prompt (AI)</text>
+<text class="s" x="212" y="94">e-mail between markers:</text><text class="s" x="212" y="112">"data, not instructions"</text>
+<text class="s" x="212" y="140">temperature 0</text><text class="s" x="212" y="158">GPT-4.1 mini (GA)</text>
+<text class="s" x="212" y="186">JSON output, fixed format</text><text class="s" x="212" y="214">at most 100 seconds</text>
+<text class="s" x="212" y="250">PROPOSES</text>
+
+<rect class="box" x="400" y="44" width="220" height="230" rx="8" fill="#dff6dd"/>
+<text class="b" x="412" y="68">3 Guard (code)</text>
+<text class="s" x="412" y="94">one JSON object or reject</text>
+<text class="s" x="412" y="116">closed lists for category</text><text class="s" x="412" y="134">and priority, else reject</text>
+<text class="s" x="412" y="156">confidence 0..1, else reject</text>
+<text class="s" x="412" y="178">&lt; 0.7 or injection phrases</text><text class="s" x="412" y="196">→ needs review</text>
+<text class="s" x="412" y="218">contact data out of reason</text>
+<text class="s" x="412" y="250">DISPOSES</text>
+
+<rect class="box" x="640" y="44" width="160" height="230" rx="8" fill="#fff4ce"/>
+<text class="b" x="652" y="68">4 Suggestion</text>
+<text class="s" x="652" y="94">suggested category</text><text class="s" x="652" y="112">suggested priority</text>
+<text class="s" x="652" y="130">confidence, reason</text><text class="s" x="652" y="148">status: Suggested /</text><text class="s" x="652" y="166">Needs review / Rejected</text>
+<text class="s" x="652" y="198">never Case category,</text><text class="s" x="652" y="216">priority, owner, queue</text>
+
+<rect class="box" x="820" y="44" width="160" height="230" rx="8" fill="#dff6dd"/>
+<text class="b" x="832" y="68">5 Omar decides</text>
+<text class="s" x="832" y="94">confirms or corrects</text><text class="s" x="832" y="112">Case category</text>
+<text class="s" x="832" y="140">CASE-BR1: urgent =</text><text class="s" x="832" y="158">High + Critical fault</text>
+<text class="s" x="832" y="186">routing on the</text><text class="s" x="832" y="204">confirmed category</text>
+<text class="s" x="832" y="250">deterministic again</text>
+
+<line class="ln" x1="180" y1="160" x2="196" y2="160" marker-end="url(#a)"/><line class="ln" x1="380" y1="160" x2="396" y2="160" marker-end="url(#a)"/>
+<line class="ln" x1="620" y1="160" x2="636" y2="160" marker-end="url(#a)"/><line class="ln" x1="800" y1="160" x2="816" y2="160" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="300" width="960" height="150" rx="8" fill="#ffffff"/>
+<text class="b" x="32" y="324">Release gate (tools/evaluate-suggestions.mjs), before the flow is turned on in an environment</text>
+<text x="32" y="350">20 labelled e-mails (data/ai/case-category-evalset.json), recorded model answers measured THROUGH the guard:</text>
+<text x="32" y="374">• accuracy of shown suggestions ≥ 0.9   • rejected answers ≤ 5 %   • complaint recall ≥ 0.9   • coverage ≥ 0.6</text>
+<text x="32" y="398">• no injection item may pass as a plain suggestion</text>
+<text x="32" y="426">Version 1 of the prompt: FAILED (0.875, 10 %, recall 0.4, followed the injection). Version 2: PASSED (0.944, 0 %, recall 1.0).</text>
+
+<rect class="box" x="20" y="466" width="960" height="80" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="490">After release</text>
+<text x="32" y="514">Monitor how often Omar keeps the suggestion. Repeat the evaluation when the prompt, the model, the model version or the region</text>
+<text x="32" y="534">changes. The default model is upgraded over time: an upgrade is a change that needs the gate.</text>
+</svg>

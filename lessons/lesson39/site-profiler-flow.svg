@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t">
+<title id="t">Data flow of the cedar-sites profile command: the CSV export is read by read_rows into dictionaries with line numbers; validate_row turns each into a SiteRow or a list of Issues; profile removes duplicates against existing site codes, which come either from an offline set or from DataverseClient.existing_site_codes; outputs are a clean CSV, a printed or JSON issue report, and an exit code of 0 or 1.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="520" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="32" font-weight="700" font-size="17">cedar-sites profile — from messy export to clean rows and evidence</text>
+<rect x="20" y="70" width="190" height="90" fill="#fff4dc" stroke="#8a5a00"/>
+<text x="32" y="96" font-weight="600">cedar-sites-import.csv</text>
+<text x="32" y="120" font-size="14">8 rows from Sami’s</text>
+<text x="32" y="140" font-size="14">field notebook (lesson 15)</text>
+<rect x="260" y="70" width="190" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="272" y="96" font-weight="600">read_rows()</text>
+<text x="272" y="120" font-size="14">csv.DictReader, utf-8-sig</text>
+<text x="272" y="140" font-size="14">yields (line, dict)</text>
+<rect x="500" y="70" width="200" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="512" y="96" font-weight="600">validate_row()</text>
+<text x="512" y="120" font-size="14">parse, normalise, check</text>
+<text x="512" y="140" font-size="14">→ SiteRow | None, [Issue]</text>
+<rect x="750" y="70" width="190" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="762" y="96" font-weight="600">profile()</text>
+<text x="762" y="120" font-size="14">reject duplicates of</text>
+<text x="762" y="140" font-size="14">existing + earlier codes</text>
+<path d="M210 115H258M450 115H498M700 115H748" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="500" y="230" width="200" height="100" fill="#e8f5ec" stroke="#1d6b3a"/>
+<text x="512" y="256" font-weight="600">Existing site codes</text>
+<text x="512" y="280" font-size="14">offline: HV-B, HV-MAIN, JL-W2</text>
+<text x="512" y="300" font-size="14">or --org: DataverseClient</text>
+<text x="512" y="320" font-size="14">.existing_site_codes()</text>
+<path d="M700 280H845V162" stroke="#1d6b3a" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="160" y="230" width="280" height="100" fill="#f3eefa" stroke="#5a3a8a"/>
+<text x="172" y="256" font-weight="600">Dataverse Web API (optional)</text>
+<text x="172" y="280" font-size="14">GET cedar_sites?$select=cedar_sitecode</text>
+<text x="172" y="300" font-size="14">follow @odata.nextLink pages</text>
+<text x="172" y="320" font-size="14">retry 429 after Retry-After</text>
+<path d="M440 280H498" stroke="#5a3a8a" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="400" width="280" height="90" fill="#e8f5ec" stroke="#1d6b3a"/>
+<text x="32" y="426" font-weight="600">--out clean.csv</text>
+<text x="32" y="450" font-size="14">HV-LAB, JL-W3, OG-NORTH</text>
+<text x="32" y="470" font-size="14">ready for import (lesson 15)</text>
+<rect x="340" y="400" width="280" height="90" fill="#fdecea" stroke="#9b1c1c"/>
+<text x="352" y="426" font-weight="600">Issue report (text or --json)</text>
+<text x="352" y="450" font-size="14">line, severity, column, message</text>
+<text x="352" y="470" font-size="14">5 rows rejected, 1 warning</text>
+<rect x="660" y="400" width="280" height="90" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="672" y="426" font-weight="600">Exit code</text>
+<text x="672" y="450" font-size="14">0 = all clean, 1 = rows rejected,</text>
+<text x="672" y="470" font-size="14">2 = file missing (pipeline gate)</text>
+<path d="M845 162V370H160V398M480 370V398M800 370V398" stroke="#1f3b57" stroke-width="2" fill="none" marker-end="url(#a)"/>
+</g>
+</svg>

@@ -1,0 +1,57 @@
+{
+  "domain": "extend",
+  "version": "1.0",
+  "lesson": 117,
+  "checkedOn": "2026-10-05",
+  "author": "Karim Aziz",
+  "features": {
+    "entra-token": {
+      "name": "A valid Entra token for the right audience",
+      "chooseWhen": "the call fails with 401 or an AADSTS error: the token is missing, expired or for another resource (<environment URL>/.default)",
+      "lessons": [
+        73
+      ]
+    },
+    "application-user": {
+      "name": "Application user in the environment",
+      "chooseWhen": "an application or managed identity authenticates but Dataverse says \"not a member of the organization\": create the application user per environment",
+      "lessons": [
+        29,
+        73,
+        87
+      ]
+    },
+    "security-role": {
+      "name": "Security role of the application user",
+      "chooseWhen": "the call fails with 403 and \"principal user is missing prv…\": add that privilege at the needed depth",
+      "lessons": [
+        26,
+        29
+      ]
+    },
+    "api-permission": {
+      "name": "Entra API permission with consent",
+      "chooseWhen": "a delegated (user) token needs a permission such as Dynamics CRM user_impersonation or CopilotStudio.Copilots.Invoke; it never authorises an app-only identity in Dataverse",
+      "lessons": [
+        25,
+        73,
+        103
+      ]
+    },
+    "azure-rbac": {
+      "name": "Azure role assignment",
+      "chooseWhen": "the identity must reach an Azure resource such as Key Vault or a storage queue; Azure roles don't grant Dataverse access",
+      "lessons": [
+        87
+      ]
+    },
+    "service-channel": {
+      "name": "A channel for service callers (Direct Line or the connector)",
+      "chooseWhen": "a background service with no user must talk to a Copilot Studio agent; the client library needs a user token",
+      "lessons": [
+        101,
+        103
+      ]
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "bank": "Karim: identity gates (own items)",
+  "domain": "extend",
+  "version": "1.0",
+  "lesson": 116,
+  "checkedOn": "2026-10-05",
+  "minutesPerItem": 2,
+  "items": [
+    {
+      "id": "IDK-01",
+      "objectives": [
+        "E-16",
+        "E-26"
+      ],
+      "lessons": [
+        73,
+        85
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "After the move to the service principal connection, the flow \"Cedar – Dispatch watch\" fails in Cedar-Test on Update a row with 403 and \"principal user is missing prvWriteIncident privilege\". What should Dana change?",
+      "options": {
+        "A": "Add Write on Case to the Flow Automation – Cedar role of the Cedar Automation application user, at the depth the flow needs.",
+        "B": "Grant the cedar-automation app registration the Dynamics CRM user_impersonation permission with admin consent.",
+        "C": "Recreate the connection with a new client secret.",
+        "D": "Give the application user the System Administrator role."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"403\", \"principal user is missing prv…\": the token was accepted; the Dataverse role is the gate.",
+      "why": "A 403 with a missing privilege comes after authentication succeeded: Dataverse checked the application user's security roles. The fix is in the role, with the least privilege the flow needs.",
+      "distractors": {
+        "B": "Entra API permissions don't authorize application access in Dataverse; only the application user's roles do.",
+        "C": "The credential works, because the call was authenticated; a new secret changes nothing.",
+        "D": "It removes the error by granting far more than one privilege."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-gate",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "IDK-02",
+      "objectives": [
+        "E-21"
+      ],
+      "lessons": [
+        87
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "func-cedar-ops works in Cedar-Dev. After the same code and settings are deployed to func-cedar-ops-test (identity id-cedar-ops-test), every call to Cedar-Test fails with \"The user is not a member of the organization\". What is missing?",
+      "options": {
+        "A": "An application user in Cedar-Test for id-cedar-ops-test's client ID, with the operations role.",
+        "B": "The Dynamics CRM API permission on id-cedar-ops-test.",
+        "C": "A Key Vault access policy for id-cedar-ops-test.",
+        "D": "Reuse id-cedar-ops-dev in Test so the existing application user applies."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"works in Cedar-Dev\", \"not a member of the organization\" in Test: application users are per environment.",
+      "why": "Each environment needs its own application user for the identity that calls it, and the Test function app has its own identity. Creating that user with the operations role is the missing step.",
+      "distractors": {
+        "B": "API permissions are not the gate for application access to Dataverse.",
+        "C": "Key Vault isn't involved in the Dataverse call, and the error names the organization.",
+        "D": "The Dev application user exists in Cedar-Dev only, and sharing one identity across environments breaks least privilege."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-gate",
+        "D": "too-broad"
+      }
+    },
+    {
+      "id": "IDK-03",
+      "objectives": [
+        "E-30"
+      ],
+      "lessons": [
+        103
+      ],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's web app signs Lina in and calls C-24 with the Copilot Studio client library. Sign-in works, but the token request for the agent fails with a consent error. Which permission should the app registration request?",
+      "options": {
+        "A": "The delegated permission CopilotStudio.Copilots.Invoke on the Power Platform API.",
+        "B": "The delegated permission Dynamics CRM user_impersonation.",
+        "C": "An application permission for CopilotStudio.Copilots.Invoke.",
+        "D": "Microsoft Graph User.Read.All."
+      },
+      "answer": [
+        "A"
+      ],
+      "signal": "\"client library\", \"token request for the agent\": the Power Platform API scope, delegated.",
+      "why": "The client library calls the published agent with a user token for the Power Platform API; the app registration needs the delegated CopilotStudio.Copilots.Invoke permission with consent.",
+      "distractors": {
+        "B": "That permission is for Dataverse data, not for invoking agents.",
+        "C": "There is no app-only access: the client library doesn't support service principal tokens.",
+        "D": "Graph permissions don't authorize calls to Copilot Studio, and this one reads every user."
+      },
+      "traps": {
+        "B": "wrong-gate",
+        "C": "wrong-gate",
+        "D": "too-broad"
+      }
+    }
+  ]
+}

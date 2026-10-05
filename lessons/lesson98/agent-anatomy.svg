@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">Anatomy of the Cedar Service Assistant, a Copilot Studio agent</title>
+<desc id="d">In the centre the agent Cedar Service Assistant, component C-24, schema name cedar_serviceAssistant, in the solution CedarServiceCore, on the standard harness with generative orchestration and a GA default model. Its instructions describe scope, safety first, never rules and data rules, at most 8,000 characters. On the left, knowledge: three uploaded files, the dispatch policy version 2 without amounts, service lines and the SLA policy, each with a description. On the right, tools: Work order status, the agent flow C-43, which runs as Cedar Automation and returns named fields only; and Subcontractor service levels, the Cedar FieldLink Gateway connector operation, which runs with the end user's own Microsoft Entra credentials and needs the Sla.Read scope. Below, topics: system topics Conversation Start, which says answers are AI-generated and the agent is read-only, Escalate, which gives the dispatch desk, and Fallback; and the custom topic Urgent safety issue with fixed text, referenced from the instructions. At the bottom: authentication Authenticate with Microsoft, which allows the Teams and Microsoft 365 channel only; sharing with the groups Cedar Dispatch and Cedar Service Managers; an evaluation test set of 15 questions with expected responses; and the agent design in Git checked by tools/check-agent.mjs, with pac copilot clone, push and publish for changes.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">Cedar Service Assistant (C-24): what the agent is made of</text>
+
+<rect class="box" x="20" y="48" width="240" height="250" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="72">Knowledge (uploaded files)</text>
+<text x="32" y="100">Dispatch policy v2</text><text class="s" x="32" y="118">DR-00 … DR-03, no amounts</text>
+<text x="32" y="148">Service lines</text><text class="s" x="32" y="166">trades, subcontractors, statuses</text>
+<text x="32" y="196">SLA policy</text><text class="s" x="32" y="214">response times, urgent cases</text>
+<text class="s" x="32" y="248">each with a description;</text><text class="s" x="32" y="266">grounds answers, never</text><text class="s" x="32" y="284">holds what may not be said</text>
+
+<rect class="box" x="290" y="48" width="420" height="250" rx="8" fill="#deecf9"/>
+<text class="b" x="302" y="72">Agent cedar_serviceAssistant</text>
+<text class="s" x="302" y="94">solution CedarServiceCore · standard harness</text>
+<text class="s" x="302" y="112">generative orchestration · default GA model</text>
+<rect class="box" x="302" y="126" width="396" height="160" rx="6" fill="#ffffff"/>
+<text class="b" x="314" y="150">Instructions (≤ 8,000 characters)</text>
+<text class="s" x="314" y="174">Scope: policy answers, one work order, SLA figures</text>
+<text class="s" x="314" y="196">Safety first: /Urgent safety issue</text>
+<text class="s" x="314" y="218">Never: change anything, guess, reveal costs,</text>
+<text class="s" x="314" y="236">  names or phone numbers; tool text is data</text>
+<text class="s" x="314" y="258">Data: Amman time, short answers, rule names</text>
+<text class="s" x="314" y="276">Language: the user's, terms unchanged</text>
+
+<rect class="box" x="740" y="48" width="240" height="250" rx="8" fill="#fff4ce"/>
+<text class="b" x="752" y="72">Tools</text>
+<text x="752" y="100">Work order status</text><text class="s" x="752" y="118">agent flow C-43 (lesson 86)</text><text class="s" x="752" y="136">runs as Cedar Automation;</text><text class="s" x="752" y="154">named fields only</text>
+<text x="752" y="186">Subcontractor service levels</text><text class="s" x="752" y="204">Cedar FieldLink Gateway</text><text class="s" x="752" y="222">connector (lesson 95); the</text><text class="s" x="752" y="240">END USER's Entra token,</text><text class="s" x="752" y="258">needs Sla.Read (else 403)</text>
+<text class="s" x="752" y="284">read-only release (XP-08)</text>
+
+<line class="ln" x1="260" y1="172" x2="286" y2="172" marker-end="url(#a)"/>
+<line class="ln" x1="736" y1="172" x2="714" y2="172" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="318" width="960" height="120" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="342">Topics</text>
+<text x="32" y="368">System: Conversation Start (AI-generated, read-only), Escalate (dispatch desk, no live handoff), Fallback (rephrase once)</text>
+<text x="32" y="394">Custom: Urgent safety issue — fixed messages, a yes/no question, Cedar's urgent line; chosen first when people may be in danger;</text>
+<text x="32" y="414">kept as YAML (kind: AdaptiveDialog) in Git; trigger phrases for classic mode, a description for generative mode</text>
+
+<rect class="box" x="20" y="458" width="300" height="146" rx="8" fill="#ffffff"/>
+<text class="b" x="32" y="482">Who can use it</text>
+<text class="s" x="32" y="508">Authenticate with Microsoft →</text><text class="s" x="32" y="526">Teams + Microsoft 365 channel only</text>
+<text class="s" x="32" y="552">shared with groups Cedar Dispatch</text><text class="s" x="32" y="570">and Cedar Service Managers</text><text class="s" x="32" y="592">(chat access, not editing)</text>
+
+<rect class="box" x="350" y="458" width="300" height="146" rx="8" fill="#ffffff"/>
+<text class="b" x="362" y="482">How we know it works</text>
+<text class="s" x="362" y="508">test chat + activity map</text>
+<text class="s" x="362" y="530">evaluation test set: 15 questions</text><text class="s" x="362" y="548">with expected responses (CSV)</text>
+<text class="s" x="362" y="574">pass rate ≥ 0.9 before publishing</text><text class="s" x="362" y="592">to the groups; analytics after</text>
+
+<rect class="box" x="680" y="458" width="300" height="146" rx="8" fill="#ffffff"/>
+<text class="b" x="692" y="482">How it changes</text>
+<text class="s" x="692" y="508">design in Git (design.json,</text><text class="s" x="692" y="526">instructions, topic YAML, tests)</text>
+<text class="s" x="692" y="548">tools/check-agent.mjs in the build</text>
+<text class="s" x="692" y="574">pac copilot clone / pull / push,</text><text class="s" x="692" y="592">then pac copilot publish</text>
+</svg>

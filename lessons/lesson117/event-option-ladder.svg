@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="1000" height="660" role="img" aria-labelledby="t d">
+  <title id="t">From the stem's signal to the way Dataverse events leave</title>
+  <desc id="d">Seven signals in an integration stem, each mapped to the listening option it selects and to the numbers and limits that decide between neighbouring options.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
+  </defs>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #1f2937; }
+    .h { font-size: 16px; font-weight: 700; }
+    .c { font-size: 14px; }
+    .k { font-size: 15px; font-weight: 700; fill: #374151; }
+    .l { font-size: 14px; fill: #374151; font-style: italic; }
+  </style>
+  <rect width="1000" height="660" fill="#ffffff"/>
+  <text x="500" y="28" text-anchor="middle" class="h" style="font-size:20px">Recommend a listening option: read the signal first (I-04)</text>
+  <text x="185" y="58" text-anchor="middle" class="k">Signal in the stem</text>
+  <text x="540" y="58" text-anchor="middle" class="k">Option</text>
+  <text x="855" y="58" text-anchor="middle" class="k">Numbers and limits</text>
+
+  <!-- row 1 -->
+  <rect x="20" y="70" width="330" height="64" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="32" y="96" class="c">"must refuse or cancel the save",</text>
+  <text x="32" y="118" class="c">"before it's saved"</text>
+  <line x1="350" y1="102" x2="388" y2="102" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="70" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="96" class="h">Synchronous plug-in, or a</text>
+  <text x="402" y="118" class="h">synchronous webhook (rule outside)</text>
+  <text x="730" y="96" class="c">save waits up to 60 s; a failure</text>
+  <text x="730" y="118" class="c">becomes the user's error</text>
+
+  <!-- row 2 -->
+  <rect x="20" y="146" width="330" height="64" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="32" y="172" class="c">"receiver sometimes offline",</text>
+  <text x="32" y="194" class="c">"none may be lost", one consumer</text>
+  <line x1="350" y1="178" x2="388" y2="178" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="146" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="172" class="h">Service Bus queue endpoint</text>
+  <text x="402" y="194" class="c">asynchronous step on the endpoint</text>
+  <text x="730" y="172" class="c">192 KB; messages wait; dead-letter;</text>
+  <text x="730" y="194" class="c">failed posts retried by Dataverse</text>
+
+  <!-- row 3 -->
+  <rect x="20" y="222" width="330" height="64" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="32" y="248" class="c">"several systems each need every</text>
+  <text x="32" y="270" class="c">event", "own pace"</text>
+  <line x1="350" y1="254" x2="388" y2="254" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="222" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="248" class="h">Service Bus topic endpoint</text>
+  <text x="402" y="270" class="c">one subscription per consumer</text>
+  <text x="730" y="248" class="c">one post; each subscription has its</text>
+  <text x="730" y="270" class="c">own delivery count and dead-letter</text>
+
+  <!-- row 4 -->
+  <rect x="20" y="298" width="330" height="64" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="32" y="324" class="c">"stream", "telemetry", "analytics",</text>
+  <text x="32" y="346" class="c">"re-read the last 24 hours"</text>
+  <line x1="350" y1="330" x2="388" y2="330" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="298" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="324" class="h">Event Hubs endpoint</text>
+  <text x="402" y="346" class="c">readers in consumer groups</text>
+  <text x="730" y="324" class="c">retention and replay; no completion</text>
+  <text x="730" y="346" class="c">or dead-letter per event; SAS only</text>
+
+  <!-- row 5 -->
+  <rect x="20" y="374" width="330" height="64" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="32" y="400" class="c">"a simple HTTPS endpoint we own",</text>
+  <text x="32" y="422" class="c">low volume, receiver always up</text>
+  <line x1="350" y1="406" x2="388" y2="406" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="374" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="400" class="h">Asynchronous webhook</text>
+  <text x="402" y="422" class="c">HttpHeader, WebhookKey, query string</text>
+  <text x="730" y="400" class="c">256 KB, 60 s; one more try only</text>
+  <text x="730" y="422" class="c">for 502, 503, 504; nothing stored</text>
+
+  <!-- row 6 -->
+  <rect x="20" y="450" width="330" height="64" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="32" y="476" class="c">"no code", makers own it,</text>
+  <text x="32" y="498" class="c">after the save is fine</text>
+  <line x1="350" y1="482" x2="388" y2="482" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="450" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="476" class="h">Cloud flow Dataverse trigger</text>
+  <text x="402" y="498" class="c">filter rows, select columns</text>
+  <text x="730" y="476" class="c">runs after the commit; a few action</text>
+  <text x="730" y="498" class="c">retries, not a buffer for outages</text>
+
+  <!-- row 7 -->
+  <rect x="20" y="526" width="330" height="64" rx="8" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+  <text x="32" y="552" class="c">"keeps its own copy", "including</text>
+  <text x="32" y="574" class="c">deletions", "every hour"</text>
+  <line x1="350" y1="558" x2="388" y2="558" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="390" y="526" width="300" height="64" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="402" y="552" class="h">Change tracking (the consumer pulls)</text>
+  <text x="402" y="574" class="c">Prefer: odata.track-changes, delta link</text>
+  <text x="730" y="552" class="c">only $select; deletions as</text>
+  <text x="730" y="574" class="c">$deletedEntity; 7-day window</text>
+
+  <text x="500" y="626" text-anchor="middle" class="l">Rows 1–6 push from Dataverse; row 7 is a pull. Karim's falls: IT-01 needed row 2 (he chose row 5), IT-03 row 3 (he chose row 4).</text>
+</svg>

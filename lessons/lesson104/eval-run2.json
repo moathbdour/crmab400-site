@@ -1,0 +1,12 @@
+{
+  "id": "<run-2-id>",
+  "testSetId": "<test-set-id>",
+  "state": "Completed",
+  "startTime": "2026-10-09T08:05:00Z",
+  "endTime": "2026-10-09T08:17:00Z",
+  "totalTestCases": 20,
+  "runOnPublishedBot": true,
+  "mcsConnectionId": "<copilot-studio-connection-id>",
+  "profile": "cedar-eval-tester@<tenant>.onmicrosoft.com",
+  "agentVersion": "2026-10-09.1"
+}

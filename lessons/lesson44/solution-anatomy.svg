@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" role="img" aria-labelledby="t">
+<title id="t">Anatomy of CedarServiceCore. The publisher Cedar Service owns prefix cedar and option value prefix 10457. It owns the unmanaged solution CedarServiceCore version 1.0.0.0, which lists components: new tables Site and Work order, the global choice Service line, the Cedar Operations app and site map, web resources, security roles, and existing tables Account and Case added with selected subcomponents only. Components from other publishers such as the Microsoft Account and Case tables stay owned by their publishers; the solution only references them.</title>
+<rect width="980" height="470" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Publisher → solution → components</text>
+<rect x="20" y="50" width="260" height="130" fill="#eef4fa" stroke="#1f3b57" stroke-width="2"/>
+<text x="36" y="78" font-weight="700" font-size="16">Publisher: Cedar Service</text>
+<text x="36" y="104">Unique name: CedarService</text>
+<text x="36" y="128">Customization prefix: cedar</text>
+<text x="36" y="152">Option value prefix: 10457</text>
+<text x="36" y="172" font-size="14">(choices start at 104,570,000)</text>
+<line x1="280" y1="115" x2="340" y2="115" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="290" y="104" font-size="14">owns</text>
+<rect x="345" y="50" width="615" height="300" fill="#f5f9f3" stroke="#2f5d2a" stroke-width="2"/>
+<text x="361" y="78" font-weight="700" font-size="16">Unmanaged solution: CedarServiceCore 1.0.0.0</text>
+<text x="361" y="106" font-weight="700">Created by this publisher (cedar_)</text>
+<text x="361" y="132">• Site table cedar_site + columns, views, forms</text>
+<text x="361" y="156">• Global choice Service line</text>
+<text x="361" y="180">• Relationship account → cedar_site</text>
+<text x="361" y="204">• App Cedar Operations + site map</text>
+<text x="361" y="228">• Web resources cedar_/help/…</text>
+<text x="361" y="252">• Security roles, column profiles</text>
+<text x="665" y="106" font-weight="700">Referenced, owned elsewhere</text>
+<text x="665" y="132">• Account table (System)</text>
+<text x="665" y="156">   only: Account form</text>
+<text x="665" y="180">• Case table (Customer Service)</text>
+<text x="665" y="204">   only: cedar_site and</text>
+<text x="665" y="228">   cedar_casecategory, Case form</text>
+<text x="665" y="252" fill="#8a2a2a">No “Include all objects”</text>
+<line x1="650" y1="92" x2="650" y2="265" stroke="#99aaaa" stroke-dasharray="5 4"/>
+<text x="361" y="290" font-size="14">A component can sit in many solutions but has one publisher</text>
+<text x="361" y="310" font-size="14">(set when created). The prefix is fixed into its schema name.</text>
+<text x="361" y="334" font-size="14">Export = one .zip; import needs every required component.</text>
+<rect x="20" y="380" width="940" height="70" fill="#fff6e8" stroke="#9a6a00" stroke-width="2"/>
+<text x="36" y="406" font-weight="700">Default solution / Common Data Services Default Solution</text>
+<text x="36" y="430">Everything also appears there — never export it. Default-prefix components cannot be renamed: rebuild them as cedar_.</text>
+</g>
+</svg>

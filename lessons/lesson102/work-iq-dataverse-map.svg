@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" role="img" aria-labelledby="t d">
+<title id="t">Where Dataverse data meets Work IQ: five surfaces, one intelligence layer, and the direct Dataverse Ask API</title>
+<desc id="d">Top row: five ways to reach Work IQ. People use Microsoft 365 Copilot Chat, Cowork, Researcher and Agent Builder. Copilot Studio agents add the Work IQ tool, available only on the GitHub Copilot harness. Foundry agents add the work_iq_preview tool, which forwards the question to Work IQ over A2A on behalf of the user. Coding agents use the Work IQ CLI or the Work IQ MCP server and business skills. Your own code calls the Work IQ API over A2A, REST or MCP, delegated only. All five arrows go down into the Work IQ layer, where every request runs as the signed-in user. Inside it: Microsoft 365 data (mail, meetings, files, chats, people, Planner), Business Applications in Work IQ (preview), which makes Dataverse environments scopes with paths for search, fetch and act, including Dynamics 365 Sales and Customer Service MCP tools and model-driven apps, and billing and governance (Copilot Credits, Work IQ MCP allow or block, spending policies in the Microsoft 365 admin center). An arrow goes from Business Applications down to a Dataverse environment, Cedar-Test with Work IQ on, which holds the semantic model (data scope, signals from relationships, views, forms and descriptions, glossary, regenerated every 12 hours), business skills (Markdown instructions stored as Dataverse rows, solution-aware, shared by role) and Dataverse security (roles, business units, sharing, column security, which trim rows to the caller). On the right, the Dataverse Ask API (preview) at the environment URL plus /api/iq/v1.0 takes a semantic model by name and returns rows, record links and a summary; it accepts delegated or application-user tokens and allows 30 asks per user per minute. Cedar's host C-57 calls it as the person through on-behalf-of. Footer: two routes into the same Dataverse data, through Work IQ's surfaces or directly with the Ask API; both trim rows to the caller.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:18px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.8;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect x="0" y="0" width="1000" height="760" fill="#ffffff"/>
+<text class="h" x="20" y="34">Surfaces that reach Work IQ</text>
+
+<rect class="box" x="20" y="50" width="180" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="74">People</text>
+<text x="32" y="96">M365 Copilot Chat,</text>
+<text x="32" y="116">Cowork, Researcher,</text>
+<text x="32" y="136">Agent Builder</text>
+
+<rect class="box" x="215" y="50" width="180" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="227" y="74">Copilot Studio</text>
+<text x="227" y="96">Work IQ tool (MCP)</text>
+<text x="227" y="116">GitHub Copilot</text>
+<text x="227" y="136">harness only</text>
+
+<rect class="box" x="410" y="50" width="180" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="422" y="74">Foundry agent</text>
+<text x="422" y="96">work_iq_preview tool</text>
+<text x="422" y="116">→ Work IQ over A2A,</text>
+<text x="422" y="136">as the user (OBO)</text>
+
+<rect class="box" x="605" y="50" width="180" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="617" y="74">Coding agents</text>
+<text x="617" y="96">Work IQ CLI or</text>
+<text x="617" y="116">Work IQ MCP server,</text>
+<text x="617" y="136">business skills</text>
+
+<rect class="box" x="800" y="50" width="180" height="104" rx="8" fill="#f3f2f1"/>
+<text class="b" x="812" y="74">Your code</text>
+<text x="812" y="96">Work IQ API:</text>
+<text x="812" y="116">A2A, REST, MCP</text>
+<text x="812" y="136">delegated only</text>
+
+<path class="ln" d="M110,154 V208" marker-end="url(#a)"/>
+<path class="ln" d="M305,154 V208" marker-end="url(#a)"/>
+<path class="ln" d="M500,154 V208" marker-end="url(#a)"/>
+<path class="ln" d="M695,154 V208" marker-end="url(#a)"/>
+<path class="ln" d="M890,154 V208" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="210" width="960" height="196" rx="8" fill="#e8f1fb"/>
+<text class="h" x="34" y="238">Work IQ: every request runs as the signed-in user</text>
+<rect class="box" x="34" y="252" width="290" height="136" rx="6" fill="#ffffff"/>
+<text class="b" x="46" y="276">Microsoft 365 data</text>
+<text x="46" y="298">mail, meetings, files, chats,</text>
+<text x="46" y="318">people, Planner</text>
+<text x="46" y="340">permission-trimmed,</text>
+<text x="46" y="360">sensitivity labels honoured</text>
+<rect class="box" x="340" y="252" width="320" height="136" rx="6" fill="#ffffff"/>
+<text class="b" x="352" y="276">Business Applications in Work IQ</text>
+<text x="352" y="298">(preview) Dataverse environments</text>
+<text x="352" y="318">become scopes: paths for search,</text>
+<text x="352" y="338">fetch and act; D365 Sales and</text>
+<text x="352" y="358">Customer Service MCP tools,</text>
+<text x="352" y="378">model-driven apps</text>
+<rect class="box" x="676" y="252" width="290" height="136" rx="6" fill="#ffffff"/>
+<text class="b" x="688" y="276">Billing and governance</text>
+<text x="688" y="298">Copilot Credits (usage-based)</text>
+<text x="688" y="318">M365 admin center: Work IQ</text>
+<text x="688" y="338">MCP allow or block,</text>
+<text x="688" y="358">spending policies</text>
+
+<path class="ln" d="M500,388 V452" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="454" width="640" height="210" rx="8" fill="#eef7ee"/>
+<text class="h" x="34" y="482">Dataverse environment Cedar-Test (Work IQ on)</text>
+<rect class="box" x="34" y="496" width="196" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="46" y="520">Semantic model</text>
+<text x="46" y="542">data scope (tables)</text>
+<text x="46" y="562">signals: relationships,</text>
+<text x="46" y="582">views, forms, descriptions</text>
+<text x="46" y="602">glossary</text>
+<text x="46" y="622">regenerated every 12 h</text>
+<rect class="box" x="242" y="496" width="196" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="254" y="520">Business skills</text>
+<text x="254" y="542">Markdown instructions</text>
+<text x="254" y="562">stored as Dataverse rows</text>
+<text x="254" y="582">solution-aware</text>
+<text x="254" y="602">shared by role</text>
+<text x="254" y="622">(+ Skill Sharing Role)</text>
+<rect class="box" x="450" y="496" width="196" height="154" rx="6" fill="#ffffff"/>
+<text class="b" x="462" y="520">Dataverse security</text>
+<text x="462" y="542">roles, business units,</text>
+<text x="462" y="562">sharing, column security</text>
+<text x="462" y="582">rows are trimmed</text>
+<text x="462" y="602">to the caller</text>
+
+<rect class="box" x="680" y="454" width="300" height="210" rx="8" fill="#fff4e0"/>
+<text class="b" x="694" y="480">Dataverse Ask API (preview)</text>
+<text x="694" y="502">&lt;env&gt;/api/iq/v1.0/</text>
+<text x="694" y="522">semantic model by name</text>
+<text x="694" y="542">rows + record links + summary</text>
+<text x="694" y="562">delegated or app-user token</text>
+<text x="694" y="582">30 asks per user per minute</text>
+<text class="b" x="694" y="610">C-58 in Cedar's host C-57:</text>
+<text x="694" y="630">asks as the person (OBO)</text>
+<path class="ln" d="M680,560 H662" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="680" width="960" height="64" rx="8" fill="#ffffff"/>
+<text x="34" y="706">Two routes into the same Dataverse data: through Work IQ's surfaces (top) or directly with the Ask API (right).</text>
+<text x="34" y="728">Both trim rows to the identity that asks, so the identity you choose decides what the agent can see.</text>
+</svg>

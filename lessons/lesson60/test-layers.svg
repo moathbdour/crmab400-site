@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="t d">
+<title id="t">Test layers for a code component</title>
+<desc id="d">Five layers from fast and many to slow and few: unit tests of pure modules with node test, contract checks of the manifest with check-pcf, the local test harness for rendering and inputs, functional tests on real forms in Cedar-Dev with test users including accessibility, and a smoke test after each deployment to Cedar-Test. Each layer lists what it can prove and what it cannot.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}</style>
+<rect width="900" height="500" fill="#ffffff"/>
+<text class="h" x="20" y="28">Layer (runs)</text>
+<text class="h" x="400" y="28">Proves</text>
+<text class="h" x="660" y="28">Cannot prove</text>
+<rect class="box" x="20" y="44" width="360" height="76" rx="8" fill="#fde7e9"/>
+<text class="h" x="34" y="72">5 Post-deploy smoke (Test)</text>
+<text class="s" x="34" y="96">each release, 10 min, manual</text>
+<text class="s" x="400" y="72">managed import worked,</text>
+<text class="s" x="400" y="94">right version on forms</text>
+<text class="s" x="660" y="72">edge cases</text>
+<rect class="box" x="20" y="130" width="400" height="76" rx="8" fill="#fff4ce"/>
+<text class="h" x="34" y="158">4 Functional + a11y in Cedar-Dev</text>
+<text class="s" x="34" y="182">per story, test users, Narrator</text>
+<text class="s" x="440" y="158">real data, privileges,</text>
+<text class="s" x="440" y="180">dialogs, camera, WCAG</text>
+<text class="s" x="660" y="158">slow; not in every build</text>
+<rect class="box" x="20" y="216" width="440" height="76" rx="8" fill="#f3f2f1"/>
+<text class="h" x="34" y="244">3 Test harness (npm start watch)</text>
+<text class="s" x="34" y="268">while coding</text>
+<text class="s" x="480" y="244">rendering, inputs, resize,</text>
+<text class="s" x="480" y="266">dataset CSV</text>
+<text class="s" x="660" y="244">no real webAPI, utils,</text>
+<text class="s" x="660" y="266">device, paging</text>
+<rect class="box" x="20" y="302" width="480" height="76" rx="8" fill="#deecf9"/>
+<text class="h" x="34" y="330">2 Contract check (check-pcf.mjs)</text>
+<text class="s" x="34" y="354">every build, milliseconds</text>
+<text class="s" x="520" y="330">version bumped, no breaking</text>
+<text class="s" x="520" y="352">property change, features declared</text>
+<text class="s" x="760" y="330">behaviour</text>
+<rect class="box" x="20" y="388" width="520" height="76" rx="8" fill="#dff6dd"/>
+<text class="h" x="34" y="416">1 Unit tests (node --test tests/pcf/)</text>
+<text class="s" x="34" y="440">every build, 17 tests, &lt; 1 s</text>
+<text class="s" x="560" y="416">rules: steps, next value,</text>
+<text class="s" x="560" y="438">queries, grouping, photo body</text>
+<text class="s" x="770" y="416">DOM, host</text>
+<text class="s" x="20" y="490">Keep logic in pure modules so layer 1 carries most of the weight; each higher layer covers what the one below cannot.</text>
+</svg>

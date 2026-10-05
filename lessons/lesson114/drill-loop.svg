@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" role="img" aria-labelledby="t d">
+  <title id="t">C-74 scenario drill loop</title>
+  <desc id="d">The scenario bank becomes a quiz, the learner answers closed-book with confidence, C-74 scores the attempt, proposes rating changes and writes a new C-73 assessment, which re-ranks the study plan; wrong items send the learner back to lessons and a re-test.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+  </defs>
+  <rect width="1000" height="580" fill="#ffffff"/>
+  <text x="500" y="36" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#0f172a">C-74 scenario drill: from answers to evidence</text>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#0f172a">
+    <rect x="30" y="70" width="250" height="120" rx="10" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+    <text x="155" y="100" text-anchor="middle" font-size="18" font-weight="700">1 Scenario bank</text>
+    <text x="46" y="128" font-size="15">scenarios-build.json: 27 items,</text>
+    <text x="46" y="150" font-size="15">22 objectives, answers, signals,</text>
+    <text x="46" y="172" font-size="15">why each option is wrong</text>
+
+    <rect x="375" y="70" width="250" height="120" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+    <text x="500" y="100" text-anchor="middle" font-size="18" font-weight="700">2 Quiz and attempt</text>
+    <text x="391" y="128" font-size="15">--quiz prints questions only;</text>
+    <text x="391" y="150" font-size="15">answer closed-book, timed,</text>
+    <text x="391" y="172" font-size="15">confidence: sure, unsure, guess</text>
+
+    <rect x="720" y="70" width="250" height="120" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+    <text x="845" y="100" text-anchor="middle" font-size="18" font-weight="700">3 Score</text>
+    <text x="736" y="128" font-size="15">Exact match per item; blanks</text>
+    <text x="736" y="150" font-size="15">wrong; confident errors and</text>
+    <text x="736" y="172" font-size="15">lucky guesses flagged; pace</text>
+
+    <rect x="720" y="290" width="250" height="140" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+    <text x="845" y="320" text-anchor="middle" font-size="18" font-weight="700">4 Rating suggestions</text>
+    <text x="736" y="348" font-size="15">All correct, closed-book,</text>
+    <text x="736" y="370" font-size="15">no guess: raise to 2 + evidence.</text>
+    <text x="736" y="392" font-size="15">Any wrong: at most 1.</text>
+    <text x="736" y="414" font-size="15">Never raise to 3.</text>
+
+    <rect x="375" y="290" width="250" height="140" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+    <text x="500" y="320" text-anchor="middle" font-size="18" font-weight="700">5 C-73 assessment</text>
+    <text x="391" y="348" font-size="15">--out writes a new dated file;</text>
+    <text x="391" y="370" font-size="15">gap analysis re-ranks gaps and</text>
+    <text x="391" y="392" font-size="15">re-plans the weeks</text>
+    <text x="391" y="414" font-size="15">(Karim: Build 84% to 89%)</text>
+
+    <rect x="30" y="290" width="250" height="140" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+    <text x="155" y="320" text-anchor="middle" font-size="18" font-weight="700">6 Revise and re-test</text>
+    <text x="46" y="348" font-size="15">Read the explanation, revise</text>
+    <text x="46" y="370" font-size="15">the item's lessons, write your</text>
+    <text x="46" y="392" font-size="15">own item for the objective,</text>
+    <text x="46" y="414" font-size="15">re-test in a later week</text>
+
+    <line x1="280" y1="130" x2="373" y2="130" stroke="#334155" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="327" y="120" text-anchor="middle" font-size="14">print</text>
+    <line x1="625" y1="130" x2="718" y2="130" stroke="#334155" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="672" y="120" text-anchor="middle" font-size="14">attempt</text>
+    <line x1="845" y1="190" x2="845" y2="288" stroke="#334155" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="855" y="245" font-size="14">per objective</text>
+    <line x1="720" y1="360" x2="627" y2="360" stroke="#334155" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="672" y="350" text-anchor="middle" font-size="14">apply</text>
+    <line x1="375" y1="360" x2="282" y2="360" stroke="#334155" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="327" y="350" text-anchor="middle" font-size="14">plan</text>
+    <line x1="155" y1="290" x2="155" y2="192" stroke="#334155" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="165" y="245" font-size="14">new items</text>
+
+    <rect x="30" y="460" width="940" height="100" rx="10" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="50" y="490" font-size="16" font-weight="700">Rule of thumb</text>
+    <text x="50" y="520" font-size="15">A correct scenario answer is evidence for "explain and choose" (rating 2). Building and troubleshooting (3)</text>
+    <text x="50" y="544" font-size="15">needs a lab rebuilt from memory. A confident error in a "strong" area is the most valuable finding of the drill.</text>
+  </g>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">The control actions of a cloud flow</title>
+<desc id="d">Five panels. Condition: one true or false test, two branches named True and False; the branch that does not run is skipped. Switch: one value compared for equality with up to 25 case values, exactly one case or the default runs. Apply to each: the body runs once per array item; one at a time by default, 1 to 50 at a time when concurrency control is on; items() gives the current item. Do until: the body runs first, then the condition is tested; it stops when the condition is true or when the count (default 60) or the timeout (default one hour) is reached, and reaching a limit is not an error. Parallel branches: actions with the same predecessor run side by side; an action that runs after both waits for all of them. A footer says that every action carries a run after rule: which predecessors, and with which statuses (Succeeded by default, also Failed, Skipped, TimedOut).</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.s{font-size:14px;fill:#444}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">Five ways to leave the straight line</text>
+
+<rect class="box" x="20" y="46" width="310" height="230" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="70">Condition (If)</text>
+<rect class="box" x="105" y="84" width="140" height="34" rx="6" fill="#ffffff"/>
+<text x="118" y="106">status = Sent ?</text>
+<path class="a" d="M140,118 L90,150"/><path class="a" d="M210,118 L260,150"/>
+<rect class="box" x="36" y="150" width="120" height="34" rx="6" fill="#dff6dd"/><text x="52" y="172">True branch</text>
+<rect class="box" x="194" y="150" width="120" height="34" rx="6" fill="#fde7e9"/><text x="208" y="172">False branch</text>
+<text x="32" y="212">One test with AND / OR groups.</text>
+<text x="32" y="232">The other branch is Skipped.</text>
+<text x="32" y="252">Two outcomes only.</text>
+
+<rect class="box" x="345" y="46" width="310" height="230" rx="8" fill="#fff4ce"/>
+<text class="b" x="357" y="70">Switch</text>
+<rect class="box" x="430" y="84" width="140" height="34" rx="6" fill="#ffffff"/>
+<text x="446" y="106">On: Outcome</text>
+<path class="a" d="M455,118 L400,150"/><path class="a" d="M500,118 L500,150"/><path class="a" d="M545,118 L600,150"/>
+<rect class="box" x="357" y="150" width="88" height="34" rx="6" fill="#ffffff"/><text x="368" y="172">'silent'</text>
+<rect class="box" x="455" y="150" width="90" height="34" rx="6" fill="#ffffff"/><text x="462" y="172">'rejected'</text>
+<rect class="box" x="555" y="150" width="88" height="34" rx="6" fill="#f3f2f1"/><text x="568" y="172">Default</text>
+<text x="357" y="212">Equality with constant values.</text>
+<text x="357" y="232">Exactly one case runs, or Default.</text>
+<text x="357" y="252">At most 25 cases.</text>
+
+<rect class="box" x="670" y="46" width="310" height="230" rx="8" fill="#dff6dd"/>
+<text class="b" x="682" y="70">Parallel branches</text>
+<rect class="box" x="755" y="84" width="140" height="34" rx="6" fill="#ffffff"/><text x="772" y="106">Stamp reminder</text>
+<path class="a" d="M790,118 L745,146"/><path class="a" d="M860,118 L905,146"/>
+<rect class="box" x="686" y="146" width="120" height="34" rx="6" fill="#ffffff"/><text x="704" y="168">Add a note</text>
+<rect class="box" x="844" y="146" width="120" height="34" rx="6" fill="#ffffff"/><text x="866" y="168">Send mail</text>
+<path class="a" d="M745,180 L790,204"/><path class="a" d="M905,180 L860,204"/>
+<rect class="box" x="755" y="204" width="140" height="30" rx="6" fill="#ffffff"/><text x="774" y="224">Reminder done</text>
+<text x="682" y="258">Same predecessor = side by side.</text>
+
+<rect class="box" x="20" y="292" width="470" height="236" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="316">Apply to each (Foreach)</text>
+<rect class="box" x="36" y="330" width="180" height="34" rx="6" fill="#ffffff"/><text x="48" y="352">array: 3 work orders</text>
+<path class="a" d="M216,347 L250,347"/>
+<rect class="box" x="250" y="326" width="224" height="78" rx="6" fill="#ffffff"/>
+<text x="262" y="348">body: Request dispatch,</text>
+<text x="262" y="368">Record the result</text>
+<text class="s" x="262" y="392">current item: items('Loop')</text>
+<text x="32" y="430">Runs the body once per item.</text>
+<text x="32" y="452">Power Automate default: one at a time, in order.</text>
+<text x="32" y="474">Concurrency control on: 1 to 50 at a time,</text>
+<text x="32" y="494">no order, and no shared variables.</text>
+<text x="32" y="516">No Terminate and no Respond inside a loop.</text>
+
+<rect class="box" x="510" y="292" width="470" height="236" rx="8" fill="#fff4ce"/>
+<text class="b" x="522" y="316">Do until (Until)</text>
+<rect class="box" x="526" y="330" width="250" height="78" rx="6" fill="#ffffff"/>
+<text x="538" y="352">body: Delay 10 minutes,</text>
+<text x="538" y="372">Read the work order,</text>
+<text x="538" y="392">Count the check</text>
+<path class="a" d="M776,369 L810,369"/>
+<rect class="box" x="810" y="350" width="156" height="38" rx="6" fill="#ffffff"/><text x="822" y="374">status is not Sent?</text>
+<path class="a" d="M888,350 C888,318 650,318 650,330"/>
+<text class="s" x="700" y="318">no: again</text>
+<text x="522" y="430">Body first, test afterwards: at least one iteration.</text>
+<text x="522" y="452">Stops when the test is true, or at Count (default 60),</text>
+<text x="522" y="474">or at Timeout (default PT1H). Maximum 5,000 iterations.</text>
+<text x="522" y="496">Reaching a limit is not an error: read the state again</text>
+<text x="522" y="516">after the loop and decide on that.</text>
+
+<rect class="box" x="20" y="544" width="960" height="60" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="568">Under all of them: run after</text>
+<text x="32" y="590">Every action names its predecessors and the statuses it accepts: Succeeded (default), Failed, Skipped, TimedOut. Lesson 84 builds on this.</text>
+</svg>

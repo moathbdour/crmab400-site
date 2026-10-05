@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="Segoe UI, Arial, sans-serif" font-size="15">
+<title>How an environment variable value is resolved</title>
+<rect width="880" height="440" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<text x="20" y="30" font-size="18" font-weight="bold" fill="#111">cedar_FieldLinkBaseUrl in Cedar-Test</text>
+<rect x="20" y="50" width="380" height="150" rx="8" fill="#e8f0fb" stroke="#2b5797"/>
+<text x="35" y="75" font-weight="bold" fill="#111">Definition (managed, from CedarServiceCore)</text>
+<text x="35" y="100" fill="#111">Table: environmentvariabledefinition</text>
+<text x="35" y="122" fill="#111">Schema name: cedar_FieldLinkBaseUrl</text>
+<text x="35" y="144" fill="#111">Type: Text</text>
+<text x="35" y="166" fill="#111">Default value: https://sandbox.fieldlink.example</text>
+<text x="35" y="188" fill="#555">Ships in every release; you version it</text>
+<rect x="20" y="230" width="380" height="130" rx="8" fill="#eaf6ea" stroke="#2e7d32"/>
+<text x="35" y="255" font-weight="bold" fill="#111">Current value (unmanaged record)</text>
+<text x="35" y="280" fill="#111">Table: environmentvariablevalue</text>
+<text x="35" y="302" fill="#111">Value: https://test.fieldlink.example</text>
+<text x="35" y="324" fill="#111">Set at import (prompt or settings file)</text>
+<text x="35" y="346" fill="#555">Not overwritten by later upgrades</text>
+<rect x="480" y="120" width="380" height="170" rx="8" fill="#fff4e0" stroke="#b26a00"/>
+<text x="495" y="145" font-weight="bold" fill="#111">Runtime rule (flow, app, plug-in)</text>
+<text x="495" y="172" fill="#111">1. Current value exists? use it</text>
+<text x="495" y="196" fill="#111">2. Else default value exists? use it</text>
+<text x="495" y="220" fill="#111">3. Else: no value, component fails</text>
+<text x="495" y="248" fill="#111">Result here: https://test.fieldlink.example</text>
+<text x="495" y="272" fill="#555">Changes can take up to 1 hour to reach apps/flows</text>
+<line x1="400" y1="125" x2="478" y2="180" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<text x="405" y="140" fill="#333">fallback</text>
+<line x1="400" y1="295" x2="478" y2="230" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<text x="410" y="290" fill="#333">wins</text>
+<text x="20" y="400" fill="#111">Export rule: keep the definition in the solution, remove the current value from the solution,</text>
+<text x="20" y="422" fill="#111">and supply each environment's value from Cedar-Test.settings.json / Cedar-Prod.settings.json.</text>
+</svg>

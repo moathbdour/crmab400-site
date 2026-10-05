@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">A custom connector: definition, connector, connection, connection reference and the call at run time</title>
+<desc id="d">Top row, design time, left to right. The repository folder src/connectors/fieldlink-jobs holds two files: apiDefinition.swagger.json, an OpenAPI 2.0 document with host, paths, operations, schemas, x-ms extensions and the security definition; and apiProperties.json with the connection parameters, OAuth settings and policy templates. They are imported into the custom connector FieldLink Jobs, a row of the Dataverse table connector in the solution CedarConnectors, which reads the environment variables cedar_FieldLinkApiHost, cedar_FieldLinkClientId and cedar_FieldLinkClientSecret when it is saved. A connection is created from the connector by signing in: Dana signs in as the FieldLink integration account cedar-dispatch, and the connection stores the tokens; it belongs to one environment and is shared, never exported. The connection reference cedar_FieldLinkJobs in CedarServiceCore points at the connector and is bound to that connection in each environment. Bottom row, run time: the flow Cedar - Send dispatch to FieldLink runs the action Create a job from a dispatch request; the Power Platform connector runtime looks up the connection, adds the Authorization header with the access token, applies policy templates and custom code if any, and sends POST https://sandbox.fieldlink.example/v1/jobs with the Idempotency-Key header; FieldLink answers 201 or 200 with the job, which becomes the action's outputs. The same connector is usable from cloud flows, canvas and code apps, and Copilot Studio agents.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,Menlo,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Design time: what a custom connector is made of</text>
+
+<rect class="box" x="20" y="44" width="230" height="230" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="68">Git: fieldlink-jobs/</text>
+<text class="m" x="32" y="96">apiDefinition</text>
+<text class="m" x="32" y="114">  .swagger.json</text>
+<text x="32" y="136">OpenAPI 2.0: host, paths,</text>
+<text x="32" y="154">operations, schemas,</text>
+<text x="32" y="172">x-ms-* extensions, security</text>
+<text class="m" x="32" y="202">apiProperties.json</text>
+<text x="32" y="224">connection parameters,</text>
+<text x="32" y="242">OAuth settings, policies,</text>
+<text x="32" y="260">brand colour</text>
+
+<line class="ln" x1="250" y1="160" x2="282" y2="160" marker-end="url(#a)"/>
+<text x="254" y="150">import</text>
+
+<rect class="box" x="284" y="44" width="230" height="230" rx="8" fill="#deecf9"/>
+<text class="b" x="296" y="68">Custom connector</text>
+<text x="296" y="92">FieldLink Jobs</text>
+<text x="296" y="116">a row of the Dataverse</text>
+<text x="296" y="134">table connector, in the</text>
+<text x="296" y="152">solution CedarConnectors</text>
+<text x="296" y="182">reads when it is SAVED:</text>
+<text class="m" x="296" y="204">cedar_FieldLinkApiHost</text>
+<text class="m" x="296" y="224">cedar_FieldLinkClientId</text>
+<text class="m" x="296" y="244">..ClientSecret (vault)</text>
+
+<line class="ln" x1="514" y1="160" x2="546" y2="160" marker-end="url(#a)"/>
+<text x="518" y="150">sign in</text>
+
+<rect class="box" x="548" y="44" width="200" height="230" rx="8" fill="#dff6dd"/>
+<text class="b" x="560" y="68">Connection</text>
+<text x="560" y="92">created by Dana,</text>
+<text x="560" y="110">signed in as FieldLink's</text>
+<text x="560" y="128">account cedar-dispatch</text>
+<text x="560" y="158">stores the tokens</text>
+<text x="560" y="182">one per environment</text>
+<text x="560" y="206">shared with flow owners</text>
+<text x="560" y="230">never exported in a</text>
+<text x="560" y="248">solution</text>
+
+<line class="ln" x1="782" y1="160" x2="750" y2="160" marker-end="url(#a)"/>
+<text x="756" y="150">bound</text>
+
+<rect class="box" x="784" y="44" width="196" height="230" rx="8" fill="#fff4ce"/>
+<text class="b" x="796" y="68">Connection</text>
+<text class="b" x="796" y="88">reference</text>
+<text class="m" x="796" y="114">cedar_FieldLink</text>
+<text class="m" x="796" y="132">  Jobs</text>
+<text x="796" y="158">in CedarServiceCore;</text>
+<text x="796" y="176">points at the</text>
+<text x="796" y="194">connector; each</text>
+<text x="796" y="212">environment binds its</text>
+<text x="796" y="230">own connection at</text>
+<text x="796" y="248">import</text>
+
+<text class="h" x="20" y="320">Run time: one action, one HTTP request</text>
+
+<rect class="box" x="20" y="336" width="230" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="360">Cloud flow C-12</text>
+<text x="32" y="384">action "Create a job</text>
+<text x="32" y="402">from a dispatch request"</text>
+<text x="32" y="430">inputs: Request ID,</text>
+<text x="32" y="448">work order number, site,</text>
+<text x="32" y="466">service line, time, ...</text>
+
+<line class="ln" x1="250" y1="410" x2="282" y2="410" marker-end="url(#a)"/>
+
+<rect class="box" x="284" y="336" width="380" height="150" rx="8" fill="#deecf9"/>
+<text class="b" x="296" y="360">Power Platform connector runtime</text>
+<text x="296" y="386">1  finds the connection behind the reference</text>
+<text x="296" y="410">2  adds Authorization: Bearer (access token)</text>
+<text x="296" y="434">3  applies policy templates and custom code</text>
+<text x="296" y="458">4  builds the request from the operation</text>
+
+<line class="ln" x1="664" y1="410" x2="696" y2="410" marker-end="url(#a)"/>
+
+<rect class="box" x="698" y="336" width="282" height="150" rx="8" fill="#f3f2f1"/>
+<text class="b" x="710" y="360">FieldLink API</text>
+<text class="m" x="710" y="386">POST /v1/jobs</text>
+<text class="m" x="710" y="408">Idempotency-Key: ...</text>
+<text x="710" y="434">201 Created or 200 OK</text>
+<text x="710" y="458">with the job (fieldLinkId)</text>
+
+<path class="ln" d="M839,486 L839,520 L135,520 L135,488" marker-end="url(#a)"/>
+<text x="300" y="512">the response body becomes the action's outputs (described by the 200/201 schema)</text>
+
+<rect class="box" x="20" y="548" width="960" height="76" rx="8" fill="#ffffff"/>
+<text class="b" x="32" y="572">One connector, every consumer</text>
+<text x="32" y="598">Cloud flows and agent flows, canvas apps and code apps, Copilot Studio agents (as a tool). Logic Apps needs its own copy of</text>
+<text x="32" y="616">the definition. Every consumer reaches FieldLink only through a connection, so the data policy and the connection's account apply.</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img" aria-labelledby="t d">
+<title id="t">Anatomy of a modern command</title>
+<desc id="d">A modern command belongs to one app and one command bar location: main grid, main form, subgrid view or associated view. It has a label, icon, tooltip and accessibility text, an Action and a Visibility. The action is either Run formula (Power Fx, stored in the app's command component library) or Run JavaScript (one web resource library, one function, parameters such as PrimaryControl or SelectedControlSelectedItemIds). Visibility is Show, or Show on condition from formula (Power Fx Visible). Dataverse security still decides whether the data change succeeds.</desc>
+<rect width="960" height="440" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="20" width="260" height="170" rx="8" fill="#eef4fb" stroke="#1f5fa8"/>
+<text x="34" y="46" font-weight="bold">Cedar Operations app</text>
+<text x="34" y="72">Command bar location:</text>
+<text x="34" y="96">• Main grid (Cases views)</text>
+<text x="34" y="120">• Main form (Case)</text>
+<text x="34" y="144">• Subgrid view</text>
+<text x="34" y="168">• Associated view</text>
+<rect x="340" y="20" width="280" height="170" rx="8" fill="#fff7e6" stroke="#b36b00"/>
+<text x="354" y="46" font-weight="bold">Command</text>
+<text x="354" y="72">Label, icon, order number</text>
+<text x="354" y="96">Tooltip + accessibility text</text>
+<text x="354" y="120">Action: formula or JavaScript</text>
+<text x="354" y="144">Visibility: Show, or</text>
+<text x="354" y="168">Show on condition (Visible)</text>
+<line x1="280" y1="105" x2="338" y2="105" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="250" width="420" height="170" rx="8" fill="#eaf6ee" stroke="#2e7d32"/>
+<text x="34" y="276" font-weight="bold">Run formula (Power Fx)</text>
+<text x="34" y="302">Stored in the app's command component library</text>
+<text x="34" y="326">Self.Selected.Item / AllItems / State</text>
+<text x="34" y="350">Confirm, Patch, Notify, Navigate, IfError</text>
+<text x="34" y="374">Visible formula also lives here</text>
+<text x="34" y="398">Publishing can take a few minutes</text>
+<rect x="500" y="250" width="440" height="170" rx="8" fill="#f3eefb" stroke="#6a3fb5"/>
+<text x="514" y="276" font-weight="bold">Run JavaScript</text>
+<text x="514" y="302">One library: cedar_/case/commands.js</text>
+<text x="514" y="326">One function: cedar.caseCommands.escalateSelected</text>
+<text x="514" y="350">Parameters: PrimaryControl, SelectedControl,</text>
+<text x="514" y="374">SelectedControlSelectedItemIds, …</text>
+<text x="514" y="398">Full Client API: navigateTo, WebApi, dialogs</text>
+<line x1="430" y1="190" x2="250" y2="248" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<line x1="530" y1="190" x2="700" y2="248" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="680" y="20" width="260" height="170" rx="8" fill="#fdecea" stroke="#b3261e"/>
+<text x="694" y="46" font-weight="bold">Dataverse</text>
+<text x="694" y="72">Security roles and</text>
+<text x="694" y="96">server logic decide</text>
+<text x="694" y="120">if the change succeeds.</text>
+<text x="694" y="144">Hiding a button is</text>
+<text x="694" y="168">not security.</text>
+<line x1="620" y1="105" x2="678" y2="105" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+</g></svg>

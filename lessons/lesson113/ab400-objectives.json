@@ -1,0 +1,1056 @@
+{
+  "exam": "AB-400",
+  "title": "Extending Microsoft Power Platform Solutions with Code and AI",
+  "credential": "Microsoft Certified: Power Platform Developer Associate",
+  "source": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-400",
+  "sourceUpdated": "2026-09-14",
+  "skillsEffective": "2026-10-16",
+  "checkedOn": "2026-10-05",
+  "domains": [
+    {
+      "id": "build",
+      "name": "Build Microsoft Power Platform solutions",
+      "weight": [
+        15,
+        20
+      ],
+      "review": 114
+    },
+    {
+      "id": "ux",
+      "name": "Extend the user experience",
+      "weight": [
+        25,
+        30
+      ],
+      "review": 115
+    },
+    {
+      "id": "extend",
+      "name": "Extend Microsoft Power Platform",
+      "weight": [
+        35,
+        40
+      ],
+      "review": 116
+    },
+    {
+      "id": "integrations",
+      "name": "Develop integrations",
+      "weight": [
+        10,
+        15
+      ],
+      "review": 117
+    }
+  ],
+  "objectives": [
+    {
+      "id": "B-01",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Analyze the technical architecture to identify solution components and their implementation approach",
+      "primary": [
+        41
+      ],
+      "reinforced": [
+        109
+      ]
+    },
+    {
+      "id": "B-02",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Design authentication and authorization for solution components",
+      "primary": [
+        25
+      ],
+      "reinforced": [
+        26,
+        27,
+        28,
+        29,
+        73,
+        85,
+        108
+      ]
+    },
+    {
+      "id": "B-03",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Determine whether requirements can be met with out-of-the-box functionality",
+      "primary": [
+        42
+      ],
+      "reinforced": [
+        7,
+        41
+      ]
+    },
+    {
+      "id": "B-04",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Determine where to implement business logic including cloud services, client-side processing, business rules, plug-ins, and automation",
+      "primary": [
+        42
+      ],
+      "reinforced": [
+        19,
+        65,
+        81
+      ]
+    },
+    {
+      "id": "B-05",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Determine when to use standard tables, virtual tables, elastic tables, or connectors",
+      "primary": [
+        14
+      ],
+      "reinforced": [
+        42,
+        94
+      ]
+    },
+    {
+      "id": "B-06",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Assess the impact of Microsoft Power Platform security features on solution components, including managed environments, data policies, security roles, teams, business units, and row sharing",
+      "primary": [
+        30
+      ],
+      "reinforced": [
+        26,
+        27,
+        28,
+        32
+      ]
+    },
+    {
+      "id": "B-07",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Determine when to use deterministic or non-deterministic methods to implement business logic",
+      "primary": [
+        97
+      ],
+      "reinforced": [
+        42
+      ]
+    },
+    {
+      "id": "B-08",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Determine when to use code apps, generative pages, Power Apps component frameworks (PCFs), web resources, interactive agents, and Model Context Protocol (MCP) app widgets to implement the user experience",
+      "primary": [
+        43
+      ],
+      "reinforced": [
+        23,
+        100
+      ],
+      "volatile": "Generative pages, interactive agents and MCP app widgets are new or preview surfaces (lessons 23, 43, 100)."
+    },
+    {
+      "id": "B-09",
+      "domain": "build",
+      "group": "Design the technical architecture",
+      "text": "Determine when to use Microsoft Foundry or Microsoft Copilot Studio to build agents",
+      "primary": [
+        43
+      ],
+      "reinforced": [
+        98,
+        99
+      ]
+    },
+    {
+      "id": "B-10",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design Power Apps reusable components including generative pages, code components (PCF), and client scripting",
+      "primary": [
+        43
+      ],
+      "reinforced": [
+        23,
+        49,
+        57
+      ]
+    },
+    {
+      "id": "B-11",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design custom connectors and MCP servers for use with Microsoft Power Platform solutions",
+      "primary": [
+        100
+      ],
+      "reinforced": [
+        94
+      ]
+    },
+    {
+      "id": "B-12",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design Dataverse code components, including plug-ins and custom APIs",
+      "primary": [
+        70
+      ],
+      "reinforced": [
+        65
+      ]
+    },
+    {
+      "id": "B-13",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design automations, including Power Automate cloud flows and Copilot Studio workflows",
+      "primary": [
+        86
+      ],
+      "reinforced": [
+        81
+      ],
+      "volatile": "Copilot Studio workflows (GitHub Copilot harness) are new; the overview lost its preview label in September 2026."
+    },
+    {
+      "id": "B-14",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design inbound and outbound integrations using Dataverse and Microsoft Azure",
+      "primary": [
+        89
+      ],
+      "reinforced": [
+        90,
+        91
+      ]
+    },
+    {
+      "id": "B-15",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design custom interfaces by using Power Apps code apps",
+      "primary": [
+        61
+      ],
+      "reinforced": [
+        43
+      ]
+    },
+    {
+      "id": "B-16",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design custom agents that integrate with Microsoft Power Platform",
+      "primary": [
+        101
+      ],
+      "reinforced": [
+        98,
+        99
+      ],
+      "volatile": "Foundry and Copilot Studio agent features change monthly; several connections are preview."
+    },
+    {
+      "id": "B-17",
+      "domain": "build",
+      "group": "Design solution components",
+      "text": "Design monitoring and alerting, including Azure Monitor Application Insights and Microsoft Power Platform monitor alerts",
+      "primary": [
+        105
+      ],
+      "reinforced": [
+        64,
+        111
+      ]
+    },
+    {
+      "id": "B-18",
+      "domain": "build",
+      "group": "Implement application lifecycle management (ALM)",
+      "text": "Manage solution dependencies",
+      "primary": [
+        44
+      ],
+      "reinforced": [
+        48
+      ]
+    },
+    {
+      "id": "B-19",
+      "domain": "build",
+      "group": "Implement application lifecycle management (ALM)",
+      "text": "Create and use environment variables",
+      "primary": [
+        46
+      ],
+      "reinforced": [
+        62
+      ]
+    },
+    {
+      "id": "B-20",
+      "domain": "build",
+      "group": "Implement application lifecycle management (ALM)",
+      "text": "Manage solution layers",
+      "primary": [
+        45
+      ],
+      "reinforced": [
+        48
+      ]
+    },
+    {
+      "id": "B-21",
+      "domain": "build",
+      "group": "Implement application lifecycle management (ALM)",
+      "text": "Implement and extend Microsoft Power Platform Pipelines",
+      "primary": [
+        47
+      ],
+      "reinforced": [
+        111
+      ]
+    },
+    {
+      "id": "B-22",
+      "domain": "build",
+      "group": "Implement application lifecycle management (ALM)",
+      "text": "Create Continuous Integration/Continuous Deployment (CI/CD) automations using Microsoft Power Platform Build Tools",
+      "primary": [
+        48
+      ],
+      "reinforced": [
+        47,
+        111
+      ]
+    },
+    {
+      "id": "U-01",
+      "domain": "ux",
+      "group": "Apply business logic in model-driven apps by using client scripting",
+      "text": "Build code that targets the Client API object model",
+      "primary": [
+        49
+      ],
+      "reinforced": [
+        51
+      ]
+    },
+    {
+      "id": "U-02",
+      "domain": "ux",
+      "group": "Apply business logic in model-driven apps by using client scripting",
+      "text": "Determine an event handler registration approach",
+      "primary": [
+        50
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-03",
+      "domain": "ux",
+      "group": "Apply business logic in model-driven apps by using client scripting",
+      "text": "Create client scripting that targets the Dataverse Web API",
+      "primary": [
+        52
+      ],
+      "reinforced": [
+        74
+      ]
+    },
+    {
+      "id": "U-04",
+      "domain": "ux",
+      "group": "Apply business logic in model-driven apps by using client scripting",
+      "text": "Configure commands and buttons by using Power Fx and JavaScript",
+      "primary": [
+        54
+      ],
+      "reinforced": [
+        40
+      ]
+    },
+    {
+      "id": "U-05",
+      "domain": "ux",
+      "group": "Apply business logic in model-driven apps by using client scripting",
+      "text": "Implement navigation, dialogs, and notifications by using the Client API",
+      "primary": [
+        53
+      ],
+      "reinforced": [
+        56
+      ]
+    },
+    {
+      "id": "U-06",
+      "domain": "ux",
+      "group": "Create PCF code components",
+      "text": "Demonstrate the use of the different lifecycle events",
+      "primary": [
+        57
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-07",
+      "domain": "ux",
+      "group": "Create PCF code components",
+      "text": "Configure a code component manifest",
+      "primary": [
+        58
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-08",
+      "domain": "ux",
+      "group": "Create PCF code components",
+      "text": "Implement component interfaces",
+      "primary": [
+        57
+      ],
+      "reinforced": [
+        58
+      ]
+    },
+    {
+      "id": "U-09",
+      "domain": "ux",
+      "group": "Create PCF code components",
+      "text": "Package, deploy, and consume a component",
+      "primary": [
+        60
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-10",
+      "domain": "ux",
+      "group": "Create PCF code components",
+      "text": "Configure and use Device, Utility, and Web API features in component logic",
+      "primary": [
+        59
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-11",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Configure code apps to use Microsoft Power Platform connections",
+      "primary": [
+        61
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-12",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Configure code apps to use Dataverse tables",
+      "primary": [
+        61
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-13",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Perform table and metadata operations on Dataverse data",
+      "primary": [
+        62
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-14",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Perform Dataverse actions and functions",
+      "primary": [
+        62
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-15",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Configure code apps to use Power Automate cloud flows",
+      "primary": [
+        62
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-16",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Configure code apps to use agents built in Copilot Studio",
+      "primary": [
+        63
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-17",
+      "domain": "ux",
+      "group": "Build Power Apps code apps",
+      "text": "Configure code apps to use environment variables",
+      "primary": [
+        63
+      ],
+      "reinforced": [
+        46
+      ],
+      "volatile": "Two Learn pages contradict each other (August 2026 vs March 2026)."
+    },
+    {
+      "id": "U-18",
+      "domain": "ux",
+      "group": "Deploy and manage Power Apps code apps",
+      "text": "Configure Content Security Policy (CSP) settings",
+      "primary": [
+        64
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-19",
+      "domain": "ux",
+      "group": "Deploy and manage Power Apps code apps",
+      "text": "Implement monitoring by using Azure Application Insights",
+      "primary": [
+        64
+      ],
+      "reinforced": [
+        105
+      ]
+    },
+    {
+      "id": "U-20",
+      "domain": "ux",
+      "group": "Deploy and manage Power Apps code apps",
+      "text": "Package, deploy, and share code apps",
+      "primary": [
+        63
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "U-21",
+      "domain": "ux",
+      "group": "Deploy and manage Power Apps code apps",
+      "text": "Troubleshoot code apps by using Monitor and other browser-based debugging tools",
+      "primary": [
+        64
+      ],
+      "reinforced": [
+        106
+      ]
+    },
+    {
+      "id": "U-22",
+      "domain": "ux",
+      "group": "Deploy and manage Power Apps code apps",
+      "text": "Optimize code app performance and resource usage",
+      "primary": [
+        64
+      ],
+      "reinforced": [
+        106
+      ]
+    },
+    {
+      "id": "E-01",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Demonstrate the use of the different event execution pipeline stages",
+      "primary": [
+        65
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-02",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Develop a plug-in that uses the execution context",
+      "primary": [
+        66
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-03",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Develop a plug-in that implements business logic",
+      "primary": [
+        67
+      ],
+      "reinforced": [
+        72
+      ]
+    },
+    {
+      "id": "E-04",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Implement images to support plug-in logic",
+      "primary": [
+        66
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-05",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Perform operations in plug-ins by using the Organization service",
+      "primary": [
+        67
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-06",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Optimize plug-in performance",
+      "primary": [
+        69
+      ],
+      "reinforced": [
+        106
+      ]
+    },
+    {
+      "id": "E-07",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Configure a Dataverse custom API message",
+      "primary": [
+        70
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-08",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Register plug-in components by using the Plug-in Registration Tool",
+      "primary": [
+        68
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-09",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Develop a plug-in that implements a custom API",
+      "primary": [
+        70
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-10",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Configure Dataverse business events",
+      "primary": [
+        71
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-11",
+      "domain": "extend",
+      "group": "Create a Dataverse plug-in",
+      "text": "Configure Microsoft Power Platform managed identity for plug-ins",
+      "primary": [
+        71
+      ],
+      "reinforced": [],
+      "volatile": "Subject identifier format changed twice (version 2 since June 2026)."
+    },
+    {
+      "id": "E-12",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Perform operations by using the Dataverse Web API",
+      "primary": [
+        74
+      ],
+      "reinforced": [
+        52
+      ]
+    },
+    {
+      "id": "E-13",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Perform operations by using the Organization service",
+      "primary": [
+        75
+      ],
+      "reinforced": [
+        76
+      ]
+    },
+    {
+      "id": "E-14",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Implement API limit retry policies",
+      "primary": [
+        79
+      ],
+      "reinforced": [
+        80
+      ]
+    },
+    {
+      "id": "E-15",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Optimize solution components for performance, concurrency, transactions, and bulk operations",
+      "primary": [
+        78
+      ],
+      "reinforced": [
+        80
+      ]
+    },
+    {
+      "id": "E-16",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Implement and troubleshoot authentication by using OAuth",
+      "primary": [
+        73
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-17",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Perform asynchronous logic by using background operations",
+      "primary": [
+        79
+      ],
+      "reinforced": [],
+      "volatile": "Background operations are still preview (page of February 2026)."
+    },
+    {
+      "id": "E-18",
+      "domain": "extend",
+      "group": "Perform operations by using platform APIs",
+      "text": "Perform operations by using Dataverse SDKs for .NET and Python",
+      "primary": [
+        76,
+        77
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-19",
+      "domain": "extend",
+      "group": "Process workloads by using Microsoft Azure Functions",
+      "text": "Process long-running operations by using Azure Functions for Microsoft Power Platform solutions",
+      "primary": [
+        88
+      ],
+      "reinforced": [
+        87
+      ]
+    },
+    {
+      "id": "E-20",
+      "domain": "extend",
+      "group": "Process workloads by using Microsoft Azure Functions",
+      "text": "Implement scheduled and event-driven triggers in Azure Functions for Microsoft Power Platform solutions",
+      "primary": [
+        87
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-21",
+      "domain": "extend",
+      "group": "Process workloads by using Microsoft Azure Functions",
+      "text": "Authenticate to Microsoft Power Platform by using managed identities",
+      "primary": [
+        87
+      ],
+      "reinforced": [
+        71
+      ]
+    },
+    {
+      "id": "E-22",
+      "domain": "extend",
+      "group": "Configure Power Automate cloud flows and Copilot Studio workflows",
+      "text": "Implement complex expressions in flow steps",
+      "primary": [
+        82
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-23",
+      "domain": "extend",
+      "group": "Configure Power Automate cloud flows and Copilot Studio workflows",
+      "text": "Implement flow control actions including error handling",
+      "primary": [
+        84
+      ],
+      "reinforced": [
+        83
+      ]
+    },
+    {
+      "id": "E-24",
+      "domain": "extend",
+      "group": "Configure Power Automate cloud flows and Copilot Studio workflows",
+      "text": "Configure trigger filter and retry policies",
+      "primary": [
+        81
+      ],
+      "reinforced": [
+        84
+      ]
+    },
+    {
+      "id": "E-25",
+      "domain": "extend",
+      "group": "Configure Power Automate cloud flows and Copilot Studio workflows",
+      "text": "Develop reuseable logic by using child flows",
+      "primary": [
+        84
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-26",
+      "domain": "extend",
+      "group": "Configure Power Automate cloud flows and Copilot Studio workflows",
+      "text": "Implement authentication for the Dataverse connector by using service principals",
+      "primary": [
+        85
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "E-27",
+      "domain": "extend",
+      "group": "Build Microsoft Foundry agents by using code that integrates with the Microsoft Power Platform",
+      "text": "Integrate custom agents by using Microsoft Power Platform MCP servers",
+      "primary": [
+        100
+      ],
+      "reinforced": [],
+      "volatile": "Dataverse MCP server and its tool list changed during 2026."
+    },
+    {
+      "id": "E-28",
+      "domain": "extend",
+      "group": "Build Microsoft Foundry agents by using code that integrates with the Microsoft Power Platform",
+      "text": "Connect custom agents to Copilot Studio agents",
+      "primary": [
+        101
+      ],
+      "reinforced": [],
+      "volatile": "Connect to a Foundry agent is preview; MCP/A2A client channels are early release."
+    },
+    {
+      "id": "E-29",
+      "domain": "extend",
+      "group": "Build Microsoft Foundry agents by using code that integrates with the Microsoft Power Platform",
+      "text": "Integrate custom agents with Dataverse data by using Work IQ",
+      "primary": [
+        102
+      ],
+      "reinforced": [],
+      "volatile": "Business Applications in Work IQ and the Foundry Work IQ tool are preview."
+    },
+    {
+      "id": "E-30",
+      "domain": "extend",
+      "group": "Build Microsoft Foundry agents by using code that integrates with the Microsoft Power Platform",
+      "text": "Consume Copilot Studio agents by using the Copilot Studio client library",
+      "primary": [
+        103
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-01",
+      "domain": "integrations",
+      "group": "Publish and consume Dataverse events",
+      "text": "Publish a Dataverse event by using the IServiceEndpointNotificationService",
+      "primary": [
+        91
+      ],
+      "reinforced": [
+        96
+      ]
+    },
+    {
+      "id": "I-02",
+      "domain": "integrations",
+      "group": "Publish and consume Dataverse events",
+      "text": "Publish a Dataverse event by using the Plug-in Registration Tool",
+      "primary": [
+        90
+      ],
+      "reinforced": [
+        91
+      ]
+    },
+    {
+      "id": "I-03",
+      "domain": "integrations",
+      "group": "Publish and consume Dataverse events",
+      "text": "Register service endpoints including webhooks, Azure Service Bus, and Azure Event Hub",
+      "primary": [
+        90,
+        91
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-04",
+      "domain": "integrations",
+      "group": "Publish and consume Dataverse events",
+      "text": "Recommend options for listening to Dataverse events",
+      "primary": [
+        89
+      ],
+      "reinforced": [
+        90,
+        91
+      ]
+    },
+    {
+      "id": "I-05",
+      "domain": "integrations",
+      "group": "Implement synchronization for Dataverse data",
+      "text": "Perform data synchronization by using change tracking",
+      "primary": [
+        92
+      ],
+      "reinforced": [
+        96
+      ]
+    },
+    {
+      "id": "I-06",
+      "domain": "integrations",
+      "group": "Implement synchronization for Dataverse data",
+      "text": "Develop code that uses alternate keys",
+      "primary": [
+        93
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-07",
+      "domain": "integrations",
+      "group": "Implement synchronization for Dataverse data",
+      "text": "Synchronize data by using the UpsertRequest message",
+      "primary": [
+        93
+      ],
+      "reinforced": [
+        96
+      ]
+    },
+    {
+      "id": "I-08",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Implement authentication for custom connectors",
+      "primary": [
+        94
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-09",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Configure policy templates to modify connector behavior at runtime",
+      "primary": [
+        95
+      ],
+      "reinforced": [],
+      "volatile": "Six templates and environment variables in policies are preview; contradicting pages."
+    },
+    {
+      "id": "I-10",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Import definitions from existing APIs including Open API definitions, Azure services, and GitHub",
+      "primary": [
+        94
+      ],
+      "reinforced": [],
+      "volatile": "GitHub and Azure service import options are not fully documented on Learn."
+    },
+    {
+      "id": "I-11",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Create a custom connector for an Azure service",
+      "primary": [
+        95
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-12",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Develop an Azure Function to be used in a custom connector",
+      "primary": [
+        95
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-13",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Extend the Open API definition for a custom connector",
+      "primary": [
+        94
+      ],
+      "reinforced": []
+    },
+    {
+      "id": "I-14",
+      "domain": "integrations",
+      "group": "Create custom connectors",
+      "text": "Develop code for a custom connector to transform data",
+      "primary": [
+        95
+      ],
+      "reinforced": []
+    }
+  ]
+}

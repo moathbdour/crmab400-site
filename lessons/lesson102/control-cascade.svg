@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">The cascade of controls that decides which Dataverse data reaches Work IQ, with Cedar's values</title>
+<desc id="d">Four gates from left to right, each of which must allow the data. Gate 1, tenant, in the Microsoft 365 admin center under Copilot settings: Dataverse data available in Microsoft 365 Copilot, with the choices all users (default), specific groups or no users; Cedar uses the specific group sg-cedar-workiq-pilot. Gate 2, environment, in the Power Platform admin center under Settings, Product, Features: the Work IQ switch, which turns on business skills, semantic modeling and Copilot access; on by default for new production environments from 30 September 2026 and for existing ones from November 2026, but not for trial, sandbox, developer, EEA or EU and government environments; Cedar-Dev on, Cedar-Test on, Cedar-Prod set off explicitly until the pilot gate. Gate 3, app, in the Power Apps maker portal: Enable Microsoft 365 Copilot in model-driven apps; Cedar Operations on, other apps off; a table shared by several apps stays available until every app is off. Gate 4, Dataverse security: security roles, business units, sharing and column security trim the rows to the person or app user; for example Maya's Sales Rep role has no case access, and Omar can't read subcontractor cost. Below, two controls outside the cascade: App Access Control in the Power Platform admin center blocks applications, including agentic ones, per environment, because participation settings don't stop agentic access; the Work IQ MCP server can be allowed or blocked for everyone in the Microsoft 365 admin center under Agents, Tools, and spending policies limit Copilot Credits.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:18px}.b{font-weight:700;font-size:15px}.c{font-weight:700;fill:#0f5c2e}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.8;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect x="0" y="0" width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="34">Every gate must allow the data; then Dataverse security picks the rows</text>
+
+<rect class="box" x="20" y="54" width="220" height="226" rx="8" fill="#e8f1fb"/>
+<text class="b" x="32" y="78">1 Tenant</text>
+<text x="32" y="100">M365 admin center &gt;</text>
+<text x="32" y="120">Copilot &gt; Settings</text>
+<text x="32" y="144">Dataverse data available</text>
+<text x="32" y="164">in Microsoft 365 Copilot</text>
+<text x="32" y="188">All users (default),</text>
+<text x="32" y="208">specific groups,</text>
+<text x="32" y="228">or no users</text>
+
+<rect class="box" x="265" y="54" width="220" height="226" rx="8" fill="#e8f1fb"/>
+<text class="b" x="277" y="78">2 Environment</text>
+<text x="277" y="100">PPAC &gt; Settings &gt;</text>
+<text x="277" y="120">Product &gt; Features</text>
+<text x="277" y="144">Work IQ: skills, semantic</text>
+<text x="277" y="164">model, Copilot access</text>
+<text x="277" y="188">Default on: new prod envs</text>
+<text x="277" y="208">(30 Sep 2026), existing</text>
+<text x="277" y="228">prod envs (Nov 2026)</text>
+<text x="277" y="252">Not: dev, sandbox, trial,</text>
+<text x="277" y="272">EEA/EU, government</text>
+
+<rect class="box" x="510" y="54" width="220" height="226" rx="8" fill="#e8f1fb"/>
+<text class="b" x="522" y="78">3 App</text>
+<text x="522" y="100">Power Apps &gt; app &gt;</text>
+<text x="522" y="120">Settings &gt; Features</text>
+<text x="522" y="144">Enable Microsoft 365</text>
+<text x="522" y="164">Copilot in model-driven</text>
+<text x="522" y="184">apps</text>
+<text x="522" y="208">A table in two apps stays</text>
+<text x="522" y="228">available until both</text>
+<text x="522" y="248">apps are off</text>
+
+<rect class="box" x="755" y="54" width="225" height="226" rx="8" fill="#eef7ee"/>
+<text class="b" x="767" y="78">4 Dataverse security</text>
+<text x="767" y="100">security roles,</text>
+<text x="767" y="120">business units,</text>
+<text x="767" y="140">sharing,</text>
+<text x="767" y="160">column security</text>
+<text x="767" y="184">Rows are trimmed to the</text>
+<text x="767" y="204">person (delegated) or</text>
+<text x="767" y="224">the app user (app-only)</text>
+
+<path class="ln" d="M240,166 H263" marker-end="url(#a)"/>
+<path class="ln" d="M485,166 H508" marker-end="url(#a)"/>
+<path class="ln" d="M730,166 H753" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="296" width="220" height="92" rx="8" fill="#ffffff"/>
+<text class="c" x="32" y="320">Cedar</text>
+<text x="32" y="342">Specific groups:</text>
+<text x="32" y="362">sg-cedar-workiq-pilot</text>
+<rect class="box" x="265" y="296" width="220" height="92" rx="8" fill="#ffffff"/>
+<text class="c" x="277" y="320">Cedar</text>
+<text x="277" y="342">Dev on, Test on (pilot),</text>
+<text x="277" y="362">Prod off until the gate</text>
+<rect class="box" x="510" y="296" width="220" height="92" rx="8" fill="#ffffff"/>
+<text class="c" x="522" y="320">Cedar</text>
+<text x="522" y="342">Cedar Operations on,</text>
+<text x="522" y="362">other apps off</text>
+<rect class="box" x="755" y="296" width="225" height="92" rx="8" fill="#ffffff"/>
+<text class="c" x="767" y="320">Cedar</text>
+<text x="767" y="342">Maya: no case rows;</text>
+<text x="767" y="362">Omar: no cost column</text>
+
+<text class="h" x="20" y="424">Controls outside the cascade</text>
+<rect class="box" x="20" y="438" width="470" height="110" rx="8" fill="#fff4e0"/>
+<text class="b" x="32" y="462">App Access Control (PPAC &gt; Security)</text>
+<text x="32" y="484">Blocks applications, including agentic apps such as</text>
+<text x="32" y="504">Cowork, per environment. Participation settings</text>
+<text x="32" y="524">(gates 2 and 3) don't stop agentic access; this does.</text>
+<rect class="box" x="510" y="438" width="470" height="110" rx="8" fill="#fff4e0"/>
+<text class="b" x="522" y="462">Work IQ MCP server and spending (M365 admin)</text>
+<text x="522" y="484">Agents &gt; Tools &gt; Work IQ MCP: Block stops it for</text>
+<text x="522" y="504">every user and agent. Spending policies cap the</text>
+<text x="522" y="524">Copilot Credits that Work IQ API use consumes.</text>
+
+<rect class="box" x="20" y="564" width="960" height="44" rx="8" fill="#ffffff"/>
+<text x="34" y="591">Gates 1–3 decide whether Work IQ may use an environment's data at all; gate 4 decides which rows each caller gets.</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 630" width="980" height="630" role="img" aria-labelledby="t d">
+  <title id="t">AB-400 personal gap analysis loop</title>
+  <desc id="d">Blueprint, evidence, rating, priority, plan, study, and weekly re-assessment, with the estimated weight of one objective per domain.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", Arial, sans-serif; fill: #0f172a; }
+    .h { font-size: 17px; font-weight: 700; }
+    .b { font-size: 14.5px; }
+    .s { font-size: 14px; fill: #334155; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#a); }
+  </style>
+  <rect width="980" height="630" fill="#ffffff"/>
+  <text x="24" y="36" class="h" style="font-size:20px">Personal gap analysis for AB-400 (C-73)</text>
+
+  <!-- 1 Blueprint -->
+  <rect x="24" y="62" width="210" height="118" class="box" fill="#e0f2fe"/>
+  <text x="38" y="88" class="h">1. Blueprint</text>
+  <text x="38" y="112" class="b">Study guide of 2026-09-14</text>
+  <text x="38" y="132" class="b">4 domains, 88 objectives</text>
+  <text x="38" y="152" class="b">ab400-objectives.json</text>
+  <text x="38" y="172" class="s">checked 2026-10-05</text>
+
+  <!-- 2 Evidence -->
+  <rect x="274" y="62" width="210" height="118" class="box" fill="#fef9c3"/>
+  <text x="288" y="88" class="h">2. Evidence</text>
+  <text x="288" y="112" class="b">Answer the lesson's check</text>
+  <text x="288" y="132" class="b">without notes; rebuild</text>
+  <text x="288" y="152" class="b">one lab step from memory</text>
+  <text x="288" y="172" class="s">feelings are not evidence</text>
+
+  <!-- 3 Rating -->
+  <rect x="524" y="62" width="210" height="118" class="box" fill="#fef9c3"/>
+  <text x="538" y="88" class="h">3. Rating 0–3</text>
+  <text x="538" y="112" class="b">0 cannot explain</text>
+  <text x="538" y="132" class="b">1 recognise · 2 explain</text>
+  <text x="538" y="152" class="b">and choose · 3 build</text>
+  <text x="538" y="172" class="s">2 or 3 without evidence = 1</text>
+
+  <!-- 4 Priority -->
+  <rect x="774" y="62" width="186" height="118" class="box" fill="#fee2e2"/>
+  <text x="788" y="88" class="h">4. Priority</text>
+  <text x="788" y="112" class="b">weight × gap</text>
+  <text x="788" y="132" class="b">× 1.25 if changing</text>
+  <text x="788" y="152" class="b">gap = target (2) −</text>
+  <text x="788" y="172" class="b">effective rating</text>
+
+  <!-- 5 Plan -->
+  <rect x="774" y="246" width="186" height="138" class="box" fill="#dcfce7"/>
+  <text x="788" y="272" class="h">5. Plan</text>
+  <text x="788" y="296" class="b">30 min per gap point</text>
+  <text x="788" y="316" class="b">weekly capacity</text>
+  <text x="788" y="336" class="b">last week = revision</text>
+  <text x="788" y="356" class="b">overflow → decide</text>
+  <text x="788" y="376" class="s">hours, date or risk</text>
+
+  <!-- 6 Study -->
+  <rect x="524" y="246" width="210" height="138" class="box" fill="#dcfce7"/>
+  <text x="538" y="272" class="h">6. Study</text>
+  <text x="538" y="296" class="b">Revisit primary and</text>
+  <text x="538" y="316" class="b">reinforcing lessons</text>
+  <text x="538" y="336" class="b">Scenario reviews 114–117</text>
+  <text x="538" y="356" class="b">Re-read changing docs</text>
+  <text x="538" y="376" class="s">practice 118, 119</text>
+
+  <!-- 7 Re-assess -->
+  <rect x="274" y="246" width="210" height="138" class="box" fill="#ede9fe"/>
+  <text x="288" y="272" class="h">7. Re-assess weekly</text>
+  <text x="288" y="296" class="b">New evidence → new</text>
+  <text x="288" y="316" class="b">ratings → new plan</text>
+  <text x="288" y="336" class="b">Compare week 1 and 2</text>
+  <text x="288" y="356" class="b">(challenge: compare)</text>
+  <text x="288" y="376" class="s">stop when target met</text>
+
+  <!-- arrows -->
+  <path d="M234,121 L272,121" class="line"/>
+  <path d="M484,121 L522,121" class="line"/>
+  <path d="M734,121 L772,121" class="line"/>
+  <path d="M867,180 L867,244" class="line"/>
+  <path d="M774,315 L736,315" class="line"/>
+  <path d="M524,315 L486,315" class="line"/>
+  <path d="M379,246 L379,182" class="line"/>
+  <text x="388" y="222" class="s">loop back to evidence</text>
+
+  <!-- weights panel -->
+  <rect x="24" y="420" width="936" height="190" class="box" fill="#f8fafc"/>
+  <text x="40" y="448" class="h">Estimated weight of ONE objective (domain midpoint scaled to 100%, split evenly)</text>
+  <text x="40" y="474" class="s">Midpoints 17.5 + 27.5 + 37.5 + 12.5 = 95, so each is scaled by 100/95. Microsoft publishes domain ranges only.</text>
+  <!-- bars: scale 1% = 300px -->
+  <text x="40" y="506" class="b">Build (22)</text>
+  <rect x="210" y="492" width="251" height="18" fill="#0284c7"/>
+  <text x="470" y="506" class="b">0.84%</text>
+  <text x="40" y="532" class="b">UX (22)</text>
+  <rect x="210" y="518" width="395" height="18" fill="#0284c7"/>
+  <text x="614" y="532" class="b">1.32%</text>
+  <text x="40" y="558" class="b">Extend (30)</text>
+  <rect x="210" y="544" width="395" height="18" fill="#0284c7"/>
+  <text x="614" y="558" class="b">1.32%</text>
+  <text x="40" y="584" class="b">Integrations (14)</text>
+  <rect x="210" y="570" width="282" height="18" fill="#0284c7"/>
+  <text x="501" y="584" class="b">0.94%</text>
+</svg>

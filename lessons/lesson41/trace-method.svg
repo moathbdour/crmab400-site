@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img" aria-labelledby="t">
+<title id="t">Four-step method for turning a requirement into solution components, shown for story US-04c FieldLink status within 15 minutes: 1 read the story and acceptance criteria; 2 split it into responsibilities (data, user interface, logic, integration, security, operations); 3 name a candidate component for each responsibility, such as the FieldLink status column, an inbound webhook Azure Function, the FieldLink Sync application user and monitoring alerts; 4 choose an implementation approach and the lesson that builds it, then record the trace.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="470" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="32" font-weight="700" font-size="17">From one story to traceable components (US-04c)</text>
+<rect x="20" y="55" width="200" height="390" fill="#fff4dc" stroke="#8a5a00"/>
+<text x="32" y="82" font-weight="700">1 Story + criteria</text>
+<text x="32" y="110" font-size="14">US-04c: as Sami I see</text><text x="32" y="130" font-size="14">FieldLink status on the</text><text x="32" y="150" font-size="14">work order within 15 min</text>
+<text x="32" y="185" font-size="14">NFR-03: FieldLink outage</text><text x="32" y="205" font-size="14">never blocks cases</text>
+<text x="32" y="240" font-size="14">CON-01: REST + OAuth</text>
+<rect x="250" y="55" width="200" height="390" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="262" y="82" font-weight="700">2 Responsibilities</text>
+<text x="262" y="120">Data: store status</text><text x="262" y="160">Integration: receive</text><text x="282" y="180">status changes</text>
+<text x="262" y="220">Security: who writes</text><text x="262" y="260">UI: show on views</text><text x="262" y="300">Operations: detect</text><text x="282" y="320">missed updates</text>
+<rect x="480" y="55" width="230" height="390" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="492" y="82" font-weight="700">3 Candidate components</text>
+<text x="492" y="120" font-size="14">C-02 FieldLink status column</text><text x="492" y="160" font-size="14">C-13 webhook Azure Function</text><text x="492" y="180" font-size="14">+ upsert by FieldLink ID</text>
+<text x="492" y="220" font-size="14">C-14 app user FieldLink Sync</text><text x="492" y="260" font-size="14">C-04 Open dispatch view</text><text x="492" y="300" font-size="14">C-20 alert: no update 15 min</text>
+<rect x="740" y="55" width="200" height="390" fill="#e8f5e9" stroke="#1b5e20"/>
+<text x="752" y="82" font-weight="700">4 Approach + lesson</text>
+<text x="752" y="120" font-size="14">Configuration (16)</text><text x="752" y="160" font-size="14">Pro-code integration</text><text x="752" y="180" font-size="14">(87, 90, 93)</text>
+<text x="752" y="220" font-size="14">Security config (29)</text><text x="752" y="260" font-size="14">Configuration (17)</text><text x="752" y="300" font-size="14">Monitoring (105)</text>
+<text x="752" y="360" font-size="14" font-weight="600">Record every row</text><text x="752" y="380" font-size="14" font-weight="600">in components.json</text>
+<line x1="220" y1="250" x2="248" y2="250" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="450" y1="250" x2="478" y2="250" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="710" y1="250" x2="738" y2="250" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+</g></svg>

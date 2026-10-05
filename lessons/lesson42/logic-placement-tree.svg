@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="t">
+<title id="t">Cedar logic-placement ladder. Ask ten questions in order; the first yes decides: 1 shipped feature gives OOB; 2 access gives security configuration; 3 derived value gives formula column; 4 external data read live gives virtual table; 5 judgement gives AI suggestion plus human review; 6 external system gives cloud flow with connector or Azure Function for inbound push; 7 must hold for every channel gives Entity-scope business rule for single-row checks or synchronous plug-in for related rows or special messages; 8 long-running gives Azure Function; 9 follow-up after save gives async cloud flow; 10 form-only help gives form business rule or client script.</title>
+<rect width="960" height="600" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1a1a1a">
+<text x="20" y="30" font-weight="700" font-size="17">Logic-placement ladder: ask from the top, first yes wins</text>
+<text x="20" y="62" font-weight="700">Question</text><text x="520" y="62" font-weight="700">Placement (Cedar example)</text>
+<g stroke="#1f3b57">
+<rect x="20" y="75" width="470" height="40" fill="#eef4fa"/><rect x="520" y="75" width="420" height="40" fill="#e8f5e9"/>
+<rect x="20" y="125" width="470" height="40" fill="#eef4fa"/><rect x="520" y="125" width="420" height="40" fill="#e8f5e9"/>
+<rect x="20" y="175" width="470" height="40" fill="#eef4fa"/><rect x="520" y="175" width="420" height="40" fill="#e8f5e9"/>
+<rect x="20" y="225" width="470" height="40" fill="#eef4fa"/><rect x="520" y="225" width="420" height="40" fill="#e8f5e9"/>
+<rect x="20" y="275" width="470" height="40" fill="#eef4fa"/><rect x="520" y="275" width="420" height="40" fill="#f3eefa"/>
+<rect x="20" y="325" width="470" height="40" fill="#eef4fa"/><rect x="520" y="325" width="420" height="40" fill="#fdecea"/>
+<rect x="20" y="375" width="470" height="60" fill="#eef4fa"/><rect x="520" y="375" width="420" height="60" fill="#fff4dc"/>
+<rect x="20" y="445" width="470" height="40" fill="#eef4fa"/><rect x="520" y="445" width="420" height="40" fill="#fdecea"/>
+<rect x="20" y="495" width="470" height="40" fill="#eef4fa"/><rect x="520" y="495" width="420" height="40" fill="#e8f5e9"/>
+<rect x="20" y="545" width="470" height="40" fill="#eef4fa"/><rect x="520" y="545" width="420" height="40" fill="#e8f5e9"/>
+</g>
+<text x="32" y="100">1 Does a shipped feature do it?</text><text x="532" y="100">OOB feature (LP-05 SLA escalation)</text>
+<text x="32" y="150">2 Is it about who may see or change data?</text><text x="532" y="150">Security configuration (LP-10 US-06a)</text>
+<text x="32" y="200">3 Is it a value derived from the row?</text><text x="532" y="200">Formula column (LP-09 floor area band)</text>
+<text x="32" y="250">4 Is external data read live?</text><text x="532" y="250">Virtual table (LP-11 CedarLedger)</text>
+<text x="32" y="300">5 Does it need judgement on free text?</text><text x="532" y="300">AI suggestion + human review (LP-12)</text>
+<text x="32" y="350">6 Does it talk to an external system?</text><text x="532" y="350">Flow + connector (LP-06) / Function (LP-07)</text>
+<text x="32" y="400">7 Must it hold for every channel?</text><text x="532" y="400">Single row: Entity business rule (LP-01)</text>
+<text x="52" y="422" font-size="14">(form, API, import, flow)</text><text x="532" y="422">Related rows/messages: plug-in (LP-02, 03)</text>
+<text x="32" y="470">8 Longer than a plug-in may run?</text><text x="532" y="470">Azure Function (LP-15 archive)</text>
+<text x="32" y="520">9 Follow-up after the save?</text><text x="532" y="520">Cloud flow, async (LP-04, LP-13)</text>
+<text x="32" y="570">10 Only helps on the form?</text><text x="532" y="570">Form business rule (LP-08) or client script</text>
+<g stroke="#1f3b57" stroke-width="2"><line x1="490" y1="95" x2="518" y2="95"/><line x1="490" y1="145" x2="518" y2="145"/><line x1="490" y1="195" x2="518" y2="195"/><line x1="490" y1="245" x2="518" y2="245"/><line x1="490" y1="295" x2="518" y2="295"/><line x1="490" y1="345" x2="518" y2="345"/><line x1="490" y1="405" x2="518" y2="405"/><line x1="490" y1="465" x2="518" y2="465"/><line x1="490" y1="515" x2="518" y2="515"/><line x1="490" y1="565" x2="518" y2="565"/></g>
+</g></svg>

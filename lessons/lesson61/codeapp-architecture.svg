@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">Code app architecture at development time and at runtime</title>
+<desc id="d">Development: Karim's project in VS Code contains React source, generated models and services and power.config.json; the Power Apps CLI pa adds data sources, generates code and pushes the built app. Runtime: the Power Apps host signs the user in with Microsoft Entra ID and loads the app; the app calls generated services through the Power Apps client library, which sends Dataverse requests as the user and connector requests through the user's connection. Managed platform policies such as data policies, sharing limits and Conditional Access apply.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="26">Development (Karim's workstation)</text>
+<rect class="box" x="20" y="40" width="420" height="200" rx="8" fill="#deecf9"/>
+<text class="h" x="34" y="66">src/codeapps/dispatch-planner</text>
+<text class="s" x="34" y="92">src/App.tsx, planner.ts, data.ts (your code)</text>
+<text class="s" x="34" y="114">src/generated/models/*Model.ts</text>
+<text class="s" x="34" y="136">src/generated/services/*Service.ts</text>
+<text class="s" x="34" y="158">power.config.json (app id, environment,</text>
+<text class="s" x="34" y="178">  data sources, connection refs)</text>
+<text class="s" x="34" y="204">package.json: @microsoft/power-apps,</text>
+<text class="s" x="34" y="224">  @microsoft/power-apps-vite, react, vite</text>
+<rect class="box" x="480" y="40" width="400" height="200" rx="8" fill="#fff4ce"/>
+<text class="h" x="494" y="66">Power Apps CLI (pa)</text>
+<text class="s" x="494" y="92">pa app init – create app, power.config.json</text>
+<text class="s" x="494" y="114">pa connection create / list</text>
+<text class="s" x="494" y="136">pa app add data-source – generate code</text>
+<text class="s" x="494" y="158">pa app run – Local Play</text>
+<text class="s" x="494" y="180">npm run build → dist/</text>
+<text class="s" x="494" y="202">pa app push – publish to environment</text>
+<text class="s" x="494" y="224">  (preferred solution or --solution-id)</text>
+<line class="a" x1="478" y1="140" x2="442" y2="140"/>
+<text class="h" x="20" y="286">Runtime (Sami's browser)</text>
+<rect class="box" x="20" y="300" width="260" height="170" rx="8" fill="#f3f2f1"/>
+<text class="h" x="34" y="326">Power Apps host</text>
+<text class="s" x="34" y="350">Entra ID sign-in</text>
+<text class="s" x="34" y="372">licence + sharing check</text>
+<text class="s" x="34" y="394">data policy check at launch</text>
+<text class="s" x="34" y="416">loads compiled assets</text>
+<text class="s" x="34" y="438">load-failure messages</text>
+<rect class="box" x="310" y="300" width="260" height="170" rx="8" fill="#deecf9"/>
+<text class="h" x="324" y="326">Your code + client library</text>
+<text class="s" x="324" y="350">Cedar_workordersService.getAll</text>
+<text class="s" x="324" y="372">Office365UsersService</text>
+<text class="s" x="324" y="394">  .MyProfile_V2</text>
+<text class="s" x="324" y="416">getContext() – user, app ids</text>
+<text class="s" x="324" y="438">result: success / data / error</text>
+<line class="a" x1="280" y1="385" x2="308" y2="385"/>
+<rect class="box" x="600" y="300" width="280" height="76" rx="8" fill="#dff6dd"/>
+<text class="h" x="614" y="326">Dataverse (as Sami)</text>
+<text class="s" x="614" y="350">roles, BU, column security</text>
+<text class="s" x="614" y="370">apply to every request</text>
+<rect class="box" x="600" y="392" width="280" height="78" rx="8" fill="#dff6dd"/>
+<text class="h" x="614" y="418">Connector (Sami's connection)</text>
+<text class="s" x="614" y="442">consent on first use;</text>
+<text class="s" x="614" y="462">data policy GOV-02 applies</text>
+<line class="a" x1="570" y1="345" x2="598" y2="340"/>
+<line class="a" x1="570" y1="425" x2="598" y2="430"/>
+<rect class="box" x="20" y="496" width="860" height="50" rx="8" fill="#fde7e9"/>
+<text class="s" x="34" y="526">Compiled assets are served from a public endpoint: never put secrets or customer data in the bundle – fetch data after sign-in.</text>
+</svg>

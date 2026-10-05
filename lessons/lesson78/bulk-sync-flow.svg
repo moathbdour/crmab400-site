@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" role="img" aria-labelledby="t d">
+<title id="t">FieldLink status sync: from one conversation per line to read, plan, write</title>
+<desc id="d">Top band: version 0.1 handles each of 4,000 feed lines with one query and up to one update, so up to 8,000 requests. Below, version 0.2 in four boxes. Read: the distinct FieldLink IDs are split into chunks of 200 and each chunk is one query with an In condition, about 20 requests. Plan, a pure function in memory: every line is decided with the status rules, several lines of one work order are folded into one write with the final status, and skipped, not found and ambiguous lines are counted. Write: ExecuteMultiple batches of 100 UpdateRequest items, each with its row version, with ContinueOnError true and ReturnResponses false, about 40 requests. Second pass: only rows whose update returned a version conflict are read and planned again, once. A legend maps per-item results: no fault means applied; error 0x80040265 means refused by a plug-in; error 0x80060882 means the row version did not match and the row goes to the second pass; anything else is failed. Total about 60 requests.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="500" fill="#ffffff"/>
+<text class="h" x="20" y="28">The same 4,000-line file, two shapes</text>
+
+<rect class="box" x="20" y="44" width="960" height="70" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="70">v0.1 (lesson 76): for each line → query the work order → decide → update</text>
+<text x="32" y="96">4,000 queries + up to 4,000 updates = up to 8,000 requests, 8,000 round trips. The request-count limit is 6,000 per 5 minutes.</text>
+
+<rect class="box" x="20" y="136" width="225" height="200" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="162">1. Read</text>
+<text x="32" y="190">Distinct FieldLink IDs</text>
+<text x="32" y="210">in chunks of 200</text>
+<text x="32" y="238">One query per chunk:</text>
+<text x="32" y="258">cedar_fieldlinkid In (…)</text>
+<text x="32" y="278">and statecode = 0</text>
+<text class="b" x="32" y="312">≈ 20 requests</text>
+
+<path class="a" d="M245,236 L265,236"/>
+<rect class="box" x="265" y="136" width="225" height="200" rx="8" fill="#fff4ce"/>
+<text class="b" x="277" y="162">2. Plan (pure, in memory)</text>
+<text x="277" y="190">Decide every line with</text>
+<text x="277" y="210">StatusRules</text>
+<text x="277" y="238">Fold lines of one work order</text>
+<text x="277" y="258">into ONE write (final status)</text>
+<text x="277" y="286">Count skipped, not found,</text>
+<text x="277" y="306">ambiguous</text>
+<text class="b" x="277" y="328">0 requests</text>
+
+<path class="a" d="M490,236 L510,236"/>
+<rect class="box" x="510" y="136" width="225" height="200" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="162">3. Write</text>
+<text x="522" y="190">ExecuteMultiple, 100 items:</text>
+<text x="522" y="210">UpdateRequest + row version</text>
+<text x="522" y="238">ContinueOnError = true</text>
+<text x="522" y="258">ReturnResponses = false</text>
+<text x="522" y="278">(only faults come back)</text>
+<text class="b" x="522" y="312">≈ 40 requests</text>
+
+<path class="a" d="M735,236 L755,236"/>
+<rect class="box" x="755" y="136" width="225" height="200" rx="8" fill="#eef3fb"/>
+<text class="b" x="767" y="162">4. Second pass (once)</text>
+<text x="767" y="190">Only rows whose update</text>
+<text x="767" y="210">returned a version conflict:</text>
+<text x="767" y="238">read again, plan again,</text>
+<text x="767" y="258">write again</text>
+<text x="767" y="286">Still conflicting → Failed</text>
+<text class="b" x="767" y="312">usually 0 requests</text>
+
+<rect class="box" x="20" y="358" width="960" height="124" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="384">Per-item result → how the lines of that work order are counted</text>
+<text x="32" y="410">No fault → Applied          Fault 0x80040265 (a plug-in said no) → Refused, not retried</text>
+<text x="32" y="434">Fault 0x80060882 (row version does not match) → Conflicts, goes to the second pass          Any other fault → Failed</text>
+<text x="32" y="462">Total ≈ 60 requests. The summary counts feed lines exactly as v0.1 did; intermediate statuses of folded lines are not written.</text>
+</svg>

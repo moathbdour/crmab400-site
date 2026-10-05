@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">The Cedar FieldLink Gateway: a custom connector for an Azure Function</title>
+<desc id="d">Top path, user requests. Lina uses an app, a flow or the dispatch agent, which calls the custom connector Cedar FieldLink Gateway. The connector uses OAuth 2.0 with Microsoft Entra ID: client app cedar-gateway-connector, single tenant, signing in with the connector's managed identity instead of a client secret, resource api://cedar-fieldlink-gateway, delegated scope Sla.Read. The request reaches the function app func-cedar-fieldlink-dev. First App Service authentication validates the token: audience, issuer, allowed client; without a valid token it answers HTTP 401 before any code runs. Then the function SubcontractorSla reads X-MS-CLIENT-PRINCIPAL, requires the scope Sla.Read (403 otherwise), validates subcontractor and dates (400), and calls FieldLinkApi. FieldLinkApi obtains a FieldLink token with the client credentials grant, using Cedar's server client and the secret from Key Vault through a Key Vault reference read with the app's managed identity, and calls GET /v2/reports/jobs; the function returns the SLA summary. Bottom path, outbound events: the queue fieldlink-outbound, filled by the lesson 90 webhook and the lesson 91 topic consumer, triggers DeliverOutbound, which posts the contract message to FieldLink /v2/events with the message id as idempotency key. 2xx: delivered. 400, 409, 422: a record on fieldlink-outbound-rejected. No answer, 401 after one token refresh, 403, 404, 429 or 5xx: the function throws, the queue retries, and after the maximum dequeue count the message moves to fieldlink-outbound-poison for replay in lesson 96. Excluded paths keep the lesson 90 endpoints, which authenticate with an HMAC signature and a function key, reachable without an Entra token.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,Menlo,monospace;font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">User requests: connector → Entra token → function → FieldLink with server credentials</text>
+
+<rect class="box" x="20" y="46" width="170" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="70">Lina</text>
+<text x="32" y="94">app, flow or the</text>
+<text x="32" y="112">dispatch agent</text>
+<text x="32" y="140">"How reliable was</text>
+<text x="32" y="158">BrightSpark in</text>
+<text x="32" y="176">September?"</text>
+
+<rect class="box" x="220" y="46" width="220" height="150" rx="8" fill="#deecf9"/>
+<text class="b" x="232" y="70">Custom connector</text>
+<text x="232" y="90">Cedar FieldLink Gateway</text>
+<text x="232" y="114">OAuth 2.0, Entra ID</text>
+<text x="232" y="134">client cedar-gateway-</text>
+<text x="232" y="152">connector, managed identity</text>
+<text class="m" x="232" y="174">aud api://cedar-…</text>
+<text class="m" x="232" y="190">scp Sla.Read</text>
+
+<rect class="box" x="470" y="46" width="300" height="250" rx="8" fill="#dff6dd"/>
+<text class="b" x="482" y="70">func-cedar-fieldlink-dev</text>
+<rect class="box" x="482" y="82" width="276" height="54" rx="6" fill="#ffffff"/>
+<text x="492" y="104">App Service authentication</text>
+<text x="492" y="124">token valid? else 401, no code runs</text>
+<rect class="box" x="482" y="146" width="276" height="74" rx="6" fill="#ffffff"/>
+<text x="492" y="168">SubcontractorSla</text>
+<text x="492" y="188">X-MS-CLIENT-PRINCIPAL: Sla.Read? 403</text>
+<text x="492" y="208">ref and dates valid? 400</text>
+<rect class="box" x="482" y="230" width="276" height="54" rx="6" fill="#ffffff"/>
+<text x="492" y="252">FieldLinkApi: client credentials</text>
+<text x="492" y="272">secret = Key Vault reference</text>
+
+<rect class="box" x="800" y="46" width="180" height="250" rx="8" fill="#f3f2f1"/>
+<text class="b" x="812" y="70">FieldLink</text>
+<text class="m" x="812" y="98">/oauth/token</text>
+<text x="812" y="118">grant client_credentials</text>
+<text class="m" x="812" y="150">GET /v2/reports/</text>
+<text class="m" x="812" y="168">  jobs</text>
+<text x="812" y="194">server clients only:</text>
+<text x="812" y="212">a custom connector</text>
+<text x="812" y="230">cannot call it</text>
+
+<line class="ln" x1="190" y1="120" x2="216" y2="120" marker-end="url(#a)"/>
+<line class="ln" x1="440" y1="110" x2="478" y2="110" marker-end="url(#a)"/>
+<line class="ln" x1="758" y1="256" x2="796" y2="200" marker-end="url(#a)"/>
+<path class="ln" d="M620,136 L620,144" marker-end="url(#a)"/><path class="ln" d="M620,220 L620,228" marker-end="url(#a)"/>
+
+<text class="h" x="20" y="340">Outbound events: queue → function → FieldLink, with replayable failures</text>
+<rect class="box" x="20" y="358" width="200" height="110" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="382">fieldlink-outbound</text>
+<text x="32" y="406">contract messages from</text>
+<text x="32" y="424">the webhook (90) and</text>
+<text x="32" y="442">the topic consumer (91)</text>
+<rect class="box" x="260" y="358" width="300" height="110" rx="8" fill="#dff6dd"/>
+<text class="b" x="272" y="382">DeliverOutbound (queue trigger)</text>
+<text x="272" y="406">POST /v2/events, Idempotency-Key = id</text>
+<text x="272" y="428">2xx delivered; 400/409/422 rejected;</text>
+<text x="272" y="448">else throw → the queue retries</text>
+<rect class="box" x="600" y="358" width="380" height="50" rx="8" fill="#fde7e9"/>
+<text x="612" y="388">fieldlink-outbound-rejected: kept for people, not retried</text>
+<rect class="box" x="600" y="418" width="380" height="50" rx="8" fill="#fde7e9"/>
+<text x="612" y="448">fieldlink-outbound-poison: after max dequeue count → lesson 96</text>
+<line class="ln" x1="220" y1="412" x2="256" y2="412" marker-end="url(#a)"/>
+<line class="ln" x1="560" y1="390" x2="596" y2="384" marker-end="url(#a)"/>
+<line class="ln" x1="560" y1="440" x2="596" y2="442" marker-end="url(#a)"/>
+
+<rect class="box" x="20" y="492" width="960" height="132" rx="8" fill="#ffffff"/>
+<text class="b" x="32" y="516">Why a function, not the connector, holds the FieldLink server credential</text>
+<text x="32" y="540">Custom connectors do not support the client credentials grant. The function keeps it in Key Vault and exposes only what Cedar</text>
+<text x="32" y="560">decides (SLA figures, no job details), to users who hold Sla.Read. App Service authentication covers the whole app, so the</text>
+<text x="32" y="580">lesson 90 endpoints are listed as excluded paths: they prove the caller with an HMAC signature and a function key instead.</text>
+<text x="32" y="604">The connector's managed identity replaces a client secret: one federated credential per environment after import.</text>
+</svg>

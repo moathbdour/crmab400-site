@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" role="img" aria-labelledby="t d">
+<title id="t">Release path for Cedar code components</title>
+<desc id="d">Karim builds and tests C-22 and C-25 locally, pushes production builds into CedarServiceCore in Cedar-Dev and adds them to forms and views. The export pipeline unpacks the solution to Git, where only the Controls data.xml files are kept. The build pipeline runs unit tests and the PCF contract check, builds each component in production mode, copies the output into the Controls folders, packs a managed CedarServiceCore 1.7.0.x and imports it to Cedar-Test. The Cedar Release Pipeline promotes the same artifact to Cedar-Prod. pac pcf push to a temporary PowerAppsTools solution is only for Karim-Dev experiments.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="580" fill="#ffffff"/>
+<rect class="box" x="20" y="24" width="270" height="140" rx="8" fill="#deecf9"/>
+<text class="h" x="34" y="52">1 Local (Karim)</text>
+<text class="s" x="34" y="76">node --test tests/pcf/ (17)</text>
+<text class="s" x="34" y="98">node tools/check-pcf.mjs</text>
+<text class="s" x="34" y="120">npm start watch (harness)</text>
+<text class="s" x="34" y="142">pac pcf version --strategy manifest</text>
+<rect class="box" x="315" y="24" width="270" height="140" rx="8" fill="#dff6dd"/>
+<text class="h" x="329" y="52">2 Cedar-Dev</text>
+<text class="s" x="329" y="76">pac pcf push --solution-unique-name</text>
+<text class="s" x="329" y="98">  CedarServiceCore (production build)</text>
+<text class="s" x="329" y="120">bind on forms / views in the same</text>
+<text class="s" x="329" y="142">  solution; functional test</text>
+<rect class="box" x="610" y="24" width="270" height="140" rx="8" fill="#f3f2f1"/>
+<text class="h" x="624" y="52">3 Export to Git (lesson 48)</text>
+<text class="s" x="624" y="76">export unmanaged → unpack</text>
+<text class="s" x="624" y="98">Controls/cedar_Cedar.*/ keeps only</text>
+<text class="s" x="624" y="120">  *.data.xml (bundle.js ignored)</text>
+<text class="s" x="624" y="142">PR to main, 1 reviewer</text>
+<line class="a" x1="290" y1="94" x2="313" y2="94"/>
+<line class="a" x1="585" y1="94" x2="608" y2="94"/>
+<rect class="box" x="20" y="220" width="860" height="160" rx="8" fill="#fff4ce"/>
+<text class="h" x="34" y="248">4 Build pipeline (build-and-release.yml, on main)</text>
+<text class="s" x="34" y="276">a  node --test tests/pcf/ + tools/check-pcf.mjs (version, properties, feature-usage, build mode)</text>
+<text class="s" x="34" y="300">b  per component: npm ci → npm run build -- --buildMode production</text>
+<text class="s" x="34" y="324">c  copy out/controls/&lt;name&gt;/ into solutions/CedarServiceCore/src/Controls/cedar_Cedar.&lt;name&gt;/</text>
+<text class="s" x="34" y="348">d  set solution version 1.7.0.&lt;BuildId&gt; → pack managed → solution checker (High = 0) → artifact drop</text>
+<text class="s" x="34" y="370">e  import to Cedar-Test (holding + apply upgrade) with deployment/test.settings.json</text>
+<path class="a" d="M745,164 L745,218"/>
+<rect class="box" x="20" y="430" width="420" height="120" rx="8" fill="#dff6dd"/>
+<text class="h" x="34" y="458">5 Cedar-Test (managed)</text>
+<text class="s" x="34" y="482">forms show C-22 0.3.0 / C-25 0.1.0</text>
+<text class="s" x="34" y="504">smoke test as Omar Test, Sami Test</text>
+<text class="s" x="34" y="526">solution layers: CedarServiceCore managed</text>
+<rect class="box" x="460" y="430" width="420" height="120" rx="8" fill="#dff6dd"/>
+<text class="h" x="474" y="458">6 Cedar-Prod via Cedar Release Pipeline</text>
+<text class="s" x="474" y="482">same artifact, REL-017 in notes</text>
+<text class="s" x="474" y="504">pre-deployment approval (Lina)</text>
+<text class="s" x="474" y="526">rollback = revert forward, higher version</text>
+<line class="a" x1="230" y1="380" x2="230" y2="428"/>
+<line class="a" x1="440" y1="490" x2="458" y2="490"/>
+</svg>

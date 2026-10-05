@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="t d">
+<title id="t">Permissions matrix test loop</title>
+<desc id="d">Five stages: design matrix, prepare fixtures, run as each persona, compare expected with actual, fix and record evidence, then re-run.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700;font-size:16px}rect{stroke:#2f5d8a;stroke-width:2;fill:#eaf2fb;rx:10}.f{fill:#fff4e0;stroke:#b36b00}path{stroke:#2f5d8a;stroke-width:2.5;fill:none;marker-end:url(#a)}</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#2f5d8a" stroke="none"/></marker></defs>
+<rect x="20" y="40" width="200" height="110"/><text x="35" y="70" class="h">1 Design matrix</text><text x="35" y="95">persona × table ×</text><text x="35" y="115">privilege → Expected</text><text x="35" y="135">(from lessons 26–29)</text>
+<rect x="250" y="40" width="200" height="110"/><text x="265" y="70" class="h">2 Prepare fixtures</text><text x="265" y="95">test users, BUs, teams,</text><text x="265" y="115">known rows (WO-1001,</text><text x="265" y="135">WO-1002, chiller case)</text>
+<rect x="480" y="40" width="200" height="110"/><text x="495" y="70" class="h">3 Run as persona</text><text x="495" y="95">manual: sign in as user</text><text x="495" y="115">automated: Web API with</text><text x="495" y="135">CallerObjectId header</text>
+<rect x="690" y="40" width="190" height="110"/><text x="705" y="70" class="h">4 Compare</text><text x="705" y="95">Actual = Expected?</text><text x="705" y="115">Pass / Fail +</text><text x="705" y="135">evidence (HTTP code)</text>
+<rect class="f" x="480" y="250" width="400" height="120"/><text x="495" y="280" class="h">5 Fail → classify and fix</text><text x="495" y="305">Defect (role too broad or narrow) → change role</text><text x="495" y="325">Wrong expectation → update matrix + sign-off</text><text x="495" y="345">Record in lesson32-results.md, audit trail (31)</text>
+<rect x="20" y="250" width="400" height="120"/><text x="35" y="280" class="h">Regression</text><text x="35" y="305">Re-run the whole matrix after every role,</text><text x="35" y="325">team or column profile change and before</text><text x="35" y="345">each release (pipelines, lesson 47)</text>
+<path d="M220 95H248"/><path d="M450 95H478"/><path d="M680 95H688"/><path d="M785 150V248"/><path d="M480 310H422"/><path d="M220 250 C220 200 120 200 120 152"/>
+</svg>

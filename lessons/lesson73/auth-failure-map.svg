@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">Where an authentication problem shows up</title>
+<desc id="d">Four gates from left to right, each with its typical failure. Gate 1, the token request at Microsoft Entra ID: failures are AADSTS error codes in the token response, for example unknown application, wrong secret or certificate, redirect URI mismatch, consent missing, wrong resource URL, multifactor authentication required. No request reaches Dataverse. Gate 2, token validation at Dataverse: HTTP 401 Unauthorized when the token is missing, expired, malformed or issued for another audience such as a different environment URL. Gate 3, identity mapping in the environment: the token is valid but no enabled user or application user matches it, or the user has no role; the response says the user is not a member of the organization or is disabled. Gate 4, authorization: HTTP 403 Forbidden with a privilege name when the security role lacks a privilege, or a null value for a secured column. The rule under the gates: read the failure from left to right; an AADSTS code is an Entra problem, 401 is a token problem, 403 is a role problem.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">Four gates: find the one that refused you before changing anything</text>
+
+<rect class="box" x="20" y="50" width="225" height="130" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="74">1. Get a token</text>
+<text x="32" y="98">Microsoft Entra ID</text>
+<text x="32" y="122">App registration, credential,</text>
+<text x="32" y="142">redirect URI, consent,</text>
+<text x="32" y="162">scope, Conditional Access</text>
+
+<path class="a" d="M245,115 L265,115"/>
+<rect class="box" x="265" y="50" width="225" height="130" rx="8" fill="#eef3fb"/>
+<text class="b" x="277" y="74">2. Token accepted?</text>
+<text x="277" y="98">Dataverse endpoint</text>
+<text x="277" y="122">Signature, expiry, audience</text>
+<text x="277" y="142">= this environment's URL,</text>
+<text x="277" y="162">Bearer header present</text>
+
+<path class="a" d="M490,115 L510,115"/>
+<rect class="box" x="510" y="50" width="225" height="130" rx="8" fill="#eef3fb"/>
+<text class="b" x="522" y="74">3. Who is it here?</text>
+<text x="522" y="98">Environment users</text>
+<text x="522" y="122">User or application user</text>
+<text x="522" y="142">exists, is enabled, has at</text>
+<text x="522" y="162">least one security role</text>
+
+<path class="a" d="M735,115 L755,115"/>
+<rect class="box" x="755" y="50" width="225" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="767" y="74">4. May it do this?</text>
+<text x="767" y="98">Security model</text>
+<text x="767" y="122">Role privilege and access</text>
+<text x="767" y="142">level, sharing, column</text>
+<text x="767" y="162">security profile</text>
+
+<path class="a" d="M132,180 L132,220"/>
+<path class="a" d="M377,180 L377,220"/>
+<path class="a" d="M622,180 L622,220"/>
+<path class="a" d="M867,180 L867,220"/>
+
+<rect class="box" x="20" y="220" width="225" height="230" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="244">Fails as: AADSTS code</text>
+<text x="32" y="268">in the token response or</text>
+<text x="32" y="288">the sign-in page.</text>
+<text x="32" y="316">700016 app not in tenant</text>
+<text x="32" y="336">7000215 wrong secret</text>
+<text x="32" y="356">700027 certificate mismatch</text>
+<text x="32" y="376">50011 redirect URI</text>
+<text x="32" y="396">65001 consent missing</text>
+<text x="32" y="416">500011 resource not found</text>
+<text x="32" y="436">50076 MFA required</text>
+
+<rect class="box" x="265" y="220" width="225" height="230" rx="8" fill="#fde7e9"/>
+<text class="b" x="277" y="244">Fails as: HTTP 401</text>
+<text x="277" y="268">Unauthorized</text>
+<text x="277" y="296">No Authorization header</text>
+<text x="277" y="316">Token expired (about 1 h)</text>
+<text x="277" y="336">Token for another</text>
+<text x="277" y="356">environment or for Graph</text>
+<text x="277" y="376">Truncated or quoted token</text>
+<text x="277" y="404">Check: decode the claims</text>
+<text x="277" y="424">aud and exp. Never paste</text>
+<text x="277" y="444">the token into a website.</text>
+
+<rect class="box" x="510" y="220" width="225" height="230" rx="8" fill="#fde7e9"/>
+<text class="b" x="522" y="244">Fails as: 401 or 403</text>
+<text x="522" y="268">"The user is not a member</text>
+<text x="522" y="288">of the organization" or</text>
+<text x="522" y="308">"user is disabled" or</text>
+<text x="522" y="328">no roles assigned.</text>
+<text x="522" y="356">Check: Power Platform admin</text>
+<text x="522" y="376">center → environment →</text>
+<text x="522" y="396">Users / Application users.</text>
+<text x="522" y="424">One application user per</text>
+<text x="522" y="444">app registration, per env.</text>
+
+<rect class="box" x="755" y="220" width="225" height="230" rx="8" fill="#fde7e9"/>
+<text class="b" x="767" y="244">Fails as: HTTP 403</text>
+<text x="767" y="268">Forbidden with a privilege</text>
+<text x="767" y="288">name (prvRead…), or a</text>
+<text x="767" y="308">secured column returned</text>
+<text x="767" y="328">as null without an error.</text>
+<text x="767" y="356">Check: the role of that</text>
+<text x="767" y="376">identity, not your own.</text>
+<text x="767" y="404">Fix in the role (lesson 26),</text>
+<text x="767" y="424">never by granting System</text>
+<text x="767" y="444">Administrator.</text>
+
+<rect class="box" x="20" y="470" width="960" height="70" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="496">Read the failure from left to right</text>
+<text x="32" y="520">AADSTS… = Entra configuration • 401 = the token itself • "not a member / disabled" = environment user • 403 = security role.</text>
+</svg>

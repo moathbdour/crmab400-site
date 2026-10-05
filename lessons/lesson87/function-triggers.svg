@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">One function app, three triggers, three failure behaviours</title>
+<desc id="d">The function app func-cedar-ops-dev contains three functions. Scheduled: HealthSchedule has a timer trigger with a six-field NCRONTAB expression read from the app setting HealthSchedule, 0 0 3 * * 1-5, which is 03:00 UTC or 06:00 in Amman on Monday to Friday; it does no work itself and writes one message to the storage queue ops-health-requests through a queue output binding. Event-driven: HealthCheck has a queue trigger on that queue; it reads Dataverse, logs one line and creates at most one task; the release pipeline and a person can put messages into the same queue. Event-driven: CspReport has an HTTP trigger, POST api/csp-report, anonymous; browsers post policy violation reports; it parses, bounds, scrubs and logs. Below, a table of what happens when a function fails: the timer is not retried and runs again at the next occurrence, only one instance fires across scaled-out instances, and IsPastDue tells that an occurrence was missed; the queue message becomes visible again after the visibility timeout and is retried until the dequeue count reaches the maximum, here 3, then it is moved to the queue ops-health-requests-poison; the HTTP caller gets a 500 and decides itself whether to retry, and a response must come within 230 seconds. A side panel shows the host and worker: the Functions host listens to triggers and the isolated worker process is your .NET application.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">func-cedar-ops-dev: a schedule asks, a queue works, an HTTP endpoint listens</text>
+
+<rect class="box" x="20" y="48" width="200" height="92" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">The clock</text>
+<text x="32" y="96">0 0 3 * * 1-5 (UTC)</text>
+<text x="32" y="116">= 06:00 Amman, Mon–Fri</text>
+<path class="a" d="M220,94 L250,94"/>
+
+<rect class="box" x="250" y="48" width="230" height="92" rx="8" fill="#fff4ce"/>
+<text class="b" x="262" y="72">HealthSchedule</text>
+<text x="262" y="96">timer trigger</text>
+<text x="262" y="116">returns one queue message</text>
+<path class="a" d="M480,94 L510,94"/>
+
+<rect class="box" x="510" y="48" width="220" height="92" rx="8" fill="#f3f2f1"/>
+<text class="b" x="522" y="72">Queue</text>
+<text x="522" y="96">ops-health-requests</text>
+<text x="522" y="116">{"reason":"schedule", …}</text>
+<path class="a" d="M620,140 L620,166"/>
+
+<rect class="box" x="750" y="48" width="230" height="92" rx="8" fill="#eef3fb"/>
+<text class="b" x="762" y="72">Other writers</text>
+<text x="762" y="96">release pipeline after a deploy</text>
+<text x="762" y="116">a person with the queue role</text>
+<path class="a" d="M750,94 L732,94"/>
+
+<rect class="box" x="510" y="166" width="220" height="110" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="190">HealthCheck</text>
+<text x="522" y="214">queue trigger</text>
+<text x="522" y="234">4 capped Dataverse reads,</text>
+<text x="522" y="254">1 log line, ≤ 1 task per day</text>
+<path class="a" d="M730,220 L760,220"/>
+<rect class="box" x="760" y="180" width="220" height="80" rx="8" fill="#f3f2f1"/>
+<text class="b" x="772" y="204">Dataverse</text>
+<text x="772" y="228">as Cedar Operations</text>
+<text x="772" y="248">(managed identity)</text>
+
+<rect class="box" x="20" y="166" width="200" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="190">Browsers</text>
+<text x="32" y="214">POST violation reports</text>
+<text x="32" y="234">when the planner's CSP</text>
+<text x="32" y="254">blocks something</text>
+<path class="a" d="M220,220 L250,220"/>
+<rect class="box" x="250" y="166" width="230" height="110" rx="8" fill="#fff4ce"/>
+<text class="b" x="262" y="190">CspReport</text>
+<text x="262" y="214">HTTP trigger, anonymous</text>
+<text x="262" y="234">POST /api/csp-report</text>
+<text x="262" y="254">parse, bound, scrub, log → 204</text>
+
+<rect class="box" x="20" y="296" width="660" height="328" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="320">When a function fails: three triggers, three behaviours</text>
+<text class="b" x="32" y="350">Timer</text>
+<text x="32" y="372">Not retried. The function runs again at the next occurrence.</text>
+<text x="32" y="392">One instance fires even when the app is scaled out (a storage lock).</text>
+<text x="32" y="412">IsPastDue = an occurrence was missed. So: let the timer only ask.</text>
+<text class="b" x="32" y="444">Queue</text>
+<text x="32" y="466">The message becomes visible again and is retried: here up to 3 dequeues,</text>
+<text x="32" y="486">30 seconds apart. Then it moves to ops-health-requests-poison,</text>
+<text x="32" y="506">where a person can read it. Nothing is lost silently.</text>
+<text class="b" x="32" y="538">HTTP</text>
+<text x="32" y="560">The caller gets the error and decides. A response must arrive within</text>
+<text x="32" y="580">230 seconds, whatever the function timeout. A browser sending a report</text>
+<text x="32" y="600">never retries: the receiver must be cheap and must not fail on bad input.</text>
+
+<rect class="box" x="700" y="296" width="280" height="328" rx="8" fill="#eef3fb"/>
+<text class="b" x="712" y="320">Inside the app</text>
+<rect class="box" x="716" y="336" width="248" height="76" rx="6" fill="#ffffff"/>
+<text class="b" x="726" y="358">Functions host</text>
+<text x="726" y="380">listens to triggers, scales,</text>
+<text x="726" y="400">calls the worker</text>
+<rect class="box" x="716" y="424" width="248" height="96" rx="6" fill="#ffffff"/>
+<text class="b" x="726" y="446">Isolated worker process</text>
+<text x="726" y="468">your .NET 10 console app:</text>
+<text x="726" y="488">Program.cs, dependency</text>
+<text x="726" y="508">injection, your functions</text>
+<text x="712" y="548">Plan: Flex Consumption (Linux)</text>
+<text x="712" y="570">Timeout: 5 min set; default 30</text>
+<text x="712" y="592">Host storage: by identity,</text>
+<text x="712" y="612">no connection string</text>
+</svg>

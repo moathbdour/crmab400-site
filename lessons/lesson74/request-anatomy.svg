@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Anatomy of a Dataverse Web API request and response</title>
+<desc id="d">The request line GET https://cedar-dev.crm4.dynamics.com/api/data/v9.2/cedar_workorders followed by query options is split into labelled parts: environment URL, the Web API path /api/data/, the version v9.2, the entity set name cedar_workorders, and the query options $select, $filter, $orderby and $expand. Below it the request headers: Authorization Bearer token from lesson 73, Accept application/json, OData-MaxVersion 4.0, OData-Version 4.0, If-None-Match null, and optional Prefer values for page size and formatted values. The response shows status 200 OK, the header Preference-Applied, and a JSON body with @odata.context, a value array of rows, each with @odata.etag, the selected columns, a formatted value annotation next to the numeric choice value, the lookup value property _cedar_site_value and the expanded cedar_Site object, and at the end @odata.nextLink when more rows exist. A side box maps HTTP methods to operations: POST creates or calls an action, GET retrieves or calls a function, PATCH updates or upserts, DELETE deletes, PUT sets a single column.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.c{font-family:Consolas,Menlo,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.l{stroke:#444;stroke-width:1.2}</style>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">One request, read part by part</text>
+
+<rect class="box" x="20" y="44" width="960" height="118" rx="8" fill="#eef3fb"/>
+<text class="c" x="32" y="70">GET https://cedar-dev.crm4.dynamics.com/api/data/v9.2/cedar_workorders</text>
+<text class="c" x="32" y="92">    ?$select=cedar_name,cedar_fieldlinkstatus&amp;$filter=statecode eq 0&amp;$orderby=cedar_name</text>
+<text class="c" x="32" y="114">    &amp;$expand=cedar_Site($select=cedar_sitecode)</text>
+<text x="32" y="146">environment URL  •  /api/data/ = Web API path  •  v9.2 = version  •  cedar_workorders = entity set name (plural)  •  ?… = query options</text>
+
+<rect class="box" x="20" y="176" width="470" height="196" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="200">Request headers</text>
+<text class="c" x="32" y="224">Authorization: Bearer &lt;token&gt;</text>
+<text class="c" x="32" y="246">Accept: application/json</text>
+<text class="c" x="32" y="268">OData-MaxVersion: 4.0</text>
+<text class="c" x="32" y="290">OData-Version: 4.0</text>
+<text class="c" x="32" y="312">If-None-Match: null</text>
+<text class="c" x="32" y="334">Prefer: odata.maxpagesize=500,</text>
+<text class="c" x="32" y="356">  odata.include-annotations="…FormattedValue"</text>
+
+<rect class="box" x="510" y="176" width="470" height="196" rx="8" fill="#dff6dd"/>
+<text class="b" x="522" y="200">Method = operation</text>
+<text x="522" y="226">POST      create a row; call an action</text>
+<text x="522" y="250">GET        retrieve rows; call a function</text>
+<text x="522" y="274">PATCH    update a row (upsert unless If-Match: *)</text>
+<text x="522" y="298">DELETE   delete a row, a column value or a link</text>
+<text x="522" y="322">PUT        set one column value</text>
+<text x="522" y="354">Bodies are JSON with Content-Type: application/json.</text>
+
+<rect class="box" x="20" y="386" width="960" height="200" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="410">Response: 200 OK • Preference-Applied: odata.maxpagesize=500, …</text>
+<text class="c" x="32" y="434">{ "@odata.context": "…/$metadata#cedar_workorders(cedar_name,…)",</text>
+<text class="c" x="32" y="456">  "value": [ { "@odata.etag": "W/\"8842113\"", "cedar_name": "WO-1002",</text>
+<text class="c" x="32" y="478">      "cedar_fieldlinkstatus": 104570000,</text>
+<text class="c" x="32" y="500">      "cedar_fieldlinkstatus@OData.Community.Display.V1.FormattedValue": "Not sent",</text>
+<text class="c" x="32" y="522">      "_cedar_site_value": "&lt;guid&gt;", "cedar_Site": { "cedar_sitecode": "JL-W2", … } } ],</text>
+<text class="c" x="32" y="544">  "@odata.nextLink": "…cedar_workorders?$select=…&amp;$skiptoken=…" }</text>
+<text x="32" y="574">etag = row version • annotation = label for people • _…_value = lookup ID • nextLink = more pages: follow it unchanged</text>
+</svg>

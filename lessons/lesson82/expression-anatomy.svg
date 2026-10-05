@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">Anatomy of a cloud flow expression</title>
+<desc id="d">One expression taken apart: if(empty(item()?['cedar_scheduledfor']), '', convertFromUtc(item()?['cedar_scheduledfor'], 'Jordan Standard Time', 'ddd dd MMM HH:mm')). The function if has three arguments: a condition and two results. The function empty is true for null, an empty text, an empty array and an empty object. item() is a reference to the current element inside a Select, a Filter array or a loop. The question mark before the bracket is safe navigation: a missing property gives null instead of an error. Two single quotes are an empty text literal. convertFromUtc takes a UTC time, a Windows time zone name and a format string. Below that, how expressions are written in a saved definition: an at sign followed by the expression makes the whole value the result, with its type, for example the number 3; an at sign with curly braces inside text is an inline expression whose result is converted to text, for example the text "3 open". A third panel lists the reference functions: triggerOutputs and triggerBody, outputs and body with the action name written with underscores, item and items, variables, parameters for environment variables, and workflow.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.c{font-family:Consolas,Menlo,monospace;font-size:15px}.k{stroke:#444;stroke-width:1.3;fill:none}</style>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">One expression, taken apart</text>
+
+<rect class="box" x="20" y="44" width="960" height="78" rx="8" fill="#f3f2f1"/>
+<text class="c" x="34" y="74">if( empty( item()?['cedar_scheduledfor'] ), '',</text>
+<text class="c" x="34" y="104">    convertFromUtc( item()?['cedar_scheduledfor'], 'Jordan Standard Time', 'ddd dd MMM HH:mm' ) )</text>
+
+<rect class="box" x="20" y="140" width="230" height="118" rx="8" fill="#eef3fb"/>
+<text class="b" x="30" y="164">if(condition, a, b)</text>
+<text x="30" y="188">A function with three</text>
+<text x="30" y="208">arguments. No operators:</text>
+<text x="30" y="228">everything is a function call.</text>
+
+<rect class="box" x="262" y="140" width="230" height="118" rx="8" fill="#fff4ce"/>
+<text class="b" x="272" y="164">empty(x)</text>
+<text x="272" y="188">true for null, '' , [ ] and { }</text>
+<text x="272" y="208">The guard that keeps null</text>
+<text x="272" y="228">away from convertFromUtc.</text>
+
+<rect class="box" x="504" y="140" width="230" height="118" rx="8" fill="#dff6dd"/>
+<text class="b" x="514" y="164">item()?['name']</text>
+<text x="514" y="188">item(): the current element.</text>
+<text x="514" y="208">?[ ] : null instead of an</text>
+<text x="514" y="228">error if the property is absent.</text>
+
+<rect class="box" x="746" y="140" width="234" height="118" rx="8" fill="#fde7e9"/>
+<text class="b" x="756" y="164">Literals</text>
+<text x="756" y="188">'text' in single quotes;</text>
+<text x="756" y="208">'' is empty text; a quote inside</text>
+<text x="756" y="228">is doubled. 42, true, null bare.</text>
+
+<text class="h" x="20" y="294">How it is written in an input</text>
+<rect class="box" x="20" y="306" width="470" height="100" rx="8" fill="#eef3fb"/>
+<text class="c" x="32" y="334">@length(body('Rows'))</text>
+<text x="32" y="360">Whole value: the input IS the result, with its type.</text>
+<text class="b" x="32" y="384">→ the number 8</text>
+<rect class="box" x="510" y="306" width="470" height="100" rx="8" fill="#fff4ce"/>
+<text class="c" x="522" y="334">@{length(body('Rows'))} open</text>
+<text x="522" y="360">Inline in text: the result is converted to text.</text>
+<text class="b" x="522" y="384">→ the text "8 open"</text>
+
+<text class="h" x="20" y="440">Where data comes from: reference functions</text>
+<rect class="box" x="20" y="452" width="960" height="92" rx="8" fill="#f3f2f1"/>
+<text class="c" x="32" y="478">triggerOutputs()  triggerBody()      outputs('Action_name')  body('Action_name')</text>
+<text class="c" x="32" y="502">item()  items('Loop_name')          variables('name')  parameters('name')  workflow()</text>
+<text x="32" y="530">Action names use underscores for spaces: the action "Needs attention" is body('Needs_attention'). Rename before you reference.</text>
+</svg>

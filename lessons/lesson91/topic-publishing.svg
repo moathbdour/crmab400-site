@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="t d">
+<title id="t">Publishing work order events to a Service Bus topic with a custom plug-in</title>
+<desc id="d">From left to right. In Dataverse, a user saves a sent work order with a new time. After the commit, the asynchronous step P1 runs the plug-in WorkOrderEventPublisherPlugin. The plug-in reads the pre and post images, decides with PublishRules whether the change matters to FieldLink, adds the shared variable cedar.eventKind to the context, and calls the service endpoint notification service with the ID of the service endpoint from its unsecure configuration. If the change does not matter, nothing is posted at all. The platform posts the execution context as JSON, at most 192 kilobytes, to the Service Bus topic cedar-workorder-events, authenticating with a shared access signature policy that has only the Send claim. If the namespace is unavailable the system job waits and is retried with growing pauses, and the plug-in runs again each time, which is why it contains no other logic. The topic copies each message to two subscriptions. The subscription fieldlink is read by the function ForwardWorkOrderEvent with peek-lock: on success the message is completed, on failure it is abandoned and delivered again, after ten deliveries it moves to the dead-letter queue, and a message that is not an execution context is dead-lettered immediately with a reason; the function turns the context into a contract message on the queue fieldlink-outbound. The subscription audit is read by the function AuditWorkOrderEvent, which logs one line. Both functions read with the managed identity and the role Azure Service Bus Data Receiver. A panel at the bottom compares an outage of the function app for one hour: with the webhook of lesson 90 every delivery in that hour is a failed system job and the events are gone; with the topic the messages wait in the subscriptions for up to fourteen days and are processed when the app returns.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.d{stroke:#444;stroke-width:1.6;stroke-dasharray:6 4;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="680" fill="#ffffff"/>
+<text class="h" x="20" y="28">IN-02 on a broker: the plug-in decides, the platform posts, the topic keeps, the functions read</text>
+
+<rect class="box" x="20" y="48" width="330" height="330" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">Dataverse</text>
+<text x="32" y="94">Sami saves WO-1001 with a new time</text>
+<rect class="box" x="32" y="106" width="306" height="150" rx="6" fill="#ffffff"/>
+<text class="b" x="44" y="130">Step P1 (async, PostOperation)</text>
+<text x="44" y="152">WorkOrderEventPublisherPlugin</text>
+<text x="44" y="174">1. read images pre and post</text>
+<text x="44" y="194">2. PublishRules.Decide → kind or nothing</text>
+<text x="44" y="214">3. SharedVariables["cedar.eventKind"]</text>
+<text x="44" y="234">4. notification service: Execute(endpoint, context)</text>
+<rect class="box" x="32" y="268" width="306" height="98" rx="6" fill="#fff4ce"/>
+<text class="b" x="44" y="292">Rule: nothing else in this plug-in</text>
+<text x="44" y="314">when the post is retried, the whole</text>
+<text x="44" y="334">plug-in runs again: read, modify the</text>
+<text x="44" y="354">context, post. No data operation.</text>
+
+<path class="a" d="M350,180 L400,180"/>
+<text x="356" y="166">JSON</text>
+<text x="356" y="200">SAS</text>
+
+<rect class="box" x="400" y="48" width="250" height="330" rx="8" fill="#f3f2f1"/>
+<text class="b" x="412" y="72">Service Bus (Standard)</text>
+<text x="412" y="94">topic cedar-workorder-events</text>
+<text x="412" y="114">policy dataverse-send: Send only</text>
+<text x="412" y="134">≤ 192 KB; time to live 14 days</text>
+<rect class="box" x="412" y="150" width="226" height="96" rx="6" fill="#ffffff"/>
+<text class="b" x="424" y="174">subscription fieldlink</text>
+<text x="424" y="196">lock 1 min; 10 deliveries;</text>
+<text x="424" y="216">then dead-letter queue</text>
+<text x="424" y="236">active: 3   dead-letter: 0</text>
+<rect class="box" x="412" y="258" width="226" height="76" rx="6" fill="#ffffff"/>
+<text class="b" x="424" y="282">subscription audit</text>
+<text x="424" y="304">its own copy, its own pace</text>
+<text x="424" y="324">(a filter rule could narrow it)</text>
+<text x="412" y="362">bus down → system job waits, retried</text>
+
+<path class="a" d="M650,198 L700,198"/>
+<path class="a" d="M650,296 L700,296"/>
+
+<rect class="box" x="700" y="48" width="280" height="200" rx="8" fill="#dff6dd"/>
+<text class="b" x="712" y="72">ForwardWorkOrderEvent</text>
+<text x="712" y="94">Service Bus trigger, peek-lock</text>
+<text x="712" y="116">managed identity (Data Receiver)</text>
+<text x="712" y="140">context → contract message →</text>
+<text x="712" y="160">queue fieldlink-outbound</text>
+<text x="712" y="184">success: complete</text>
+<text x="712" y="204">exception: abandon, redeliver</text>
+<text x="712" y="224">not a context: dead-letter + reason</text>
+
+<rect class="box" x="700" y="262" width="280" height="116" rx="8" fill="#dff6dd"/>
+<text class="b" x="712" y="286">AuditWorkOrderEvent</text>
+<text x="712" y="308">second subscriber, no change in</text>
+<text x="712" y="328">Dataverse needed to add it</text>
+<text x="712" y="352">logs kind, message ID, property names</text>
+
+<rect class="box" x="20" y="398" width="960" height="266" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="422">The same hour without the function app, twice</text>
+<rect class="box" x="32" y="436" width="462" height="214" rx="6" fill="#fde7e9"/>
+<text class="b" x="44" y="460">Webhook (lesson 90)</text>
+<text x="44" y="484">each change → one HTTP POST → no answer</text>
+<text x="44" y="504">one more attempt only for 502, 503, 504</text>
+<text x="44" y="524">system job: Failed</text>
+<text x="44" y="548">app returns: nothing is re-sent</text>
+<text x="44" y="572">repair: find failed jobs, rebuild the</text>
+<text x="44" y="592">messages from the rows, or reconcile</text>
+<text class="b" x="44" y="630">at most once, with evidence</text>
+<rect class="box" x="506" y="436" width="462" height="214" rx="6" fill="#dff6dd"/>
+<text class="b" x="518" y="460">Service Bus topic (this lesson)</text>
+<text x="518" y="484">each change → post to the topic → system job</text>
+<text x="518" y="504">Succeeded: Dataverse is done</text>
+<text x="518" y="524">messages wait in both subscriptions</text>
+<text x="518" y="548">app returns: every message is delivered,</text>
+<text x="518" y="568">in the order of the broker, at least once</text>
+<text x="518" y="592">consumer stays idempotent (same id)</text>
+<text class="b" x="518" y="630">at least once, durable</text>
+</svg>

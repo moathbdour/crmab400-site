@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 610" role="img" aria-labelledby="t d">
+<title id="t">Event execution pipeline stages for an Update of a Cedar work order</title>
+<desc id="d">A caller sends an Update for work order WO-1002. The request passes PreValidation (stage 10), which runs before security checks and usually outside the database transaction. Inside the database transaction it passes PreOperation (stage 20), MainOperation (stage 30, the platform writes the row) and PostOperation (stage 40). After PostOperation the transaction commits and the response returns to the caller. Asynchronous PostOperation steps are queued as system jobs and run after the commit. Cedar uses PreValidation to reject a past Scheduled for value, PreOperation to normalise the FieldLink ID in the Target, synchronous PostOperation to create a reschedule note in the same transaction, and an asynchronous PostOperation probe that cannot roll back the save.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.tx{fill:#f6f6f6;stroke:#1b1b1b;stroke-width:2;stroke-dasharray:8 5}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="610" fill="#ffffff"/>
+<text class="h" x="20" y="28">One message, four stages: Update of cedar_workorder (WO-1002)</text>
+
+<rect class="box" x="20" y="80" width="150" height="100" rx="8" fill="#eef3fb"/>
+<text class="b" x="34" y="108">Caller</text>
+<text x="34" y="132">form, flow, API</text>
+<text x="34" y="154">PATCH WO-1002</text>
+
+<rect class="box" x="195" y="80" width="190" height="100" rx="8" fill="#fff4ce"/>
+<text class="b" x="207" y="108">10 PreValidation</text>
+<text x="207" y="132">before security checks</text>
+<text x="207" y="154">usually outside the</text>
+<text x="207" y="172">transaction</text>
+
+<rect class="tx" x="405" y="45" width="580" height="150" rx="10"/>
+<text class="b" x="420" y="68">Database transaction</text>
+<rect class="box" x="420" y="80" width="172" height="100" rx="8" fill="#dff6dd"/>
+<text class="b" x="432" y="108">20 PreOperation</text>
+<text x="432" y="132">change Target values</text>
+<text x="432" y="154">before the write</text>
+<rect class="box" x="608" y="80" width="172" height="100" rx="8" fill="#e6e6e6"/>
+<text class="b" x="620" y="108">30 MainOperation</text>
+<text x="620" y="132">platform writes row</text>
+<text x="620" y="154">(no steps for you)</text>
+<rect class="box" x="796" y="80" width="174" height="100" rx="8" fill="#dff6dd"/>
+<text class="b" x="808" y="108">40 PostOperation</text>
+<text x="808" y="132">row is written, not</text>
+<text x="808" y="154">yet committed</text>
+
+<path class="a" d="M170,130 L195,130"/>
+<path class="a" d="M385,130 L420,130"/>
+<path class="a" d="M592,130 L608,130"/>
+<path class="a" d="M780,130 L796,130"/>
+
+<rect class="box" x="796" y="225" width="174" height="62" rx="8" fill="#eef3fb"/>
+<text class="b" x="808" y="250">Commit</text>
+<text x="808" y="272">then response to caller</text>
+<path class="a" d="M883,180 L883,225"/>
+
+<rect class="box" x="420" y="225" width="340" height="62" rx="8" fill="#fde7e9"/>
+<text class="b" x="432" y="250">Asynchronous PostOperation steps</text>
+<text x="432" y="272">system job runs after the commit</text>
+<path class="a" d="M796,256 L760,256"/>
+
+<text class="h" x="20" y="330">What Cedar registers on each stage (WorkOrderGuardPlugin, C-09 v0.1)</text>
+<rect class="box" x="20" y="344" width="960" height="46" rx="6" fill="#fff4ce"/>
+<text class="b" x="34" y="364">PreValidation, synchronous</text>
+<text x="34" y="383">Reject Scheduled for in the past (AC1). Throwing here cancels before the transaction: nothing to roll back.</text>
+<rect class="box" x="20" y="398" width="960" height="46" rx="6" fill="#dff6dd"/>
+<text class="b" x="34" y="418">PreOperation, synchronous</text>
+<text x="34" y="437">Trim and upper-case FieldLink ID inside the Target (AC2). The platform writes the corrected value: no second Update.</text>
+<rect class="box" x="20" y="452" width="960" height="46" rx="6" fill="#dff6dd"/>
+<text class="b" x="34" y="472">PostOperation, synchronous</text>
+<text x="34" y="491">Create the reschedule note with the Organization service (AC3). Same transaction: both commit or neither does.</text>
+<rect class="box" x="20" y="506" width="960" height="46" rx="6" fill="#fde7e9"/>
+<text class="b" x="34" y="526">PostOperation, asynchronous (PipelineTracePlugin probe, Cedar-Dev only)</text>
+<text x="34" y="545">Runs later as a system job. If it fails, the job is marked Failed; the saved work order stays saved.</text>
+<text class="b" x="20" y="584">Rule: an exception in any synchronous step inside the transaction rolls back the whole operation.</text>
+</svg>

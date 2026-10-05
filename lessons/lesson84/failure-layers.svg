@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Five layers of failure handling in a cloud flow</title>
+<desc id="d">A failure passes through five layers, from the inside out. Layer 1, the action's retry policy: repeats the request for transient failures only (408, 429, 5xx, time-outs); a 400 from a plug-in or a 403 is not retried. Layer 2, run after: the next action accepts Failed and TimedOut and handles the failure of one action. Layer 3, scopes: Try groups the work, Catch runs after Try has failed or timed out and reads result('Try'), and a finally action runs after Catch with all four statuses. Layer 4, the verdict: Terminate with status Failed makes the run show what happened, because a failure that was handled otherwise ends as Succeeded. Layer 5, outside the run: the alert sent by the handler, the run history with Resubmit, the platform's mails to the owner, and the rule that a flow failing for 14 days is turned off. A side panel shows the status trap with three small graphs: handler only, the run succeeds; handler plus a skipped normal path, the run fails; both paths joined in one end that accepts Succeeded and Skipped, the run succeeds.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.r{stroke:#a4262c;stroke-width:1.8;marker-end:url(#mr);fill:none;stroke-dasharray:6 4}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker><marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#a4262c"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">A failure travels outwards until a layer deals with it</text>
+
+<rect class="box" x="20" y="46" width="600" height="96" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="70">1  Retry policy (on the action)</text>
+<text x="32" y="94">Repeats the request for transient failures: 408, 429, 5xx, time-outs.</text>
+<text x="32" y="116">Not retried: 400 from a plug-in rule, 401, 403, 404. Types: Default, None,</text>
+<text x="32" y="134">Exponential interval, Fixed interval.</text>
+<path class="a" d="M320,142 L320,158"/>
+
+<rect class="box" x="20" y="158" width="600" height="76" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="182">2  Run after (on the next action)</text>
+<text x="32" y="206">“has failed” and “has timed out” ticked: this action is the handler</text>
+<text x="32" y="224">of one predecessor. Otherwise everything after a failure is Skipped.</text>
+<path class="a" d="M320,234 L320,250"/>
+
+<rect class="box" x="20" y="250" width="600" height="118" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="274">3  Scopes: Try, Catch, finally</text>
+<text x="32" y="298">Try: the work. Its status is Failed when anything inside failed.</text>
+<text x="32" y="320">Catch: runs after Try has failed or timed out; result('Try') lists the</text>
+<text x="32" y="338">top-level actions of Try with status, inputs, outputs, error.</text>
+<text x="32" y="358">Finally: runs after Catch with all four statuses (the response, the clean-up).</text>
+<path class="a" d="M320,368 L320,384"/>
+
+<rect class="box" x="20" y="384" width="600" height="76" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="408">4  The verdict: Terminate (Failed)</text>
+<text x="32" y="432">A handled failure ends as Succeeded. End the handler with Terminate, status</text>
+<text x="32" y="450">Failed, code and message, so that the run history tells the truth.</text>
+<path class="a" d="M320,460 L320,476"/>
+
+<rect class="box" x="20" y="476" width="600" height="146" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="500">5  Outside the run</text>
+<text x="32" y="524">The alert the handler sent (Cedar: one child flow for all flows).</text>
+<text x="32" y="546">Run history, 30 days: open the run, Resubmit, Cancel.</text>
+<text x="32" y="568">The platform's mails to the flow owner; a flow that fails or is throttled</text>
+<text x="32" y="586">continuously is turned off after 14 days.</text>
+<text x="32" y="608">Later: Application Insights for all flows (lesson 105).</text>
+
+<rect class="box" x="640" y="46" width="340" height="576" rx="8" fill="#ffffff"/>
+<text class="b" x="652" y="70">The status trap</text>
+
+<text x="652" y="100">a) Handler only</text>
+<rect class="box" x="660" y="110" width="80" height="30" rx="6" fill="#fde7e9"/><text x="676" y="130">A fails</text>
+<path class="r" d="M740,125 L790,125"/>
+<rect class="box" x="790" y="110" width="110" height="30" rx="6" fill="#dff6dd"/><text x="806" y="130">Handler runs</text>
+<text class="b" x="652" y="166">Run: Succeeded</text>
+
+<text x="652" y="212">b) Handler and a normal path</text>
+<rect class="box" x="660" y="240" width="80" height="30" rx="6" fill="#fde7e9"/><text x="676" y="260">A fails</text>
+<path class="a" d="M740,248 L790,232"/><path class="r" d="M740,262 L790,282"/>
+<rect class="box" x="790" y="216" width="150" height="30" rx="6" fill="#f3f2f1"/><text x="800" y="236">Next: Skipped (end)</text>
+<rect class="box" x="790" y="268" width="150" height="30" rx="6" fill="#dff6dd"/><text x="800" y="288">Handler runs (end)</text>
+<text class="b" x="652" y="326">Run: Failed</text>
+<text x="652" y="346">A skipped end counts as its predecessor.</text>
+
+<text x="652" y="392">c) One end for both paths</text>
+<rect class="box" x="660" y="420" width="70" height="30" rx="6" fill="#fde7e9"/><text x="670" y="440">A fails</text>
+<path class="a" d="M730,428 L760,412"/><path class="r" d="M730,442 L760,462"/>
+<rect class="box" x="760" y="396" width="90" height="30" rx="6" fill="#f3f2f1"/><text x="770" y="416">Skipped</text>
+<rect class="box" x="760" y="448" width="90" height="30" rx="6" fill="#dff6dd"/><text x="770" y="468">Handler</text>
+<path class="a" d="M850,412 L890,430"/><path class="a" d="M850,462 L890,444"/>
+<rect class="box" x="890" y="422" width="74" height="30" rx="6" fill="#dff6dd"/><text x="900" y="442">Done</text>
+<text x="652" y="506">Done runs after Succeeded or Skipped</text>
+<text x="652" y="526">of both.</text>
+<text class="b" x="652" y="552">Run: Succeeded</text>
+<text x="652" y="582">Dashed red line = run after “has failed”.</text>
+<text x="652" y="604">Check any design: tools/flow-run-simulator.mjs</text>
+</svg>

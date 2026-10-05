@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" role="img" aria-labelledby="t d">
+<title id="t">Cedar Dispatch MCP server C-56: callers, identities and layers</title>
+<desc id="d">Four callers on the left. First, the Foundry Dispatch Advisor version 3, which calls with its agent identity holding the app role Dispatch.Read; its host approves Dataverse calls by policy and runs the guard on the mcp_call outputs. Second, a Copilot Studio agent through the custom connector Cedar Dispatch MCP in the CedarConnectors solution, with a delegated token carrying the scope Dispatch.Read for the signed-in user. Third, a Microsoft 365 Copilot declarative agent for coordinators, a pilot, which signs the user in and renders the candidates card. Fourth, Karim's VS Code or the MCP Inspector, which reach only the local server started with --local. In the middle, the Azure Container App ca-cedar-mcp-dev with four layers: built-in authentication validates the Microsoft Entra token for api://cedar-dispatch-mcp and returns 401 without one; the RequirePermission middleware reads X-MS-CLIENT-PRINCIPAL and returns 403 without Dispatch.Read; the MCP server cedar-dispatch 1.0.0 serves POST /mcp statelessly with two read-only tools, rank_candidates bound to the candidates card, and get_subcontractor_profile, and one ui resource; the lesson 99 advisor tools and ranking run on the reviewed facts snapshot. Each tool call writes one audit line to Log Analytics. On the right, the Dataverse MCP server of Cedar-Dev, used only by the advisor in Cedar-Dev, with the signed-in user's identity, two allowed tools describe and read_query, and every call approved by the host.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:17px}.b{font-weight:700;font-size:15px}.s{font-size:13px}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.5;fill:none}.dash{stroke:#1b1b1b;stroke-width:1.5;fill:none;stroke-dasharray:6 4}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="1000" height="720" fill="#ffffff"/>
+<text class="h" x="20" y="30">Cedar Dispatch MCP server (C-56): one implementation, several clients</text>
+
+<text class="b" x="20" y="62">Callers and their identity</text>
+<rect class="box" x="20" y="74" width="270" height="110" rx="8" fill="#dbe9f6"/>
+<text class="b" x="32" y="96">Dispatch Advisor v3 (Foundry)</text>
+<text class="s" x="32" y="116">agent identity, app role Dispatch.Read</text>
+<text class="s" x="32" y="134">host: approves Dataverse reads by</text>
+<text class="s" x="32" y="152">policy, guard reads mcp_call outputs</text>
+<text class="s" x="32" y="170">require_approval never for C-56</text>
+<rect class="box" x="20" y="196" width="270" height="92" rx="8" fill="#dbe9f6"/>
+<text class="b" x="32" y="218">Copilot Studio agent</text>
+<text class="s" x="32" y="238">custom connector Cedar Dispatch MCP</text>
+<text class="s" x="32" y="256">(CedarConnectors), delegated token:</text>
+<text class="s" x="32" y="274">user + scope Dispatch.Read</text>
+<rect class="box" x="20" y="300" width="270" height="92" rx="8" fill="#dbe9f6"/>
+<text class="b" x="32" y="322">Microsoft 365 Copilot (pilot)</text>
+<text class="s" x="32" y="342">declarative agent Cedar Dispatch;</text>
+<text class="s" x="32" y="360">user signs in; renders the</text>
+<text class="s" x="32" y="378">candidates card (XP-10)</text>
+<rect class="box" x="20" y="404" width="270" height="74" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="426">Karim: VS Code, MCP Inspector</text>
+<text class="s" x="32" y="446">local server only (--local,</text>
+<text class="s" x="32" y="464">127.0.0.1, fixed developer caller)</text>
+
+<line class="ln" x1="290" y1="130" x2="338" y2="200" marker-end="url(#a)"/>
+<line class="ln" x1="290" y1="242" x2="338" y2="242" marker-end="url(#a)"/>
+<line class="ln" x1="290" y1="346" x2="338" y2="282" marker-end="url(#a)"/>
+
+<rect class="box" x="340" y="60" width="380" height="520" rx="10" fill="#f3f2f1"/>
+<text class="b" x="354" y="84">Azure Container App ca-cedar-mcp-dev</text>
+<rect class="box" x="354" y="100" width="352" height="72" rx="6" fill="#fde7e9"/>
+<text class="b" x="366" y="122">1 Built-in authentication</text>
+<text class="s" x="366" y="142">validates the Entra token, audience</text>
+<text class="s" x="366" y="160">api://cedar-dispatch-mcp; no token → 401</text>
+<line class="ln" x1="530" y1="172" x2="530" y2="190" marker-end="url(#a)"/>
+<rect class="box" x="354" y="190" width="352" height="72" rx="6" fill="#fff4ce"/>
+<text class="b" x="366" y="212">2 RequirePermission (auth.py)</text>
+<text class="s" x="366" y="232">reads X-MS-CLIENT-PRINCIPAL; scope or app</text>
+<text class="s" x="366" y="250">role Dispatch.Read, else 403; sets the caller</text>
+<line class="ln" x1="530" y1="262" x2="530" y2="280" marker-end="url(#a)"/>
+<rect class="box" x="354" y="280" width="352" height="146" rx="6" fill="#dff6dd"/>
+<text class="b" x="366" y="302">3 MCP server cedar-dispatch 1.0.0</text>
+<text class="s" x="366" y="322">POST /mcp, stateless, JSON responses</text>
+<text class="s" x="366" y="344">tool rank_candidates (read-only)</text>
+<text class="s" x="380" y="362">→ _meta.ui: candidates card</text>
+<text class="s" x="366" y="382">tool get_subcontractor_profile (read-only)</text>
+<text class="s" x="366" y="402">resource ui://cedar-dispatch/candidates-card.html</text>
+<text class="s" x="366" y="418">(text/html;profile=mcp-app, CSP: jsdelivr)</text>
+<line class="ln" x1="530" y1="426" x2="530" y2="444" marker-end="url(#a)"/>
+<rect class="box" x="354" y="444" width="352" height="72" rx="6" fill="#ffffff"/>
+<text class="b" x="366" y="466">4 Advisor tools and ranking (lesson 99)</text>
+<text class="s" x="366" y="486">normalise, validate, rank: bands only;</text>
+<text class="s" x="366" y="504">facts snapshot advisor-facts.json (reviewed)</text>
+<text class="s" x="354" y="546">Each call: one audit line {tool, result, number,</text>
+<text class="s" x="354" y="564">caller, callerKind} → Log Analytics</text>
+
+<rect class="box" x="740" y="74" width="240" height="160" rx="8" fill="#dff6dd"/>
+<text class="b" x="752" y="96">Dataverse MCP server</text>
+<text class="s" x="752" y="116">Cedar-Dev only, advisor v3</text>
+<text class="s" x="752" y="136">identity: the signed-in user</text>
+<text class="s" x="752" y="154">(OAuth passthrough, allowed</text>
+<text class="s" x="752" y="172">client "Cedar Foundry Dataverse</text>
+<text class="s" x="752" y="190">MCP"); allowed_tools: describe,</text>
+<text class="s" x="752" y="208">read_query; host approves each</text>
+<text class="s" x="752" y="226">call</text>
+<path class="dash" d="M290,84 C330,38 690,38 738,96" marker-end="url(#a)"/>
+
+<rect class="box" x="740" y="260" width="240" height="166" rx="8" fill="#ffffff"/>
+<text class="b" x="752" y="282">Not on this server</text>
+<text class="s" x="752" y="302">no write tool: dispatch stays in</text>
+<text class="s" x="752" y="320">the app (AU-08)</text>
+<text class="s" x="752" y="342">no figures: bands only</text>
+<text class="s" x="752" y="364">no API keys: every call</text>
+<text class="s" x="752" y="382">has a person or an agent</text>
+<text class="s" x="752" y="400">identity behind it</text>
+
+<rect class="box" x="20" y="600" width="960" height="100" rx="8" fill="#fff4ce"/>
+<text class="b" x="34" y="624">Release rules</text>
+<text class="s" x="34" y="646">Pull request: 25 Python tests (server in memory, HTTP with principals, advisor v3) and the surface check MCP-R1…R7; connector check CONN-19.</text>
+<text class="s" x="34" y="666">A new server version changes what Copilot Studio agents see at once: version the image, test in Cedar-Dev, then Cedar-Test.</text>
+<text class="s" x="34" y="686">The advisor pins its evaluated version; a new tool surface means a new advisor version and a new evaluation run.</text>
+</svg>

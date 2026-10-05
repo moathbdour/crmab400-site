@@ -1,0 +1,12 @@
+{
+  "bank": "Cedar AB-400 scenario review: Build Microsoft Power Platform solutions",
+  "version": "1.0",
+  "author": "Karim Aziz",
+  "note": "Partial overlay for the lesson 114 Build bank: only the four items Karim answered wrong on 2026-11-21. Use with --partial.",
+  "traps": {
+    "BS-06": { "A": "too-broad", "B": "too-broad", "D": "too-broad" },
+    "BS-14": { "B": "late", "C": "wrong-place", "D": "too-custom" },
+    "BS-23": { "B": "wrong-detail", "C": "wrong-place", "D": "wrong-detail" },
+    "CS-2": { "A": "wrong-place", "C": "wrong-place", "D": "too-custom" }
+  }
+}

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" role="img" aria-labelledby="t d">
+<title id="t">Cedar Service Assistant (C-24) delegating advice to the Dispatch Advisor through Cedar's A2A agent C-57</title>
+<desc id="d">Sami and Lina chat with the Copilot Studio agent C-24 Cedar Service Assistant in Teams. C-24 keeps its tools Work order status (agent flow C-43) and Subcontractor service levels (gateway, end-user credentials) and gains one connected agent, Cedar Dispatch Advisor, of type A2A. For an advice question C-24 sends an A2A JSON-RPC message to the Azure Container App ca-cedar-advisor-dev, component C-57, signed in with OAuth 2.0 as the user, carrying the delegated scope Dispatch.Read for api://cedar-dispatch-advisor. Inside C-57, Container Apps authentication returns 401 without a token, the RequirePermission middleware returns 403 without Dispatch.Read, the executor builds the question from the message text and at most a work order number from the user's history, and the guard GD-1 to GD-5 lets through only checked answers, otherwise the rules-only fallback; if Foundry fails, the rules-only answer is returned as degraded; one audit line is written per request. C-57 calls the Foundry agent cedar-dispatch-advisor through the agent's stable Responses endpoint with its managed identity, which holds Foundry Agent Consumer at the scope of that one agent. The agent's endpoint is pinned to evaluated version 3, speaks only the responses protocol in Cedar-Test and Cedar-Prod, and uses Entra authorization. Foundry calls the MCP server C-56 with the agent identity and the app role Dispatch.Read. A dashed, rejected path goes from C-24 directly to the Foundry agent through Copilot Studio's Foundry connection, which is preview and needs the Activity protocol; it is blocked outside Cedar-Dev by release check EP-2, because the answer would skip the guard.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:18px}.b{font-weight:700;font-size:15px}.no{font-weight:700;font-size:14px;fill:#a4262c}.box{stroke:#1b1b1b;stroke-width:1.5}.ln{stroke:#1b1b1b;stroke-width:1.8;fill:none}.dash{stroke:#a4262c;stroke-width:1.8;fill:none;stroke-dasharray:7 5}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker><marker id="r" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#a4262c"/></marker></defs>
+<rect width="1000" height="760" fill="#ffffff"/>
+<text class="h" x="20" y="32">Release 2: advice inside the Teams chat, behind Cedar's guard (ADR-019)</text>
+
+<rect class="box" x="20" y="60" width="180" height="80" rx="8" fill="#f7f7f7"/>
+<text class="b" x="34" y="86">Teams chat</text>
+<text x="34" y="108">Sami (coordinator)</text>
+<text x="34" y="128">Lina (manager)</text>
+
+<rect class="box" x="250" y="52" width="330" height="200" rx="8" fill="#dbe9f6"/>
+<text class="b" x="264" y="78">C-24 Cedar Service Assistant</text>
+<text x="264" y="100">Copilot Studio, standard harness,</text>
+<text x="264" y="120">generative orchestration, read-only</text>
+<text x="264" y="146">Tools: Work order status (C-43)</text>
+<text x="264" y="166">         Subcontractor service levels</text>
+<rect class="box" x="262" y="182" width="306" height="58" rx="6" fill="#ffffff"/>
+<text class="b" x="274" y="204">Connected agent (A2A)</text>
+<text x="274" y="226">"Cedar Dispatch Advisor" - pass-through</text>
+<path class="ln" d="M200,100 H248" marker-end="url(#a)"/>
+
+<rect class="box" x="250" y="300" width="330" height="250" rx="8" fill="#e8f3e8"/>
+<text class="b" x="264" y="326">C-57 ca-cedar-advisor-dev</text>
+<text x="264" y="346">Azure Container Apps, cedar_service.a2a</text>
+<text x="264" y="372">1 Container Apps auth: no token → 401</text>
+<text x="264" y="394">2 RequirePermission: no Dispatch.Read → 403</text>
+<text x="264" y="416">3 Executor: message text ≤ 1,000 chars +</text>
+<text x="264" y="436">   work order number from the user's history</text>
+<text x="264" y="458">4 Guard GD-1…GD-5 → checked answer,</text>
+<text x="264" y="478">   else rules-only fallback</text>
+<text x="264" y="500">5 Foundry fails or > 45 s → rules / message</text>
+<text x="264" y="522">6 One audit line (object ID, number, source)</text>
+<text x="264" y="542">Card open: /.well-known/agent-card.json</text>
+<path class="ln" d="M415,240 V298" marker-end="url(#a)"/>
+<text x="424" y="270">A2A JSON-RPC (1.0 or 0.3)</text>
+<text x="424" y="290">OAuth 2.0: Sami's token, Dispatch.Read</text>
+
+<rect class="box" x="714" y="300" width="266" height="196" rx="8" fill="#fff4e0"/>
+<text class="b" x="726" y="326">Foundry agent</text>
+<text class="b" x="726" y="346">cedar-dispatch-advisor</text>
+<text x="726" y="370">prompt agent v3, MCP tool C-56</text>
+<text x="726" y="394">Endpoint pinned: version 3</text>
+<text x="726" y="416">Protocols: responses only</text>
+<text x="726" y="436">   (Cedar-Test, Cedar-Prod)</text>
+<text x="726" y="458">Authorization: Entra</text>
+<text x="726" y="480">Release check EP-1…EP-4</text>
+<path class="ln" d="M580,390 H712" marker-end="url(#a)"/>
+<text x="588" y="414">Responses API,</text>
+<text x="588" y="434">stable endpoint,</text>
+<text x="588" y="454">managed identity,</text>
+<text x="588" y="474">Agent Consumer</text>
+<text x="588" y="494">on this agent</text>
+
+<rect class="box" x="700" y="540" width="280" height="80" rx="8" fill="#f1e6f7"/>
+<text class="b" x="714" y="564">C-56 Cedar Dispatch MCP</text>
+<text x="714" y="586">agent identity,</text>
+<text x="714" y="606">app role Dispatch.Read</text>
+<path class="ln" d="M840,496 V538" marker-end="url(#a)"/>
+
+<path class="dash" d="M580,150 H900 V298" marker-end="url(#r)"/>
+<text class="no" x="600" y="128">Rejected: Copilot Studio's Foundry connection</text>
+<text x="600" y="174">preview; needs the Activity protocol;</text>
+<text x="600" y="194">the model's answer would skip the guard.</text>
+<text x="600" y="214">Activity is off outside Cedar-Dev (EP-2),</text>
+<text x="600" y="234">so this path fails with HTTP 400.</text>
+
+<rect class="box" x="20" y="640" width="960" height="104" rx="8" fill="#ffffff"/>
+<text class="b" x="34" y="666">Why this shape</text>
+<text x="34" y="690">• A deterministic check can't run inside Copilot Studio's orchestrator, so it runs in front of the model (C-57).</text>
+<text x="34" y="712">• Two identities, two permissions: people prove Dispatch.Read to C-57; C-57 alone may call the Foundry agent.</text>
+<text x="34" y="734">• The only door to the model is a Cedar host: protocols other than responses stay off, the version is pinned.</text>
+</svg>

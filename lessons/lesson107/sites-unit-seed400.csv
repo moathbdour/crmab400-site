@@ -1,0 +1,7 @@
+key,account,name,floorArea,serviceLine
+T001-A,ACC-0001,Velsa Offices (test) – Building A,23956,General maintenance
+T001-B,ACC-0001,Velsa Offices (test) – Building B,8603,Plumbing
+T002-A,ACC-0002,Kavel Clinic (test) – Building A,24873,General maintenance
+T002-B,ACC-0002,Kavel Clinic (test) – Building B,3643,General maintenance
+T003-A,ACC-0003,Salo Schools (test) – Building A,9288,Electrical
+T003-B,ACC-0003,Salo Schools (test) – Building B,19385,Fire safety

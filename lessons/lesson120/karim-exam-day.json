@@ -1,0 +1,34 @@
+{
+  "person": "Karim Aziz",
+  "exam": "AB-400",
+  "appointment": "2026-12-15T09:00",
+  "delivery": "online",
+  "durationMinutes": 100,
+  "seatMinutes": 120,
+  "questions": [40, 50, 60],
+  "decideBy": "2026-12-13T20:00",
+  "catalog": "docs/exam/ab400-objectives.json",
+  "features": [
+    "docs/exam/features-integrations.json",
+    "docs/exam/features-identity-karim.json",
+    "docs/exam/features-practice.json"
+  ],
+  "forms": {
+    "before": ["docs/exam/practice-assessment-1.json", "docs/exam/karim-pa1-2026-12-08.json"],
+    "beforeAssessment": "docs/exam/karim-assessment-2026-12-05.json",
+    "last": ["docs/exam/practice-assessment-2.json", "docs/exam/karim-pa2-2026-12-11.json"],
+    "lastAssessment": "docs/exam/karim-assessment-2026-12-10.json"
+  },
+  "deck": "docs/exam/karim-cards-2026-12-11.json",
+  "labs": {
+    "file": "docs/exam/remediation-labs-1.1.json",
+    "from": "2026-12-12",
+    "until": "2026-12-13",
+    "minutesPerDay": 90
+  },
+  "revision": {
+    "from": "2026-12-12",
+    "budget": { "2026-12-12": 150, "2026-12-13": 150, "2026-12-14": 45 },
+    "cardMinutes": 1.5
+  }
+}

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="t">
+<title id="t">Anatomy of the Cedar Operations model-driven app: app module, site map areas, groups and subareas, and the views each table list shows</title>
+<rect width="980" height="560" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Cedar Operations app: app → site map → table list → view</text>
+<rect x="30" y="55" width="260" height="70" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="160" y="84" text-anchor="middle" font-weight="bold">App module</text>
+<text x="160" y="108" text-anchor="middle">Cedar Operations (cedar_ops)</text>
+<line x1="160" y1="125" x2="160" y2="160" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="30" y="160" width="260" height="360" rx="8" fill="#f3f3f3" stroke="#555"/>
+<text x="160" y="186" text-anchor="middle" font-weight="bold">Site map (navigation)</text>
+<text x="45" y="216" font-weight="bold">Area: Service delivery</text>
+<text x="55" y="244" font-weight="bold">Group: Customers</text>
+<text x="75" y="268">Subarea: Accounts</text>
+<text x="75" y="292">Subarea: Contacts</text>
+<text x="75" y="316">Subarea: Sites</text>
+<text x="55" y="348" font-weight="bold">Group: Work</text>
+<text x="75" y="372">Subarea: Projects</text>
+<text x="75" y="396" fill="#9c4a00" font-weight="bold">Subarea: Work orders</text>
+<text x="55" y="428" font-weight="bold">Group: Links</text>
+<text x="75" y="452">URL subarea: FieldLink help</text>
+<text x="45" y="494" font-size="14">Area switcher appears when 2+ areas</text>
+<line x1="290" y1="391" x2="370" y2="300" stroke="#9c4a00" stroke-width="2" marker-end="url(#a)"/>
+<rect x="370" y="160" width="300" height="250" rx="8" fill="#fde9d9" stroke="#9c4a00"/>
+<text x="520" y="186" text-anchor="middle" font-weight="bold">Work order table list (grid)</text>
+<text x="385" y="216">View selector ▾ (views in the app)</text>
+<text x="395" y="244">• Active Work Orders (default)</text>
+<text x="395" y="268">• Open dispatch – Sami (public)</text>
+<text x="395" y="292">• My late jobs (personal)</text>
+<text x="385" y="324">Columns, sort, filter = FetchXML</text>
+<text x="385" y="348">Search box = Quick Find view</text>
+<text x="385" y="372">Row click opens the form (lesson 18)</text>
+<text x="385" y="396" font-size="14">Only views added to the app appear</text>
+<rect x="710" y="55" width="245" height="455" rx="8" fill="#e6f4ea" stroke="#1e6b34"/>
+<text x="832" y="82" text-anchor="middle" font-weight="bold">View types (per table)</text>
+<text x="725" y="112" font-weight="bold">Public</text>
+<text x="725" y="134" font-size="14">shared, in solution, selector</text>
+<text x="725" y="164" font-weight="bold">Personal</text>
+<text x="725" y="186" font-size="14">user-owned, shareable</text>
+<text x="725" y="216" font-weight="bold">Quick Find</text>
+<text x="725" y="238" font-size="14">search box: find columns</text>
+<text x="725" y="268" font-weight="bold">Associated</text>
+<text x="725" y="290" font-size="14">related tab on parent form</text>
+<text x="725" y="320" font-weight="bold">Lookup</text>
+<text x="725" y="342" font-size="14">lookup column dropdown</text>
+<text x="725" y="372" font-weight="bold">Advanced Find</text>
+<text x="725" y="394" font-size="14">default result columns</text>
+<text x="725" y="430" font-size="14">Stored as savedquery rows</text>
+<text x="725" y="452" font-size="14">(public/system) or userquery</text>
+<text x="725" y="474" font-size="14">rows (personal)</text>
+<line x1="670" y1="280" x2="708" y2="280" stroke="#1b1b1b" marker-end="url(#a)"/>
+<rect x="370" y="440" width="300" height="70" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="520" y="468" text-anchor="middle" font-weight="bold">Security still applies</text>
+<text x="520" y="492" text-anchor="middle" font-size="14">Views filter rows; roles grant access</text>
+</g>
+</svg>

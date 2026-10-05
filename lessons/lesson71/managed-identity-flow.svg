@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">How a Dataverse plug-in gets a token with Power Platform managed identity</title>
+<desc id="d">Setup, done once per environment: one, a user-assigned managed identity id-cedar-plugins-dev exists in Microsoft Entra ID. Two, the plug-in assembly is signed with a certificate and registered. Three, a federated identity credential on the identity names the issuer and a subject identifier built from the tenant, the environment ID and a hash of the certificate. Four, a managedidentity row in Dataverse holds the application ID and tenant ID and is linked to the plug-in assembly. Five, the identity is granted the role Key Vault Secrets User on the vault. Run time: the plug-in asks IManagedIdentityService for a token for a scope. Dataverse presents a signed assertion that describes this environment and this assembly's certificate to Microsoft Entra ID. Entra compares it with the federated credential and, if it matches, issues an access token for the managed identity. The plug-in calls Key Vault with that token. No secret is stored anywhere.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Setup (once per environment): five links that must all match</text>
+
+<rect class="box" x="20" y="44" width="184" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="30" y="68">1. Identity in Entra</text>
+<text x="30" y="92">User-assigned managed</text>
+<text x="30" y="110">identity (or app</text>
+<text x="30" y="128">registration)</text>
+<text class="m" x="30" y="152">id-cedar-plugins-dev</text>
+<text x="30" y="176">Note client ID, tenant ID</text>
+
+<rect class="box" x="214" y="44" width="184" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="224" y="68">2. Signed assembly</text>
+<text x="224" y="92">Sign the DLL with a</text>
+<text x="224" y="110">certificate (SignTool),</text>
+<text x="224" y="128">then register / update.</text>
+<text x="224" y="152">Self-signed: dev only.</text>
+<text x="224" y="176">Every build is signed.</text>
+
+<rect class="box" x="408" y="44" width="184" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="418" y="68">3. Federated credential</text>
+<text x="418" y="92">On the identity:</text>
+<text x="418" y="110">issuer = Entra tenant,</text>
+<text x="418" y="128">subject = tenant +</text>
+<text x="418" y="146">environment ID +</text>
+<text x="418" y="164">certificate hash</text>
+<text x="418" y="184">(version 2 format)</text>
+
+<rect class="box" x="602" y="44" width="184" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="612" y="68">4. Dataverse record</text>
+<text class="m" x="612" y="92">managedidentities</text>
+<text x="612" y="112">applicationid, tenantid,</text>
+<text x="612" y="130">credentialsource 2,</text>
+<text x="612" y="148">subjectscope 1, version 2</text>
+<text x="612" y="172">Linked to the assembly</text>
+<text x="612" y="188">(managedidentityid).</text>
+
+<rect class="box" x="796" y="44" width="184" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="806" y="68">5. Azure access</text>
+<text x="806" y="92">Role assignment on</text>
+<text x="806" y="110">the resource:</text>
+<text x="806" y="134">Key Vault Secrets User</text>
+<text x="806" y="152">on kv-cedar-dev for</text>
+<text x="806" y="170">the identity. Nothing</text>
+<text x="806" y="188">more.</text>
+
+<text class="h" x="20" y="236">Run time: no secret anywhere</text>
+
+<rect class="box" x="20" y="254" width="250" height="150" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="278">Plug-in (sandbox)</text>
+<text class="m" x="32" y="302">IManagedIdentityService</text>
+<text class="m" x="32" y="322">.AcquireToken(scopes)</text>
+<text x="32" y="346">scope:</text>
+<text class="m" x="32" y="364">https://vault.azure.net/</text>
+<text class="m" x="32" y="382">.default</text>
+
+<path class="a" d="M270,300 L340,300"/>
+<text x="276" y="290">A ask</text>
+
+<rect class="box" x="340" y="254" width="250" height="150" rx="8" fill="#e6e6e6"/>
+<text class="b" x="352" y="278">Dataverse platform</text>
+<text x="352" y="302">Knows: this environment,</text>
+<text x="352" y="322">this assembly's certificate,</text>
+<text x="352" y="342">the linked managed identity.</text>
+<text x="352" y="366">Presents a signed assertion</text>
+<text x="352" y="386">with exactly that subject.</text>
+
+<path class="a" d="M590,300 L660,300"/>
+<text x="596" y="290">B assert</text>
+
+<rect class="box" x="660" y="254" width="320" height="150" rx="8" fill="#fff4ce"/>
+<text class="b" x="672" y="278">Microsoft Entra ID</text>
+<text x="672" y="302">Compares issuer, subject and audience</text>
+<text x="672" y="322">with the federated credential.</text>
+<text x="672" y="346">Match → access token for the identity.</text>
+<text x="672" y="366">No match → AADSTS700213 "No matching</text>
+<text x="672" y="386">federated identity record found".</text>
+
+<path class="a" d="M820,404 L820,440 L145,440 L145,408"/>
+<text x="430" y="434">C access token (returned to the plug-in as a string)</text>
+
+<path class="a" d="M145,404 L145,480"/>
+<rect class="box" x="20" y="480" width="460" height="74" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="504">D. Plug-in calls the Azure resource</text>
+<text class="m" x="32" y="526">GET https://kv-cedar-dev.vault.azure.net/secrets/…</text>
+<text x="32" y="546">Authorization: Bearer token. Timeout set, KeepAlive false.</text>
+
+<rect class="box" x="500" y="480" width="480" height="74" rx="8" fill="#fde7e9"/>
+<text class="b" x="512" y="504">What breaks the chain</text>
+<text x="512" y="526">Unsigned build • different certificate • wrong environment ID •</text>
+<text x="512" y="546">identity record not linked to the assembly • missing Azure role.</text>
+
+<rect class="box" x="20" y="572" width="960" height="50" rx="8" fill="#f3f3f3"/>
+<text x="32" y="594">Direction matters: this is Dataverse → Azure (a plug-in calling out). An Azure Function calling Dataverse with its own managed identity is the</text>
+<text x="32" y="612">opposite direction and uses an application user in Dataverse (lesson 87).</text>
+</svg>

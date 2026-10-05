@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t">
+<title id="t">Debugging loop used across languages: reproduce, locate the layer, observe with a tool, form one hypothesis, change one thing, prove the fix with a test. Tools per layer: Power Fx uses the formula bar, App checker, Monitor and Trace; commands use Monitor and Command checker; YAML uses the editor schema and pipeline parse errors; JavaScript uses DevTools; C# uses the debugger and xUnit; Python uses breakpoint and pytest.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="520" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="32" font-weight="700" font-size="17">One debugging loop, a different tool per layer</text>
+<rect x="20" y="60" width="140" height="70" fill="#fff4dc" stroke="#8a5a00"/><text x="32" y="90" font-weight="600">1 Reproduce</text><text x="32" y="112" font-size="14">exact steps, data</text>
+<rect x="175" y="60" width="140" height="70" fill="#eef4fa" stroke="#1f3b57"/><text x="187" y="90" font-weight="600">2 Locate layer</text><text x="187" y="112" font-size="14">client/server/file</text>
+<rect x="330" y="60" width="140" height="70" fill="#eef4fa" stroke="#1f3b57"/><text x="342" y="90" font-weight="600">3 Observe</text><text x="342" y="112" font-size="14">tool, not guesses</text>
+<rect x="485" y="60" width="140" height="70" fill="#eef4fa" stroke="#1f3b57"/><text x="497" y="90" font-weight="600">4 Hypothesis</text><text x="497" y="112" font-size="14">one cause</text>
+<rect x="640" y="60" width="140" height="70" fill="#eef4fa" stroke="#1f3b57"/><text x="652" y="90" font-weight="600">5 Change one</text><text x="652" y="112" font-size="14">smallest fix</text>
+<rect x="795" y="60" width="145" height="70" fill="#e8f5ec" stroke="#1d6b3a"/><text x="807" y="90" font-weight="600">6 Prove it</text><text x="807" y="112" font-size="14">test + log entry</text>
+<path d="M160 95H173M315 95H328M470 95H483M625 95H638M780 95H793" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="175" font-weight="600">Layer</text><text x="210" y="175" font-weight="600">Where the symptom appears</text><text x="560" y="175" font-weight="600">Tool to observe</text>
+<path d="M20 185H940" stroke="#555555"/>
+<text x="20" y="215">Power Fx (canvas)</text><text x="210" y="215" font-size="14">red squiggle, delegation warning, wrong value</text><text x="560" y="215" font-size="14">formula bar, App checker, Monitor + Trace()</text>
+<text x="20" y="250">Power Fx command</text><text x="210" y="250" font-size="14">button missing or does nothing</text><text x="560" y="250" font-size="14">Monitor (model-driven), Command checker</text>
+<text x="20" y="285">YAML</text><text x="210" y="285" font-size="14">pipeline won’t start, wrong value type</text><text x="560" y="285" font-size="14">editor schema check, pipeline parse error</text>
+<text x="20" y="320">JavaScript / TS</text><text x="210" y="320" font-size="14">console error, bad request</text><text x="560" y="320" font-size="14">DevTools Sources + Network (35–37)</text>
+<text x="20" y="355">C#</text><text x="210" y="355" font-size="14">failing test, exception</text><text x="560" y="355" font-size="14">VS Code debugger, xUnit (38)</text>
+<text x="20" y="390">Python</text><text x="210" y="390" font-size="14">traceback, wrong exit code</text><text x="560" y="390" font-size="14">breakpoint(), pytest -x (39)</text>
+<text x="20" y="425">Dataverse server</text><text x="210" y="425" font-size="14">error message with a code</text><text x="560" y="425" font-size="14">Monitor response body; trace logs (72)</text>
+<rect x="20" y="450" width="920" height="50" fill="#f3f3f3" stroke="#555555"/>
+<text x="32" y="480" font-size="14">Record every bug in docs/learning/lesson40-debug-log.md: symptom, layer, evidence, cause, fix, and the test that now proves it.</text>
+</g>
+</svg>

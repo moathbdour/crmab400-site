@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t d">
+<title id="t">Cedar CRM environments data policy groups</title>
+<desc id="d">The policy Cedar – CRM environments sorts connectors into three groups. Business: Microsoft Dataverse, Office 365 Outlook, Microsoft Teams, SharePoint, Approvals, HTTP (endpoint filtered to FieldLink) and the FieldLink custom connector matched by URL pattern. Non-business, the default group for new connectors: RSS, MSN Weather and any unreviewed connector. Blocked: Gmail, Dropbox, X and all other custom connector URLs. A flow may combine connectors inside the Business group; a flow mixing Dataverse with RSS is suspended; any flow using Gmail is blocked.</desc>
+<rect width="960" height="520" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="480" y="34" text-anchor="middle" font-weight="bold" font-size="18">Policy "Cedar – CRM environments" (Cedar-Dev, Cedar-Test, Cedar-Prod)</text>
+<rect x="20" y="56" width="300" height="300" rx="10" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="170" y="84" text-anchor="middle" font-weight="bold">Business</text>
+<text x="40" y="116">Microsoft Dataverse (unblockable)</text>
+<text x="40" y="140">Office 365 Outlook (unblockable)</text>
+<text x="40" y="164">Microsoft Teams (unblockable)</text>
+<text x="40" y="188">SharePoint (unblockable)</text>
+<text x="40" y="212">Approvals (unblockable)</text>
+<text x="40" y="236">HTTP — endpoint filter:</text>
+<text x="56" y="258">allow api.fieldlink.example, deny *</text>
+<text x="40" y="282">Custom connector URL pattern</text>
+<text x="56" y="304">https://api.fieldlink.example/*</text>
+<rect x="330" y="56" width="300" height="300" rx="10" fill="#fff4e5" stroke="#b36b00" stroke-width="2"/>
+<text x="480" y="84" text-anchor="middle" font-weight="bold">Non-business (default group)</text>
+<text x="350" y="116">RSS</text>
+<text x="350" y="140">MSN Weather</text>
+<text x="350" y="164">Every connector not yet reviewed</text>
+<text x="350" y="188">New connectors Microsoft adds</text>
+<text x="350" y="236" font-style="italic">Usable, but never in the same</text>
+<text x="350" y="258" font-style="italic">app or flow as a Business one</text>
+<rect x="640" y="56" width="300" height="300" rx="10" fill="#fdecea" stroke="#b3261e" stroke-width="2"/>
+<text x="790" y="84" text-anchor="middle" font-weight="bold">Blocked</text>
+<text x="660" y="116">Gmail</text>
+<text x="660" y="140">Dropbox</text>
+<text x="660" y="164">X (Twitter)</text>
+<text x="660" y="188">Custom connectors, pattern *</text>
+<text x="660" y="236" font-style="italic">Cannot be used at all;</text>
+<text x="660" y="258" font-style="italic">unblockable ones can't go here</text>
+<rect x="20" y="380" width="920" height="120" rx="10" fill="#f3f3f3" stroke="#555" stroke-width="1.5"/>
+<text x="40" y="410" font-weight="bold">Examples</text>
+<text x="40" y="436">✔ "Cedar – Notify dispatch": Dataverse trigger → Teams post → HTTP to FieldLink — all Business</text>
+<text x="40" y="462">✘ "Cedar – Weather alert": Dataverse + MSN Weather — Business mixed with Non-business → suspended</text>
+<text x="40" y="488">✘ "Cedar – Mail export": Dataverse + Gmail — Blocked connector → cannot be saved</text>
+</g>
+</svg>

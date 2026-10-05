@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="t d">
+<title id="t">Test layers for Cedar's plug-ins</title>
+<desc id="d">Four layers from bottom to top. Layer 1, pure rule tests: 50 tests of classes without Dataverse types, run on any operating system in milliseconds on every commit; they prove the business decisions. Layer 2, component tests with fakes: 10 tests that run a real plug-in class against a fake service provider, fake execution context and an in-memory fake Organization service on .NET Framework on Windows; they prove the wiring: which stage and message, images, identity used for each call, number and shape of data calls, outputs and exceptions. Layer 3, deployed checks in Cedar-Dev and Cedar-Test: the request files, trace logs and the registration compared with the manifest; they prove registration, security and real platform behaviour. Layer 4, user acceptance in Cedar-Test with test personas. A side note lists what no fake can prove: security roles, filtering attributes, real query results, transactions and other publishers' steps.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<rect width="1000" height="600" fill="#ffffff"/>
+<text class="h" x="20" y="28">What each test layer proves (cheapest and most numerous at the bottom)</text>
+
+<rect class="box" x="250" y="48" width="330" height="96" rx="8" fill="#fde7e9"/>
+<text class="b" x="262" y="72">4. User acceptance (Cedar-Test)</text>
+<text x="262" y="94">Omar Test, Lina Test, Sami Test follow</text>
+<text x="262" y="114">UAT-P1..P8. Proves: it does what the</text>
+<text x="262" y="134">business asked, with real roles.</text>
+
+<rect class="box" x="190" y="158" width="450" height="110" rx="8" fill="#fff4ce"/>
+<text class="b" x="202" y="182">3. Deployed checks (Cedar-Dev, then Cedar-Test)</text>
+<text x="202" y="204">Request files of lessons 65–71, trace logs, system jobs,</text>
+<text x="202" y="224">registration compared with cedar-steps.json.</text>
+<text x="202" y="244">Proves: registration, filters, images, security, transactions,</text>
+<text x="202" y="262">real queries, other publishers' steps.</text>
+
+<rect class="box" x="120" y="282" width="590" height="124" rx="8" fill="#dff6dd"/>
+<text class="b" x="132" y="306">2. Component tests with fakes: 10 tests, .NET Framework, Windows</text>
+<text x="132" y="328">A REAL plug-in class runs against a fake service provider, fake context,</text>
+<text x="132" y="348">fake tracing and an in-memory fake Organization service.</text>
+<text x="132" y="370">Proves the wiring: message and stage guards, image handling, WHICH identity</text>
+<text x="132" y="390">each call uses, HOW MANY data calls and which columns, outputs, exceptions.</text>
+
+<rect class="box" x="40" y="420" width="750" height="110" rx="8" fill="#eef3fb"/>
+<text class="b" x="52" y="444">1. Pure rule tests: 50 tests, any OS, milliseconds, every commit</text>
+<text x="52" y="466">WorkOrderRules, WorkOrderChangeRules, CaseWorkRules, GuardSettings, UrgencyRules,</text>
+<text x="52" y="486">DispatchReadiness, ArrivalRules, KeyVaultRules: no Dataverse types.</text>
+<text x="52" y="508">Proves: every business decision and every message text.</text>
+
+<rect class="box" x="810" y="48" width="170" height="482" rx="8" fill="#f3f3f3"/>
+<text class="b" x="820" y="72">A fake cannot prove</text>
+<text x="820" y="100">• security roles and</text>
+<text x="820" y="118">  column security</text>
+<text x="820" y="144">• filtering attributes</text>
+<text x="820" y="170">• that an image is</text>
+<text x="820" y="188">  registered</text>
+<text x="820" y="214">• what a query really</text>
+<text x="820" y="232">  returns</text>
+<text x="820" y="258">• rollback of a</text>
+<text x="820" y="276">  transaction</text>
+<text x="820" y="302">• steps of other</text>
+<text x="820" y="320">  publishers</text>
+<text x="820" y="346">• time-outs, locks</text>
+<text x="820" y="380">That is why layer 3</text>
+<text x="820" y="398">exists, and why the</text>
+<text x="820" y="416">manifest check and</text>
+<text x="820" y="434">the request files</text>
+<text x="820" y="452">are part of every</text>
+<text x="820" y="470">release.</text>
+
+<text x="40" y="560">Rule of thumb: a failing test in layer 1 costs seconds to find, in layer 2 a minute, in layer 3 an hour, and a failure found by a customer costs a day and trust.</text>
+<text x="40" y="582">Push every check as far down as it can honestly go, and no further.</text>
+</svg>

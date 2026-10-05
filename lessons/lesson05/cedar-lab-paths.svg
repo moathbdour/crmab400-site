@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t">
+<title id="t">Choosing a Cedar learning environment path</title>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b2a3a}.h{font-weight:700;font-size:16px}.s{font-size:14px}</style>
+<rect width="900" height="470" fill="#ffffff"/>
+<rect x="300" y="15" width="300" height="60" rx="10" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="450" y="40" text-anchor="middle" class="h">Step 1: a safe identity</text>
+<text x="450" y="62" text-anchor="middle" class="s">Test tenant or approved work account</text>
+<rect x="300" y="105" width="300" height="60" rx="10" fill="#fff6e0" stroke="#b07d10" stroke-width="2"/>
+<text x="450" y="130" text-anchor="middle" class="h">Step 2: which lessons now?</text>
+<text x="450" y="152" text-anchor="middle" class="s">Dataverse only, or Dynamics 365 apps?</text>
+<line x1="450" y1="75" x2="450" y2="103" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#1b2a3a"/></marker></defs>
+<line x1="380" y1="165" x2="160" y2="215" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="450" y1="165" x2="450" y2="215" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<line x1="520" y1="165" x2="740" y2="215" stroke="#1b2a3a" stroke-width="2" marker-end="url(#a)"/>
+<text x="210" y="185" class="s">Dataverse / code</text>
+<text x="458" y="200" class="s">CRM apps</text>
+<text x="640" y="185" class="s">No access</text>
+<rect x="20" y="218" width="270" height="200" rx="10" fill="#e6f4ea" stroke="#2e7d32" stroke-width="2"/>
+<text x="155" y="245" text-anchor="middle" class="h">Path A: Karim-Dev</text>
+<text x="35" y="272" class="s">Developer environment</text>
+<text x="35" y="296" class="s">Free Developer Plan</text>
+<text x="35" y="320" class="s">Dataverse, 2 GB</text>
+<text x="35" y="344" class="s">No Dynamics 365 apps</text>
+<text x="35" y="368" class="s">Off after 30 days idle</text>
+<text x="35" y="398" class="s">Lessons 9–19, 33+</text>
+<rect x="315" y="218" width="270" height="200" rx="10" fill="#e8eef7" stroke="#2f5d8a" stroke-width="2"/>
+<text x="450" y="245" text-anchor="middle" class="h">Path B: Cedar-Trial</text>
+<text x="330" y="272" class="s">Dynamics 365 trial</text>
+<text x="330" y="296" class="s">Dataverse + D365 apps</text>
+<text x="330" y="320" class="s">Customer Service / Sales</text>
+<text x="330" y="344" class="s">Expires (≈30 days)</text>
+<text x="330" y="368" class="s">Start just before use</text>
+<text x="330" y="398" class="s">Lessons 6, 20–24</text>
+<rect x="610" y="218" width="270" height="200" rx="10" fill="#f3f3f3" stroke="#666" stroke-width="2"/>
+<text x="745" y="245" text-anchor="middle" class="h">Path C: Conceptual</text>
+<text x="625" y="272" class="s">No subscription</text>
+<text x="625" y="296" class="s">Read steps and expected</text>
+<text x="625" y="320" class="s">results; answer checks</text>
+<text x="625" y="344" class="s">Microsoft Learn sandboxes</text>
+<text x="625" y="368" class="s">where offered</text>
+<text x="625" y="398" class="s">Any lesson</text>
+<text x="450" y="452" text-anchor="middle" class="s">All paths: fictional Cedar data only · no secrets in notes · log every environment and its expiry</text>
+</svg>

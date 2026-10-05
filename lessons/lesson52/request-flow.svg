@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-labelledby="t d">
+<title id="t">Client-side Dataverse request flow</title>
+<desc id="d">Case form script calls Xrm.WebApi, which sends an authenticated request to the Dataverse Web API as the signed-in user; security roles are applied and JSON comes back to a promise.</desc>
+<rect width="900" height="400" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="60" width="200" height="140" rx="10" fill="#e8f1fb" stroke="#1f5fa8" stroke-width="2"/>
+<text x="120" y="88" text-anchor="middle" font-weight="bold">Case form (Omar)</text>
+<text x="120" y="115" text-anchor="middle">triage.js onChange</text>
+<text x="120" y="138" text-anchor="middle">cedar.caseData</text>
+<text x="120" y="161" text-anchor="middle">checkSite(siteId)</text>
+<rect x="340" y="60" width="200" height="140" rx="10" fill="#eef7ee" stroke="#2e7d32" stroke-width="2"/>
+<text x="440" y="88" text-anchor="middle" font-weight="bold">Xrm.WebApi</text>
+<text x="440" y="115" text-anchor="middle">builds URL, headers</text>
+<text x="440" y="138" text-anchor="middle">uses user's session</text>
+<text x="440" y="161" text-anchor="middle">returns a Promise</text>
+<rect x="660" y="60" width="220" height="140" rx="10" fill="#fff4e5" stroke="#b25e00" stroke-width="2"/>
+<text x="770" y="88" text-anchor="middle" font-weight="bold">Dataverse Web API</text>
+<text x="770" y="115" text-anchor="middle">/api/data/v9.2/cedar_sites</text>
+<text x="770" y="138" text-anchor="middle">security roles of Omar</text>
+<text x="770" y="161" text-anchor="middle">plug-ins, rules, audit</text>
+<line x1="220" y1="110" x2="336" y2="110" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="278" y="100" text-anchor="middle" font-size="14">retrieveRecord</text>
+<line x1="540" y1="110" x2="656" y2="110" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="598" y="100" text-anchor="middle" font-size="14">GET (HTTPS)</text>
+<line x1="656" y1="160" x2="544" y2="160" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="598" y="182" text-anchor="middle" font-size="14">200 JSON / error</text>
+<line x1="336" y1="160" x2="224" y2="160" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="278" y="182" text-anchor="middle" font-size="14">resolve / reject</text>
+<rect x="20" y="250" width="860" height="120" rx="10" fill="#f5f5f5" stroke="#555" stroke-width="1.5"/>
+<text x="40" y="280" font-weight="bold">What the script does with the answer</text>
+<text x="40" y="306">Site's account = Case customer → clear notification cedar-val-siteaccount</text>
+<text x="40" y="330">Different account → setNotification on Site (blocks save)   ·   Other open cases → INFO form notification</text>
+<text x="40" y="354">Request failed (offline, 403, 404) → WARNING "Could not check the Site right now." — never block on a network error</text>
+</g>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1b1b1b"/></marker></defs>
+</svg>

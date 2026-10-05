@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="t">
+<title id="t">When formula, calculated and rollup columns get their values</title>
+<rect width="900" height="600" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="450" y="32" text-anchor="middle" font-size="20" font-weight="bold">Three ways Dataverse computes a value</text>
+<rect x="30" y="60" width="260" height="240" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/>
+<text x="160" y="88" text-anchor="middle" font-weight="bold">Formula column (Power Fx)</text>
+<text x="160" y="114" text-anchor="middle">Site: Floor area band</text>
+<text x="160" y="140" text-anchor="middle">If(floor ≥ 20000, "Large", …)</text>
+<text x="160" y="172" text-anchor="middle">Evaluated when the row</text>
+<text x="160" y="192" text-anchor="middle">is retrieved (synchronous)</text>
+<text x="160" y="224" text-anchor="middle">Same row + parent lookups</text>
+<text x="160" y="252" text-anchor="middle">Always current</text>
+<text x="160" y="278" text-anchor="middle">Recommended for new work</text>
+<rect x="320" y="60" width="260" height="240" rx="8" fill="#fff4e0" stroke="#a15c00"/>
+<text x="450" y="88" text-anchor="middle" font-weight="bold">Calculated column (classic)</text>
+<text x="450" y="114" text-anchor="middle">CONDITION / ACTION editor</text>
+<text x="450" y="140" text-anchor="middle">ADDDAYS, DIFFINDAYS, CONCAT</text>
+<text x="450" y="172" text-anchor="middle">Evaluated when the row</text>
+<text x="450" y="192" text-anchor="middle">is retrieved (synchronous)</text>
+<text x="450" y="224" text-anchor="middle">Same row + one parent</text>
+<text x="450" y="252" text-anchor="middle">Supports Currency</text>
+<text x="450" y="278" text-anchor="middle">Maintain; rarely start new</text>
+<rect x="610" y="60" width="260" height="240" rx="8" fill="#e6f4ea" stroke="#1e7b34"/>
+<text x="740" y="88" text-anchor="middle" font-weight="bold">Rollup column</text>
+<text x="740" y="114" text-anchor="middle">Account: Site count,</text>
+<text x="740" y="140" text-anchor="middle">Total floor area</text>
+<text x="740" y="172" text-anchor="middle">Stored; refreshed by</text>
+<text x="740" y="192" text-anchor="middle">background system jobs</text>
+<text x="740" y="224" text-anchor="middle">Children over 1:N (SUM,</text>
+<text x="740" y="244" text-anchor="middle">COUNT, MIN, MAX, AVG)</text>
+<text x="740" y="278" text-anchor="middle">Can be up to ~1 hour stale</text>
+<rect x="610" y="360" width="260" height="90" rx="8" fill="#f3e8fb" stroke="#6b2fa0"/>
+<text x="740" y="390" text-anchor="middle" font-weight="bold">Sites (children)</text>
+<text x="740" y="414" text-anchor="middle">HV-B 18,000 m²</text>
+<text x="740" y="436" text-anchor="middle">HV-MAIN 42,000 m²</text>
+<line x1="740" y1="358" x2="740" y2="304" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="752" y="336">cedar_account (1:N)</text>
+<rect x="30" y="360" width="550" height="90" rx="8" fill="#f5f5f5" stroke="#555555"/>
+<text x="305" y="390" text-anchor="middle" font-weight="bold">Rollup timeline</text>
+<text x="305" y="414" text-anchor="middle">Create column → Mass Calculate job (default 12 h later)</text>
+<text x="305" y="436" text-anchor="middle">→ Calculate Rollup Field job every hour (incremental)</text>
+<rect x="30" y="480" width="840" height="90" rx="8" fill="#fff0f0" stroke="#b00020"/>
+<text x="450" y="510" text-anchor="middle" font-weight="bold">None of them fire plug-ins or workflows when the computed value changes.</text>
+<text x="450" y="534" text-anchor="middle">Refresh a rollup now: Recalculate on the form, or the CalculateRollupField function.</text>
+<text x="450" y="556" text-anchor="middle">_state and _date companions show whether and when a rollup was calculated.</text>
+</g>
+</svg>

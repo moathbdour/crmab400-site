@@ -1,0 +1,15 @@
+{
+  "release": "C-24 v2 to Cedar-Test",
+  "agentVersion": "2026-10-09.1",
+  "author": "Karim Aziz",
+  "reviewer": "Lina Farah",
+  "approver": "Dana Khoury",
+  "signedOffAt": "2026-10-09T09:30:00Z",
+  "dispositions": [
+    { "caseId": "SA-04", "outcome": "test-corrected", "reason": "Compare meaning had no expected response; expected answer added from the SLA policy.", "ticket": "AG-104-1" },
+    { "caseId": "SA-05", "outcome": "test-corrected", "reason": "Run 1 used Karim's maker account without Sla.Read; the run now uses the cedar-eval-tester profile.", "ticket": "AG-104-2" },
+    { "caseId": "SA-09", "outcome": "test-corrected", "reason": "A refusal graded by General quality fails on abstention; the case now uses the Custom Cedar refusal method.", "ticket": "AG-104-3" },
+    { "caseId": "SA-13", "outcome": "fixed", "reason": "Instructions v3 add 'never list contact details'; Work order status no longer returns contact phone numbers.", "ticket": "AG-104-4" },
+    { "caseId": "SA-16", "outcome": "test-corrected", "reason": "Out-of-scope refusal moved from General quality to the Custom Cedar refusal method.", "ticket": "AG-104-5" }
+  ]
+}

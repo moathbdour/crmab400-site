@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="t d">
+<title id="t">Three query languages, one query engine</title>
+<desc id="d">Three boxes at the top feed one Dataverse query engine. OData query options are URL text used by the Web API, Xrm.WebApi, code apps, the Python SDK and the Dataverse connector. FetchXML is an XML document used by views, charts, Power Pages, flows, the Web API fetchXml parameter and the SDK FetchExpression; it has the widest feature set: aggregates, joins without a relationship, column comparison and distinct. QueryExpression is a .NET object model used by plug-ins and .NET clients through IOrganizationService.RetrieveMultiple; it is typed and composable but has no default sort order. All three pass through the same engine, which applies the caller's security roles and returns at most 5,000 rows per page for standard tables. Two conversion messages connect FetchXML and QueryExpression: FetchXmlToQueryExpression and QueryExpressionToFetchXml. A bottom strip gives the decision: stay with the language of your client; switch to FetchXML when you need what only it can express.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="560" fill="#ffffff"/>
+<text class="h" x="20" y="28">Three ways to write a query; one engine answers them</text>
+
+<rect class="box" x="20" y="48" width="300" height="230" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">OData query options</text>
+<text x="32" y="96">Form: text in the URL</text>
+<text x="32" y="116">$select, $filter, $expand, $apply</text>
+<text x="32" y="144">Used by: Web API clients,</text>
+<text x="32" y="164">Xrm.WebApi, code apps, Python SDK,</text>
+<text x="32" y="184">Dataverse connector</text>
+<text x="32" y="212">Joins only along relationships.</text>
+<text x="32" y="232">No distinct, no cross-table</text>
+<text x="32" y="252">column comparison.</text>
+
+<rect class="box" x="350" y="48" width="300" height="230" rx="8" fill="#fff4ce"/>
+<text class="b" x="362" y="72">FetchXML</text>
+<text x="362" y="96">Form: an XML document</text>
+<text x="362" y="116">fetch → entity → attribute, filter,</text>
+<text x="362" y="136">link-entity, order</text>
+<text x="362" y="164">Used by: views and charts,</text>
+<text x="362" y="184">Power Pages, flows, Web API</text>
+<text x="362" y="204">?fetchXml=, SDK FetchExpression</text>
+<text x="362" y="232">Widest features: aggregates, any</text>
+<text x="362" y="252">join, valueof, distinct.</text>
+
+<rect class="box" x="680" y="48" width="300" height="230" rx="8" fill="#dff6dd"/>
+<text class="b" x="692" y="72">QueryExpression</text>
+<text x="692" y="96">Form: .NET objects</text>
+<text x="692" y="116">ColumnSet, FilterExpression,</text>
+<text x="692" y="136">LinkEntity, OrderExpression</text>
+<text x="692" y="164">Used by: plug-ins and .NET clients</text>
+<text x="692" y="184">via RetrieveMultiple</text>
+<text x="692" y="212">Typed, composable in code.</text>
+<text x="692" y="232">No default sort order: add one</text>
+<text x="692" y="252">before paging.</text>
+
+<path class="a" d="M650,300 L680,300"/>
+<path class="a" d="M680,316 L650,316"/>
+<text x="350" y="304">FetchXmlToQueryExpression →</text>
+<text x="350" y="326">← QueryExpressionToFetchXml</text>
+
+<path class="a" d="M170,278 L420,380"/>
+<path class="a" d="M500,336 L500,380"/>
+<path class="a" d="M830,278 L580,380"/>
+
+<rect class="box" x="250" y="380" width="500" height="90" rx="8" fill="#eef3fb"/>
+<text class="b" x="262" y="404">Dataverse query engine</text>
+<text x="262" y="428">Applies the caller's security roles and column security.</text>
+<text x="262" y="448">At most 5,000 rows per page (500 for elastic tables).</text>
+
+<rect class="box" x="20" y="490" width="960" height="54" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="513">Choosing</text>
+<text x="110" y="513">Stay with the language your client speaks. Reach for FetchXML when you need an aggregate, a join without a</text>
+<text x="110" y="533">relationship, a column-to-column comparison, distinct rows, or a query that a view or flow must also use.</text>
+</svg>

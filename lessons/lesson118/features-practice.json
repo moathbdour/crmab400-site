@@ -1,0 +1,251 @@
+{
+  "domain": "mixed",
+  "version": "1.0",
+  "lesson": 118,
+  "checkedOn": "2026-10-05",
+  "features": {
+    "sync-plugin": {
+      "name": "Synchronous plug-in step",
+      "chooseWhen": "a rule must hold for every channel and may need related rows or must cancel the save with a message",
+      "lessons": [
+        65,
+        66
+      ]
+    },
+    "client-script": {
+      "name": "Form client script",
+      "chooseWhen": "behaviour or validation that only matters while a person works in a form (show, hide, warn, default)",
+      "lessons": [
+        49,
+        50
+      ]
+    },
+    "cloud-flow": {
+      "name": "Power Automate cloud flow",
+      "chooseWhen": "fixed automation after the fact or on a schedule, with no agent involved, maintained by makers",
+      "lessons": [
+        81,
+        86
+      ]
+    },
+    "business-rule": {
+      "name": "Business rule",
+      "chooseWhen": "simple conditions on columns of the same row, without code; Entity scope also runs on the server",
+      "lessons": [
+        19
+      ]
+    },
+    "virtual-table": {
+      "name": "Virtual table",
+      "chooseWhen": "an external system of record must appear as a table (views, subgrids) without copying its rows",
+      "lessons": [
+        14
+      ]
+    },
+    "elastic-table": {
+      "name": "Elastic table",
+      "chooseWhen": "very high write volume, time to live or partitioned reads, without relational features",
+      "lessons": [
+        14
+      ]
+    },
+    "standard-table": {
+      "name": "Standard table",
+      "chooseWhen": "Dataverse is the system of record and needs relationships, business rules and full security",
+      "lessons": [
+        9,
+        14
+      ]
+    },
+    "connector-action": {
+      "name": "Connector action",
+      "chooseWhen": "you only need to call an external API from a flow or app, not show its data as a table",
+      "lessons": [
+        94
+      ]
+    },
+    "background-operation": {
+      "name": "Background operation (preview)",
+      "chooseWhen": "a caller must be freed at once from a long custom API call and learn the outcome later (Prefer: respond-async)",
+      "lessons": [
+        79
+      ]
+    },
+    "async-plugin-step": {
+      "name": "Asynchronous plug-in step",
+      "chooseWhen": "follow-up work after a commit that nobody waits for and that returns nothing to the caller",
+      "lessons": [
+        65,
+        68
+      ]
+    },
+    "code-app": {
+      "name": "Code app",
+      "chooseWhen": "a standalone pro-code web app (React, TypeScript) on Power Platform hosting with connectors",
+      "lessons": [
+        61,
+        63
+      ]
+    },
+    "generative-page": {
+      "name": "Generative page",
+      "chooseWhen": "a page or section inside a model-driven app, described and generated rather than hand-coded",
+      "lessons": [
+        23,
+        43
+      ]
+    },
+    "web-resource": {
+      "name": "Web resource",
+      "chooseWhen": "script libraries for forms and commands; not the first choice for new bound UI",
+      "lessons": [
+        49,
+        55
+      ]
+    },
+    "pcf": {
+      "name": "Code component (PCF)",
+      "chooseWhen": "a reusable visual control bound to a column or a dataset, shipped in a solution",
+      "lessons": [
+        57,
+        60
+      ]
+    },
+    "agent-flow": {
+      "name": "Copilot Studio agent flow",
+      "chooseWhen": "a deterministic tool that an agent calls, billed as Copilot Studio capacity",
+      "lessons": [
+        86
+      ]
+    },
+    "cs-workflow": {
+      "name": "Copilot Studio workflow (GitHub Copilot harness)",
+      "chooseWhen": "agentic multi-step automation with AI actions and agent handoffs",
+      "lessons": [
+        86,
+        97
+      ]
+    },
+    "classic-workflow": {
+      "name": "Classic Dataverse workflow",
+      "chooseWhen": "only to maintain existing background processes; new automation uses cloud flows",
+      "lessons": [
+        81
+      ]
+    },
+    "csp-connect-src": {
+      "name": "CSP connect-src",
+      "chooseWhen": "the app must call an origin from the browser (fetch, XHR, WebSocket)",
+      "lessons": [
+        64
+      ]
+    },
+    "csp-frame-ancestors": {
+      "name": "CSP frame-ancestors",
+      "chooseWhen": "only listed pages may embed the app in a frame",
+      "lessons": [
+        64
+      ]
+    },
+    "csp-frame-src": {
+      "name": "CSP frame-src",
+      "chooseWhen": "the app itself must show another origin in a frame",
+      "lessons": [
+        64
+      ]
+    },
+    "plugin-managed-identity": {
+      "name": "Managed identity for plug-ins",
+      "chooseWhen": "a plug-in must call an Azure resource without storing a secret (IManagedIdentityService)",
+      "lessons": [
+        71
+      ]
+    },
+    "secure-config": {
+      "name": "Secure configuration of a step",
+      "chooseWhen": "step settings only some administrators may read; still a stored secret when it holds keys",
+      "lessons": [
+        68
+      ]
+    },
+    "shared-connection": {
+      "name": "A person's shared connection",
+      "chooseWhen": "never for unattended automation: actions run as that person",
+      "lessons": [
+        85
+      ]
+    },
+    "openapi-enum": {
+      "name": "OpenAPI enum",
+      "chooseWhen": "a parameter has a small fixed list of values that rarely changes",
+      "lessons": [
+        94
+      ]
+    },
+    "openapi-summary": {
+      "name": "x-ms-summary",
+      "chooseWhen": "a parameter or property needs a friendly label in the designer",
+      "lessons": [
+        94
+      ]
+    },
+    "dynamic-values": {
+      "name": "x-ms-dynamic-values",
+      "chooseWhen": "a parameter's list must come from another operation because the values change",
+      "lessons": [
+        94
+      ]
+    },
+    "copilot-client-library": {
+      "name": "Copilot Studio client library",
+      "chooseWhen": "your own app must talk to a published Copilot Studio agent for a signed-in user (delegated token)",
+      "lessons": [
+        103
+      ]
+    },
+    "dataverse-mcp-server": {
+      "name": "Dataverse MCP server",
+      "chooseWhen": "an agent or developer tool needs tools over Dataverse tables, not a conversation with an existing agent",
+      "lessons": [
+        100
+      ]
+    },
+    "web-chat-embed": {
+      "name": "Web chat embed",
+      "chooseWhen": "a page only needs to show the agent's chat; authentication decides who it acts for",
+      "lessons": [
+        98,
+        103
+      ]
+    },
+    "monitor-alert": {
+      "name": "Power Platform Monitor alert",
+      "chooseWhen": "daily product-health thresholds on a Managed Environment, with a few recipients",
+      "lessons": [
+        105
+      ]
+    },
+    "log-search-alert": {
+      "name": "Azure Monitor log search alert",
+      "chooseWhen": "a threshold over your own telemetry within minutes, with details from the query",
+      "lessons": [
+        105
+      ]
+    },
+    "appinsights-export": {
+      "name": "Dataverse export to Application Insights",
+      "chooseWhen": "platform telemetry for analysis where a delivery time of up to a day is acceptable",
+      "lessons": [
+        105
+      ]
+    },
+    "per-item-notification": {
+      "name": "Per-item notification",
+      "chooseWhen": "each single failure must reach a person, not a threshold over a window",
+      "lessons": [
+        84,
+        105
+      ]
+    }
+  }
+}

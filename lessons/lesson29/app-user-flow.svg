@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="t d">
+<title id="t">How FieldLink Sync reaches Dataverse</title>
+<desc id="d">The FieldLink sync service holds a certificate. It asks Microsoft Entra ID for a token using the client credentials flow for app registration cedar-fieldlink-sync. Entra returns an app-only token whose audience is the Cedar environment. The service calls the Dataverse Web API with the token. Dataverse maps the token's application ID to the application user FieldLink Sync in the root business unit, then applies its security role FieldLink Integration – Cedar and its column security profile before reading or writing work orders.</desc>
+<rect width="960" height="520" fill="#ffffff"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="20" y="40" width="250" height="110" rx="10" fill="#fff4e5" stroke="#b36b00" stroke-width="2"/>
+<text x="145" y="72" text-anchor="middle" font-weight="bold">FieldLink sync service</text>
+<text x="145" y="96" text-anchor="middle">(Karim's code, runs unattended)</text>
+<text x="145" y="120" text-anchor="middle">holds certificate private key</text>
+<rect x="355" y="40" width="250" height="110" rx="10" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="480" y="72" text-anchor="middle" font-weight="bold">Microsoft Entra ID</text>
+<text x="480" y="96" text-anchor="middle">app registration</text>
+<text x="480" y="120" text-anchor="middle">cedar-fieldlink-sync</text>
+<rect x="690" y="40" width="250" height="110" rx="10" fill="#e6f4ea" stroke="#1e7e34" stroke-width="2"/>
+<text x="815" y="72" text-anchor="middle" font-weight="bold">Dataverse Web API</text>
+<text x="815" y="96" text-anchor="middle">https://&lt;your-org&gt;</text>
+<text x="815" y="120" text-anchor="middle">.crm.dynamics.com</text>
+<line x1="270" y1="75" x2="350" y2="75" stroke="#444" stroke-width="2" marker-end="url(#a)"/>
+<text x="310" y="30" text-anchor="middle">1 client credentials</text>
+<line x1="355" y1="125" x2="275" y2="125" stroke="#444" stroke-width="2" marker-end="url(#a)"/>
+<text x="310" y="175" text-anchor="middle">2 app-only token</text>
+<path d="M145 150 L145 210 L815 210 L815 155" fill="none" stroke="#444" stroke-width="2" marker-end="url(#a)"/>
+<text x="480" y="202" text-anchor="middle">3 HTTPS request with Authorization: Bearer token</text>
+<rect x="560" y="260" width="380" height="240" rx="10" fill="#f1f3f4" stroke="#555" stroke-width="2"/>
+<text x="750" y="290" text-anchor="middle" font-weight="bold">4 Inside Dataverse</text>
+<text x="580" y="322">Token application ID → systemuser row</text>
+<text x="580" y="346">Application user: FieldLink Sync</text>
+<text x="580" y="370">Business unit: root (Cedar Service org)</text>
+<text x="580" y="394">Role: FieldLink Integration – Cedar</text>
+<text x="580" y="418">Column profile: work order cost (integration)</text>
+<text x="580" y="442">No license · no interactive sign-in</text>
+<text x="580" y="466">Audit: modified by = FieldLink Sync</text>
+<line x1="815" y1="215" x2="815" y2="255" stroke="#444" stroke-width="2" marker-end="url(#a)"/>
+<rect x="20" y="260" width="500" height="240" rx="10" fill="#fdecea" stroke="#b3261e" stroke-width="2"/>
+<text x="270" y="290" text-anchor="middle" font-weight="bold">Where it fails</text>
+<text x="40" y="322">No application user in environment → 403 / user not found</text>
+<text x="40" y="346">App user has no role → privilege error on first query</text>
+<text x="40" y="370">Wrong scope (not &lt;org&gt;/.default) → 401</text>
+<text x="40" y="394">Expired certificate or secret → token request fails</text>
+<text x="40" y="418">App user deactivated → every call fails</text>
+<text x="40" y="442">Missing column profile → cost returned as null</text>
+<text x="40" y="466">Missing Append To on Site → cannot set lookup</text>
+</g>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" role="img" aria-labelledby="t d">
+<title id="t">The Dataverse SDK for Python: namespaces and what they send</title>
+<desc id="d">At the top, a credential from the azure-identity library, for example CertificateCredential or InteractiveBrowserCredential, is passed with the environment URL to DataverseClient, which is used as a context manager. The client exposes six namespaces. records: create, retrieve, list, list_pages, update, delete and upsert; a list passed to create or update uses the CreateMultiple or UpdateMultiple bulk messages. query: a fluent builder with col filters, FetchXML and read-only SQL. dataframe: the same operations with pandas DataFrames. tables: table and column definitions. files: file column uploads with chunking. batch: several operations in one request with optional changesets. Every namespace sends ordinary Dataverse Web API requests as the credential's identity. A box at the bottom lists what version 1.0 does not offer: calling custom APIs and other actions, updates conditional on an ETag, and retries for throttled requests, which surface as HttpError with is_transient and retry_after; for those Cedar uses its own Web API client from lesson 74 or handles the error itself.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.c{font-family:Consolas,Menlo,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="580" fill="#ffffff"/>
+<text class="h" x="20" y="28">One client, six namespaces, ordinary Web API requests underneath</text>
+
+<rect class="box" x="20" y="46" width="430" height="84" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="70">Credential (azure-identity)</text>
+<text x="32" y="94">CertificateCredential • ClientSecretCredential •</text>
+<text x="32" y="114">InteractiveBrowserCredential • AzureCliCredential • managed identity</text>
+<path class="a" d="M450,88 L530,88"/>
+<rect class="box" x="530" y="46" width="450" height="84" rx="8" fill="#eef3fb"/>
+<text class="b" x="542" y="70">DataverseClient(url, credential)</text>
+<text x="542" y="94">Use it with "with": the HTTP session and caches are</text>
+<text x="542" y="114">released at the end. https only. Token scope: url/.default</text>
+
+<path class="a" d="M755,130 L755,150"/>
+
+<rect class="box" x="20" y="150" width="310" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="174">client.records</text>
+<text x="32" y="198">create, retrieve, list, list_pages,</text>
+<text x="32" y="218">update, delete, upsert</text>
+<text x="32" y="246">A LIST of rows → CreateMultiple /</text>
+<text x="32" y="266">UpdateMultiple / UpsertMultiple</text>
+
+<rect class="box" x="345" y="150" width="310" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="357" y="174">client.query</text>
+<text x="357" y="198">builder(table).select().where(col…)</text>
+<text x="357" y="218">.order_by().execute() / execute_pages()</text>
+<text x="357" y="246">fetchxml(xml) • sql("SELECT …")</text>
+<text x="357" y="266">read-only SQL subset</text>
+
+<rect class="box" x="670" y="150" width="310" height="130" rx="8" fill="#dff6dd"/>
+<text class="b" x="682" y="174">client.dataframe</text>
+<text x="682" y="198">create, update, delete from pandas</text>
+<text x="682" y="218">DataFrames and Series; sql to a frame</text>
+<text x="682" y="246">Query results: .execute()</text>
+<text x="682" y="266">.to_dataframe()</text>
+
+<rect class="box" x="20" y="295" width="310" height="100" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="319">client.tables</text>
+<text x="32" y="343">Create and change tables, columns and</text>
+<text x="32" y="363">relationships; read definitions.</text>
+<text x="32" y="383">Schema change = solution work!</text>
+
+<rect class="box" x="345" y="295" width="310" height="100" rx="8" fill="#eef3fb"/>
+<text class="b" x="357" y="319">client.files</text>
+<text x="357" y="343">upload to a file column, chunked for</text>
+<text x="357" y="363">large files. Creates a missing column</text>
+<text x="357" y="383">automatically: avoid in production.</text>
+
+<rect class="box" x="670" y="295" width="310" height="100" rx="8" fill="#eef3fb"/>
+<text class="b" x="682" y="319">client.batch</text>
+<text x="682" y="343">Many operations in one HTTP request;</text>
+<text x="682" y="363">changeset = all or nothing; at most</text>
+<text x="682" y="383">1,000 operations per batch.</text>
+
+<rect class="box" x="20" y="412" width="960" height="60" rx="8" fill="#fff4ce"/>
+<text class="b" x="32" y="436">Underneath</text>
+<text x="130" y="436">Dataverse Web API v9.2 requests as the credential's identity: the same security roles, plug-ins,</text>
+<text x="130" y="456">limits and status codes as lesson 74. Errors arrive as HttpError with status_code and is_transient.</text>
+
+<rect class="box" x="20" y="488" width="960" height="78" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="512">Not in version 1.0 (checked 2026-10-02): keep the lesson 74 client for these</text>
+<text x="32" y="536">Calling custom APIs and other actions or functions • updates conditional on an ETag (update always sends If-Match: *) •</text>
+<text x="32" y="556">automatic retry of throttled requests (429 surfaces as HttpError with retry_after; network errors are retried).</text>
+</svg>

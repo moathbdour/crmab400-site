@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" role="img" aria-labelledby="t">
+<title id="t">Lead qualification: the Summit Tower lead is qualified into account, contact and opportunity, or disqualified and kept</title>
+<rect width="980" height="440" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1b1b1b"/></marker></defs>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<text x="490" y="30" text-anchor="middle" font-size="20" font-weight="bold">Qualify: one lead becomes three linked records</text>
+<rect x="30" y="140" width="250" height="150" rx="8" fill="#fff4d6" stroke="#8a5a00"/>
+<text x="45" y="168" font-weight="bold">Lead (Open)</text>
+<text x="45" y="195">Topic: Quarterly fire-safety</text>
+<text x="45" y="217">Company: Summit Tower Offices</text>
+<text x="45" y="239">Name: Yusuf Kassem</text>
+<text x="45" y="261">Owner: Maya Haddad</text>
+<line x1="280" y1="200" x2="420" y2="90" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="280" y1="215" x2="420" y2="215" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="280" y1="230" x2="420" y2="330" stroke="#1b1b1b" stroke-width="2" marker-end="url(#a)"/>
+<text x="300" y="130">Company → name</text>
+<text x="300" y="207">first/last, email</text>
+<text x="300" y="300">Topic → name</text>
+<rect x="425" y="55" width="240" height="80" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="440" y="82" font-weight="bold">Account</text>
+<text x="440" y="106">Summit Tower Offices</text>
+<rect x="425" y="175" width="240" height="80" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="440" y="202" font-weight="bold">Contact</text>
+<text x="440" y="226">Yusuf Kassem (parent: account)</text>
+<rect x="425" y="295" width="240" height="90" rx="8" fill="#dbe9f7" stroke="#1f4e79"/>
+<text x="440" y="322" font-weight="bold">Opportunity (Open)</text>
+<text x="440" y="346">Originating lead = the lead</text>
+<text x="440" y="368">Account + contact linked</text>
+<rect x="710" y="140" width="245" height="150" rx="8" fill="#e8f3e8" stroke="#2e6b2e"/>
+<text x="725" y="168" font-weight="bold">Lead afterwards</text>
+<text x="725" y="195">Qualified: statecode 1,</text>
+<text x="725" y="217">statuscode 3, read-only</text>
+<text x="725" y="245">or Disqualified: statecode 2</text>
+<text x="725" y="267">(Lost, No longer interested…)</text>
+<text x="490" y="420" text-anchor="middle">Existing account/contact can be reused instead of created; duplicate detection offers the match.</text>
+</g>
+</svg>

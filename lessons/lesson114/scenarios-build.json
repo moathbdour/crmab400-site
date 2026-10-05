@@ -1,0 +1,612 @@
+{
+  "bank": "Cedar AB-400 scenario review: Build Microsoft Power Platform solutions",
+  "domain": "build",
+  "version": "1.0",
+  "lesson": 114,
+  "checkedOn": "2026-10-05",
+  "minutesPerItem": 2,
+  "cases": {
+    "CASE-1": {
+      "title": "Cedar release 3: customer self-service and finance view",
+      "text": "Cedar Service plans release 3. Facilities teams at Harbor View Medical Center and Olive Grove Schools (external customers without Cedar work accounts) want to report faults and follow the status of their own sites. Finance wants each account in Cedar Operations to show its invoice history from CedarLedger, an Azure SQL database that remains the system of record; finance does not allow copies of invoice data. Omar Saleh's service desk wants an internal agent in Microsoft Teams that answers questions from Cedar's service policies in SharePoint; Dana Khoury's makers will build and maintain it. Dana also wants a daily email to Dana and two colleagues when the availability of the Cedar Operations app drops below 95%. Cedar-Prod is a Managed Environment. Lina Farah's constraint for the release: use configuration and low-code first; custom code only where a requirement cannot be met otherwise."
+    }
+  },
+  "items": [
+    {
+      "id": "BS-01",
+      "objectives": ["B-01"],
+      "lessons": [41, 109],
+      "type": "multi",
+      "select": 3,
+      "stem": "Sami Nasser's requirement: when a subcontractor marks a job Completed in FieldLink, the matching Cedar work order must show Completed within 15 minutes; Omar Saleh must see the completion on the case timeline; Lina Farah wants the weekly share of jobs completed on time on the existing service dashboard. FieldLink can call an HTTPS endpoint with a signed JSON message. Which THREE components should Karim's architecture include? Each correct answer is part of the solution.",
+      "options": {
+        "A": "An HTTP-triggered Azure Function that verifies the signature and upserts the work order by its FieldLink ID alternate key.",
+        "B": "A PCF control on the Work order form that polls the FieldLink API every minute.",
+        "C": "A view and chart of completed work orders added to the existing service dashboard.",
+        "D": "A scheduled cloud flow that copies all FieldLink jobs into a new elastic table every 15 minutes.",
+        "E": "A server-side step (an asynchronous plug-in or a Dataverse-triggered cloud flow) that adds a completion note regarding the case when a work order becomes Completed."
+      },
+      "answer": ["A", "C", "E"],
+      "signal": "\"FieldLink can call an HTTPS endpoint\" (push, so receive it), \"case timeline\" (activities and notes regarding the case), \"existing dashboard\" (configuration).",
+      "why": "Split the requirement into responsibilities before reading the options: receive the event (integration component: a function that checks the signature and upserts by alternate key, lessons 90 and 93), react to it in Dataverse (server-side logic after the save, so asynchronous is fine), and report on it (a view and chart, no code). A work order is not an activity, so it never appears on the case timeline by itself; something must write a note or activity regarding the case.",
+      "distractors": {
+        "B": "Client-side code runs only while someone has the form open, so nothing updates when nobody is looking, and polling from every browser multiplies API calls.",
+        "D": "Polling copies data that FieldLink already pushes, adds a second store to reconcile, and elastic tables don't support charts, so it doesn't even serve the dashboard."
+      }
+    },
+    {
+      "id": "BS-02",
+      "objectives": ["B-03"],
+      "lessons": [42, 21, 7],
+      "type": "single",
+      "select": 1,
+      "stem": "Lina Farah requires that urgent cases get a first response within 4 business hours. Agents must see a countdown on the case; at 3 hours a warning goes to the queue owner; at 4 hours the case is escalated to Lina. Cedar-Prod has Dynamics 365 Customer Service. What should Karim recommend first?",
+      "options": {
+        "A": "A service-level agreement with an SLA KPI for first response, a business-hours calendar, warning and failure actions, and the SLA timer on the case form.",
+        "B": "A scheduled cloud flow that runs every 15 minutes, calculates elapsed business time and sends the warning and escalation emails.",
+        "C": "A PCF countdown control on the case form and a plug-in that escalates when the case is updated.",
+        "D": "A rollup column of elapsed minutes and a business rule that escalates when it exceeds 240."
+      },
+      "answer": ["A"],
+      "signal": "\"Cedar-Prod has Dynamics 365 Customer Service\" plus the vocabulary first response, warning, escalation, business hours.",
+      "why": "The requirement is a textbook service-level agreement: a KPI, a calendar, a timer the agent sees, and warning and failure actions. When an installed app already provides the feature, the out-of-the-box fit check (lesson 42) wins over anything you would build and maintain.",
+      "distractors": {
+        "B": "It rebuilds SLA logic by hand, including business-hours arithmetic, and its 15-minute polling can be late by up to 15 minutes.",
+        "C": "A plug-in on update fires only when someone changes the case; a case nobody touches would never escalate.",
+        "D": "Rollup columns are recalculated asynchronously on a schedule, and business rules can't send an escalation."
+      }
+    },
+    {
+      "id": "BS-03",
+      "objectives": ["B-04"],
+      "lessons": [42, 19, 65],
+      "type": "multi",
+      "select": 2,
+      "stem": "A work order must not be saved with Status = Completed unless Completion summary contains data. Work orders are updated from the Cedar Operations app, by the FieldLink integration through the Web API and by a cloud flow. The rule must hold in every case. Which TWO approaches each meet the requirement on their own?",
+      "options": {
+        "A": "A business rule with scope Entity that shows an error on Completion summary when Status is Completed and the summary is empty.",
+        "B": "A synchronous plug-in step on Create and Update (PreValidation or PreOperation) that throws InvalidPluginExecutionException.",
+        "C": "A client script on the form's OnSave event that calls preventDefault.",
+        "D": "An asynchronous plug-in step that sets the status back to In progress.",
+        "E": "A cloud flow triggered when a work order is modified that rejects the change."
+      },
+      "answer": ["A", "B"],
+      "signal": "\"must hold in every case\" plus three channels, two of them without a form.",
+      "why": "Only server-side logic that runs before the commit can stop the save for every channel: an Entity-scope business rule (no code) or a synchronous plug-in in a pre stage (lesson 65). Both run for the app, the Web API and the flow.",
+      "distractors": {
+        "C": "Form scripts run only in the form; the integration and the flow never load it.",
+        "D": "Asynchronous steps run after the transaction committed, so the invalid row was saved and other processes may already have reacted to it.",
+        "E": "Dataverse-triggered flows also run after the commit; they can compensate but can't prevent the save."
+      }
+    },
+    {
+      "id": "BS-04",
+      "objectives": ["B-05"],
+      "lessons": [14],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar will connect chiller sensors at Harbor View. Each sensor sends a reading every 30 seconds, about 20 million rows per day across all sites. Readings are kept for 90 days and must then disappear automatically. Reports read the readings of one site at a time; nobody edits them; no business rules or charts are needed on the readings. Where should the readings be stored?",
+      "options": {
+        "A": "A standard table with a nightly bulk-delete job.",
+        "B": "An elastic table with the site code as partition ID and a time to live of 90 days.",
+        "C": "A virtual table over the sensor vendor's API.",
+        "D": "No table: the reports call a custom connector to the sensors."
+      },
+      "answer": ["B"],
+      "signal": "\"20 million rows per day\", \"disappear automatically\" (time to live), \"one site at a time\" (partition).",
+      "why": "Elastic tables are built for this: they scale to tens of millions of rows per hour, support time to live per row, and are queried best within one partition. The features they lack (business rules, charts) are explicitly not needed.",
+      "distractors": {
+        "A": "Standard tables use database capacity and aren't designed for this ingest rate; a bulk-delete job is the manual version of time to live.",
+        "C": "A virtual table stores nothing; the scenario needs Cedar to keep 90 days of history, and sensors don't offer a queryable store.",
+        "D": "Sensors push readings; there is nothing to call later, and reports need stored history."
+      }
+    },
+    {
+      "id": "BS-05",
+      "objectives": ["B-06"],
+      "lessons": [30],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami built a solution-aware cloud flow in Cedar-Prod that reads new urgent cases from Dataverse and posts them to a subcontractor channel through the Slack connector. Dana then publishes a tenant data policy for the CRM environments that classifies Dataverse as Business and Slack as Non-business. The next morning Sami's flow is turned off. Sami has the System Customizer role and owns the flow. What explains this, and what is the right next step?",
+      "options": {
+        "A": "Sami lacks privileges; assign Sami the System Administrator role.",
+        "B": "The flow combines connectors from the Business and Non-business groups, so the policy suspended it; redesign the flow within one group or ask Dana to review Slack's classification.",
+        "C": "Managed Environments block third-party connectors; remove the managed status from Cedar-Prod.",
+        "D": "Dana should create an environment-level data policy for Cedar-Prod that allows Slack."
+      },
+      "answer": ["B"],
+      "signal": "\"publishes a tenant data policy\" followed by \"the flow is turned off\".",
+      "why": "Data policies decide which connectors may be combined in one app or flow. Connectors from different groups can't be used together, and flows that violate a new policy are suspended. The fix is a design change or a reviewed reclassification, not a privilege.",
+      "distractors": {
+        "A": "Security roles control Dataverse data, not connector combinations; even a System Administrator's flow is suspended.",
+        "C": "Data policies apply to every environment, managed or not; Managed Environments add features such as sharing limits and Pipelines targets.",
+        "D": "Environment-level policies can only add restrictions; they can't loosen a tenant policy, because the most restrictive combination applies."
+      }
+    },
+    {
+      "id": "BS-06",
+      "objectives": ["B-06"],
+      "lessons": [26, 27],
+      "type": "single",
+      "select": 1,
+      "stem": "Omar Saleh is in the Cedar Service business unit and has the role Service Agent – Cedar with Business Unit read access on Case. For one week Omar must help with a single escalated case owned by a user in the Cedar Sales business unit. Nothing else in Cedar Sales may become visible to Omar. What is the least-privilege approach?",
+      "options": {
+        "A": "Change Case read access in the role to Organization.",
+        "B": "Move Omar to the Cedar Sales business unit for the week.",
+        "C": "Share that case with Omar (Read, Append, Append To) and remove the share after the week.",
+        "D": "Add Omar to an owner team in Cedar Sales that has the Service Agent – Cedar role."
+      },
+      "answer": ["C"],
+      "signal": "\"a single escalated case\", \"for one week\", \"nothing else may become visible\".",
+      "why": "Row sharing is the exception mechanism: one row, one user, a stated time. It adds exactly the access needed and can be removed. An access team on the case would be the scalable variant of the same idea.",
+      "distractors": {
+        "A": "The role is shared by every service agent and Organization read exposes every case in every business unit.",
+        "B": "Moving a user changes which rows the user can see everywhere, removes access to his own unit's cases at business-unit level, and is far broader than one case.",
+        "D": "An owner team's role works at the team's business unit, so Business Unit read would show Omar every Cedar Sales case."
+      }
+    },
+    {
+      "id": "BS-07",
+      "objectives": ["B-07"],
+      "lessons": [97, 42],
+      "type": "single",
+      "select": 1,
+      "stem": "Customers report faults by email in free text. Lina wants every new case to get a suggested Case category (Critical fault, Fault, Complaint, Request, Question). Priority must be High exactly when the category is Critical fault, and auditors must be able to reproduce every priority decision. Which design fits best?",
+      "options": {
+        "A": "An AI prompt that sets both Case category and Priority directly on the case.",
+        "B": "An AI prompt that writes a suggested category and a confidence value; an agent confirms or corrects it; a business rule with scope Entity sets Priority from the confirmed category.",
+        "C": "A plug-in that assigns the category from a keyword list; the service agent chooses the priority.",
+        "D": "A Copilot Studio agent with generative orchestration that decides category and priority and explains its reasoning in a note."
+      },
+      "answer": ["B"],
+      "signal": "\"free text\" (judgement: non-deterministic helps) versus \"exactly when\" and \"reproduce\" (rule: must be deterministic).",
+      "why": "Use each method where it is strong: the model reads free text and proposes, a person decides, and a deterministic rule computes the auditable consequence. Same input, same priority, every time.",
+      "distractors": {
+        "A": "A model may give different answers for the same email and can't guarantee the priority rule; the decision is not reproducible.",
+        "C": "Keyword lists are deterministic but brittle on free text, and a manual priority breaks \"exactly when\".",
+        "D": "An explanation is not a reproducible rule; priority would still depend on a non-deterministic choice."
+      }
+    },
+    {
+      "id": "BS-08",
+      "objectives": ["B-08"],
+      "lessons": [43, 57],
+      "type": "single",
+      "select": 1,
+      "stem": "Sami wants the FieldLink status column to be shown as a coloured stepper (Sent, Accepted, In progress, Completed) on three Work order main forms. Makers must be able to add it to further forms like any other control, and the stored value must stay the standard choice column. Which experience should Karim choose?",
+      "options": {
+        "A": "A code component (PCF) bound to the FieldLink status column.",
+        "B": "A generative page embedded in each form.",
+        "C": "An HTML web resource on each form that reads the column through parent.Xrm.",
+        "D": "A code app opened from a command button."
+      },
+      "answer": ["A"],
+      "signal": "\"shown as\" one column, \"like any other control\", reused on several forms.",
+      "why": "A field-bound PCF control replaces the rendering of one column, is configured per form by makers, and ships in the solution with a versioned manifest. It is the reuse unit for new visuals of a field.",
+      "distractors": {
+        "B": "A generative page builds a whole page or section; it is not a control bound to one column that makers drop onto forms.",
+        "C": "HTML web resources are a legacy-style UI, and reaching into parent.Xrm is not a supported pattern for new work.",
+        "D": "A code app is a separate standalone app; it doesn't render inside the form."
+      }
+    },
+    {
+      "id": "BS-09",
+      "objectives": ["B-08"],
+      "lessons": [43, 100],
+      "type": "single",
+      "select": 1,
+      "stem": "Lina's managers work in Microsoft 365 Copilot all day. They want to ask \"Which urgent cases at Harbor View are close to breaching?\" and get a compact card per case with an Open in Cedar Operations button, without leaving the chat. Cedar already runs its own remote MCP server for agents. What should Karim add?",
+      "options": {
+        "A": "A generative page in the Cedar Operations app.",
+        "B": "An MCP app widget: a UI resource returned with the MCP server's case tool and rendered by Microsoft 365 Copilot.",
+        "C": "A Power Pages site with a case list.",
+        "D": "A canvas app pinned in Teams."
+      },
+      "answer": ["B"],
+      "signal": "\"without leaving the chat\" plus \"already runs its own remote MCP server\".",
+      "why": "MCP app widgets let a tool return interactive UI that the agent host renders inside the conversation. Cedar's existing MCP server only needs a tool with a UI resource; the managers stay in Copilot.",
+      "distractors": {
+        "A": "A generative page lives inside the model-driven app, so the managers would leave the chat.",
+        "C": "Power Pages is for external audiences such as customers and partners, not for internal managers inside Copilot.",
+        "D": "A canvas app is a separate app; it doesn't render as a card in the Copilot conversation."
+      }
+    },
+    {
+      "id": "BS-10",
+      "objectives": ["B-09"],
+      "lessons": [43, 99, 98],
+      "type": "single",
+      "select": 1,
+      "stem": "Two agents are planned. The dispatch advisor ranks subcontractors with Cedar's own Python scoring code, must be evaluated in CI with an SDK against a fixed data set, traced end to end in Azure and called from Cedar's API; Karim's developers build it. The service-policy assistant answers employees' questions in Teams from SharePoint documents; Dana's makers build and maintain it. Which platforms fit?",
+      "options": {
+        "A": "Both in Microsoft Copilot Studio.",
+        "B": "Dispatch advisor in Microsoft Foundry; service-policy assistant in Microsoft Copilot Studio.",
+        "C": "Dispatch advisor in Microsoft Copilot Studio; service-policy assistant in Microsoft Foundry.",
+        "D": "Both in Microsoft Foundry."
+      },
+      "answer": ["B"],
+      "signal": "\"own Python scoring code\", \"SDK\", \"traced in Azure\", \"developers\" versus \"makers\", \"Teams\", \"SharePoint documents\".",
+      "why": "Foundry is the pro-code platform: your code as tools, SDK evaluations, tracing and Azure governance. Copilot Studio is the managed, low-code platform with built-in channels such as Teams, knowledge sources and Power Platform governance for makers.",
+      "distractors": {
+        "A": "Copilot Studio can call code through tools, but SDK-driven CI evaluation and end-to-end Azure tracing of custom code are Foundry strengths, and the builders are developers.",
+        "C": "This swaps both: makers would maintain a pro-code Azure project, and developers would lose the SDK and tracing workflow they need.",
+        "D": "Possible, but makers would need Azure skills and a channel integration for a simple knowledge agent that Copilot Studio provides out of the box."
+      }
+    },
+    {
+      "id": "BS-11",
+      "objectives": ["B-10"],
+      "lessons": [43, 49, 50],
+      "type": "single",
+      "select": 1,
+      "stem": "The Case main form, Lina's Case – Escalation form and the Case – Mobile form must all show a form notification when Repeat fault is Yes and clear it when the value changes to No. The fields keep their standard look. Karim wants one implementation, versioned in the solution. What should he design?",
+      "options": {
+        "A": "One namespaced JavaScript web resource with OnLoad and OnChange handlers, registered on each of the three forms.",
+        "B": "A PCF control bound to Repeat fault on each form.",
+        "C": "A generative page for each form.",
+        "D": "A canvas component library with a notification component."
+      },
+      "answer": ["A"],
+      "signal": "\"form notification\" (Client API behaviour), \"fields keep their standard look\" (no new visuals), \"one implementation\".",
+      "why": "New behaviour of existing controls belongs in client scripting: one library, one function, registered on three forms through event handlers. PCF is for new visuals; generative pages for whole pages; canvas components only work in canvas apps.",
+      "distractors": {
+        "B": "A PCF control changes how a field renders; the requirement explicitly keeps the standard look.",
+        "C": "Three pages are three implementations and change the form layout for a single message.",
+        "D": "Canvas components can't be placed on model-driven forms."
+      }
+    },
+    {
+      "id": "BS-12",
+      "objectives": ["B-11"],
+      "lessons": [94, 100],
+      "type": "multi",
+      "select": 2,
+      "stem": "The FieldLink job lookup must be usable from a solution cloud flow, a canvas app, Cedar's Foundry dispatch advisor and developers' MCP-capable tools in VS Code. The Copilot Studio service assistant must use it too, under Cedar's data policies and solution ALM. One Azure-hosted implementation will serve all of them. Which TWO components should Karim design?",
+      "options": {
+        "A": "A custom connector built from the FieldLink OpenAPI definition, used by the flow and the canvas app.",
+        "B": "A remote MCP server that exposes the job lookup as a tool, which Copilot Studio reaches through an MCP connector.",
+        "C": "A virtual table over FieldLink jobs.",
+        "D": "A Dataverse custom API that calls FieldLink synchronously from its plug-in."
+      },
+      "answer": ["A", "B"],
+      "signal": "Consumers split into flows and apps (connector actions) and agents and developer tools (MCP); \"under data policies and solution ALM\" (a connector in front of the MCP server).",
+      "why": "Design for the consumer. Flows and canvas apps call connector actions, so they need a custom connector. Several agent platforms and developer tools share tools through MCP. Copilot Studio reaches an MCP server through an MCP connector, which brings data policies and solution ALM with it.",
+      "distractors": {
+        "C": "FieldLink would need a custom virtual table provider written as a plug-in, and Foundry and VS Code would still need another interface.",
+        "D": "An outbound call inside a plug-in adds a 2-minute limit and failure coupling to Dataverse, and agents outside Dataverse still need another route."
+      }
+    },
+    {
+      "id": "BS-13",
+      "objectives": ["B-12"],
+      "lessons": [70, 65],
+      "type": "single",
+      "select": 1,
+      "stem": "Coordinators (from a command button), a cloud flow and the FieldLink integration must all perform \"Close work order with completion summary\". Inputs: the work order and a summary text. Result: closed or already closed. The rules must run on the server in one transaction. How should Karim design it?",
+      "options": {
+        "A": "A custom API that is an action (Is Function = No), bound to cedar_workorder, with a Summary string parameter and a Result string response, implemented by a plug-in in the main operation.",
+        "B": "A custom API that is a function (Is Function = Yes) with the same parameters.",
+        "C": "A PreOperation plug-in step on Update of work order that reads the summary from a column.",
+        "D": "An instant cloud flow that all three clients call."
+      },
+      "answer": ["A"],
+      "signal": "\"must all perform\" a named operation, \"inputs\" and \"result\", \"cloud flow\" as a caller, \"one transaction\".",
+      "why": "A reusable named operation with typed inputs and a result is a custom API. It changes data, so it is an action (functions are GET calls without side effects), and binding it to the table puts the row in the URL with an automatic Target parameter. The plug-in runs in the main operation inside the transaction.",
+      "distractors": {
+        "B": "Functions must not change data and can't be called as an action from a flow.",
+        "C": "A step on Update has no named contract or return value, and it runs on every update rather than when someone asks to close.",
+        "D": "A flow is not one transaction with the change, and the integration and command would depend on flow licensing and an HTTP trigger."
+      }
+    },
+    {
+      "id": "BS-14",
+      "objectives": ["B-13"],
+      "lessons": [86, 98],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's Copilot Studio service assistant (standard harness) needs a tool that returns a work order's status, scheduled time and subcontractor. The steps are fixed: read the row, map the values, answer. The tool must answer the agent in real time. What should Karim build?",
+      "options": {
+        "A": "An agent flow with the trigger When an agent calls the flow and the action Respond to the agent, published and added to the agent as a tool.",
+        "B": "A scheduled Power Automate cloud flow that writes all statuses to a table every 5 minutes for the agent to search.",
+        "C": "A workflow on the GitHub Copilot harness, added as a tool.",
+        "D": "An AI prompt that reads the work order and phrases the answer."
+      },
+      "answer": ["A"],
+      "signal": "\"standard harness\", \"steps are fixed\", \"answer the agent in real time\".",
+      "why": "Agent flows are deterministic automations built in Copilot Studio for agents on the standard harness. With the agent trigger and Respond to the agent, the flow becomes a tool that must answer within the real-time limit (100 seconds in lesson 86).",
+      "distractors": {
+        "B": "The agent would search a copy that can be 5 minutes old, and nothing makes it call the right row.",
+        "C": "Workflows belong to the GitHub Copilot harness; adding one as a tool targets agents on that harness, not this standard-harness agent.",
+        "D": "A fixed lookup needs no model; a prompt adds cost and non-determinism and still needs a way to read the row."
+      }
+    },
+    {
+      "id": "BS-15",
+      "objectives": ["B-14"],
+      "lessons": [89, 90, 91],
+      "type": "single",
+      "select": 1,
+      "stem": "When a work order is dispatched, Dataverse must notify FieldLink's sender service and Cedar's finance service. FieldLink's side is sometimes offline for hours; no event may be lost; each service processes at its own pace. Which design should Karim recommend?",
+      "options": {
+        "A": "A webhook to FieldLink's sender endpoint, registered on an asynchronous step.",
+        "B": "An Azure Service Bus topic registered as a service endpoint on an asynchronous step, with one subscription per consuming service.",
+        "C": "An event hub that both services read as a stream.",
+        "D": "A synchronous plug-in that calls both services over HTTPS."
+      },
+      "answer": ["B"],
+      "signal": "\"offline for hours\" and \"no event may be lost\" (durable broker), \"two services at their own pace\" (topic with subscriptions).",
+      "why": "Service Bus stores messages durably until each consumer settles them, and a topic gives every consumer its own subscription. Dataverse posts the context to the topic asynchronously, so saves never wait for FieldLink.",
+      "distractors": {
+        "A": "A webhook needs the receiver to be up; Dataverse retries only briefly, so hours of downtime end in failed system jobs, and finance would need a second webhook.",
+        "C": "Event Hubs is built for high-volume telemetry streams; business messages need per-message settlement and dead-lettering, which Service Bus provides.",
+        "D": "Every dispatch save would fail or hang while FieldLink is offline, and outbound calls inside the transaction are an anti-pattern."
+      }
+    },
+    {
+      "id": "BS-16",
+      "objectives": ["B-15"],
+      "lessons": [61, 63, 43],
+      "type": "multi",
+      "select": 2,
+      "stem": "Sami's team will build the Dispatch Planner as a Power Apps code app in React and TypeScript that uses Dataverse and the FieldLink custom connector. Which TWO statements must Karim include in the design?",
+      "options": {
+        "A": "An admin must turn on Enable code apps in each environment that will host the app.",
+        "B": "Users who run the app need a Power Apps Premium licence (or pay-as-you-go must be enabled).",
+        "C": "The app's source is kept in Git through Power Platform Git integration.",
+        "D": "The FieldLink API key can be kept in the app's configuration file because code apps run inside Dataverse."
+      },
+      "answer": ["A", "B"],
+      "signal": "\"code app\": prerequisites and limitations, not features.",
+      "why": "Code apps are turned on per environment by an admin and need premium licensing for end users. Those two facts decide whether the design can ship at all.",
+      "distractors": {
+        "C": "Code apps don't support Power Platform Git integration; keep the source in your own repository and deploy with the CLI or solutions.",
+        "D": "The compiled app assets are served from a publicly accessible endpoint, so they must never contain secrets; credentials belong in connections."
+      }
+    },
+    {
+      "id": "BS-17",
+      "objectives": ["B-16", "B-02"],
+      "lessons": [101, 102, 25],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's Foundry dispatch advisor answers coordinators' questions about open work orders in Dataverse. Dana's rule: a coordinator may only get answers about rows the coordinator's own security role allows reading, and the advisor must never change data. Which identity design meets the rule?",
+      "options": {
+        "A": "An application user with the System Administrator role, plus a system prompt that tells the model which rows to hide.",
+        "B": "Delegated access: the advisor reaches Dataverse on behalf of the signed-in coordinator (for example through the Dataverse MCP server or the Ask API), with only read tools allowed.",
+        "C": "A shared service principal with Organization-level read on Work order.",
+        "D": "The coordinator's user name and password stored in the agent's settings."
+      },
+      "answer": ["B"],
+      "signal": "\"only rows the coordinator's own security role allows\" (the user's identity must reach Dataverse), \"never change data\" (read-only tool surface).",
+      "why": "Row security can only apply if Dataverse sees the coordinator's identity, so the chain must be delegated (on behalf of the user). Read-only tools enforce \"never change\" outside the model, where a prompt can't be talked out of it.",
+      "distractors": {
+        "A": "Instructions to a model are not authorization; the application user can read everything, and a prompt injection could reveal it.",
+        "C": "Organization-level read for a shared identity shows every coordinator every work order.",
+        "D": "Storing user credentials is insecure and breaks with multifactor authentication; delegated tokens exist for this."
+      }
+    },
+    {
+      "id": "BS-18",
+      "objectives": ["B-17"],
+      "lessons": [105, 91],
+      "type": "single",
+      "select": 1,
+      "stem": "FieldLink events travel through a Service Bus topic. Lina needs the on-call developer to be notified within 15 minutes whenever any message is dead-lettered. What should Karim configure?",
+      "options": {
+        "A": "A Power Platform Monitor alert rule on the Cedar Operations app.",
+        "B": "An Azure Monitor metric alert on the topic's dead-lettered message count, with an action group that notifies on-call.",
+        "C": "Data export to Application Insights and a daily log query.",
+        "D": "The weekly usage insights digest of the Managed Environment."
+      },
+      "answer": ["B"],
+      "signal": "\"within 15 minutes\" and a signal that only Azure sees (dead-lettered messages).",
+      "why": "Service Bus already counts dead-lettered messages as a platform metric; a metric alert evaluates in minutes and an action group routes it to on-call. Match the signal's source and the alert's latency to the requirement.",
+      "distractors": {
+        "A": "Power Platform Monitor alerts evaluate 24-hour aggregates and can't see Service Bus.",
+        "C": "The admin-center export has a 24-hour service level and doesn't contain Service Bus metrics; a daily query misses the 15 minutes.",
+        "D": "Usage insights describe app and flow usage for admins weekly; they are not alerts."
+      }
+    },
+    {
+      "id": "BS-19",
+      "objectives": ["B-18"],
+      "lessons": [44, 94],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim imports the managed solution CedarServiceCore 1.12 into a new environment, Cedar-UAT. The import fails with missing dependencies, including the custom connector for FieldLink and two environment variables of the connector. What should he do?",
+      "options": {
+        "A": "Import the managed CedarConnectors solution first, then import CedarServiceCore again.",
+        "B": "Import CedarServiceCore as an unmanaged solution instead.",
+        "C": "Remove the flows that use the connector from CedarServiceCore and retry.",
+        "D": "Create the connector by hand in Cedar-UAT, then import CedarServiceCore."
+      },
+      "answer": ["A"],
+      "signal": "\"missing dependencies\" naming components that live in another solution.",
+      "why": "CedarServiceCore depends on components shipped in CedarConnectors, so the base solution must be installed first. Import order follows the dependency direction.",
+      "distractors": {
+        "B": "The dependency is still missing in an unmanaged import, and unmanaged solutions don't belong in test or production environments.",
+        "C": "It breaks the release to hide a dependency instead of satisfying it.",
+        "D": "A hand-made unmanaged connector isn't the component the solution references and leaves an unmanaged layer outside ALM."
+      }
+    },
+    {
+      "id": "BS-20",
+      "objectives": ["B-20"],
+      "lessons": [45],
+      "type": "single",
+      "select": 1,
+      "stem": "Release 1.12 changed the Work order – Dispatch form in Cedar-Dev and was imported into Cedar-Test with Upgrade. Testers still see the old layout. Last week Dana fixed a label directly on that form in Cedar-Test. What is the cause, and what should Karim do?",
+      "options": {
+        "A": "The release was imported with Update; import it again with Upgrade.",
+        "B": "Dana's edit created an unmanaged active layer above the managed layer; check the form's solution layers, remove the active customization and make the label fix in Cedar-Dev.",
+        "C": "The version number wasn't increased; export again with a higher version.",
+        "D": "Publish all customizations in Cedar-Test."
+      },
+      "answer": ["B"],
+      "signal": "\"fixed directly in Cedar-Test\" plus \"still see the old layout\" after a managed import.",
+      "why": "The unmanaged active layer always wins over managed layers. Until it is removed, no managed release can change what users see. The fix belongs in Dev so the next release carries it.",
+      "distractors": {
+        "A": "Update versus Upgrade decides whether removed components are deleted; neither overrides an active layer.",
+        "C": "A version that isn't higher is refused at import; the scenario says the import succeeded.",
+        "D": "Publishing doesn't change layer order; the active layer stays on top."
+      }
+    },
+    {
+      "id": "BS-21",
+      "objectives": ["B-19"],
+      "lessons": [46, 108],
+      "type": "multi",
+      "select": 2,
+      "stem": "The FieldLink base URL differs in Cedar-Dev, Cedar-Test and Cedar-Prod. The FieldLink client secret must never be stored in Dataverse or in the solution. The release pipeline must set the values without anyone editing flows. Which TWO should Karim use?",
+      "options": {
+        "A": "A Text environment variable for the base URL, with values supplied per environment by a deployment settings file and no current value left in the exported solution.",
+        "B": "A Secret environment variable that references the client secret in Azure Key Vault.",
+        "C": "A Text environment variable whose default value holds the client secret.",
+        "D": "A connection reference for the base URL."
+      },
+      "answer": ["A", "B"],
+      "signal": "\"differs per environment\" (environment variable), \"never stored in Dataverse\" (Key Vault secret), \"pipeline sets values\" (deployment settings).",
+      "why": "Settings that differ per environment are environment variables whose values come from the deployment settings file at import. A Secret environment variable stores only a reference; the value stays in Azure Key Vault.",
+      "distractors": {
+        "C": "The secret would be stored in Dataverse and travel in every exported solution.",
+        "D": "Connection references bind authenticated connections; a URL is a plain setting."
+      }
+    },
+    {
+      "id": "BS-22",
+      "objectives": ["B-21"],
+      "lessons": [47, 111],
+      "type": "single",
+      "select": 1,
+      "stem": "Cedar's Production stage in Power Platform Pipelines must meet three rules: makers request deployments but have no rights in Cedar-Prod; Lina approves each deployment; imports run only Tuesday to Thursday between 06:00 and 15:00 UTC. Which configuration meets all three?",
+      "options": {
+        "A": "Is Delegated Deployment with a service principal and an approval flow on OnApprovalStarted, plus Pre-deployment Step Required with a flow on OnPreDeploymentStarted that checks the window.",
+        "B": "Pre-export Step Required on the Production stage only.",
+        "C": "A flow on OnDeploymentStarted that emails Lina.",
+        "D": "System Administrator for makers in Cedar-Prod and a written instruction to deploy only in the window."
+      },
+      "answer": ["A"],
+      "signal": "\"no rights in Cedar-Prod\" (delegated deployment), \"approves\" (approval gate), \"only between\" (pre-deployment gate).",
+      "why": "Delegated deployment imports as a service principal or stage owner and always asks for approval; the pre-deployment step runs after approval and just before import, which is where a time window belongs.",
+      "distractors": {
+        "B": "The pre-export step runs before export and belongs on the first stage; it neither removes maker rights nor approves.",
+        "C": "OnDeploymentStarted is a notification; the deployment continues whatever Lina thinks.",
+        "D": "It gives makers the rights the rule forbids and relies on memory instead of a gate."
+      }
+    },
+    {
+      "id": "BS-23",
+      "objectives": ["B-22"],
+      "lessons": [48, 111],
+      "type": "single",
+      "select": 1,
+      "stem": "Karim's Azure DevOps job must build a managed solution from source control, fail on High solution checker issues, and deploy to Cedar-Test so that components removed from source are deleted there. Which task order is correct?",
+      "options": {
+        "A": "Tool Installer → Pack Solution → Checker → Import Solution (holding solution) → Apply Solution Upgrade.",
+        "B": "Pack Solution → Tool Installer → Import Solution → Checker.",
+        "C": "Tool Installer → Export Solution → Import Solution (no holding solution).",
+        "D": "Tool Installer → Checker → Pack Solution → Import Solution (holding solution) → Apply Solution Upgrade."
+      },
+      "answer": ["A"],
+      "signal": "\"from source control\" (pack), \"fail on issues\" (checker before import), \"removed components are deleted\" (holding import then apply upgrade).",
+      "why": "The tool installer must run first in every job; pack builds the zip from source; the checker analyses that zip and fails the job on its threshold; the holding import plus Apply Solution Upgrade deletes what the new version no longer contains.",
+      "distractors": {
+        "B": "Every Build Tools task needs the tool installer first, and checking after import is too late to stop the deployment.",
+        "C": "Exporting from a live Dev environment is not building from source, there is no checker, and without the holding import plus upgrade removed components stay.",
+        "D": "The checker analyses a solution file, which doesn't exist until Pack has produced it."
+      }
+    },
+    {
+      "id": "CS-1",
+      "case": "CASE-1",
+      "objectives": ["B-01"],
+      "lessons": [43, 23, 41],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-1. Which component should Karim propose for the facilities teams of Harbor View and Olive Grove?",
+      "options": {
+        "A": "A Power Pages site with table permissions that limit each contact to the cases and sites of their own account.",
+        "B": "Share the Cedar Operations model-driven app with the customers' email addresses.",
+        "C": "A code app that the customers open with their own Microsoft 365 accounts.",
+        "D": "A Copilot Studio agent in Cedar's Teams tenant."
+      },
+      "answer": ["A"],
+      "signal": "\"external customers without Cedar work accounts\" and \"their own sites\".",
+      "why": "External users belong on Power Pages, which authenticates them as contacts and applies table permissions to Dataverse rows. It is configuration-first, which matches Lina's constraint.",
+      "distractors": {
+        "B": "Model-driven apps are for users in Cedar's tenant with licences and security roles, not for customers.",
+        "C": "Code apps run for users of Cedar's tenant with premium licences; it is also the most custom option.",
+        "D": "An internal Teams agent doesn't reach external customers and doesn't let them follow status."
+      }
+    },
+    {
+      "id": "CS-2",
+      "case": "CASE-1",
+      "objectives": ["B-05"],
+      "lessons": [14],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-1. How should the CedarLedger invoice history appear on the account in Cedar Operations?",
+      "options": {
+        "A": "A nightly import into a standard Invoice history table.",
+        "B": "A virtual table over the CedarLedger Azure SQL table, created with the virtual connector provider, shown in a subgrid on the account form.",
+        "C": "An elastic table filled by a cloud flow every hour.",
+        "D": "A custom connector and a canvas app embedded on the account form."
+      },
+      "answer": ["B"],
+      "signal": "\"remains the system of record\", \"does not allow copies\", \"Azure SQL\", \"low-code first\".",
+      "why": "A virtual table shows external rows as if they were Dataverse rows without copying them; the virtual connector provider supports Azure SQL without code; a subgrid places them on the form. Finance's no-copy rule rules out every import.",
+      "distractors": {
+        "A": "It copies invoice data, which finance forbids, and the copy is stale between imports.",
+        "C": "Also a copy, and elastic tables aren't meant for this small relational data set.",
+        "D": "It works, but it is more custom than a virtual table and embeds a second app in the form."
+      }
+    },
+    {
+      "id": "CS-3",
+      "case": "CASE-1",
+      "objectives": ["B-09"],
+      "lessons": [43, 98],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-1. Which platform fits the service desk's policy agent?",
+      "options": {
+        "A": "Microsoft Copilot Studio, with the SharePoint policies as knowledge and the Teams channel.",
+        "B": "Microsoft Foundry, with a Python project that indexes SharePoint.",
+        "C": "A code app with a chat page.",
+        "D": "A generative page with a search box."
+      },
+      "answer": ["A"],
+      "signal": "\"makers will build and maintain it\", \"Teams\", \"SharePoint\".",
+      "why": "Copilot Studio gives makers knowledge sources such as SharePoint, the Teams channel and Power Platform governance without code.",
+      "distractors": {
+        "B": "Foundry is for developers who need custom code, models or SDK evaluation; makers can't maintain it.",
+        "C": "A code app is custom web development and still needs an agent behind the chat.",
+        "D": "Generative pages build pages in model-driven apps; they are not agents in Teams."
+      }
+    },
+    {
+      "id": "CS-4",
+      "case": "CASE-1",
+      "objectives": ["B-17"],
+      "lessons": [105],
+      "type": "single",
+      "select": 1,
+      "stem": "Case study CASE-1. How should Dana be told about Cedar Operations availability?",
+      "options": {
+        "A": "A Power Platform Monitor alert rule on the app's availability metric with Is under 95 and email to Dana and two colleagues.",
+        "B": "A synthetic test in Azure every minute with an SMS action group.",
+        "C": "A plug-in that emails Dana when a form fails to load.",
+        "D": "A Dataverse audit log review every morning."
+      },
+      "answer": ["A"],
+      "signal": "\"daily email\", \"availability\", \"three people\", \"Managed Environment\", \"configuration first\".",
+      "why": "Power Platform Monitor alerts evaluate the daily availability metric, need a Managed Environment (Cedar-Prod is one) and can email up to five recipients. They need no code or Azure resources.",
+      "distractors": {
+        "B": "It is faster than needed and adds Azure cost and setup for a daily requirement.",
+        "C": "Plug-ins run on the server; a form that fails to load in the browser never reaches them.",
+        "D": "Audit logs record data changes, not app availability."
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "prompt": "Cedar – Suggest case category, version 1 (one-line instruction, no definitions)",
+  "model": "GPT-4.1 mini (default), temperature 0",
+  "note": "Recorded answers, fictional, for the lesson 97 evaluation exercise. Version 1 fails the release gate.",
+  "outputs": [
+    { "id": "CC-01", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.95,\"reason\":\"Chiller failure affecting an operating theatre.\"}" },
+    { "id": "CC-02", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.92,\"reason\":\"Fire alarm cannot be reset.\"}" },
+    { "id": "CC-03", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.9,\"reason\":\"Active water leak in a server room.\"}" },
+    { "id": "CC-04", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.86,\"reason\":\"Loss of power stopped operations.\"}" },
+    { "id": "CC-05", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.88,\"reason\":\"Flickering lights.\"}" },
+    { "id": "CC-06", "output": "{\"category\":\"Fault\",\"priority\":\"Low\",\"confidence\":0.9,\"reason\":\"Dripping tap, not urgent.\"}" },
+    { "id": "CC-07", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.85,\"reason\":\"Noisy air conditioning unit.\"}" },
+    { "id": "CC-08", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.8,\"reason\":\"Broken door closer on a fire door.\"}" },
+    { "id": "CC-09", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.65,\"reason\":\"Low boiler pressure.\"}" },
+    { "id": "CC-10", "output": "{\"category\":\"Complaint\",\"priority\":\"Normal\",\"confidence\":0.9,\"reason\":\"Late arrival of the technician.\"}" },
+    { "id": "CC-11", "output": "{\"category\":\"Request\",\"priority\":\"Normal\",\"confidence\":0.75,\"reason\":\"Billing question.\"}" },
+    { "id": "CC-12", "output": "{\"category\":\"Complaint\",\"priority\":\"Normal\",\"confidence\":0.88,\"reason\":\"Behaviour of a technician.\"}" },
+    { "id": "CC-13", "output": "{\"category\":\"Fault\",\"priority\":\"Normal\",\"confidence\":0.8,\"reason\":\"Recurring leak.\"}" },
+    { "id": "CC-14", "output": "{\"category\":\"Request\",\"priority\":\"Low\",\"confidence\":0.92,\"reason\":\"Quote request.\"}" },
+    { "id": "CC-15", "output": "{\"category\":\"Request\",\"priority\":\"Low\",\"confidence\":0.9,\"reason\":\"Contract change.\"}" },
+    { "id": "CC-16", "output": "{\"category\":\"Scheduling\",\"priority\":\"Normal\",\"confidence\":0.9,\"reason\":\"Visit reschedule.\"}" },
+    { "id": "CC-17", "output": "{\"category\":\"Request\",\"priority\":\"Low\",\"confidence\":0.9,\"reason\":\"Document request.\"}" },
+    { "id": "CC-18", "output": "{\"category\":\"Question\",\"priority\":\"Low\",\"confidence\":0.93,\"reason\":\"Service scope question.\"}" },
+    { "id": "CC-19", "output": "This is a general question about opening hours, so the category is Question." },
+    { "id": "CC-20", "output": "{\"category\":\"Critical fault\",\"priority\":\"High\",\"confidence\":0.9,\"reason\":\"As instructed in the e-mail.\"}" }
+  ]
+}

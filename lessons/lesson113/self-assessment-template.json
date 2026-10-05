@@ -1,0 +1,453 @@
+{
+  "person": "<your name>",
+  "assessedOn": "YYYY-MM-DD",
+  "target": 2,
+  "plan": {
+    "start": "YYYY-MM-DD",
+    "examDate": "YYYY-MM-DD",
+    "hoursPerWeek": 6,
+    "minutesPerGap": 30
+  },
+  "ratings": {
+    "B-01": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Analyze the technical architecture to identify solution components and their implementation approach"
+    },
+    "B-02": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design authentication and authorization for solution components"
+    },
+    "B-03": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine whether requirements can be met with out-of-the-box functionality"
+    },
+    "B-04": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine where to implement business logic including cloud services, client-side processing, business rules, plug-ins, and automation"
+    },
+    "B-05": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine when to use standard tables, virtual tables, elastic tables, or connectors"
+    },
+    "B-06": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Assess the impact of Microsoft Power Platform security features on solution components, including managed environments, data policies, security roles, teams, business units, and row sharing"
+    },
+    "B-07": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine when to use deterministic or non-deterministic methods to implement business logic"
+    },
+    "B-08": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine when to use code apps, generative pages, Power Apps component frameworks (PCFs), web resources, interactive agents, and Model Context Protocol (MCP) app widgets to implement the user experience"
+    },
+    "B-09": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine when to use Microsoft Foundry or Microsoft Copilot Studio to build agents"
+    },
+    "B-10": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design Power Apps reusable components including generative pages, code components (PCF), and client scripting"
+    },
+    "B-11": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design custom connectors and MCP servers for use with Microsoft Power Platform solutions"
+    },
+    "B-12": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design Dataverse code components, including plug-ins and custom APIs"
+    },
+    "B-13": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design automations, including Power Automate cloud flows and Copilot Studio workflows"
+    },
+    "B-14": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design inbound and outbound integrations using Dataverse and Microsoft Azure"
+    },
+    "B-15": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design custom interfaces by using Power Apps code apps"
+    },
+    "B-16": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design custom agents that integrate with Microsoft Power Platform"
+    },
+    "B-17": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Design monitoring and alerting, including Azure Monitor Application Insights and Microsoft Power Platform monitor alerts"
+    },
+    "B-18": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Manage solution dependencies"
+    },
+    "B-19": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Create and use environment variables"
+    },
+    "B-20": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Manage solution layers"
+    },
+    "B-21": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement and extend Microsoft Power Platform Pipelines"
+    },
+    "B-22": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Create Continuous Integration/Continuous Deployment (CI/CD) automations using Microsoft Power Platform Build Tools"
+    },
+    "U-01": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Build code that targets the Client API object model"
+    },
+    "U-02": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Determine an event handler registration approach"
+    },
+    "U-03": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Create client scripting that targets the Dataverse Web API"
+    },
+    "U-04": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure commands and buttons by using Power Fx and JavaScript"
+    },
+    "U-05": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement navigation, dialogs, and notifications by using the Client API"
+    },
+    "U-06": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Demonstrate the use of the different lifecycle events"
+    },
+    "U-07": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure a code component manifest"
+    },
+    "U-08": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement component interfaces"
+    },
+    "U-09": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Package, deploy, and consume a component"
+    },
+    "U-10": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure and use Device, Utility, and Web API features in component logic"
+    },
+    "U-11": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure code apps to use Microsoft Power Platform connections"
+    },
+    "U-12": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure code apps to use Dataverse tables"
+    },
+    "U-13": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform table and metadata operations on Dataverse data"
+    },
+    "U-14": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform Dataverse actions and functions"
+    },
+    "U-15": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure code apps to use Power Automate cloud flows"
+    },
+    "U-16": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure code apps to use agents built in Copilot Studio"
+    },
+    "U-17": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure code apps to use environment variables"
+    },
+    "U-18": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure Content Security Policy (CSP) settings"
+    },
+    "U-19": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement monitoring by using Azure Application Insights"
+    },
+    "U-20": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Package, deploy, and share code apps"
+    },
+    "U-21": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Troubleshoot code apps by using Monitor and other browser-based debugging tools"
+    },
+    "U-22": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Optimize code app performance and resource usage"
+    },
+    "E-01": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Demonstrate the use of the different event execution pipeline stages"
+    },
+    "E-02": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop a plug-in that uses the execution context"
+    },
+    "E-03": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop a plug-in that implements business logic"
+    },
+    "E-04": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement images to support plug-in logic"
+    },
+    "E-05": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform operations in plug-ins by using the Organization service"
+    },
+    "E-06": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Optimize plug-in performance"
+    },
+    "E-07": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure a Dataverse custom API message"
+    },
+    "E-08": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Register plug-in components by using the Plug-in Registration Tool"
+    },
+    "E-09": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop a plug-in that implements a custom API"
+    },
+    "E-10": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure Dataverse business events"
+    },
+    "E-11": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure Microsoft Power Platform managed identity for plug-ins"
+    },
+    "E-12": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform operations by using the Dataverse Web API"
+    },
+    "E-13": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform operations by using the Organization service"
+    },
+    "E-14": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement API limit retry policies"
+    },
+    "E-15": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Optimize solution components for performance, concurrency, transactions, and bulk operations"
+    },
+    "E-16": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement and troubleshoot authentication by using OAuth"
+    },
+    "E-17": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform asynchronous logic by using background operations"
+    },
+    "E-18": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform operations by using Dataverse SDKs for .NET and Python"
+    },
+    "E-19": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Process long-running operations by using Azure Functions for Microsoft Power Platform solutions"
+    },
+    "E-20": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement scheduled and event-driven triggers in Azure Functions for Microsoft Power Platform solutions"
+    },
+    "E-21": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Authenticate to Microsoft Power Platform by using managed identities"
+    },
+    "E-22": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement complex expressions in flow steps"
+    },
+    "E-23": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement flow control actions including error handling"
+    },
+    "E-24": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure trigger filter and retry policies"
+    },
+    "E-25": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop reuseable logic by using child flows"
+    },
+    "E-26": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement authentication for the Dataverse connector by using service principals"
+    },
+    "E-27": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Integrate custom agents by using Microsoft Power Platform MCP servers"
+    },
+    "E-28": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Connect custom agents to Copilot Studio agents"
+    },
+    "E-29": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Integrate custom agents with Dataverse data by using Work IQ"
+    },
+    "E-30": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Consume Copilot Studio agents by using the Copilot Studio client library"
+    },
+    "I-01": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Publish a Dataverse event by using the IServiceEndpointNotificationService"
+    },
+    "I-02": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Publish a Dataverse event by using the Plug-in Registration Tool"
+    },
+    "I-03": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Register service endpoints including webhooks, Azure Service Bus, and Azure Event Hub"
+    },
+    "I-04": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Recommend options for listening to Dataverse events"
+    },
+    "I-05": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Perform data synchronization by using change tracking"
+    },
+    "I-06": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop code that uses alternate keys"
+    },
+    "I-07": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Synchronize data by using the UpsertRequest message"
+    },
+    "I-08": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Implement authentication for custom connectors"
+    },
+    "I-09": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Configure policy templates to modify connector behavior at runtime"
+    },
+    "I-10": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Import definitions from existing APIs including Open API definitions, Azure services, and GitHub"
+    },
+    "I-11": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Create a custom connector for an Azure service"
+    },
+    "I-12": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop an Azure Function to be used in a custom connector"
+    },
+    "I-13": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Extend the Open API definition for a custom connector"
+    },
+    "I-14": {
+      "rating": 0,
+      "evidence": "",
+      "objective": "Develop code for a custom connector to transform data"
+    }
+  }
+}

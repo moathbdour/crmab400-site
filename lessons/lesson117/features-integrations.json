@@ -1,0 +1,162 @@
+{
+  "domain": "integrations",
+  "version": "1.0",
+  "lesson": 117,
+  "checkedOn": "2026-10-05",
+  "features": {
+    "webhook": {
+      "name": "Webhook service endpoint",
+      "chooseWhen": "a simple HTTPS endpoint you own receives the context; synchronous only when it must be able to cancel the save. Nothing is stored while it is down (60 s time-out, one more try only for 502/503/504)",
+      "lessons": [
+        90
+      ]
+    },
+    "service-bus-queue": {
+      "name": "Service Bus queue endpoint",
+      "chooseWhen": "one consumer (or a pool of identical ones) must process every message, also after hours offline, with dead-lettering and redelivery",
+      "lessons": [
+        89,
+        91
+      ]
+    },
+    "service-bus-topic": {
+      "name": "Service Bus topic endpoint",
+      "chooseWhen": "several independent consumers each need every message, each with its own subscription, pace and dead-letter queue",
+      "lessons": [
+        91
+      ]
+    },
+    "event-hubs": {
+      "name": "Event Hubs endpoint",
+      "chooseWhen": "a high-volume, time-ordered stream for analysis or replay; readers keep their own position in consumer groups; no completion or dead-letter per event",
+      "lessons": [
+        89,
+        91
+      ]
+    },
+    "flow-trigger": {
+      "name": "Dataverse trigger in a cloud flow",
+      "chooseWhen": "no code, a reaction after the commit at low volume, by makers; not for durable delivery through long outages",
+      "lessons": [
+        81,
+        89
+      ]
+    },
+    "endpoint-step": {
+      "name": "Step registered on a service endpoint",
+      "chooseWhen": "every event that matches message, table and filtering attributes is posted, without code",
+      "lessons": [
+        90,
+        91
+      ]
+    },
+    "custom-publisher": {
+      "name": "Custom plug-in with IServiceEndpointNotificationService",
+      "chooseWhen": "code must decide whether or where to post, add shared variables, or use a two-way listener's answer; it contains nothing but preparing and posting",
+      "lessons": [
+        91
+      ]
+    },
+    "change-tracking": {
+      "name": "Change tracking (delta link)",
+      "chooseWhen": "a consumer keeps its own copy, pulls on its own schedule and needs deletions; only $select, 7-day window",
+      "lessons": [
+        92
+      ]
+    },
+    "modifiedon-query": {
+      "name": "Query on modifiedon",
+      "chooseWhen": "a one-off list of rows changed since a date where deletions don't matter and $filter is needed; never a synchronisation feed",
+      "lessons": [
+        74,
+        92
+      ]
+    },
+    "upsert": {
+      "name": "Upsert (UpsertRequest or keyed PATCH without If-Match)",
+      "chooseWhen": "unknown keys should create rows and known keys update them, idempotently; RecordCreated tells which",
+      "lessons": [
+        93
+      ]
+    },
+    "update-if-match": {
+      "name": "Update-only keyed PATCH (If-Match: *)",
+      "chooseWhen": "only existing rows may change; an unknown key must give 404 and create nothing",
+      "lessons": [
+        93,
+        96
+      ]
+    },
+    "create-only": {
+      "name": "Create-only (If-None-Match: * or Create)",
+      "chooseWhen": "seed data that must not overwrite existing rows; an existing key gives 412 or a duplicate-key error",
+      "lessons": [
+        93
+      ]
+    },
+    "retrieve-then-write": {
+      "name": "Retrieve, then Create or Update",
+      "chooseWhen": "the write depends on more of the stored row than its existence (for example a status check before an update)",
+      "lessons": [
+        93
+      ]
+    },
+    "openapi-import": {
+      "name": "Import an OpenAPI definition",
+      "chooseWhen": "you have an OpenAPI 2.0 file or URL below 1 MB describing the operations you need",
+      "lessons": [
+        94
+      ]
+    },
+    "github-import": {
+      "name": "Create from the PowerPlatformConnectors repository",
+      "chooseWhen": "a connector for the API already exists in microsoft/PowerPlatformConnectors and you want a custom copy",
+      "lessons": [
+        94
+      ]
+    },
+    "apim-export": {
+      "name": "Create a connector from Azure API Management",
+      "chooseWhen": "the API is published in API Management; create and update the connector from its Power Platform blade",
+      "lessons": [
+        95
+      ]
+    },
+    "policy-template": {
+      "name": "Policy template",
+      "chooseWhen": "a declarative change of header, query parameter, path or host (GA templates) per operation, no code",
+      "lessons": [
+        95
+      ]
+    },
+    "custom-code": {
+      "name": "Custom code (Script : ScriptBase)",
+      "chooseWhen": "stateless reshaping of one API's request or response beyond templates; under 2 minutes, 1 MB, listed namespaces, no secrets",
+      "lessons": [
+        95
+      ]
+    },
+    "function-gateway": {
+      "name": "Azure Function behind the connector",
+      "chooseWhen": "the logic needs a secret or a grant connectors can't use, several sources, state, logging or private network access",
+      "lessons": [
+        95
+      ]
+    },
+    "function-key": {
+      "name": "Function key (authorization level Function)",
+      "chooseWhen": "a service-to-service call where a shared secret is acceptable and no user identity is needed",
+      "lessons": [
+        87,
+        95
+      ]
+    },
+    "easy-auth": {
+      "name": "App Service authentication with Entra ID",
+      "chooseWhen": "the function must know and authorise the calling user from a validated token (X-MS-CLIENT-PRINCIPAL)",
+      "lessons": [
+        95
+      ]
+    }
+  }
+}

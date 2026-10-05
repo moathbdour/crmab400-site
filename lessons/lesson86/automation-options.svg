@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Three kinds of flow, and the ladder that chooses among automation platforms</title>
+<desc id="d">Top row, three boxes. Cloud flow: built in Power Automate, a fixed path of connector actions, billed with Power Automate licences and Power Platform requests, the default for deterministic automation. Agent flow: built in Copilot Studio on the standard harness with the same designer concepts (trigger, actions, expressions, connection references, solutions), deterministic, with AI actions and human-in-the-loop actions available, billed per action with Copilot Studio capacity, can be a tool of an agent; a cloud flow can be converted to an agent flow one way. Workflow: built in Copilot Studio on the GitHub Copilot harness, a new canvas with prompt nodes, agent nodes and node-level testing, billed with Copilot Credits, can be a tool of an agent; a cloud flow cannot be converted into it; confirm its release status before production. Below, the design ladder, first match wins: 1 must the rule hold for every caller or inside the transaction? then server logic, plug-in or custom API. 2 needs code, libraries or very high volume? then Azure Function. 3 called by an agent? then an agent flow as a tool that answers within 100 seconds, or accept and work in the background when longer. 4 must a model plan the steps? then a workflow if the new experience is allowed, otherwise an agent flow with bounded AI actions. 5 one bounded AI step, or Copilot Studio capacity? agent flow. 6 otherwise a cloud flow. A side note lists what all three flows share: triggers, actions, expressions, connections, run history, the design questions.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Three kinds of flow in 2026, and how to choose a home for an automation</text>
+
+<rect class="box" x="20" y="46" width="306" height="216" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="70">Cloud flow</text>
+<text x="32" y="94">Built in Power Automate</text>
+<text x="32" y="116">A fixed path of connector actions</text>
+<text x="32" y="138">Billing: Power Automate licences,</text>
+<text x="32" y="156">Power Platform requests</text>
+<text x="32" y="180">Called by: events, schedules,</text>
+<text x="32" y="198">people, apps, other flows</text>
+<text x="32" y="224">The default for deterministic</text>
+<text x="32" y="242">automation (lessons 81 to 85)</text>
+
+<path class="a" d="M326,150 L346,150"/>
+<text x="232" y="282">convert: one way →</text>
+
+<rect class="box" x="346" y="46" width="306" height="216" rx="8" fill="#fff4ce"/>
+<text class="b" x="358" y="70">Agent flow (standard harness)</text>
+<text x="358" y="94">Built in Copilot Studio</text>
+<text x="358" y="116">Same ideas: trigger, actions,</text>
+<text x="358" y="134">expressions, connection references</text>
+<text x="358" y="156">Deterministic, plus AI actions and</text>
+<text x="358" y="174">human-in-the-loop actions</text>
+<text x="358" y="198">Billing: Copilot Studio capacity,</text>
+<text x="358" y="216">per action</text>
+<text x="358" y="242">Can be a tool of an agent</text>
+
+<rect class="box" x="672" y="46" width="308" height="216" rx="8" fill="#dff6dd"/>
+<text class="b" x="684" y="70">Workflow (GitHub Copilot harness)</text>
+<text x="684" y="94">Built in Copilot Studio, new canvas</text>
+<text x="684" y="116">Prompt nodes, agent nodes,</text>
+<text x="684" y="134">agent handoffs, node-level testing</text>
+<text x="684" y="158">Billing: Copilot Credits</text>
+<text x="684" y="182">Can be a tool of an agent</text>
+<text x="684" y="206">No conversion from a cloud flow</text>
+<text x="684" y="232">Confirm its release status before</text>
+<text x="684" y="250">production use</text>
+
+<rect class="box" x="20" y="300" width="660" height="324" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="324">The design ladder: the first “yes” decides</text>
+<text x="32" y="354">1  Must the rule hold for every caller, or inside the data transaction?</text>
+<text class="b" x="52" y="374">→ Server logic: plug-in or custom API (not an automation)</text>
+<text x="32" y="402">2  Needs code, libraries, heavy work, or more than about 100,000 runs a day?</text>
+<text class="b" x="52" y="422">→ Azure Function</text>
+<text x="32" y="450">3  Called by an agent?</text>
+<text class="b" x="52" y="470">→ Agent flow as a tool (answer within 100 s; longer: accept, work in the background)</text>
+<text x="32" y="498">4  Must a model plan the steps (the path cannot be written down)?</text>
+<text class="b" x="52" y="518">→ Workflow, if the new experience is allowed; otherwise an agent flow with AI actions</text>
+<text x="32" y="546">5  One bounded AI step, or Copilot Studio capacity?</text>
+<text class="b" x="52" y="566">→ Agent flow</text>
+<text x="32" y="594">6  Otherwise</text>
+<text class="b" x="52" y="614">→ Cloud flow</text>
+
+<rect class="box" x="700" y="300" width="280" height="324" rx="8" fill="#eef3fb"/>
+<text class="b" x="712" y="324">Shared by all three flows</text>
+<text x="712" y="352">A trigger and at least one action</text>
+<text x="712" y="374">Connectors and connections</text>
+<text x="712" y="396">Branches, loops, data operations</text>
+<text x="712" y="418">Run history and failures</text>
+<text x="712" y="446">And the same design questions:</text>
+<text x="712" y="468">who starts it, who is it,</text>
+<text x="712" y="488">what is fixed and what is judged,</text>
+<text x="712" y="508">how long, what if it fails,</text>
+<text x="712" y="528">what does a run cost,</text>
+<text x="712" y="548">how does it get to Production</text>
+<text x="712" y="580">tools/place-automation.mjs</text>
+<text x="712" y="600">applies the ladder to a decisions file</text>
+</svg>

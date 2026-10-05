@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 490" width="1000" height="490" role="img" aria-labelledby="t d">
+  <title id="t">Karim's final days: revise, decide, taper, sit</title>
+  <desc id="d">Five columns, Friday 11 to Tuesday 15 December 2026. Friday: PA2 at 87% of points, transfer 89%, C-80 brief with 28 targets of which 10 must be recalled. Saturday: a cold card session with 32 due cards, labs R5 and R11, re-checking 11 page dates, system test, sandbox and ID, and 3 extra cards in the evening. Sunday: 26 due cards, labs R10, R12, R9, 14 extra cards, study guide check, and the go or no-go decision at 20:00. Monday: a light day of at most 45 minutes with 19 due cards and no labs; 09:00 is the last moment to reschedule because of the 24-hour rule. Tuesday: a 10-minute warm-up with 3 habit cards, system test at 08:00, check-in from 08:30, exam at 09:00. Bars compare planned minutes with the budget: Saturday 140 of 150, Sunday 150 of 150 after trimming 2 extra cards, Monday 29 of 45, Tuesday 10 of 10.</desc>
+  <style>
+    text { font-family: Segoe UI, Arial, sans-serif; fill: #0b0b0b; }
+    .h { font-size: 20px; font-weight: 700; }
+    .b { font-size: 16px; font-weight: 700; }
+    .t { font-size: 14px; }
+    .s { font-size: 14px; fill: #52514e; }
+  </style>
+  <rect width="1000" height="490" fill="#fcfcfb"/>
+  <text x="25" y="40" class="h">Karim's final days: revise, decide, taper, sit</text>
+  <rect x="25" y="70" width="180" height="36" rx="6" fill="#52514e"/>
+  <text x="115" y="94" text-anchor="middle" class="b" style="fill:#ffffff">Fri 11 Dec</text>
+  <rect x="25" y="112" width="180" height="150" rx="6" fill="#ffffff" stroke="#9a9893"/>
+  <text x="35" y="136" class="t">PA2 timed: 87% of points</text>
+  <text x="35" y="162" class="t">Compare: transfer 89%</text>
+  <text x="35" y="188" class="t">C-80 brief: 28 targets,</text>
+  <text x="35" y="214" class="t">10 must-recall</text>
+  <rect x="220" y="70" width="180" height="36" rx="6" fill="#2a78d6"/>
+  <text x="310" y="94" text-anchor="middle" class="b" style="fill:#ffffff">Sat 12 Dec</text>
+  <rect x="220" y="112" width="180" height="150" rx="6" fill="#ffffff" stroke="#9a9893"/>
+  <text x="230" y="136" class="t">07:30 cards cold: 32 due</text>
+  <text x="230" y="162" class="t">Labs R5, R11</text>
+  <text x="230" y="188" class="t">Re-check 11 page dates</text>
+  <text x="230" y="214" class="t">System test, sandbox, ID</text>
+  <text x="230" y="240" class="t">18:00 extra: 3 cards</text>
+  <rect x="415" y="70" width="180" height="36" rx="6" fill="#2a78d6"/>
+  <text x="505" y="94" text-anchor="middle" class="b" style="fill:#ffffff">Sun 13 Dec</text>
+  <rect x="415" y="112" width="180" height="150" rx="6" fill="#ffffff" stroke="#9a9893"/>
+  <text x="425" y="136" class="t">08:00 cards cold: 26 due</text>
+  <text x="425" y="162" class="t">Labs R10, R12, R9</text>
+  <text x="425" y="188" class="t">17:30 extra: 14 cards</text>
+  <text x="425" y="214" class="t">Study guide checked</text>
+  <text x="425" y="240" class="b">20:00 GO / NO-GO</text>
+  <rect x="610" y="70" width="180" height="36" rx="6" fill="#eb6834"/>
+  <text x="700" y="94" text-anchor="middle" class="b" style="fill:#ffffff">Mon 14 Dec</text>
+  <rect x="610" y="112" width="180" height="150" rx="6" fill="#ffffff" stroke="#9a9893"/>
+  <text x="620" y="136" class="t">Light day ≤ 45 min</text>
+  <text x="620" y="162" class="t">19 due cards, no labs</text>
+  <text x="620" y="188" class="t">Nothing new</text>
+  <text x="620" y="214" class="t">09:00 last moment to</text>
+  <text x="620" y="240" class="t">reschedule (24 h rule)</text>
+  <rect x="805" y="70" width="180" height="36" rx="6" fill="#1baf7a"/>
+  <text x="895" y="94" text-anchor="middle" class="b" style="fill:#ffffff">Tue 15 Dec</text>
+  <rect x="805" y="112" width="180" height="150" rx="6" fill="#ffffff" stroke="#9a9893"/>
+  <text x="815" y="136" class="t">Warm-up 10 min:</text>
+  <text x="815" y="162" class="t">3 habit cards only</text>
+  <text x="815" y="188" class="t">08:00 system test</text>
+  <text x="815" y="214" class="t">08:30 check-in opens</text>
+  <text x="815" y="240" class="b">09:00 AB-400</text>
+  <text x="25" y="300" class="b">Planned minutes against the budget (C-80 finalSchedule)</text>
+  <rect x="270" y="345" width="34" height="105" fill="#eef3fb" stroke="#2a78d6"/>
+  <rect x="310" y="352" width="34" height="98" fill="#2a78d6"/>
+  <text x="307" y="472" text-anchor="middle" class="t">Sat: 140 of 150</text>
+  <rect x="465" y="345" width="34" height="105" fill="#eef3fb" stroke="#2a78d6"/>
+  <rect x="505" y="345" width="34" height="105" fill="#2a78d6"/>
+  <text x="502" y="472" text-anchor="middle" class="t">Sun: 150 of 150</text>
+  <rect x="660" y="418.5" width="34" height="31.499999999999996" fill="#eef3fb" stroke="#2a78d6"/>
+  <rect x="700" y="429.7" width="34" height="20.299999999999997" fill="#2a78d6"/>
+  <text x="697" y="472" text-anchor="middle" class="t">Mon: 29 of 45</text>
+  <rect x="855" y="443" width="34" height="7" fill="#eef3fb" stroke="#2a78d6"/>
+  <rect x="895" y="443" width="34" height="7" fill="#2a78d6"/>
+  <text x="892" y="472" text-anchor="middle" class="t">Tue: 10 of 10</text>
+  <rect x="25" y="330" width="20" height="16" fill="#eef3fb" stroke="#2a78d6"/><text x="53" y="344" class="s">budget</text>
+  <rect x="25" y="356" width="20" height="16" fill="#2a78d6"/><text x="53" y="370" class="s">planned</text>
+  <text x="25" y="398" class="s">Sun: 2 low-score</text><text x="25" y="416" class="s">extra cards trimmed</text>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">How two plug-in steps form a loop and three ways to stop it</title>
+<desc id="d">Top half: the naive design. Lina sets a case to High at depth 1. Step U1 on Update of case updates the urgent flag of a work order at depth 2. Step U2 on Update of work order updates the priority of the case at depth 3. That starts U1 again at depth 4, and so on until the platform aborts at depth 8 with an infinite loop error and rolls everything back. Bottom half: the three brakes. First, registration: filtering attributes so that a step only starts for the column it reacts to. Second, state: compare pre-image and post-image and write only values that differ, so the second round finds nothing to do. Third, a guard token in SharedVariables that nested operations read through ParentContext, which skips the echo without any data call. With the brakes, the chain ends at depth 2 when the case changes first and at depth 3 when a work order changes first.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.r{stroke:#a4262c;stroke-width:1.8;marker-end:url(#mr);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker><marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#a4262c"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Naive design: each step writes the row the other step listens to</text>
+
+<rect class="box" x="20" y="48" width="200" height="92" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">Depth 1</text>
+<text x="32" y="94">Lina: case Priority</text>
+<text x="32" y="114">Normal → High</text>
+<text class="m" x="32" y="134">Update incident</text>
+
+<path class="a" d="M220,94 L262,94"/>
+<rect class="box" x="262" y="48" width="220" height="92" rx="8" fill="#fff4ce"/>
+<text class="b" x="274" y="72">U1 runs (case step)</text>
+<text x="274" y="94">sets Urgent = Yes on</text>
+<text x="274" y="114">the case's work orders</text>
+<text class="m" x="274" y="134">Update cedar_workorder</text>
+
+<path class="a" d="M482,94 L524,94"/>
+<text x="486" y="84">d 2</text>
+<rect class="box" x="524" y="48" width="220" height="92" rx="8" fill="#fff4ce"/>
+<text class="b" x="536" y="72">U2 runs (work order step)</text>
+<text x="536" y="94">sets case Priority = High</text>
+<text x="536" y="114">without looking first</text>
+<text class="m" x="536" y="134">Update incident</text>
+
+<path class="r" d="M744,94 L800,94"/>
+<text x="750" y="84">d 3</text>
+<rect class="box" x="800" y="48" width="180" height="92" rx="8" fill="#fde7e9"/>
+<text class="b" x="812" y="72">U1 again (d 4) …</text>
+<text x="812" y="94">U2 (d 5), U1 (d 6) …</text>
+<text x="812" y="114">Depth reaches 8:</text>
+<text x="812" y="134">platform aborts.</text>
+<path class="r" d="M890,140 L890,172 L372,172 L372,144"/>
+<text x="470" y="192" fill="#a4262c">"Submitted" is enough to start a step again: nothing changes any more, yet the loop continues. Everything rolls back.</text>
+
+<text class="h" x="20" y="238">Three brakes, used together</text>
+
+<rect class="box" x="20" y="256" width="306" height="176" rx="8" fill="#dff6dd"/>
+<text class="b" x="32" y="280">1. Registration</text>
+<text x="32" y="304">Filtering attributes: U1 only for</text>
+<text x="32" y="324">prioritycode, U2 only for cedar_urgent.</text>
+<text x="32" y="348">Writes send only the changed column,</text>
+<text x="32" y="368">so unrelated steps never start.</text>
+<text x="32" y="396">Stops: accidental triggers.</text>
+<text x="32" y="416">Does not stop: a true cycle.</text>
+
+<rect class="box" x="346" y="256" width="306" height="176" rx="8" fill="#dff6dd"/>
+<text class="b" x="358" y="280">2. State: write only a difference</text>
+<text x="358" y="304">U1: query only work orders whose</text>
+<text x="358" y="324">Urgent differs from the wanted value.</text>
+<text x="358" y="348">U2: pre vs post image; escalate only</text>
+<text x="358" y="368">if the case is not already High.</text>
+<text x="358" y="396">Stops: every cycle, by convergence.</text>
+<text x="358" y="416">This is the correctness brake.</text>
+
+<rect class="box" x="672" y="256" width="308" height="176" rx="8" fill="#dff6dd"/>
+<text class="b" x="684" y="280">3. Guard token</text>
+<text class="m" x="684" y="304">SharedVariables["cedar.urgencysync"]</text>
+<text x="684" y="324">set by U1 before it writes; U2 reads it</text>
+<text x="684" y="348">through ParentContext and returns at</text>
+<text x="684" y="368">once: no query at all for the echo.</text>
+<text x="684" y="396">Stops: the echo, cheaply.</text>
+<text x="684" y="416">This is the performance brake.</text>
+
+<rect class="box" x="20" y="456" width="960" height="76" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="480">Result with the brakes</text>
+<text x="32" y="502">Depth 1: Lina's update → U1 (token set) → Depth 2: work order updates → U2 sees the token and returns. The chain ends at depth 2.</text>
+<text x="32" y="522">Sami marks a work order urgent → U2 (token set) escalates the case → U1 flags only sibling work orders that differ → their U2 runs see the token.</text>
+
+<rect class="box" x="20" y="550" width="960" height="72" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="574">Not a brake: if (context.Depth > 1) return;</text>
+<text x="32" y="596">Learn: do not take any dependency on Depth. The same step is reached at depth 2 or 3 by a flow, another plug-in or an import path,</text>
+<text x="32" y="614">and would silently skip real work. Depth belongs to the platform's loop detector (maximum 8 within one hour).</text>
+</svg>

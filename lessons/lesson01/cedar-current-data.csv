@@ -1,0 +1,11 @@
+source,customer,contact,phone,email,topic,date,owner,status
+Sales spreadsheet,Harbor View Medical Center,Rana Mansour,555-0101,rana.mansour@harborview.example,Quote for annual HVAC maintenance contract,2026-08-03,Maya,Quote sent
+Service inbox,Harborview Medical,R. Mansour,,rana.mansour@harborview.example,Chiller not cooling in Building B,2026-08-19,Omar,Open
+Phone notebook,Harbor View Med. Ctr,Rana,555 0101,,Called again about chiller - patients' rooms warm,2026-08-20,Omar,Waiting
+Subcontractor email,HVMC,,,,BrightSpark Electrical: parts on order for chiller control board,2026-08-21,Sami,In progress
+Sales spreadsheet,Juniper Logistics,Tariq Bishara,555-0144,tariq.bishara@juniper.example,Warehouse lighting upgrade project,2026-07-28,Maya,Won
+Subcontractor email,Juniper Logistics Ltd,,,,AquaFlow Plumbing: cannot access site on Friday,2026-08-22,Sami,Blocked
+Service inbox,Olive Grove Schools,Nadia Rahal,555-0187,n.rahal@olivegrove.example,Complaint: technician arrived two days late,2026-08-18,Omar,Open
+Phone notebook,Olive Grove School District,Nadia,,,Asked who is handling the complaint,2026-08-25,Omar,Waiting
+Sales spreadsheet,Summit Tower Offices,Yusuf Kassem,555-0162,yusuf.kassem@summittower.example,Asked for price on quarterly fire-safety inspections,2026-08-26,Maya,New enquiry
+Sales spreadsheet,Summit Tower,Y. Kassem,555-0162,,Follow-up call booked,2026-08-29,Maya,New enquiry

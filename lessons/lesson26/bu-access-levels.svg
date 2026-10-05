@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="t d">
+<title id="t">Cedar business unit tree and access levels</title>
+<desc id="d">Root business unit with children Cedar Service and Cedar Sales. Brackets show which rows a user in Cedar Service reaches at User, Business Unit, Parent: Child and Organization access.</desc>
+<rect width="900" height="520" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1b1b1b">
+<rect x="330" y="30" width="240" height="60" rx="8" fill="#e8f0fe" stroke="#1a56b0" stroke-width="2"/>
+<text x="450" y="56" text-anchor="middle" font-weight="bold">Root business unit</text>
+<text x="450" y="77" text-anchor="middle">(organization name; admins, shared roles)</text>
+<rect x="110" y="170" width="260" height="60" rx="8" fill="#e6f4ea" stroke="#1e7b34" stroke-width="2"/>
+<text x="240" y="196" text-anchor="middle" font-weight="bold">Cedar Service</text>
+<text x="240" y="217" text-anchor="middle">Omar, Lina, Sami · cases, work orders</text>
+<rect x="530" y="170" width="260" height="60" rx="8" fill="#fef3e0" stroke="#b36200" stroke-width="2"/>
+<text x="660" y="196" text-anchor="middle" font-weight="bold">Cedar Sales</text>
+<text x="660" y="217" text-anchor="middle">Maya · leads, opportunities</text>
+<line x1="450" y1="90" x2="240" y2="170" stroke="#444" stroke-width="2"/>
+<line x1="450" y1="90" x2="660" y2="170" stroke="#444" stroke-width="2"/>
+<text x="300" y="130" font-size="14">parent</text><text x="560" y="130" font-size="14">parent</text>
+<text x="40" y="290" font-weight="bold">What a Cedar Service user reaches with each access level:</text>
+<rect x="40" y="305" width="820" height="36" fill="#f4f4f4" stroke="#999"/>
+<text x="55" y="328"><tspan font-weight="bold">User</tspan> — rows Omar owns, rows shared with him or his teams</text>
+<rect x="40" y="350" width="820" height="36" fill="#e6f4ea" stroke="#999"/>
+<text x="55" y="373"><tspan font-weight="bold">Business Unit</tspan> — all rows owned in Cedar Service (not Cedar Sales, not root)</text>
+<rect x="40" y="395" width="820" height="36" fill="#d4ecd9" stroke="#999"/>
+<text x="55" y="418"><tspan font-weight="bold">Parent: Child Business Units</tspan> — Cedar Service plus any child BUs below it</text>
+<rect x="40" y="440" width="820" height="36" fill="#e8f0fe" stroke="#999"/>
+<text x="55" y="463"><tspan font-weight="bold">Organization</tspan> — every row in the environment, all business units</text>
+<text x="40" y="505" font-size="14">Privileges are additive across roles: the widest level granted by any role wins.</text>
+</g></svg>

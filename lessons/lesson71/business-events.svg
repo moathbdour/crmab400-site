@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="t d">
+<title id="t">Dataverse business events at Cedar: catalog, publishers and subscribers</title>
+<desc id="d">Left: who raises events. The planner or a flow calls the action cedar_RequestDispatch, which has a main operation plug-in; the FieldLink status function calls cedar_OnSubcontractorArrived, a custom API with no plug-in that only announces something that already happened. Middle: the catalog that makes events discoverable. Root catalog Cedar Service has two categories. Dispatch events holds catalog assignments for the two custom APIs. Tables holds a catalog assignment for the Work order table, which exposes its bound operations. Right: subscribers react after the operation completed successfully, asynchronously: a cloud flow with the trigger When an action is performed, an asynchronous plug-in step, and webhooks or Azure Service Bus endpoints. Subscribers cannot cancel or change the operation because both custom APIs allow asynchronous steps only.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}.m{font-family:Consolas,monospace;font-size:14px}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="620" fill="#ffffff"/>
+<text class="h" x="20" y="28">A business event = a message that completed successfully + a catalog entry that lets others find it</text>
+
+<text class="b" x="20" y="62">1. Something calls a message</text>
+<rect class="box" x="20" y="74" width="270" height="130" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="98">Operation that others may observe</text>
+<text class="m" x="32" y="120">cedar_RequestDispatch</text>
+<text x="32" y="142">Action with a main operation plug-in.</text>
+<text x="32" y="162">Step type: Async Only.</text>
+<text x="32" y="184">Called by planner, flow, form.</text>
+
+<rect class="box" x="20" y="220" width="270" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="244">Pure event (no logic)</text>
+<text class="m" x="32" y="266">cedar_OnSubcontractorArrived</text>
+<text x="32" y="288">Action, NO plug-in type, no response</text>
+<text x="32" y="308">properties. Step type: Async Only.</text>
+<text x="32" y="330">Called by the FieldLink status function</text>
+<text x="32" y="350">when a technician checks in on site.</text>
+
+<text class="b" x="340" y="62">2. The catalog makes it discoverable</text>
+<rect class="box" x="340" y="74" width="300" height="296" rx="8" fill="#fff4ce"/>
+<text class="b" x="352" y="98">Catalog: Cedar Service</text>
+<text class="m" x="352" y="118">cedar_ServiceCore   (root = solution)</text>
+<rect class="box" x="356" y="132" width="268" height="118" rx="6" fill="#ffffff"/>
+<text class="b" x="366" y="154">Category: Dispatch events</text>
+<text class="m" x="366" y="174">cedar_DispatchEvents</text>
+<text x="366" y="198">Assignment → cedar_RequestDispatch</text>
+<text x="366" y="218">Assignment → cedar_OnSubcontractor-</text>
+<text x="366" y="236">Arrived</text>
+<rect class="box" x="356" y="262" width="268" height="94" rx="6" fill="#ffffff"/>
+<text class="b" x="366" y="284">Category: Tables</text>
+<text class="m" x="366" y="304">cedar_ServiceTables</text>
+<text x="366" y="328">Assignment → Work order table</text>
+<text x="366" y="346">(its bound operations become events)</text>
+
+<path class="a" d="M290,139 L340,180"/>
+<path class="a" d="M290,295 L340,230"/>
+
+<text class="b" x="690" y="62">3. Subscribers react afterwards</text>
+<rect class="box" x="690" y="74" width="290" height="88" rx="8" fill="#dff6dd"/>
+<text class="b" x="702" y="98">Cloud flow</text>
+<text x="702" y="120">Trigger: When an action is performed</text>
+<text x="702" y="140">Catalog → Category → Table → Action</text>
+<rect class="box" x="690" y="178" width="290" height="88" rx="8" fill="#dff6dd"/>
+<text class="b" x="702" y="202">Asynchronous plug-in step</text>
+<text x="702" y="224">Registered on the custom API's message,</text>
+<text x="702" y="244">PostOperation, asynchronous.</text>
+<rect class="box" x="690" y="282" width="290" height="88" rx="8" fill="#dff6dd"/>
+<text class="b" x="702" y="306">Webhook, Service Bus, Event Hubs</text>
+<text x="702" y="328">Service endpoint steps on the same</text>
+<text x="702" y="348">message (lessons 90–91).</text>
+
+<path class="a" d="M640,160 L690,118"/>
+<path class="a" d="M640,210 L690,222"/>
+<path class="a" d="M640,260 L690,326"/>
+
+<rect class="box" x="20" y="392" width="960" height="96" rx="8" fill="#f3f3f3"/>
+<text class="b" x="32" y="416">Rules of the pattern</text>
+<text x="32" y="440">• Notifications happen only when the operation completed successfully. A refused cedar_RequestDispatch raises nothing.</text>
+<text x="32" y="460">• Async Only: subscribers cannot cancel, delay or change the operation. A failing subscriber fails only itself.</text>
+<text x="32" y="480">• Catalog only high-value events. Each event: clear intent, specific, lightweight (IDs and facts, not whole records), not a data export.</text>
+
+<rect class="box" x="20" y="504" width="960" height="98" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="528">Who can see the catalog in Power Automate</text>
+<text x="32" y="552">Environment Maker sees it. Other roles need Read on Custom API, Process and SDK Message.</text>
+<text x="32" y="572">In the trigger, Create, Update and Delete of a catalogued table are not listed: use "When a row is added, modified or deleted" for those.</text>
+<text x="32" y="592">Catalogs and assignments are solution components; set Is Customizable to false before shipping managed.</text>
+</svg>

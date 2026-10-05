@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">Mock-up: the work order candidates card in a chat</title>
+<desc id="d">Simplified chat in a Microsoft 365 Copilot style host, not a product screenshot. Sami asks: Who should take WO-1101? The agent answers in text: Riverstone Mechanical is first: high acceptance and on-time bands, but a heavy load; AquaFlow Plumbing is second. Below the text, the candidates card rendered from the tool's structuredContent: heading WO-1101, Plumbing at JL-W3; Thursday 08 October 2026 10:00 Amman time, service levels 2026-09-01 to 2026-09-30. Ranked list: 1 Riverstone Mechanical with badges acceptance high, on time high, load heavy and the note busy: most job slots taken; 2 AquaFlow Plumbing with badges acceptance medium, on time low, load light. A Refresh button appears only if the host lets widgets call server tools. Footer: Read-only. Dispatch the work order in the Cedar Operations app. Callouts explain that the card shows the same data as the text answer, contains no figures and no write button, and follows the host's light or dark theme.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700}.s{font-size:13px;fill:#3b3a39}.box{stroke:#8a8886;stroke-width:1.2}.badge{fill:#ffffff;stroke:#8a8886;stroke-width:1}.note{fill:#fff4ce;stroke:#1b1b1b;stroke-width:1.2}.ln{stroke:#1b1b1b;stroke-width:1.3;fill:none}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker></defs>
+<rect width="900" height="560" fill="#ffffff"/>
+<rect class="box" x="10" y="10" width="600" height="540" rx="10" fill="#faf9f8"/>
+<text class="h" x="28" y="38">Cedar Dispatch (agent) — simplified mock-up</text>
+
+<rect class="box" x="300" y="56" width="290" height="40" rx="14" fill="#dbe9f6"/>
+<text x="318" y="81">Who should take WO-1101?</text>
+
+<rect class="box" x="28" y="110" width="560" height="64" rx="12" fill="#ffffff"/>
+<text x="44" y="136">Riverstone Mechanical is first: high acceptance and on-time</text>
+<text x="44" y="158">bands, but a heavy load. AquaFlow Plumbing is second.</text>
+
+<rect class="box" x="28" y="188" width="560" height="300" rx="10" fill="#ffffff"/>
+<text class="b" x="46" y="216">WO-1101 · Plumbing at JL-W3</text>
+<text class="s" x="46" y="238">Thu 08 Oct 2026 10:00 Amman time · service levels 2026-09-01 to 2026-09-30</text>
+<text x="46" y="272">1.</text><text class="b" x="66" y="272">Riverstone Mechanical</text>
+<rect class="badge" x="66" y="282" width="118" height="22" rx="8"/><text class="s" x="74" y="298">acceptance high</text>
+<rect class="badge" x="192" y="282" width="98" height="22" rx="8"/><text class="s" x="200" y="298">on time high</text>
+<rect class="badge" x="298" y="282" width="92" height="22" rx="8"/><text class="s" x="306" y="298">load heavy</text>
+<text class="s" x="398" y="298">· busy: most job slots taken</text>
+<text x="46" y="336">2.</text><text class="b" x="66" y="336">AquaFlow Plumbing</text>
+<rect class="badge" x="66" y="346" width="136" height="22" rx="8"/><text class="s" x="74" y="362">acceptance medium</text>
+<rect class="badge" x="210" y="346" width="92" height="22" rx="8"/><text class="s" x="218" y="362">on time low</text>
+<rect class="badge" x="310" y="346" width="86" height="22" rx="8"/><text class="s" x="318" y="362">load light</text>
+<rect class="box" x="46" y="390" width="84" height="30" rx="6" fill="#f3f2f1"/><text x="60" y="410">Refresh</text>
+<text class="s" x="46" y="458">Read-only. Dispatch the work order in the Cedar Operations app.</text>
+
+<rect class="note" x="630" y="110" width="260" height="74" rx="6"/>
+<text class="s" x="642" y="132">Text answer from the model,</text>
+<text class="s" x="642" y="150">checked by the guard when the</text>
+<text class="s" x="642" y="168">advisor is the caller</text>
+<line class="ln" x1="630" y1="146" x2="592" y2="146" marker-end="url(#a)"/>
+<rect class="note" x="630" y="200" width="260" height="92" rx="6"/>
+<text class="s" x="642" y="222">The card: HTML from the ui://</text>
+<text class="s" x="642" y="240">resource, filled from the tool's</text>
+<text class="s" x="642" y="258">structuredContent; bands only,</text>
+<text class="s" x="642" y="276">no figures</text>
+<line class="ln" x1="630" y1="240" x2="592" y2="240" marker-end="url(#a)"/>
+<rect class="note" x="630" y="370" width="260" height="74" rx="6"/>
+<text class="s" x="642" y="392">Shown only when the host lets</text>
+<text class="s" x="642" y="410">widgets call server tools</text>
+<text class="s" x="642" y="428">(callServerTool)</text>
+<line class="ln" x1="630" y1="405" x2="134" y2="405" marker-end="url(#a)"/>
+<rect class="note" x="630" y="460" width="260" height="74" rx="6"/>
+<text class="s" x="642" y="482">No write button: dispatch stays</text>
+<text class="s" x="642" y="500">in the app (read-only release);</text>
+<text class="s" x="642" y="518">theme follows the host</text>
+</svg>

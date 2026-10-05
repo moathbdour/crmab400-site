@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="t d">
+  <title id="t">REL-030 release path</title>
+  <desc id="d">Pull request to main runs Build Tools gates; build imports managed solutions into Cedar-Test with UAT; readiness tool C-71 returns GO; Power Platform Pipelines deployment request with pre-deployment step and Lina's approval inside the change window; deployment to Cedar-Prod; post-release verification and 48 hours of hypercare watching alerts AL-12 and AL-13.</desc>
+  <style>
+    text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#111827}
+    .b{font-weight:600}
+    .s{font-size:14px;fill:#374151}
+  </style>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#374151"/></marker></defs>
+  <rect width="900" height="430" fill="#fff"/>
+  <rect x="20" y="30" width="200" height="110" rx="8" fill="#e0e7ff" stroke="#4338ca"/>
+  <text x="34" y="56" class="b">1. Build (Azure DevOps)</text>
+  <text x="34" y="80" class="s">tests, checker High 0,</text><text x="34" y="100" class="s">secret scan, threat and</text><text x="34" y="120" class="s">design checks, pack managed</text>
+  <rect x="250" y="30" width="190" height="110" rx="8" fill="#dcfce7" stroke="#15803d"/>
+  <text x="264" y="56" class="b">2. Cedar-Test</text>
+  <text x="264" y="80" class="s">import with test settings,</text><text x="264" y="100" class="s">integration + E2E, UAT by</text><text x="264" y="120" class="s">Omar and Lina, perf check</text>
+  <rect x="470" y="30" width="190" height="110" rx="8" fill="#fef3c7" stroke="#b45309"/>
+  <text x="484" y="56" class="b">3. Readiness C-71</text>
+  <text x="484" y="80" class="s">versions, gates, Prod</text><text x="484" y="100" class="s">settings, alerts, rollback,</text><text x="484" y="120" class="s">approvals, window → GO</text>
+  <rect x="690" y="30" width="190" height="110" rx="8" fill="#ede9fe" stroke="#6d28d9"/>
+  <text x="704" y="56" class="b">4. Pipelines request</text>
+  <text x="704" y="80" class="s">Cedar Release Pipeline,</text><text x="704" y="100" class="s">pre-deployment step,</text><text x="704" y="120" class="s">Lina approves, window</text>
+  <line x1="220" y1="85" x2="248" y2="85" stroke="#374151" marker-end="url(#a)"/>
+  <line x1="440" y1="85" x2="468" y2="85" stroke="#374151" marker-end="url(#a)"/>
+  <line x1="660" y1="85" x2="688" y2="85" stroke="#374151" marker-end="url(#a)"/>
+  <line x1="785" y1="140" x2="785" y2="198" stroke="#374151" marker-end="url(#a)"/>
+  <rect x="610" y="200" width="270" height="100" rx="8" fill="#c7d2fe" stroke="#4338ca"/>
+  <text x="624" y="226" class="b">5. Cedar-Prod deployment</text>
+  <text x="624" y="250" class="s">CedarConnectors then Core,</text><text x="624" y="270" class="s">delegated deployment (SPN),</text><text x="624" y="290" class="s">deployment notice</text>
+  <line x1="610" y1="250" x2="472" y2="250" stroke="#374151" marker-end="url(#a)"/>
+  <rect x="200" y="200" width="270" height="100" rx="8" fill="#dcfce7" stroke="#15803d"/>
+  <text x="214" y="226" class="b">6. Verify (first hour)</text>
+  <text x="214" y="250" class="s">smoke: repeat-fault case,</text><text x="214" y="270" class="s">arrival e-mail, telemetry</text><text x="214" y="290" class="s">arriving, alerts enabled</text>
+  <line x1="200" y1="250" x2="152" y2="250" stroke="#374151" marker-end="url(#a)"/>
+  <rect x="20" y="200" width="130" height="100" rx="8" fill="#fde68a" stroke="#a16207"/>
+  <text x="32" y="226" class="b">7. Hypercare</text>
+  <text x="32" y="250" class="s">48 h, daily</text><text x="32" y="270" class="s">review, then</text><text x="32" y="290" class="s">close REL-030</text>
+  <rect x="20" y="330" width="860" height="80" rx="8" fill="#fee2e2" stroke="#b91c1c"/>
+  <text x="34" y="356" class="b">If verification fails: revert forward, never downgrade.</text>
+  <text x="34" y="380" class="s">Minutes: deactivate the C-65 step / turn off flow C-69 (runbook). Hours: release 1.10.1 built from the previous commit through the same path.</text>
+  <text x="34" y="400" class="s">Restore from backup only for data loss (lesson 48).</text>
+</svg>

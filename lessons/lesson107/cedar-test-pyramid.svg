@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" role="img" aria-labelledby="t d">
+  <title id="t">Cedar test pyramid</title>
+  <desc id="d">Four layers from bottom to top: pure unit tests (about 200, seconds, every commit), component tests with fakes (about 40, every pull request), integration and contract tests against Cedar-Test (about 25, nightly and before release), end-to-end UI tests with Playwright (about 8, before release). Test data comes from the seeded generator C-62.</desc>
+  <style>
+    text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#111827}
+    .b{font-weight:600}
+    .s{font-size:14px;fill:#374151}
+  </style>
+  <rect width="900" height="460" fill="#fff"/>
+  <polygon points="300,40 400,40 460,130 240,130" fill="#fecaca" stroke="#b91c1c"/>
+  <text x="285" y="95" class="b">E2E UI ~8</text>
+  <polygon points="240,140 460,140 520,230 180,230" fill="#fed7aa" stroke="#c2410c"/>
+  <text x="230" y="192" class="b">Integration / contract ~25</text>
+  <polygon points="180,240 520,240 580,330 120,330" fill="#fef08a" stroke="#a16207"/>
+  <text x="215" y="292" class="b">Component with fakes ~40</text>
+  <polygon points="120,340 580,340 640,430 60,430" fill="#bbf7d0" stroke="#15803d"/>
+  <text x="215" y="392" class="b">Pure unit tests ~200</text>
+  <text x="560" y="80" class="s">Playwright vs Cedar-Test model-driven app:</text>
+  <text x="560" y="100" class="s">Omar logs a critical fault → Urgent queue</text>
+  <text x="560" y="120" class="s">Run: before release, minutes, can be flaky</text>
+  <text x="600" y="172" class="s">Real Dataverse in Cedar-Test: plug-in steps,</text>
+  <text x="600" y="192" class="s">custom APIs, FieldLink sandbox contract</text>
+  <text x="600" y="212" class="s">Run: nightly + release gate</text>
+  <text x="640" y="262" class="s">FakeContext / FakeService (C-30),</text>
+  <text x="640" y="282" class="s">fake formContext for scripts</text>
+  <text x="640" y="302" class="s">Run: every pull request</text>
+  <text x="680" y="362" class="s">WorkOrderRules, retry.py,</text>
+  <text x="680" y="382" class="s">tools/*.mjs, Pure/*.cs</text>
+  <text x="680" y="402" class="s">Run: every commit, seconds</text>
+  <line x1="40" y1="40" x2="40" y2="430" stroke="#6b7280"/>
+  <text x="12" y="34" class="s">slower, costlier</text>
+  <text x="12" y="450" class="s">faster, cheaper, more of them</text>
+</svg>

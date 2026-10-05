@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-labelledby="t d">
+<title id="t">Queue, topic and event hub: three ways a broker hands events to readers</title>
+<desc id="d">Three columns. Queue: senders put messages into one queue; competing receivers each lock a message with peek-lock, process it and complete it, which removes it; a message that fails is abandoned and delivered again, and after the maximum delivery count it moves to the dead-letter queue; each message is processed by one receiver. Topic: a sender publishes to a topic; every subscription gets its own copy of each message, optionally narrowed by a filter rule on message properties; each subscription behaves like a queue with its own lock, delivery count and dead-letter queue; adding a subscriber needs no change at the sender. Event hub: senders append events to partitions of a log; events stay for the retention period whether or not they were read; each consumer group reads every partition from its own position, the offset, and stores a checkpoint; order is kept within a partition; there is no completion of single events and no dead-letter queue, so a reader skips or stops. Below, how each is registered in Dataverse with the Plug-in Registration Tool: Register New Service Endpoint with the connection string of a shared access signature policy that has the Send claim, then designation type Queue, Topic or Event Hub, message format .NET Binary, JSON or XML, and user information sent; then either a step directly on the endpoint, which posts every matching event, or a custom plug-in that calls the notification service with the endpoint ID and decides in code. Steps on these endpoints are asynchronous.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text class="h" x="20" y="28">Messages are handed over and removed. A stream is read and kept.</text>
+
+<rect class="box" x="20" y="48" width="310" height="340" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="72">Service Bus queue</text>
+<rect class="box" x="32" y="86" width="286" height="44" rx="6" fill="#ffffff"/>
+<text x="44" y="113">[ m5 ][ m4 ][ m3 ][ m2 ][ m1 ] →</text>
+<text x="32" y="156">one receiver per message</text>
+<text x="32" y="178">(competing consumers share the load)</text>
+<text x="32" y="204">peek-lock → process → complete</text>
+<text x="32" y="226">failure → abandon → delivered again</text>
+<text x="32" y="248">max delivery count → dead-letter queue</text>
+<text x="32" y="274">sessions: order per key</text>
+<text x="32" y="296">duplicate detection, transactions</text>
+<text class="b" x="32" y="330">Use: each message matters</text>
+<text x="32" y="352">and must be handled once,</text>
+<text x="32" y="372">by one consumer</text>
+
+<rect class="box" x="345" y="48" width="310" height="340" rx="8" fill="#f3f2f1"/>
+<text class="b" x="357" y="72">Service Bus topic</text>
+<rect class="box" x="357" y="86" width="286" height="44" rx="6" fill="#ffffff"/>
+<text x="369" y="113">publish → topic</text>
+<path class="a" d="M440,130 L410,156"/>
+<path class="a" d="M560,130 L590,156"/>
+<rect class="box" x="357" y="156" width="136" height="44" rx="6" fill="#ffffff"/>
+<text x="367" y="183">sub fieldlink</text>
+<rect class="box" x="507" y="156" width="136" height="44" rx="6" fill="#ffffff"/>
+<text x="517" y="183">sub audit</text>
+<text x="357" y="226">every subscription gets its own copy</text>
+<text x="357" y="248">filter rules on message properties</text>
+<text x="357" y="270">each subscription = a queue with its</text>
+<text x="357" y="292">own lock, count and dead-letter queue</text>
+<text class="b" x="357" y="330">Use: several independent</text>
+<text x="357" y="352">consumers; new ones without</text>
+<text x="357" y="372">touching the publisher</text>
+
+<rect class="box" x="670" y="48" width="310" height="340" rx="8" fill="#f3f2f1"/>
+<text class="b" x="682" y="72">Event hub</text>
+<rect class="box" x="682" y="86" width="286" height="30" rx="6" fill="#ffffff"/>
+<text x="694" y="107">partition 0: e1 e2 e3 e4 e5 e6 …</text>
+<rect class="box" x="682" y="122" width="286" height="30" rx="6" fill="#ffffff"/>
+<text x="694" y="143">partition 1: e1 e2 e3 e4 …</text>
+<text x="682" y="176">events stay for the retention period</text>
+<text x="682" y="198">consumer group = a reader with its</text>
+<text x="682" y="218">own position (offset, checkpoint)</text>
+<text x="682" y="240">order within a partition</text>
+<text x="682" y="262">replay from an earlier position</text>
+<text x="682" y="284">no completion, no dead-letter queue</text>
+<text class="b" x="682" y="330">Use: a series to analyse;</text>
+<text x="682" y="352">telemetry; many readers;</text>
+<text x="682" y="372">very high volume</text>
+
+<rect class="box" x="20" y="408" width="960" height="216" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="432">Registering any of the three in Dataverse (Plug-in Registration Tool)</text>
+<rect class="box" x="32" y="446" width="300" height="164" rx="6" fill="#ffffff"/>
+<text class="b" x="44" y="470">1. Register New Service Endpoint</text>
+<text x="44" y="494">paste the connection string of a</text>
+<text x="44" y="514">SAS policy with the Send claim</text>
+<text x="44" y="538">Designation Type: Queue, Topic,</text>
+<text x="44" y="558">Event Hub (also OneWay, TwoWay, Rest)</text>
+<text x="44" y="582">Message Format: JSON (or XML, binary)</text>
+<text x="44" y="602">User Information Sent: None</text>
+<rect class="box" x="344" y="446" width="300" height="164" rx="6" fill="#ffffff"/>
+<text class="b" x="356" y="470">2a. A step on the endpoint</text>
+<text x="356" y="494">no code: every matching event</text>
+<text x="356" y="514">is posted (the built-in plug-in)</text>
+<text x="356" y="538">message, table, filtering attributes,</text>
+<text x="356" y="558">images; asynchronous</text>
+<text x="356" y="582">here: S1, status changes → event hub</text>
+<rect class="box" x="656" y="446" width="312" height="164" rx="6" fill="#ffffff"/>
+<text class="b" x="668" y="470">2b. A custom plug-in that posts</text>
+<text x="668" y="494">IServiceEndpointNotificationService</text>
+<text x="668" y="514">.Execute(endpoint reference, context)</text>
+<text x="668" y="538">decides in code; may add shared</text>
+<text x="668" y="558">variables; endpoint ID from the step</text>
+<text x="668" y="582">configuration; here: P1 → topic</text>
+</svg>

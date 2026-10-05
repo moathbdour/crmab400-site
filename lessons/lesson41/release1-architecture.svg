@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="t">
+<title id="t">Cedar Service release 1 architecture in five layers. Experience: Cedar Operations model-driven app, Customer Service workspace, dashboard, Site Check canvas app. Logic: business rules, business process flow, SLA and routing, plug-ins, cloud flows. Data: Dataverse tables Case, Site, Work order, Project, Account. Integration: FieldLink custom connector outbound and webhook Azure Function inbound through application user FieldLink Sync, with the external FieldLink API. Governance across all layers: CedarServiceCore solution, security roles and column security, auditing, data policies, pipelines and monitoring.</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f3b57"/></marker></defs>
+<rect width="960" height="560" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#1a1a1a">
+<text x="20" y="32" font-weight="700" font-size="17">Cedar Service release 1: components by layer</text>
+<rect x="20" y="50" width="700" height="90" fill="#fff4dc" stroke="#8a5a00"/>
+<text x="32" y="75" font-weight="700">Experience</text>
+<text x="32" y="102" font-size="14">C-04 Cedar Operations app (forms, views)  ·  Customer Service workspace (OOB)</text>
+<text x="32" y="124" font-size="14">C-16 Cedar Service Overview dashboard  ·  Site Check canvas app (lesson 23)</text>
+<rect x="20" y="155" width="700" height="100" fill="#eef4fa" stroke="#1f3b57"/>
+<text x="32" y="180" font-weight="700">Logic</text>
+<text x="32" y="206" font-size="14">C-07 business rules WO-BR1..3, CASE-BR1  ·  C-08 dispatch BPF  ·  C-05 routing  ·  C-06 SLA</text>
+<text x="32" y="230" font-size="14">C-09 WorkOrderGuard plug-in  ·  C-10 root-cause plug-in  ·  C-11 First response flow</text>
+<rect x="20" y="270" width="700" height="80" fill="#e8f5e9" stroke="#1b5e20"/>
+<text x="32" y="295" font-weight="700">Data (Dataverse)</text>
+<text x="32" y="322" font-size="14">Account · Contact · C-03 Case · C-01 Site · C-02 Work order · Project</text>
+<rect x="20" y="365" width="700" height="95" fill="#f3e5f5" stroke="#6a1b9a"/>
+<text x="32" y="390" font-weight="700">Integration</text>
+<text x="32" y="416" font-size="14">C-12 FieldLink custom connector (outbound send)</text>
+<text x="32" y="440" font-size="14">C-13 webhook Azure Function (inbound status) as app user FieldLink Sync</text>
+<rect x="770" y="365" width="170" height="95" fill="#fafafa" stroke="#555555" stroke-dasharray="6 4"/>
+<text x="782" y="395" font-weight="700">FieldLink API</text><text x="782" y="420" font-size="14">external, REST +</text><text x="782" y="440" font-size="14">OAuth (CON-01)</text>
+<line x1="720" y1="400" x2="768" y2="400" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<line x1="768" y1="440" x2="722" y2="440" stroke="#1f3b57" stroke-width="2" marker-end="url(#a)"/>
+<rect x="740" y="50" width="200" height="300" fill="#fdecea" stroke="#b71c1c"/>
+<text x="752" y="75" font-weight="700">Governance</text><text x="752" y="95" font-size="14">(crosses all layers)</text>
+<text x="752" y="125" font-size="14">C-18 CedarServiceCore</text><text x="752" y="150" font-size="14">C-14 roles, teams,</text><text x="752" y="170" font-size="14">column security</text>
+<text x="752" y="200" font-size="14">C-15 auditing</text><text x="752" y="225" font-size="14">C-17 env variables,</text><text x="752" y="245" font-size="14">connection refs</text>
+<text x="752" y="275" font-size="14">Data policies (30)</text><text x="752" y="300" font-size="14">Pipelines (47)</text><text x="752" y="325" font-size="14">C-20 monitoring</text>
+<text x="20" y="500" font-size="14">Arrows: outbound send to FieldLink; inbound status webhook back into Dataverse.</text>
+<text x="20" y="525" font-size="14">Rule: each component traces to at least one story, NFR or constraint.</text>
+</g></svg>

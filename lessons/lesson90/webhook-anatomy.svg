@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="t d">
+<title id="t">Anatomy of a Dataverse webhook: registration, request and what each response causes</title>
+<desc id="d">On the left, two records that the Plug-in Registration Tool creates in Dataverse. A service endpoint with contract 8, a name, an endpoint URL and an authentication type: HttpHeader, WebhookKey or HttpQueryString; the key value is stored and can never be read back. A step registered on that endpoint: message Update, primary entity cedar_workorder, filtering attributes cedar_scheduledfor and statecode, stage PostOperation, execution mode asynchronous, with a pre image and a post image named pre and post. In the middle, what happens at run time: a user saves a work order; the transaction commits and a system job is created for the asynchronous step; the asynchronous service sends one HTTP POST. The request has a query string with code equal to the key when WebhookKey is used, headers x-ms-dynamics-organization, x-ms-dynamics-entity-name, x-ms-dynamics-request-name and x-ms-correlation-request-id, plus x-ms-dynamics-msg-size-exceeded when the payload was larger than 256 kilobytes, and a JSON body that is the remote execution context: message name, primary entity, operation ID, correlation ID, depth, stage, mode, input parameters with the target, pre and post images. On the right, the receiver must answer within 60 seconds, and only the status code counts: 2xx marks the system job succeeded; 502, 503 or 504 gets one more attempt; any other status or a time-out marks the system job failed with no further attempt. Below, the synchronous variant: the save waits, a failure shows the user an Endpoint unavailable error, and the request cannot be recalled if the operation rolls back afterwards.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="1000" height="660" fill="#ffffff"/>
+<text class="h" x="20" y="28">A webhook is a service endpoint plus a step: Dataverse posts the execution context to your URL</text>
+
+<rect class="box" x="20" y="48" width="300" height="150" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="72">1. Service endpoint (contract 8)</text>
+<text x="32" y="96">Name: Cedar work order changes</text>
+<text x="32" y="116">Endpoint URL: https://…/api/dataverse/…</text>
+<text x="32" y="136">Authentication: HttpHeader,</text>
+<text x="32" y="156">WebhookKey (?code=…) or</text>
+<text x="32" y="176">HttpQueryString; value not readable</text>
+
+<rect class="box" x="20" y="212" width="300" height="212" rx="8" fill="#eef3fb"/>
+<text class="b" x="32" y="236">2. Step on that endpoint</text>
+<text x="32" y="260">Message: Update</text>
+<text x="32" y="280">Primary entity: cedar_workorder</text>
+<text x="32" y="300">Filtering attributes:</text>
+<text x="32" y="320">  cedar_scheduledfor, statecode</text>
+<text x="32" y="340">Stage: PostOperation</text>
+<text x="32" y="360">Mode: Asynchronous</text>
+<text x="32" y="380">Images: pre, post (named columns)</text>
+<text x="32" y="404">no configuration strings</text>
+
+<rect class="box" x="350" y="48" width="320" height="376" rx="8" fill="#f3f2f1"/>
+<text class="b" x="362" y="72">3. At run time</text>
+<text x="362" y="96">a user saves → transaction commits →</text>
+<text x="362" y="116">system job → one HTTP request:</text>
+<text class="m" x="362" y="144">POST /api/dataverse/…?code=KEY</text>
+<text class="m" x="362" y="166">x-ms-dynamics-organization</text>
+<text class="m" x="362" y="186">x-ms-dynamics-entity-name</text>
+<text class="m" x="362" y="206">x-ms-dynamics-request-name</text>
+<text class="m" x="362" y="226">x-ms-correlation-request-id</text>
+<text class="m" x="362" y="246">x-ms-dynamics-msg-size-exceeded*</text>
+<text x="362" y="272">body = RemoteExecutionContext as JSON:</text>
+<text class="m" x="362" y="296">MessageName, PrimaryEntityName,</text>
+<text class="m" x="362" y="316">OperationId, CorrelationId, Depth,</text>
+<text class="m" x="362" y="336">Stage, Mode, InputParameters,</text>
+<text class="m" x="362" y="356">PreEntityImages, PostEntityImages</text>
+<text x="362" y="384">* only above 256 KB: then ParentContext,</text>
+<text x="362" y="404">InputParameters and images are removed</text>
+<path class="a" d="M320,123 L350,123"/>
+<path class="a" d="M320,318 L350,318"/>
+<path class="a" d="M670,236 L700,236"/>
+
+<rect class="box" x="700" y="48" width="280" height="376" rx="8" fill="#fff4ce"/>
+<text class="b" x="712" y="72">4. Your endpoint answers</text>
+<text x="712" y="96">within 60 seconds.</text>
+<text x="712" y="116">Only the status code is read.</text>
+<rect class="box" x="712" y="132" width="256" height="64" rx="6" fill="#dff6dd"/>
+<text class="b" x="724" y="156">2xx</text>
+<text x="724" y="178">system job succeeded</text>
+<rect class="box" x="712" y="206" width="256" height="84" rx="6" fill="#ffffff"/>
+<text class="b" x="724" y="230">502, 503, 504</text>
+<text x="724" y="252">one more attempt,</text>
+<text x="724" y="272">then failed</text>
+<rect class="box" x="712" y="300" width="256" height="112" rx="6" fill="#fde7e9"/>
+<text class="b" x="724" y="324">anything else, or time-out</text>
+<text x="724" y="346">system job failed,</text>
+<text x="724" y="366">no further attempt:</text>
+<text x="724" y="386">the event is gone unless</text>
+<text x="724" y="404">something else repairs it</text>
+
+<rect class="box" x="20" y="444" width="960" height="200" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="468">Synchronous or asynchronous?</text>
+<rect class="box" x="32" y="482" width="460" height="148" rx="6" fill="#dff6dd"/>
+<text class="b" x="44" y="506">Asynchronous (the default choice)</text>
+<text x="44" y="530">runs after the commit, as a system job</text>
+<text x="44" y="550">the user never waits and never sees a failure</text>
+<text x="44" y="570">failures: System Jobs, status reason Failed</text>
+<text x="44" y="590">query: asyncoperations, statuscode 31,</text>
+<text x="44" y="610">owningextensionid = the step</text>
+<rect class="box" x="508" y="482" width="460" height="148" rx="6" fill="#fde7e9"/>
+<text class="b" x="520" y="506">Synchronous (only for a veto)</text>
+<text x="520" y="530">the save waits for your endpoint, up to 60 s</text>
+<text x="520" y="550">failure: "Endpoint unavailable" for the user,</text>
+<text x="520" y="570">the operation is rolled back</text>
+<text x="520" y="590">a request already sent cannot be recalled</text>
+<text x="520" y="610">if the operation fails afterwards</text>
+</svg>

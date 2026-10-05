@@ -1,0 +1,2429 @@
+{
+  "person": "Karim Aziz",
+  "start": "2026-12-03",
+  "domains": [
+    "extend",
+    "ux",
+    "integrations",
+    "build"
+  ],
+  "habits": [
+    "wrong-gate",
+    "wrong-place",
+    "too-custom",
+    "wrong-detail"
+  ],
+  "cards": {
+    "E-01": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-02": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-03": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-04": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-05": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-06": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 4,
+          "to": 1,
+          "source": "PA2: PB-10"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-07": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-08": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 4,
+          "to": 1,
+          "source": "PA2: PB-13"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "E-09": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-10": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-11": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-12": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-13": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "E-14": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-15": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-38"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "E-16": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "wrong",
+          "from": 2,
+          "to": 1
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-17": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "guessed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-14"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "E-18": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-19": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-20": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-21": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "wrong",
+          "from": 2,
+          "to": 1
+        },
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-22": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-23": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-24": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-25": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-26": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-21"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "E-27": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-28": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-29": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "E-30": {
+      "box": 4,
+      "due": "2026-12-18",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-01": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "U-02": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-13"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "U-03": {
+      "box": 5,
+      "due": "2026-12-29",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 4,
+          "to": 5
+        }
+      ]
+    },
+    "U-04": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-05": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-04",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-06": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-07": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-08": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-09": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-10": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-11": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-12": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-13": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 4,
+          "to": 1,
+          "source": "PA2: PB-16"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-14": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-15": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-09"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "U-16": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "guessed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-17": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-18": {
+      "box": 2,
+      "due": "2026-12-15",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-23"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 2,
+          "to": 1,
+          "source": "PA2: PB-32"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "U-19": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-20": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-21": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "U-22": {
+      "box": 4,
+      "due": "2026-12-17",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "H-wrong-gate": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "trap habit",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 4,
+          "to": 1,
+          "source": "PA2: habit"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "H-wrong-place": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "trap habit",
+      "reviews": [
+        {
+          "on": "2026-12-03",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-05",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: habit"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "I-01": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-02": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-03": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-04": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-05": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-06": {
+      "box": 4,
+      "due": "2026-12-16",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-07": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-08": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-09": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-10": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "guessed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-11": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "I-12": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA2: PB-48"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "I-13": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA1: PA-32"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "I-14": {
+      "box": 2,
+      "due": "2026-12-15",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 3,
+          "to": 1,
+          "source": "PA2: PB-37"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "H-too-custom": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "trap habit",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "H-wrong-detail": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "trap habit",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "wrong",
+          "from": 2,
+          "to": 1,
+          "source": "PA1: habit"
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 2,
+          "to": 1,
+          "source": "PA2: habit"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "X-custom-code~policy-template": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "X-event-hubs~service-bus-topic": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "X-update-if-match~upsert": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "X-service-bus-queue~webhook": {
+      "box": 4,
+      "due": "2026-12-20",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-06",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "X-api-permission~application-user": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "X-api-permission~service-channel": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-07",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "X-agent-flow~cloud-flow": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "X-api-permission~security-role": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "X-appinsights-export~log-search-alert": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "X-async-plugin-step~background-operation": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "X-csp-frame-ancestors~csp-frame-src": {
+      "box": 2,
+      "due": "2026-12-15",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "wrong",
+          "from": 2,
+          "to": 1
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 1,
+          "to": 1,
+          "source": "PA2: confused"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "wrong",
+          "from": 1,
+          "to": 1
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "X-dynamic-values~openapi-enum": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "confused in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "B-01": {
+      "box": 4,
+      "due": "2026-12-18",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-02": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-03": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-04": {
+      "box": 4,
+      "due": "2026-12-18",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-05": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-06": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "rating 1",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "B-07": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-08": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-09": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-10": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "wrong",
+          "from": 2,
+          "to": 1
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "B-11": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-12": {
+      "box": 4,
+      "due": "2026-12-18",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-13": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "B-14": {
+      "box": 4,
+      "due": "2026-12-18",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-15": {
+      "box": 1,
+      "due": "2026-12-14",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "wrong",
+          "from": 3,
+          "to": 1
+        }
+      ]
+    },
+    "B-16": {
+      "box": 3,
+      "due": "2026-12-16",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "wrong",
+          "from": 2,
+          "to": 1
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "B-17": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "missed in a drill",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    },
+    "B-18": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-19": {
+      "box": 4,
+      "due": "2026-12-18",
+      "seeded": "rating 3",
+      "reviews": [
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-20": {
+      "box": 2,
+      "due": "2026-12-14",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "wrong",
+          "from": 2,
+          "to": 1
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-11",
+          "result": "wrong",
+          "from": 2,
+          "to": 1,
+          "source": "PA2: PB-33"
+        },
+        {
+          "on": "2026-12-12",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        }
+      ]
+    },
+    "B-21": {
+      "box": 4,
+      "due": "2026-12-21",
+      "seeded": "rating 2",
+      "reviews": [
+        {
+          "on": "2026-12-09",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        },
+        {
+          "on": "2026-12-13",
+          "result": "right",
+          "from": 3,
+          "to": 4
+        }
+      ]
+    },
+    "B-22": {
+      "box": 3,
+      "due": "2026-12-14",
+      "seeded": "rating 1",
+      "reviews": [
+        {
+          "on": "2026-12-08",
+          "result": "right",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "on": "2026-12-10",
+          "result": "right",
+          "from": 2,
+          "to": 3
+        }
+      ]
+    }
+  },
+  "contrasts": [
+    "custom-code~policy-template",
+    "event-hubs~service-bus-topic",
+    "update-if-match~upsert",
+    "service-bus-queue~webhook",
+    "api-permission~application-user",
+    "api-permission~service-channel",
+    "agent-flow~cloud-flow",
+    "api-permission~security-role",
+    "appinsights-export~log-search-alert",
+    "async-plugin-step~background-operation",
+    "csp-frame-ancestors~csp-frame-src",
+    "dynamic-values~openapi-enum"
+  ]
+}

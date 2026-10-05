@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="t d">
+<title id="t">An alternate key: a business value that addresses exactly one row</title>
+<desc id="d">Top left, one Site row with its columns: the primary key cedar_siteid, a GUID that Dataverse assigns; the column cedar_sitecode with the value HV-LAB, which is the alternate key; the name and the account lookup. Top middle, the key definition: a name, cedar_sitecodekey; one to sixteen columns, here cedar_sitecode; allowed column types text, whole number, decimal, date and time, lookup and choice; at most 900 bytes in total; at most ten keys per table; a solution component. Top right, the index behind the key: a system job builds a unique index; the key status goes from Pending to In progress to Active, or to Failed when existing rows contain duplicates; only an Active key can address rows; after fixing the data, ReactivateEntityKey asks for the index again. Middle, four ways to name the same row: Web API by ID, Web API by key cedar_sites(cedar_sitecode='HV-LAB'), SDK new Entity("cedar_site", "cedar_sitecode", "HV-LAB") which fills KeyAttributes, and as a lookup value with odata.bind or an EntityReference built from the key. Bottom, what a key does not do: uniqueness is not enforced for rows whose key column is empty; the key covers inactive rows too; key columns cannot have column security, and virtual and elastic tables cannot have custom keys; values containing the characters slash, angle brackets, asterisk, percent, ampersand, colon, backslash, question mark, plus or hash cannot be addressed by key.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:14px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.b{font-weight:700;font-size:15px}.m{font-family:Consolas,Menlo,monospace;font-size:14px}.box{stroke:#1b1b1b;stroke-width:1.5}</style>
+<rect width="1000" height="650" fill="#ffffff"/>
+<text class="h" x="20" y="28">An alternate key: a business value that addresses exactly one row</text>
+
+<rect class="box" x="20" y="48" width="310" height="250" rx="8" fill="#f3f2f1"/>
+<text class="b" x="32" y="72">One Site row</text>
+<text class="m" x="32" y="100">cedar_siteid</text>
+<text x="32" y="120">7c1e…-…  (GUID, the primary key)</text>
+<text class="m" x="32" y="150">cedar_sitecode</text>
+<text class="b" x="32" y="170">HV-LAB  (the alternate key)</text>
+<text class="m" x="32" y="200">cedar_name</text>
+<text x="32" y="220">Harbor View – Laboratory Wing</text>
+<text class="m" x="32" y="250">cedar_account</text>
+<text x="32" y="270">→ Harbor View Medical Center</text>
+
+<rect class="box" x="345" y="48" width="310" height="250" rx="8" fill="#dff6dd"/>
+<text class="b" x="357" y="72">The key definition</text>
+<text x="357" y="100">Name: cedar_sitecodekey</text>
+<text x="357" y="124">Columns: cedar_sitecode (1 to 16)</text>
+<text x="357" y="148">Column types: text, whole number,</text>
+<text x="357" y="168">decimal, date and time, lookup, choice</text>
+<text x="357" y="192">Size: at most 900 bytes in total</text>
+<text x="357" y="216">At most 10 keys per table</text>
+<text x="357" y="240">A solution component: it travels</text>
+<text x="357" y="260">with the table to Test and Prod</text>
+
+<rect class="box" x="670" y="48" width="310" height="250" rx="8" fill="#fff4ce"/>
+<text class="b" x="682" y="72">The index behind it</text>
+<text x="682" y="100">A system job builds a unique index.</text>
+<text class="b" x="682" y="128">Pending → In progress → Active</text>
+<text x="682" y="156">or Failed: existing rows contain</text>
+<text x="682" y="176">duplicates of the key value.</text>
+<text x="682" y="204">Only an Active key addresses rows.</text>
+<text x="682" y="232">After fixing the data:</text>
+<text class="m" x="682" y="254">ReactivateEntityKey</text>
+
+<rect class="box" x="20" y="318" width="960" height="160" rx="8" fill="#ffffff"/>
+<text class="b" x="32" y="342">Four ways to name the same row</text>
+<text x="32" y="370">Web API, by ID</text>
+<text class="m" x="200" y="370">cedar_sites(7c1e…-…)</text>
+<text x="32" y="396">Web API, by key</text>
+<text class="m" x="200" y="396">cedar_sites(cedar_sitecode='HV-LAB')</text>
+<text x="32" y="422">SDK, by key</text>
+<text class="m" x="200" y="422">new Entity("cedar_site", "cedar_sitecode", "HV-LAB")  → KeyAttributes</text>
+<text x="32" y="448">As a lookup value</text>
+<text class="m" x="200" y="448">"cedar_Site@odata.bind": "/cedar_sites(cedar_sitecode='HV-LAB')"</text>
+<text x="200" y="468">SDK: new EntityReference("cedar_site", "cedar_sitecode", "HV-LAB"). The GUID is stored.</text>
+
+<rect class="box" x="20" y="498" width="960" height="136" rx="8" fill="#fde7e9"/>
+<text class="b" x="32" y="522">What a key does not do</text>
+<text x="32" y="550">Empty values: uniqueness is not enforced for rows whose key column is empty.</text>
+<text x="32" y="574">Inactive rows count: the key covers every row of the table, not only the active ones.</text>
+<text x="32" y="598">No column security on key columns. No custom keys on virtual or elastic tables.</text>
+<text x="32" y="622">Values with  / &lt; &gt; * % &amp; : \ ? + #  cannot be addressed by key: keep them out of key columns.</text>
+</svg>

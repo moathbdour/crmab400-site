@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="t d">
+<title id="t">Cedar Service monitoring map</title>
+<desc id="d">Sources on the left send signals to three stores: Power Platform Monitor, Application Insights over a Log Analytics workspace, and Azure Monitor metrics. Alert rules evaluate the stores and call action groups that notify shared mailboxes and duty phones.</desc>
+<style>
+text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1f2937}
+.h{font-size:17px;font-weight:700}
+.s{font-size:14px;fill:#374151}
+.box{fill:#f8fafc;stroke:#334155;stroke-width:1.5}
+.src{fill:#eef6ff;stroke:#1d4ed8;stroke-width:1.5}
+.store{fill:#ecfdf5;stroke:#047857;stroke-width:1.5}
+.alert{fill:#fff7ed;stroke:#c2410c;stroke-width:1.5}
+.who{fill:#f5f3ff;stroke:#6d28d9;stroke-width:1.5}
+.a{stroke:#334155;stroke-width:1.6;fill:none;marker-end:url(#m)}
+.slow{stroke:#b91c1c;stroke-dasharray:6 4}
+</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs>
+<rect width="960" height="600" fill="#ffffff"/>
+<text x="20" y="30" class="h">Sources</text>
+<text x="330" y="30" class="h">Stores</text>
+<text x="590" y="30" class="h">Alert rules</text>
+<text x="800" y="30" class="h">People</text>
+<rect class="src" x="20" y="45" width="250" height="70" rx="8"/><text x="32" y="72">Model-driven app, flows,</text><text x="32" y="94">Copilot Studio agent (C-24)</text>
+<rect class="src" x="20" y="130" width="250" height="70" rx="8"/><text x="32" y="157">Dataverse: plug-ins, API</text><text x="32" y="179" class="s">(admin-center data export)</text>
+<rect class="src" x="20" y="215" width="250" height="70" rx="8"/><text x="32" y="242">Functions func-cedar-fieldlink</text><text x="32" y="264" class="s">DispatchSent, StatusReceived</text>
+<rect class="src" x="20" y="300" width="250" height="70" rx="8"/><text x="32" y="327">Code app Dispatch Planner</text><text x="32" y="349" class="s">timeToAppInteractive (C-23)</text>
+<rect class="src" x="20" y="385" width="250" height="70" rx="8"/><text x="32" y="412">Service Bus topic</text><text x="32" y="434" class="s">cedar-workorder-events</text>
+<rect class="store" x="320" y="45" width="230" height="110" rx="8"/><text x="332" y="72" class="h">Power Platform</text><text x="332" y="94" class="h">Monitor</text><text x="332" y="118" class="s">24-hour aggregates;</text><text x="332" y="138" class="s">Managed Environments only</text>
+<rect class="store" x="320" y="185" width="230" height="160" rx="8"/><text x="332" y="212" class="h">Application Insights</text><text x="332" y="234" class="s">appi-cedar-prod over a</text><text x="332" y="254" class="s">Log Analytics workspace</text><text x="332" y="280" class="s">requests, dependencies,</text><text x="332" y="300" class="s">customEvents, customMetrics,</text><text x="332" y="320" class="s">traces, exceptions</text>
+<rect class="store" x="320" y="385" width="230" height="70" rx="8"/><text x="332" y="412" class="h">Azure Monitor metrics</text><text x="332" y="434" class="s">platform metrics, minutes</text>
+<path class="a" d="M270 80 H320"/>
+<path class="a slow" d="M270 165 C295 165 295 230 320 230"/><text x="274" y="212" class="s" fill="#b91c1c">≤ 24 h</text>
+<path class="a slow" d="M270 95 C300 115 300 200 320 205"/>
+<path class="a" d="M270 250 H320"/>
+<path class="a" d="M270 335 C295 335 295 315 320 315"/>
+<path class="a" d="M270 420 H320"/>
+<rect class="alert" x="590" y="45" width="180" height="110" rx="8"/><text x="602" y="72">AL-07 app availability</text><text x="602" y="96">AL-08 agent success</text><text x="602" y="124" class="s">Monitor alert rules,</text><text x="602" y="144" class="s">email up to 5</text>
+<rect class="alert" x="590" y="185" width="180" height="160" rx="8"/><text x="602" y="212">AL-01 silent dispatch</text><text x="602" y="236">AL-02 status endpoint</text><text x="602" y="260">AL-04 flow failures</text><text x="602" y="284">AL-05 Planner TTI</text><text x="602" y="308">AL-06 plug-in failures</text><text x="602" y="332" class="s">log search alerts</text>
+<rect class="alert" x="590" y="385" width="180" height="70" rx="8"/><text x="602" y="412">AL-03 dead letters</text><text x="602" y="434" class="s">metric alert</text>
+<path class="a" d="M550 100 H590"/><path class="a" d="M550 265 H590"/><path class="a" d="M550 420 H590"/>
+<rect class="who" x="800" y="45" width="145" height="110" rx="8"/><text x="812" y="72">platform-ops</text><text x="812" y="96">mailbox</text><text x="812" y="124" class="s">Dana, Lina</text>
+<rect class="who" x="800" y="185" width="145" height="270" rx="8"/><text x="812" y="212" class="h">Action groups</text><text x="812" y="240">ag-cedar-</text><text x="812" y="260">dispatch</text><text x="812" y="282" class="s">dispatch duty phone</text><text x="812" y="320">ag-cedar-</text><text x="812" y="340">integration</text><text x="812" y="362" class="s">integration duty</text><text x="812" y="380" class="s">phone</text><text x="812" y="420" class="s">+ shared mailboxes</text>
+<path class="a" d="M770 100 H800"/><path class="a" d="M770 265 H800"/><path class="a" d="M770 420 H800"/>
+<rect class="box" x="20" y="490" width="925" height="95" rx="8"/>
+<text x="34" y="518" class="h">Dashboards read the same stores</text>
+<text x="34" y="544">Azure Workbook "Cedar operations" (Application Insights + metrics, near real time) · Power Platform Monitor pages (daily health)</text>
+<text x="34" y="568">Red dashed arrows = exported Power Platform telemetry: use it for trends and next-day alerts, never for 15-minute detection.</text>
+</svg>

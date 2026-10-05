@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-labelledby="t d">
+<title id="t">Connections, connection references and data sources in a code app</title>
+<desc id="d">A connector such as Office 365 Users has connections, each an authenticated account. Adding a data source with a connection ID binds the app to one connection, which is fine for a quick test but not portable. Adding it with a connection reference from CedarServiceCore binds the app to a solution component that each environment maps to its own connection, so Cedar-Dev, Cedar-Test and Cedar-Prod work without code changes. Dataverse tables are added without a connection because they use the signed-in user.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:15px;fill:#1b1b1b}.h{font-weight:700;font-size:16px}.s{font-size:14px;fill:#333}.box{stroke:#1b1b1b;stroke-width:1.5}.a{stroke:#444;stroke-width:1.6;marker-end:url(#m);fill:none}</style>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" fill="#444"/></marker></defs>
+<rect width="900" height="480" fill="#ffffff"/>
+<rect class="box" x="20" y="30" width="250" height="110" rx="8" fill="#f3f2f1"/>
+<text class="h" x="34" y="58">Connector</text>
+<text class="s" x="34" y="82">shared_office365users</text>
+<text class="s" x="34" y="104">(the API definition)</text>
+<rect class="box" x="20" y="180" width="250" height="110" rx="8" fill="#fff4ce"/>
+<text class="h" x="34" y="208">Connection</text>
+<text class="s" x="34" y="232">an authenticated account</text>
+<text class="s" x="34" y="254">pa connection create → ID</text>
+<text class="s" x="34" y="276">one per user / per environment</text>
+<line class="a" x1="145" y1="140" x2="145" y2="178"/>
+<rect class="box" x="330" y="30" width="260" height="120" rx="8" fill="#fde7e9"/>
+<text class="h" x="344" y="58">Data source by connection ID</text>
+<text class="s" x="344" y="82">--connection-id &lt;id&gt;</text>
+<text class="s" x="344" y="104">quick test in one environment</text>
+<text class="s" x="344" y="126">not portable across Dev/Test/Prod</text>
+<rect class="box" x="330" y="180" width="260" height="140" rx="8" fill="#dff6dd"/>
+<text class="h" x="344" y="208">Data source by reference</text>
+<text class="s" x="344" y="232">--connection-ref</text>
+<text class="s" x="344" y="252">  cedar_Office365Users</text>
+<text class="s" x="344" y="274">--solution-id &lt;CedarServiceCore&gt;</text>
+<text class="s" x="344" y="298">Cedar's choice (portable)</text>
+<line class="a" x1="270" y1="220" x2="328" y2="110"/>
+<line class="a" x1="270" y1="245" x2="328" y2="245"/>
+<rect class="box" x="650" y="30" width="230" height="290" rx="8" fill="#deecf9"/>
+<text class="h" x="664" y="58">Each environment</text>
+<text class="s" x="664" y="84">Cedar-Dev: Karim's</text>
+<text class="s" x="664" y="104">  connection</text>
+<text class="s" x="664" y="132">Cedar-Test / Prod:</text>
+<text class="s" x="664" y="152">  set at import from</text>
+<text class="s" x="664" y="172">  settings file (lesson 46)</text>
+<text class="s" x="664" y="204">At runtime users of</text>
+<text class="s" x="664" y="224">user-delegated connectors</text>
+<text class="s" x="664" y="244">consent and use their</text>
+<text class="s" x="664" y="264">own connection</text>
+<line class="a" x1="590" y1="250" x2="648" y2="250"/>
+<rect class="box" x="20" y="360" width="860" height="100" rx="8" fill="#f3f2f1"/>
+<text class="h" x="34" y="388">Dataverse tables are different</text>
+<text class="s" x="34" y="412">pa app add data-source --connector dataverse --table cedar_workorder</text>
+<text class="s" x="34" y="434">No connection ID: requests run as the signed-in user in the app's environment; Cedar roles decide rows and columns.</text>
+</svg>
